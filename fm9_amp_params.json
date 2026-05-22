@@ -1,0 +1,27 @@
+{
+  "block_id": "0x3A",
+  "block_id_int": 58,
+  "block_name": "Amp 1",
+  "chunk_count": 3,
+  "params": {
+    "Amp Type": {"idx": 1, "offset": [10, 13], "max": null, "type": "enum"},
+    "Treble Gain": {"idx": 11, "offset": [40, 43], "max": 10.0, "type": "continuous"},
+    "Bass": {"idx": 12, "offset": [43, 46], "max": 10.0, "type": "continuous"},
+    "Mid": {"idx": 13, "offset": [46, 49], "max": 10.0, "type": "continuous"},
+    "Treble": {"idx": 14, "offset": [49, 52], "max": 10.0, "type": "continuous"},
+    "Master": {"idx": 15, "offset": [52, 55], "max": 10.0, "type": "continuous"},
+    "Depth": {"idx": 26, "offset": [85, 88], "max": 10.0, "type": "continuous"},
+    "Presence": {"idx": 30, "offset": [97, 100], "max": 10.0, "type": "continuous"},
+    "Bright": {"idx": 45, "offset": [142, 145], "max": 1, "type": "switch"},
+    "Boost": {"idx": 46, "offset": [145, 148], "max": 1, "type": "switch"},
+    "Level": {"idx": 50, "offset": [157, 160], "max": 20.0, "type": "bipolar"},
+    "Cut": {"idx": 51, "offset": [160, 163], "max": 1, "type": "switch"},
+    "Fat": {"idx": 84, "offset": [259, 262], "max": 1, "type": "switch"},
+    "Normal Gain": {"idx": 227, "offset": [688, 691], "max": 10.0, "type": "continuous"}
+  },
+  "notes": {
+    "Level": "±20dB: raw 0=-20dB, 32767=0dB, 65534=+20dB",
+    "Treble Gain": "CSV 'Drive' = Editor Ideal mode 'Treble Gain' (display name varies by model)",
+    "Normal Gain": "Only visible on dual-channel amp models"
+  }
+}

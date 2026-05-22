@@ -1,0 +1,36 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pcapng
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# RE scripts (not part of the MCP server)
+analyze_*.py
+compare_*.py
+diff_*.py
+dump_*.py
+extract_*.py
+find_*.py
+full_tab_scan*.py
+get*.py
+identify_*.py
+parse_syx*.py
+probe_*.py
+read_*.py
+test_*.py
+check_*.py
+cab_enum_scan.py
+fm9_amp_enum_scan.py
+fm9_enum_scan.py
+fm9_scanner.py
+auto_param_scan.py
+status_dump.py
+
+# Snapshot data
+block01_*.json
+scan_*.json
