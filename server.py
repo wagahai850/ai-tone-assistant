@@ -356,7 +356,7 @@ def fm9_set_amp_params(params: dict[str, float | bool]) -> dict[str, Any]:
         changes = {}
         for name, value in params.items():
             info = valid_params[name]
-            param_id = info["idx"]
+            param_id = info["param_id"]
             max_val = info["max"]
 
             if info["type"] == "switch":
@@ -440,7 +440,7 @@ def fm9_set_drive_params(params: dict[str, float | bool]) -> dict[str, Any]:
         changes = {}
         for name, value in params.items():
             info = valid_params[name]
-            param_id = info["idx"]
+            param_id = info["param_id"]
             max_val = info["max"]
 
             if info["type"] == "switch":

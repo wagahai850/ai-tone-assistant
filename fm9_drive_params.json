@@ -1,18 +1,12 @@
 {
   "block_id": "0x76",
   "block_id_int": 118,
-  "block_name": "Drive 1",
-  "chunk_count": 1,
+  "_note": "param_id values are for sub=0x09 command. Need re-verification via scanner.",
   "params": {
-    "Type": {"idx": 0, "offset": [7, 10], "max": null, "type": "enum"},
-    "Drive": {"idx": 1, "offset": [10, 13], "max": 10.0, "type": "continuous"},
-    "Tone": {"idx": 2, "offset": [13, 16], "max": 10.0, "type": "continuous"},
-    "Level": {"idx": 3, "offset": [16, 19], "max": 10.0, "type": "continuous"},
-    "Mix": {"idx": 4, "offset": [19, 22], "max": 100.0, "type": "continuous"},
-    "Balance": {"idx": 18, "offset": [61, 64], "max": 200.0, "type": "bipolar"}
-  },
-  "notes": {
-    "Balance": "±100: raw 0=-100, 32767=0, 65534=+100",
-    "Mix": "0-100%"
+    "Drive": {"param_id": 1, "max": 10.0, "type": "continuous"},
+    "Tone": {"param_id": 2, "max": 10.0, "type": "continuous"},
+    "Level": {"param_id": 3, "max": 10.0, "type": "continuous"},
+    "Mix": {"param_id": 4, "max": 100.0, "type": "continuous"},
+    "Balance": {"param_id": 18, "max": 200.0, "type": "bipolar"}
   }
 }
