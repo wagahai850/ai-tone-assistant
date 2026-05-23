@@ -2,11 +2,15 @@
 
 Control your Fractal Audio FM9 (and Axe-Fx III) in real-time through natural language conversation. Built as an [MCP](https://modelcontextprotocol.io/) server that connects any MCP-compatible AI assistant (Claude, Kiro, etc.) directly to your hardware via USB MIDI SysEx.
 
-> "Make it crunchier" → AI adjusts amp gain in real-time while you play.
+> "Build me a crunch tone. JCM800 with a Tube Screamer in front." → Done in seconds.
+>
+> "Give me SRV's Little Wing tone." → Vibroverb + TS808, dialed in and ready to play.
+>
+> "Too gainy. Back off the drive." → Parameters adjusted in real-time while you play.
 
 ## Demo
 
-[YouTube Demo Video](TODO)
+[![Demo Video](https://img.youtube.com/vi/Jh07yhjfunU/maxresdefault.jpg)](https://www.youtube.com/watch?v=Jh07yhjfunU)
 
 ## What It Does
 
