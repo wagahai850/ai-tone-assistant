@@ -34,3 +34,4 @@ status_dump.py
 # Snapshot data
 block01_*.json
 scan_*.json
+.DS_Store
