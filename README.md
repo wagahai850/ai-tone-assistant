@@ -136,6 +136,10 @@ MIT
 - Grid operations: add, delete, move, connect, disconnect, read
 - Preset management: store, change, rename
 
+### Known Issues
+- **Amp 1 parameter map has incorrect offsets** — Some parameters (notably Level, and possibly others) are mapped to wrong positions. The EQ knobs (Bass/Mid/Treble), Gain, Master, and Presence appear to work correctly, but Level and switch parameters (Bright/Boost/Fat) need re-verification. A full re-scan using the AppleScript automated mapper is planned.
+- Drive 1 parameter map may have similar issues (fewer parameters, less likely)
+
 ### What's missing
 - Most block types have no parameter maps yet (PEQ, Gate, Pitch, Filter, Comp, Wah, Flanger, Phaser, etc.)
 - No Delay/Reverb time sync or tap tempo
