@@ -124,13 +124,15 @@ Each chunk (func 0x75):
 
 Parameter at index N: `offset = 7 + N * 3`
 
-## SET_TYPE (sub=0x09)
+## SET_TYPE / SET_PARAM (sub=0x09)
 
-Change amp/drive model or cab IR:
+Change amp/drive model, cab IR, or set any parameter value:
 
 ```
-F0 00 01 74 [model] 01 09 00 [block_id] 00 [param] 00 00 00 [id_lo] [id_hi] [id_msb] 00 00 00 00 [cs] F7
+F0 00 01 74 [model] 01 09 00 [block_id] 00 [param] 00 [d0 d1 d2 d3 d4] 00 00 00 00 [cs] F7
 ```
+
+### For Enum Parameters (Amp Type, Drive Type, Cab IR)
 
 | block_id | param | Purpose |
 |----------|-------|---------|
@@ -138,7 +140,38 @@ F0 00 01 74 [model] 01 09 00 [block_id] 00 [param] 00 00 00 [id_lo] [id_hi] [id_
 | 0x76 (Drive) | 0x0A | Drive model type |
 | 0x3E (Cab) | 0x04 | Cabinet IR selection |
 
-Type ID is 21-bit: `id_lo | (id_hi << 7) | (id_msb << 14)`
+Type/IR ID is 21-bit packed into d[2:5]: `d[2] | (d[3] << 7) | (d[4] << 14)`
+(d[0] and d[1] are zero for enum parameters)
+
+### For Continuous Parameters (Gain, Bass, Mid, etc.)
+
+| block_id | param | Purpose |
+|----------|-------|---------|
+| 0x3A (Amp) | 0x0B | Treble Gain (Drive) |
+| 0x3A (Amp) | 0x0C | Bass |
+| 0x3A (Amp) | 0x0D | Mid |
+| 0x3A (Amp) | 0x0E | Treble |
+| ... | ... | ... |
+
+Value is **IEEE 754 32-bit float** (normalized 0.0-1.0) packed into 5 x 7-bit bytes:
+
+```python
+import struct
+
+def encode_param_value(display_value, display_max):
+    """Encode parameter value for sub=0x09."""
+    normalized = display_value / display_max  # 0.0 to 1.0
+    raw32 = struct.unpack('I', struct.pack('f', normalized))[0]
+    return [
+        raw32 & 0x7F,
+        (raw32 >> 7) & 0x7F,
+        (raw32 >> 14) & 0x7F,
+        (raw32 >> 21) & 0x7F,
+        (raw32 >> 28) & 0x7F,
+    ]
+```
+
+Example: Gain=5.0 (max=10.0) → normalized=0.5 → IEEE 754=0x3F000000 → `[0x00, 0x00, 0x00, 0x78, 0x03]`
 
 ## SET_CHANNEL (sub=0x16)
 

@@ -35,3 +35,5 @@ status_dump.py
 block01_*.json
 scan_*.json
 .DS_Store
+scan_*.json
+scan_*_log*.txt

@@ -141,8 +141,8 @@ MIT
 - Preset management: store, change, rename
 
 ### Known Issues
-- **Amp 1 parameter map has incorrect offsets** — Some parameters (notably Level, and possibly others) are mapped to wrong positions. The EQ knobs (Bass/Mid/Treble), Gain, Master, and Presence appear to work correctly, but Level and switch parameters (Bright/Boost/Fat) need re-verification. A full re-scan using the AppleScript automated mapper is planned.
-- Drive 1 parameter map may have similar issues (fewer parameters, less likely)
+- **Amp 1 parameter map has some incorrect param IDs** — The param_id values in fm9_amp_params.json were mapped using the old GET→PUT method and some are wrong. The correct method (sub=0x09 with IEEE 754 float encoding) has been implemented but param IDs need re-verification via the automated scanner.
+- Parameter maps for blocks other than Amp/Drive are not yet available
 
 ### What's missing
 - Most block types have no parameter maps yet (PEQ, Gate, Pitch, Filter, Comp, Wah, Flanger, Phaser, etc.)

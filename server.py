@@ -353,28 +353,27 @@ def fm9_set_amp_params(params: dict[str, float | bool]) -> dict[str, Any]:
                     "error": f"Unknown parameter '{key}'. Valid: {list(valid_params.keys())}",
                 }
 
-        chunks = midi.get_block_data(AMP1_BLOCK_ID)
-        if not chunks:
-            return {"success": False, "error": "Failed to get Amp 1 block data."}
-
         changes = {}
         for name, value in params.items():
             info = valid_params[name]
-            start = info["offset"][0]
+            param_id = info["idx"]
+            max_val = info["max"]
 
             if info["type"] == "switch":
-                encoded = encode_switch(bool(value))
+                # Switch: 0.0 or 1.0
+                midi.set_param_value(AMP1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
             elif info["type"] == "bipolar":
-                encoded = encode_bipolar(float(value), info["max"])
+                # Bipolar (e.g., Level -80 to +20): normalize to 0-1
+                # For Level: min=-80, max=+20, range=100
+                # normalized = (value - min) / range
+                range_val = max_val * 2 if max_val <= 20 else max_val
+                min_val = -max_val if max_val <= 20 else -80
+                normalized = (float(value) - min_val) / (range_val if max_val <= 20 else 100)
+                midi.set_param_value(AMP1_BLOCK_ID, param_id, normalized, 1.0)
             else:
-                encoded = encode_param(float(value), info["max"])
+                midi.set_param_value(AMP1_BLOCK_ID, param_id, float(value), max_val)
 
-            chunks[0][start], chunks[0][start + 1], chunks[0][start + 2] = encoded
             changes[name] = value
-
-        chunks[0] = recalc_checksum(chunks[0])
-        midi.put_block_data(AMP1_BLOCK_ID, chunks)
-        midi.set_scene(0)
 
         return {"success": True, "block": "Amp 1", "changes": changes}
     except Exception as e:
@@ -438,28 +437,22 @@ def fm9_set_drive_params(params: dict[str, float | bool]) -> dict[str, Any]:
                     "error": f"Unknown parameter '{key}'. Valid: {list(valid_params.keys())}",
                 }
 
-        chunks = midi.get_block_data(DRIVE1_BLOCK_ID)
-        if not chunks:
-            return {"success": False, "error": "Failed to get Drive 1 block data."}
-
         changes = {}
         for name, value in params.items():
             info = valid_params[name]
-            start = info["offset"][0]
+            param_id = info["idx"]
+            max_val = info["max"]
 
             if info["type"] == "switch":
-                encoded = encode_switch(bool(value))
+                midi.set_param_value(DRIVE1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
             elif info["type"] == "bipolar":
-                encoded = encode_bipolar(float(value), info["max"])
+                # Balance: -100 to +100, normalize to 0-1
+                normalized = (float(value) + max_val / 2) / max_val
+                midi.set_param_value(DRIVE1_BLOCK_ID, param_id, normalized, 1.0)
             else:
-                encoded = encode_param(float(value), info["max"])
+                midi.set_param_value(DRIVE1_BLOCK_ID, param_id, float(value), max_val)
 
-            chunks[0][start], chunks[0][start + 1], chunks[0][start + 2] = encoded
             changes[name] = value
-
-        chunks[0] = recalc_checksum(chunks[0])
-        midi.put_block_data(DRIVE1_BLOCK_ID, chunks)
-        midi.set_scene(0)
 
         return {"success": True, "block": "Drive 1", "changes": changes}
     except Exception as e:
