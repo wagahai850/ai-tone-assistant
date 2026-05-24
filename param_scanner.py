@@ -202,6 +202,7 @@ end tell'''
         if coords:
             subprocess.run(['cliclick', f'c:{coords[0]},{coords[1]}'],
                          capture_output=True, timeout=5)
+            time.sleep(0.5)
         else:
             print(f"WARNING: No coordinates for tab '{tab_name}'")
 
@@ -306,7 +307,7 @@ end tell'''
 
             # PUT
             self.put_chunks(test_chunks, block_select)
-            time.sleep(0.2)
+            time.sleep(0.5)
 
             # Read sliders
             current = self.read_all_sliders(tabs)
