@@ -1,12 +1,147 @@
 {
   "block_id": "0x76",
   "block_id_int": 118,
-  "_note": "param_id values are for sub=0x09 command. Need re-verification via scanner.",
+  "_note": "param_id for sub=0x09. Scanned from Axe-Fx III, +10 offset applied.",
   "params": {
-    "Drive": {"param_id": 1, "max": 10.0, "type": "continuous"},
-    "Tone": {"param_id": 2, "max": 10.0, "type": "continuous"},
-    "Level": {"param_id": 3, "max": 10.0, "type": "continuous"},
-    "Mix": {"param_id": 4, "max": 100.0, "type": "continuous"},
-    "Balance": {"param_id": 18, "max": 200.0, "type": "bipolar"}
+    "Distortion": {
+      "param_id": 11,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Filter": {
+      "param_id": 12,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Level": {
+      "param_id": 13,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mix": {
+      "param_id": 14,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Slew Rate": {
+      "param_id": 16,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Low Cut": {
+      "param_id": 18,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "High Cut": {
+      "param_id": 19,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Bias": {
+      "param_id": 21,
+      "max": 1.0,
+      "type": "bipolar"
+    },
+    "Bass": {
+      "param_id": 22,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mid": {
+      "param_id": 23,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mid Frequency": {
+      "param_id": 24,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Treble": {
+      "param_id": 25,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Bit Reduce": {
+      "param_id": 26,
+      "max": 24.0,
+      "type": "continuous"
+    },
+    "Balance": {
+      "param_id": 28,
+      "max": 200.0,
+      "type": "bipolar"
+    },
+    "Sample Rate": {
+      "param_id": 29,
+      "max": 48000.0,
+      "type": "continuous"
+    },
+    "100": {
+      "param_id": 32,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "160": {
+      "param_id": 33,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "250": {
+      "param_id": 34,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "400": {
+      "param_id": 35,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "640": {
+      "param_id": 36,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "1000": {
+      "param_id": 37,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "1600": {
+      "param_id": 38,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "2500": {
+      "param_id": 39,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "4000": {
+      "param_id": 40,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "6400": {
+      "param_id": 41,
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "Dry Level": {
+      "param_id": 46,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Bass Response": {
+      "param_id": 47,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "High Mid": {
+      "param_id": 48,
+      "max": 10.0,
+      "type": "continuous"
+    }
   }
 }
