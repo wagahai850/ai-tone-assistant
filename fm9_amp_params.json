@@ -1,35 +1,374 @@
 {
   "block_id": "0x3A",
   "block_id_int": 58,
-  "_note": "param_id values are for sub=0x09 command (IEEE 754 float encoding). Verified on FM9 + Axe-Fx III.",
+  "_note": "param_id for sub=0x09. Verified FM9+Axe3. max values are approximate (need per-param verification).",
   "params": {
-    "Treble Gain": {"param_id": 11, "max": 10.0, "type": "continuous"},
-    "Bass": {"param_id": 12, "max": 10.0, "type": "continuous"},
-    "Mid": {"param_id": 13, "max": 10.0, "type": "continuous"},
-    "Treble": {"param_id": 14, "max": 10.0, "type": "continuous"},
-    "Master": {"param_id": 15, "max": 10.0, "type": "continuous"},
-    "Low Cut Frequency": {"param_id": 16, "max": 800.0, "type": "continuous"},
-    "High Cut Frequency": {"param_id": 17, "max": 20000.0, "type": "continuous"},
-    "Tonestack Freq": {"param_id": 18, "max": 1500.0, "type": "continuous"},
-    "Bright Cap": {"param_id": 20, "max": 10000.0, "type": "continuous"},
-    "XFormer Low Freq": {"param_id": 22, "max": 200.0, "type": "continuous"},
-    "XFormer Hi Freq": {"param_id": 23, "max": 40000.0, "type": "continuous"},
-    "Depth": {"param_id": 26, "max": 10.0, "type": "continuous"},
-    "Supply Sag": {"param_id": 29, "max": 10.0, "type": "continuous"},
-    "Presence": {"param_id": 30, "max": 10.0, "type": "continuous"},
-    "Level": {"param_id": 31, "max": 100.0, "type": "bipolar", "min": -80, "range": 100},
-    "Balance": {"param_id": 32, "max": 200.0, "type": "bipolar"},
-    "Negative Feedback": {"param_id": 34, "max": 10.0, "type": "continuous"},
-    "Presence Frequency": {"param_id": 35, "max": 10.0, "type": "continuous"},
-    "B+ Time Constant": {"param_id": 45, "max": 50.0, "type": "continuous"},
-    "Grid Bias": {"param_id": 46, "max": 100.0, "type": "continuous"},
-    "Input Trim": {"param_id": 57, "max": 4.0, "type": "continuous"},
-    "Tube Hardness": {"param_id": 58, "max": 10.0, "type": "continuous"},
-    "Speaker Drive": {"param_id": 60, "max": 10.0, "type": "continuous"},
-    "XFormer Drive": {"param_id": 56, "max": 4.0, "type": "continuous"},
-    "XFormer Matching": {"param_id": 61, "max": 4.0, "type": "continuous"},
-    "Input Dynamics": {"param_id": 109, "max": 10.0, "type": "continuous"},
-    "High Treble": {"param_id": 107, "max": 10.0, "type": "bipolar"},
-    "Master Vol Trim": {"param_id": 87, "max": 4.0, "type": "continuous"}
+    "Gain": {
+      "param_id": 83,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Bass": {
+      "param_id": 12,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mid": {
+      "param_id": 13,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Treble": {
+      "param_id": 14,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Master Volume": {
+      "param_id": 15,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Low Cut Frequency": {
+      "param_id": 16,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "High Cut Frequency": {
+      "param_id": 17,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Tonestack Freq": {
+      "param_id": 18,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Bright Cap": {
+      "param_id": 20,
+      "max": 10000.0,
+      "type": "continuous"
+    },
+    "XFormer Low Freq": {
+      "param_id": 22,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "XFormer Hi Freq": {
+      "param_id": 23,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Depth": {
+      "param_id": 100,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Supply Sag": {
+      "param_id": 29,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Presence": {
+      "param_id": 30,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Presence Frequency": {
+      "param_id": 35,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Low Freq": {
+      "param_id": 36,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "LF Reso": {
+      "param_id": 37,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Depth Frequency": {
+      "param_id": 39,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Master Vol Cap": {
+      "param_id": 41,
+      "max": 10000.0,
+      "type": "continuous"
+    },
+    "Harmonics": {
+      "param_id": 43,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "B+ Time Constant": {
+      "param_id": 45,
+      "max": 50.0,
+      "type": "continuous"
+    },
+    "Grid Bias": {
+      "param_id": 46,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "LF Q": {
+      "param_id": 51,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Preamp Bias": {
+      "param_id": 52,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "High Freq": {
+      "param_id": 53,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "HF Reso": {
+      "param_id": 54,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "XFormer Drive": {
+      "param_id": 56,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "Input Trim": {
+      "param_id": 57,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "Tube Hardness": {
+      "param_id": 58,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Speaker Drive": {
+      "param_id": 60,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "XFormer Matching": {
+      "param_id": 61,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "Screen Frequency": {
+      "param_id": 62,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Screen Q": {
+      "param_id": 63,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "62": {
+      "param_id": 65,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "125": {
+      "param_id": 66,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "250": {
+      "param_id": 67,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "500": {
+      "param_id": 68,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "1K": {
+      "param_id": 69,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "2K": {
+      "param_id": 70,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "4K": {
+      "param_id": 71,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "8K": {
+      "param_id": 72,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Bias Excursion": {
+      "param_id": 73,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Triode 2 Plate Freq": {
+      "param_id": 76,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Triode 1 Plate Freq": {
+      "param_id": 77,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Out Comp Clarity": {
+      "param_id": 80,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Q": {
+      "param_id": 81,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Frequency": {
+      "param_id": 99,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Out Comp Threshold": {
+      "param_id": 86,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Master Vol Trim": {
+      "param_id": 87,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "Definition": {
+      "param_id": 89,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Compression": {
+      "param_id": 90,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "High Cut": {
+      "param_id": 143,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "AC Line Frequency": {
+      "param_id": 97,
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Hardness": {
+      "param_id": 98,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Cathode Resistance": {
+      "param_id": 103,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Cathode Time Const": {
+      "param_id": 104,
+      "max": 50.0,
+      "type": "continuous"
+    },
+    "High Treble": {
+      "param_id": 107,
+      "max": 20.0,
+      "type": "bipolar"
+    },
+    "Mismatch": {
+      "param_id": 108,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Input Dynamics": {
+      "param_id": 109,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "HF Slope": {
+      "param_id": 110,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Variac": {
+      "param_id": 111,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Saturation Drive": {
+      "param_id": 115,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "Preamp Bias Excursion": {
+      "param_id": 116,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "PI Bias Excursion": {
+      "param_id": 124,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Speaker Compress.": {
+      "param_id": 125,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Speaker Time Const": {
+      "param_id": 126,
+      "max": 50.0,
+      "type": "continuous"
+    },
+    "Speaker Compliance": {
+      "param_id": 135,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Speaker Impedance": {
+      "param_id": 137,
+      "max": 4.0,
+      "type": "continuous"
+    },
+    "Cab Resonance": {
+      "param_id": 139,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Master Bias Excursion": {
+      "param_id": 142,
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Speaker Thump": {
+      "param_id": 147,
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Level": {
+      "param_id": 31,
+      "max": 100.0,
+      "type": "bipolar",
+      "min": -80,
+      "range": 100
+    },
+    "Balance": {
+      "param_id": 32,
+      "max": 200.0,
+      "type": "bipolar"
+    }
   }
 }
