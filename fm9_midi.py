@@ -299,18 +299,16 @@ class FractalMidi:
         ir_id is the 21-bit IR identifier (from Factory/User bank)."""
         return self._send_sub09(block_id, 0x04, ir_id)
 
-    def set_param_value(self, block_id: int, param_id: int, value: float, max_value: float) -> bool:
+    def set_param_value(self, block_id: int, param_id: int, value: float, max_value: float,
+                       channel: int = 0) -> bool:
         """Set a parameter value using sub=0x09 with IEEE 754 float encoding.
-
-        This is the correct method for setting parameters on any channel.
-        The value is normalized to 0.0-1.0 range and encoded as IEEE 754 float
-        packed into 5 x 7-bit MIDI bytes.
 
         Args:
             block_id: Block ID (e.g., 0x3A for Amp 1)
             param_id: Parameter ID (e.g., 0x0B for Treble Gain)
             value: Display value (e.g., 5.0 for Gain=5)
             max_value: Maximum display value (e.g., 10.0 for Gain range 0-10)
+            channel: Target channel (0=A, 1=B, 2=C, 3=D). Encoded as channel * 0x20.
         """
         import struct
         normalized = value / max_value if max_value != 0 else 0.0
@@ -324,9 +322,11 @@ class FractalMidi:
             (raw32 >> 28) & 0x7F,
         ]
 
+        channel_byte = (channel & 0x03) * 0x20
+
         with self._midi_lock:
             payload = [0x01, 0x09, 0x00, block_id, 0x00, param_id, 0x00,
-                       d[0], d[1], d[2], d[3], d[4], 0x00, 0x00, 0x00, 0x00]
+                       d[0], d[1], d[2], d[3], d[4], 0x00, 0x00, channel_byte, 0x00]
             cs = self.model_id
             for b in payload:
                 cs ^= b

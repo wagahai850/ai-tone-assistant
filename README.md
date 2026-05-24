@@ -143,6 +143,7 @@ MIT
 - Preset management: store, change, rename
 
 ### Known Issues
+- **Parameter IDs differ between Axe-Fx III and FM9** — Same block type + same model variant can have different param_id mappings. Each device needs its own parameter scan.
 - Parameter maps for blocks other than Amp/Drive/Delay are not yet available
 - Delay param_id mapping uses GET_idx directly (no +10 offset), unlike Amp/Drive which use GET_idx + 10
 

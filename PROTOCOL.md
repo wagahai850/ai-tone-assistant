@@ -149,7 +149,9 @@ The byte at position [14] (after func) specifies the target channel:
 | C | 0x40 | channel × 0x20 |
 | D | 0x60 | channel × 0x20 |
 
-On FM9, this byte can be 0x00 regardless of channel (use sub=0x16 to switch channel first).
+On FM9, this byte follows the same encoding (verified: Channel B = 0x20 works on FM9).
+
+> **Important**: Parameter IDs (param field) differ between Axe-Fx III and FM9, even for the same block type and model variant. Each device requires its own parameter scan. The channel encoding and message structure are identical across devices.
 
 ### For Enum Parameters (Amp Type, Drive Type, Cab IR)
 
