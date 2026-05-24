@@ -116,7 +116,8 @@ MIDI port names are auto-detected. If detection fails, the server will print ava
 The reverse-engineered FM9 USB MIDI protocol is documented in detail in the project notes. Key discoveries:
 
 - **Checksum**: `XOR(model_id, func, data...) ^ 0x05 & 0x7F`
-- **Parameter control**: GET (func 0x1F) → Modify → PUT (func 0x74/75/76)
+- **Parameter control**: sub=0x09 (value set) and sub=0x52 (real-time slide) with IEEE 754 float encoding
+- **Channel control**: Direct channel targeting via payload byte (A=0x00, B=0x20, C=0x40, D=0x60)
 - **Grid layout**: sub=0x2E query returns 753-byte bitstream-encoded grid map
 - **Block routing**: sub=0x30/0x32/0x33/0x35/0x36 for add/delete/move/connect
 
@@ -135,14 +136,15 @@ MIT
 **Proof of Concept** — functional but not production-ready.
 
 ### What works
-- Amp 1 / Drive 1: full model selection + 13/6 parameters mapped
-- Delay 1 / Reverb 1 / Cab 1 / GEQ / Enhance / Chorus 1: partial parameter maps
+- Amp 1 / Drive 1: full model selection + parameter control
+- Delay 1: 37 parameters mapped (scan verified)
+- All blocks: channel control (A/B/C/D) via sub=0x09 channel byte
 - Grid operations: add, delete, move, connect, disconnect, read
 - Preset management: store, change, rename
 
 ### Known Issues
-- **Amp 1 parameter map has some incorrect param IDs** — The param_id values in fm9_amp_params.json were mapped using the old GET→PUT method and some are wrong. The correct method (sub=0x09 with IEEE 754 float encoding) has been implemented but param IDs need re-verification via the automated scanner.
-- Parameter maps for blocks other than Amp/Drive are not yet available
+- Parameter maps for blocks other than Amp/Drive/Delay are not yet available
+- Delay param_id mapping uses GET_idx directly (no +10 offset), unlike Amp/Drive which use GET_idx + 10
 
 ### What's missing
 - Most block types have no parameter maps yet (PEQ, Gate, Pitch, Filter, Comp, Wah, Flanger, Phaser, etc.)

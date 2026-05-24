@@ -122,6 +122,30 @@ class ParamScanner:
     TAB_NAMES = ["Tone", "Ideal", "Preamp", "Power Amp", "Pwr Tubes + CF",
                  "Power Supply", "Speaker", "Input EQ", "Output EQ", "Dynamics"]
 
+    def set_tab_names(self, tab_names: list[str]):
+        """Override TAB_NAMES for non-Amp blocks (Delay, Reverb, Cab, etc.)."""
+        self.TAB_NAMES = tab_names
+        # Clear stale Amp coords
+        self.TAB_COORDS = {}
+
+    def _force_channel_a(self):
+        """Force block to Channel A before scanning. GET/PUT only works on Channel A."""
+        import mido as _mido
+        # sub=0x16: set channel. payload = [0x01, 0x16, 0x00, block_id, 0x00, 0x00, 0x00, channel, ...]
+        channel = 0  # Channel A
+        payload = [0x01, 0x16, 0x00, self.block_id, 0x00, 0x00, 0x00,
+                   channel, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        cs = self.model_id
+        for b in payload:
+            cs ^= b
+        cs = (cs ^ 0x05) & 0x7F
+        payload.append(cs)
+        self.outport.send(_mido.Message('sysex',
+            data=[0x00, 0x01, 0x74, self.model_id] + payload))
+        time.sleep(0.3)
+        self._flush()
+        print("  Channel A set.")
+
     def _refresh_tab_coords(self):
         """Dynamically get tab coordinates from Editor via AppleScript."""
         script = f'''
@@ -236,6 +260,10 @@ end tell'''
         print(f"Scanning chunk {chunk_idx} of block 0x{self.block_id:02X}")
         print(f"{'='*60}")
 
+        # Force Channel A before scanning (GET/PUT only reflects on Channel A)
+        print("Forcing Channel A...")
+        self._force_channel_a()
+
         # Refresh tab coordinates
         self._refresh_tab_coords()
 
@@ -338,6 +366,8 @@ def main():
     block_id = int(args.block, 16) if args.block.startswith("0x") else int(args.block)
 
     scanner = ParamScanner(args.device, block_id, args.editor, args.group)
+    if args.tabs:
+        scanner.set_tab_names(args.tabs)
     scanner.connect()
 
     try:

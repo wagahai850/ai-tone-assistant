@@ -62,8 +62,10 @@ Total: 23 bytes (standard) or 26 bytes (extended, sub=0x35)
 | Sub | Direction | Name | Description |
 |-----|-----------|------|-------------|
 | 0x01 | both | BLOCK_STATUS | Bypass/channel state (115-byte response) |
-| 0x09 | OUT | SET_TYPE | Change amp/drive/IR model (enum parameter) |
+| 0x09 | OUT | SET_PARAM | Set parameter value (with channel encoding) |
 | 0x16 | OUT | SET_CHANNEL | Switch block channel (A/B/C/D) |
+| 0x1A | IN | PARAM_NOTIFY | Parameter value broadcast (device → host) |
+| 0x1B | IN | PARAM_META | Parameter metadata broadcast |
 | 0x26 | OUT | STORE_PRESET | Save preset to flash |
 | 0x27 | OUT | CHANGE_PRESET | Switch to different preset |
 | 0x28 | OUT | SET_PRESET_NAME | Rename preset (60 bytes, 7-bit packed name) |
@@ -75,6 +77,7 @@ Total: 23 bytes (standard) or 26 bytes (extended, sub=0x35)
 | 0x35 | OUT | CABLE_OP | Connect/disconnect cable (26 bytes) |
 | 0x36 | OUT | BLOCK_MOVE | Move block in direction |
 | 0x37 | both | TIMING_SYNC | Heartbeat/timing |
+| 0x52 | OUT | SLIDE_PARAM | Set parameter value (no Undo, for real-time drag) |
 | 0x7B | both | HEARTBEAT | Keep-alive polling |
 
 ## SET_BYPASS (func=0x0A)
@@ -124,13 +127,29 @@ Each chunk (func 0x75):
 
 Parameter at index N: `offset = 7 + N * 3`
 
-## SET_TYPE / SET_PARAM (sub=0x09)
+## SET_TYPE / SET_PARAM (sub=0x09) / SLIDE_PARAM (sub=0x52)
 
-Change amp/drive model, cab IR, or set any parameter value:
+Change amp/drive model, cab IR, or set any parameter value.
+sub=0x09 and sub=0x52 share the same message format. The difference is behavioral:
+- **sub=0x09**: Value set (recorded in Undo history)
+- **sub=0x52**: Slide/drag (not recorded in Undo history, for real-time continuous control)
 
 ```
-F0 00 01 74 [model] 01 09 00 [block_id] 00 [param] 00 [d0 d1 d2 d3 d4] 00 00 00 00 [cs] F7
+F0 00 01 74 [model] 01 [sub] 00 [block_id] 00 [param] 00 [d0 d1 d2 d3 d4] 00 00 [ch] 00 [cs] F7
 ```
+
+### Channel Encoding (Axe-Fx III)
+
+The byte at position [14] (after func) specifies the target channel:
+
+| Channel | Value | Formula |
+|---------|-------|---------|
+| A | 0x00 | channel × 0x20 |
+| B | 0x20 | channel × 0x20 |
+| C | 0x40 | channel × 0x20 |
+| D | 0x60 | channel × 0x20 |
+
+On FM9, this byte can be 0x00 regardless of channel (use sub=0x16 to switch channel first).
 
 ### For Enum Parameters (Amp Type, Drive Type, Cab IR)
 
