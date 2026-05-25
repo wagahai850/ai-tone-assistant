@@ -305,7 +305,7 @@ class FractalMidi:
 
         Args:
             block_id: Block ID (e.g., 0x3A for Amp 1)
-            param_id: Parameter ID (e.g., 0x0B for Treble Gain)
+            param_id: Parameter ID (e.g., 0x0B for Gain)
             value: Display value (e.g., 5.0 for Gain=5)
             max_value: Maximum display value (e.g., 10.0 for Gain range 0-10)
             channel: Target channel (0=A, 1=B, 2=C, 3=D). Encoded as channel * 0x20.
@@ -324,8 +324,14 @@ class FractalMidi:
 
         channel_byte = (channel & 0x03) * 0x20
 
+        # 2-byte encoding for block_id and param_id (7-bit SysEx safe)
+        block_lo = block_id & 0x7F
+        block_hi = (block_id >> 7) & 0x7F
+        param_lo = param_id & 0x7F
+        param_hi = (param_id >> 7) & 0x7F
+
         with self._midi_lock:
-            payload = [0x01, 0x09, 0x00, block_id, 0x00, param_id, 0x00,
+            payload = [0x01, 0x09, 0x00, block_lo, block_hi, param_lo, param_hi,
                        d[0], d[1], d[2], d[3], d[4], 0x00, 0x00, channel_byte, 0x00]
             cs = self.model_id
             for b in payload:

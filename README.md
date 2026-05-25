@@ -137,24 +137,25 @@ MIT
 **Proof of Concept** — functional but not production-ready.
 
 ### What works
-- Amp 1 / Drive 1: full model selection + parameter control
-- Delay 1: 37 parameters mapped (scan verified)
+- Amp 1: full model selection + 74 parameter control (GET/SET verified)
+- Drive 1: full model selection + 28 parameter control (GET/SET verified)
+- Delay 1: 52 parameters scanned (FM9), 37 parameters scanned (Axe-Fx III)
 - All blocks: channel control (A/B/C/D) via sub=0x09 channel byte
 - Grid operations: add, delete, move, connect, disconnect, read
 - Preset management: store, change, rename
+- 14 block types scanned (Amp, Drive, Cab, Reverb, Delay, Chorus, Comp, GEQ, PEQ, Flanger, Phaser, Wah, Formant, Volume/Pan)
 
 ### Known Issues
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type + same model variant can have different param_id mappings. Each device needs its own parameter scan.
-- Parameter maps for blocks other than Amp/Drive/Delay are not yet available
-- Delay param_id mapping uses GET_idx directly (no +10 offset), unlike Amp/Drive which use GET_idx + 10
+- **Amp "Presence" varies by model** — Preamp-only models (e.g., USA Pre Clean) use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
+- Parameter maps for most blocks beyond Amp/Drive are scanned but not yet exposed as MCP tools
 
 ### What's missing
-- Most block types have no parameter maps yet (PEQ, Gate, Pitch, Filter, Comp, Wah, Flanger, Phaser, etc.)
+- MCP tools for scanned blocks (Reverb, Delay, Chorus, etc.) — data exists, tools not yet implemented
 - No Delay/Reverb time sync or tap tempo
 - No modifier/controller support
 - No scene-level parameter overrides
 - Error recovery is minimal (MIDI port errors require manual restart)
-- Block IDs > 0x7F (Gate=0x92, Rotary=0x82) need STATUS DUMP cross-reference for grid reading
 
 ### Contributing
 

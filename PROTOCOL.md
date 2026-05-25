@@ -135,7 +135,7 @@ sub=0x09 and sub=0x52 share the same message format. The difference is behaviora
 - **sub=0x52**: Slide/drag (not recorded in Undo history, for real-time continuous control)
 
 ```
-F0 00 01 74 [model] 01 [sub] 00 [block_id] 00 [param] 00 [d0 d1 d2 d3 d4] 00 00 [ch] 00 [cs] F7
+F0 00 01 74 [model] 01 [sub] 00 [block_lo] [block_hi] [param_lo] [param_hi] [d0 d1 d2 d3 d4] 00 00 [ch] 00 [cs] F7
 ```
 
 ### Channel Encoding (Axe-Fx III)
@@ -166,13 +166,26 @@ Type/IR ID is 21-bit packed into d[2:5]: `d[2] | (d[3] << 7) | (d[4] << 14)`
 
 ### For Continuous Parameters (Gain, Bass, Mid, etc.)
 
-| block_id | param | Purpose |
-|----------|-------|---------|
-| 0x3A (Amp) | 0x0B | Treble Gain (Drive) |
-| 0x3A (Amp) | 0x0C | Bass |
-| 0x3A (Amp) | 0x0D | Mid |
-| 0x3A (Amp) | 0x0E | Treble |
-| ... | ... | ... |
+Value is **IEEE 754 32-bit float** (normalized 0.0-1.0) packed into 5 x 7-bit bytes.
+Both `block_id` and `param` fields use 2-byte 7-bit encoding: `[value & 0x7F, (value >> 7) & 0x7F]`.
+
+```
+F0 00 01 74 [model] 01 [sub] 00 [block_lo] [block_hi] [param_lo] [param_hi] [d0 d1 d2 d3 d4] 00 00 [ch] 00 [cs] F7
+```
+
+Example param_ids (FM9 Amp 1):
+
+| param_id | Parameter |
+|----------|-----------|
+| 11 (0x0B) | Gain |
+| 12 (0x0C) | Bass |
+| 13 (0x0D) | Mid |
+| 14 (0x0E) | Treble |
+| 15 (0x0F) | Master Volume |
+| 30 (0x1E) | Presence (P.A.) |
+| 137 (0x89) | Preamp Presence |
+
+> **Note**: param_id > 127 requires 2-byte encoding. E.g., param_id=137: lo=0x09, hi=0x01.
 
 Value is **IEEE 754 32-bit float** (normalized 0.0-1.0) packed into 5 x 7-bit bytes:
 

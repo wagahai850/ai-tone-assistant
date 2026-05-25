@@ -325,19 +325,15 @@ def fm9_set_amp_params(params: dict[str, float | bool]) -> dict[str, Any]:
 
     Args:
         params: A dictionary of parameter name-value pairs. Available parameters:
-            - "Treble Gain" (0-10, also known as Drive/Gain depending on model)
+            - "Gain" (0-10)
             - "Bass" (0-10)
             - "Mid" (0-10)
             - "Treble" (0-10)
-            - "Master" (0-10)
+            - "Master Volume" (0-10)
             - "Depth" (0-10)
             - "Presence" (0-10)
-            - "Normal Gain" (0-10)
-            - "Level" (-20 to +20 dB)
-            - "Bright" (true/false)
-            - "Boost" (true/false)
-            - "Cut" (true/false)
-            - "Fat" (true/false)
+            - "Level" (-80 to +20 dB)
+            - "Balance" (-100 to +100)
 
     Example: fm9_set_amp_params(params={"Bass": 5.0, "Mid": 6.0, "Treble": 7.0})
     """
