@@ -528,18 +528,30 @@ class FractalMidi:
     def add_block_at(self, block_id: int, row: int, col: int) -> bool:
         """Add a block at a specific grid position.
         Args:
-            block_id: Block type ID (e.g., 0x3A=Amp1, 0x76=Drive1, 0x3E=Cab1)
+            block_id: Block type ID (e.g., 0x3A=Amp1, 0x76=Drive1, 0x92=Gate1)
+                      Supports block_id > 0x7F via 2-byte encoding.
             row: Grid row (0-4)
             col: Grid column (0-13)
         """
         pos = self.grid_pos(row, col)
-        # Step 1: sub=0x30 — layout operation start (block=0x25=Input, fixed)
-        self._send_layout_msg(0x30, 0x25, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
+        # Block ID encoding: split into 2 bytes for SysEx 7-bit compliance
+        id_lo = block_id & 0x7F
+        id_hi = (block_id >> 7) & 0x7F
+
+        # Step 1: sub=0x30 — layout operation start
+        self._send_layout_msg(0x30, 0x00, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
         time.sleep(0.05)
-        # Step 2: sub=0x32 — block add (p[0]=0x00 = real block)
-        self._send_layout_msg(0x32, block_id, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.3)
+        # Step 2: sub=0x32 — block add (2-byte block_id in positions [3:5])
         with self._midi_lock:
+            payload = [0x01, 0x32, 0x00, id_lo, id_hi, 0x00, 0x00,
+                       pos, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+            cs = self.model_id
+            for b in payload:
+                cs ^= b
+            cs = (cs ^ 0x05) & 0x7F
+            payload.append(cs)
+            self._send_sysex(payload)
+            time.sleep(0.3)
             self._flush_input()
         return True
 

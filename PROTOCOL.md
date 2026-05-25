@@ -213,8 +213,15 @@ grid_position = col * 6 + row  # col: 0-13, row: 0-4
 ### BLOCK_ADD (sub=0x30 + sub=0x32)
 
 ```
-Step 1 (sub=0x30): block_id=0x25, p=[00,00,00], d[0]=grid_position
-Step 2 (sub=0x32): block_id=target, p=[00,00,00], d[0]=grid_position
+Step 1 (sub=0x30): block_id=0x00, p=[00,00,00], d[0]=grid_position
+Step 2 (sub=0x32): payload=[01,32,00,id_lo,id_hi,00,00,grid_pos,00...00,cs]
+```
+
+Block ID encoding (supports >0x7F):
+```python
+id_lo = block_id & 0x7F
+id_hi = (block_id >> 7) & 0x7F
+# e.g., Gate (0x92=146): id_lo=0x12, id_hi=0x01
 ```
 
 For shunts: `p=[08,00,00]` instead of `p=[00,00,00]`
@@ -324,23 +331,29 @@ def decode_name(data):
 
 | ID (dec) | ID (hex) | Block | Notes |
 |----------|----------|-------|-------|
-| 37 | 0x25 | Input 1 | |
-| 42 | 0x2A | Output 1 | |
-| 46 | 0x2E | Comp 1 | |
-| 50 | 0x32 | GEQ 1 | |
-| 51 | 0x33 | GEQ 2 | |
-| 54 | 0x36 | PEQ 1 | |
-| 55 | 0x37 | PEQ 2 | |
+| 46 | 0x2E | Compressor 1 | |
+| 50 | 0x32 | Graphic EQ 1 | |
+| 54 | 0x36 | Parametric EQ 1 | |
 | 58 | 0x3A | Amp 1 | |
 | 59 | 0x3B | Amp 2 | |
 | 62 | 0x3E | Cab 1 | |
 | 63 | 0x3F | Cab 2 | |
 | 66 | 0x42 | Reverb 1 | |
 | 70 | 0x46 | Delay 1 | |
+| 74 | 0x4A | Multitap Delay 1 | |
 | 78 | 0x4E | Chorus 1 | |
+| 82 | 0x52 | Flanger 1 | |
+| 86 | 0x56 | Rotary 1 | |
+| 90 | 0x5A | Phaser 1 | |
+| 94 | 0x5E | Wah 1 | |
+| 98 | 0x62 | Formant 1 | |
+| 102 | 0x66 | Volume/Pan 1 | |
+| 106 | 0x6A | Tremolo/Panner 1 | |
 | 110 | 0x6E | Pitch 1 | |
 | 114 | 0x72 | Filter 1 | |
 | 118 | 0x76 | Drive 1 | |
-| 122 | 0x7A | Enhance | |
-| 130 | 0x82 | Rotary 1 | >0x7F, grid shows 0x02 |
-| 146 | 0x92 | Gate 1 | >0x7F, grid shows 0x12 |
+| 122 | 0x7A | Enhancer 1 | |
+| 130 | 0x82 | Synth 1 | >0x7F |
+| 146 | 0x92 | Gate/Expander 1 | >0x7F |
+
+Full list (89 blocks): see `fm9_blocks.json`

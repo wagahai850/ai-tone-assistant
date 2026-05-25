@@ -48,6 +48,16 @@ SCAN_BLOCKS = [
     "Rotary 1",
     "Multitap Delay 1",
     "Mixer 1",
+    "Gate/Expander 1",
+    "Crossover 1",
+    "Megatap Delay 1",
+    "Multiband Comp 1",
+    "Plex Delay 1",
+    "Resonator 1",
+    "Synth 1",
+    "Ten-Tap Delay 1",
+    "Ring Modulator",
+    "Looper",
 ]
 
 DEVICE = "fm9"
@@ -136,9 +146,6 @@ def main():
         if name in all_blocks:
             info = all_blocks[name]
             block_id = info["block_id_int"]
-            if block_id > 0x7F:
-                print(f"  SKIPPING {name} (0x{block_id:02X}) - block_id > 0x7F")
-                continue
             blocks.append((block_id, name))
         else:
             print(f"  WARNING: {name} not found in fm9_blocks.json")
