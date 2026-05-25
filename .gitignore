@@ -15,6 +15,7 @@ compare_*.py
 diff_*.py
 dump_*.py
 extract_*.py
+verify_scan_*.py
 find_*.py
 full_tab_scan*.py
 get*.py
