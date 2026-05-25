@@ -147,7 +147,9 @@ class ParamScanner:
         print("  Channel A set.")
 
     def _refresh_tab_coords(self):
-        """Dynamically get tab coordinates from Editor via AppleScript."""
+        """Dynamically get tab coordinates from Editor via AppleScript.
+        Auto-detects tab names by finding static text elements in the tab column
+        (left side, x < 400, vertically stacked)."""
         script = f'''
 tell application "System Events"
     tell process "{self.editor_process}"
@@ -167,16 +169,34 @@ tell application "System Events"
 end tell'''
         result = subprocess.run(['osascript', '-e', script],
                               capture_output=True, text=True, timeout=15)
+        # Find tab-like elements: positioned in the tab column
+        # Tabs share similar x coordinate, are vertically stacked, and have consistent width/height
+        candidates = []
         for entry in result.stdout.strip().split("|||"):
             entry = entry.strip()
             if not entry:
                 continue
             parts = entry.split("|")
-            if len(parts) >= 5 and parts[0] in self.TAB_NAMES:
-                x = int(parts[1]) + int(parts[3]) // 2
-                y = int(parts[2]) + int(parts[4]) // 2
-                self.TAB_COORDS[parts[0]] = (x, y)
-        print(f"  Tab coordinates refreshed: {len(self.TAB_COORDS)} tabs found")
+            if len(parts) >= 5:
+                name = parts[0].strip()
+                x = int(parts[1])
+                y = int(parts[2])
+                w = int(parts[3])
+                h = int(parts[4])
+                # Tabs: width > 100, height 35-60, in tab column (x 200-400), not special chars
+                if w > 100 and 35 <= h <= 60 and 200 <= x <= 400 and name and name != "É":
+                    candidates.append((name, x, y, w, h))
+
+        # Sort by y position and use as tabs
+        candidates.sort(key=lambda c: c[2])
+        self.TAB_COORDS = {}
+        self.TAB_NAMES = []
+        for name, x, y, w, h in candidates:
+            cx = x + w // 2
+            cy = y + h // 2
+            self.TAB_COORDS[name] = (cx, cy)
+            self.TAB_NAMES.append(name)
+        print(f"  Tabs auto-detected ({len(self.TAB_NAMES)}): {self.TAB_NAMES}")
 
     def read_all_sliders(self, tabs=None):
         """Read all sliders from Editor via AppleScript.
@@ -279,13 +299,16 @@ end tell'''
 
         # Read baseline sliders
         print("Reading baseline sliders...")
-        baseline = self.read_all_sliders(tabs)
+        scan_tabs = tabs if tabs else self.TAB_NAMES
+        baseline = self.read_all_sliders(scan_tabs)
         print(f"  Found {len(baseline)} sliders")
 
         # Scan each param
         results = {}
         unique_bytes = [self.unique_raw & 0x7F, (self.unique_raw >> 7) & 0x7F,
                        (self.unique_raw >> 14) & 0x7F]
+        consecutive_misses = 0
+        EARLY_STOP_THRESHOLD = 30  # Stop after 30 consecutive params with no new findings
 
         for idx in range(num_params):
             offset = 7 + idx * 3
@@ -310,7 +333,7 @@ end tell'''
             time.sleep(0.5)
 
             # Read sliders
-            current = self.read_all_sliders(tabs)
+            current = self.read_all_sliders(scan_tabs)
 
             # Diff
             changed = {}
@@ -323,14 +346,20 @@ end tell'''
                     "offset": [offset, offset + 3],
                     "changed_sliders": changed
                 }
+                consecutive_misses = 0
                 # Print finding
                 for slider, vals in changed.items():
                     print(f"  param[{idx}] (offset [{offset}:{offset+3}]) → {slider}: {vals['before']} → {vals['after']}")
+            else:
+                consecutive_misses += 1
+                if consecutive_misses >= EARLY_STOP_THRESHOLD and len(results) > 0:
+                    print(f"  Early stop: {consecutive_misses} consecutive misses after {len(results)} findings")
+                    break
 
             # Restore every 10 params to prevent drift
             if idx % 10 == 9:
                 self.put_chunks(orig_chunks, block_select)
-                time.sleep(0.2)
+                time.sleep(0.5)
 
             # Progress
             if idx % 25 == 24:
@@ -356,9 +385,8 @@ def main():
     parser.add_argument("--editor", default="Axe-Edit III", help="Editor process name")
     parser.add_argument("--group", default="group 5", help="AppleScript UI group")
     parser.add_argument("--chunk", type=int, default=0, help="Chunk index to scan")
-    parser.add_argument("--tabs", nargs="+", default=["Tone", "Ideal", "Preamp", "Power Amp",
-                        "Pwr Tubes + CF", "Power Supply", "Speaker", "Input EQ", "Output EQ", "Dynamics"],
-                        help="Editor tabs to scan")
+    parser.add_argument("--tabs", nargs="+", default=None,
+                        help="Editor tabs to scan (auto-detected if not specified)")
     parser.add_argument("--output", default=None, help="Output JSON file")
     parser.add_argument("--amp-types", nargs="+", default=None,
                         help="Amp model names to scan (scans each sequentially)")
