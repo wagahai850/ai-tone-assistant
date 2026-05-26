@@ -69,6 +69,9 @@ def register(mcp):
     def fm9_add_block(block_type: str, row: int, col: int) -> dict[str, Any]:
         """Add an effect block to the FM9 grid at a specific position.
 
+        If the position already contains a block or shunt, it will be replaced.
+        No need to delete first — this works as an upsert.
+
         Args:
             block_type: Block type name (e.g., "Amp 1", "Drive 1", "Cab 1", "Delay 1",
                         "Reverb 1", "Chorus 1", "Comp 1", "GEQ", "Gate 1", "Flanger 1",
