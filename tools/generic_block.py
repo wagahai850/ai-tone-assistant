@@ -317,6 +317,10 @@ def register(mcp):
                     For Cab DynaCab Type: use integer index (0-44) or name (e.g. "4x12 1960TV").
                     For Cab DynaCab Mic: use integer (0-3) or name (e.g. "Dynamic 1").
 
+        Returns success status, the changes sent, and a full read-back of all
+        block parameters confirming the actual state on the device. No separate
+        GET call is needed after SET.
+
         Example: fm9_set_block_params(block="Chorus 1", params={"Rate": 0.5, "Depth": 0.7})
         """
         try:

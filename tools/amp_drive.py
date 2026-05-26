@@ -179,6 +179,9 @@ def register(mcp):
                 - "Level" (-80 to +20 dB)
                 - "Balance" (-100 to +100)
 
+        Returns success status, the changes sent, and a full read-back of all
+        Amp 1 parameters confirming the actual state on the device.
+
         Example: fm9_set_amp_params(params={"Bass": 5.0, "Mid": 6.0, "Treble": 7.0})
         """
         try:
@@ -262,6 +265,9 @@ def register(mcp):
                 - "Level" (0-10)
                 - "Mix" (0-100%)
                 - "Balance" (-100 to +100)
+
+        Returns success status, the changes sent, and a full read-back of all
+        Drive 1 parameters confirming the actual state on the device.
 
         Example: fm9_set_drive_params(params={"Drive": 6.0, "Tone": 5.5, "Level": 7.0})
         """
