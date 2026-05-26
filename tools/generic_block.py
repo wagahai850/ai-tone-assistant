@@ -209,6 +209,11 @@ def register(mcp):
                 "locut2": (63, True),
                 "locut3": (64, True),
                 "locut4": (65, True),
+                "dynacabtype1": (85, True),
+                "dynacabtype2": (86, True),
+                "dynacabmic1": (89, True),
+                "dynacabmic2": (90, True),
+                "mode": (31, True),
             }
 
             changes = {}
