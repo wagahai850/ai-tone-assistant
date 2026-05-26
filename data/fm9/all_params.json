@@ -2379,8 +2379,8 @@
         "meta": {
           "type": "enum",
           "min": 0,
-          "max": 127,
-          "verified": false
+          "max": 4,
+          "verified": true
         }
       },
       "32": {
@@ -2971,10 +2971,10 @@
         "display_name": "Dynacab Type1",
         "table_index": 85,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 93,
+          "verified": true
         }
       },
       "86": {
@@ -2982,10 +2982,10 @@
         "display_name": "Dynacab Type2",
         "table_index": 86,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 93,
+          "verified": true
         }
       },
       "87": {
@@ -2993,10 +2993,10 @@
         "display_name": "Dynacab Type3",
         "table_index": 87,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 93,
+          "verified": true
         }
       },
       "88": {
@@ -3004,10 +3004,10 @@
         "display_name": "Dynacab Type4",
         "table_index": 88,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 93,
+          "verified": true
         }
       },
       "89": {
@@ -3015,10 +3015,10 @@
         "display_name": "Dynacab Mic1",
         "table_index": 89,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 3,
+          "verified": true
         }
       },
       "90": {
@@ -3026,10 +3026,10 @@
         "display_name": "Dynacab Mic2",
         "table_index": 90,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 3,
+          "verified": true
         }
       },
       "91": {
@@ -3037,10 +3037,10 @@
         "display_name": "Dynacab Mic3",
         "table_index": 91,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 3,
+          "verified": true
         }
       },
       "92": {
@@ -3048,10 +3048,10 @@
         "display_name": "Dynacab Mic4",
         "table_index": 92,
         "meta": {
-          "type": "continuous",
+          "type": "enum",
           "min": 0,
-          "max": 10.0,
-          "verified": false
+          "max": 3,
+          "verified": true
         }
       },
       "93": {

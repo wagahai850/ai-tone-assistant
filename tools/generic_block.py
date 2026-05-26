@@ -7,6 +7,110 @@ from tools import (
     midi, ensure_connected, resolve_block, resolve_param,
 )
 
+# --- Enum Name Resolution Tables ---
+
+# Cab Mode: pid 31
+CAB_MODE_NAMES = {
+    0: "Mono Hi-Res",
+    1: "DynaCab",
+    2: "Stereo Hi-Res",
+    3: "Ultra-Res",
+    4: "Ultra-Res Stereo",
+}
+
+# DynaCab Mic: pid 89-92
+DYNACAB_MIC_NAMES = {
+    0: "Condenser",
+    1: "Ribbon",
+    2: "Dynamic 1",
+    3: "Dynamic 2",
+}
+
+# Cab block enum resolution: param_id -> (lookup_key_in_EFFECT_DEFS or dict)
+CAB_ENUM_RESOLVERS = {
+    31: CAB_MODE_NAMES,          # Mode
+    85: "dynacab_types",         # DynaCab Type1 (dedicated list, raw=0-indexed)
+    86: "dynacab_types",         # DynaCab Type2
+    87: "dynacab_types",         # DynaCab Type3
+    88: "dynacab_types",         # DynaCab Type4
+    89: DYNACAB_MIC_NAMES,       # DynaCab Mic1
+    90: DYNACAB_MIC_NAMES,       # DynaCab Mic2
+    91: DYNACAB_MIC_NAMES,       # DynaCab Mic3
+    92: DYNACAB_MIC_NAMES,       # DynaCab Mic4
+}
+
+CAB_BLOCK_IDS_SET = {0x3E, 0x3F, 0x40, 0x41}  # Cab 1-4
+
+
+def _resolve_enum_name(block_id: int, pid: int, raw_val: int) -> str | None:
+    """Resolve an enum raw value to a human-readable name, if possible."""
+    if block_id in CAB_BLOCK_IDS_SET and pid in CAB_ENUM_RESOLVERS:
+        resolver = CAB_ENUM_RESOLVERS[pid]
+        if isinstance(resolver, dict):
+            return resolver.get(raw_val)
+        elif isinstance(resolver, str):
+            # Lookup in EFFECT_DEFS list (raw value is direct 0-indexed)
+            names = EFFECT_DEFS.get(resolver, [])
+            if 0 <= raw_val < len(names):
+                return names[raw_val]
+    return None
+
+
+def _resolve_cab_enum_value(pid: int, value) -> int:
+    """Resolve a cab enum value from either integer index or string name.
+
+    For DynaCab Type (pid 85-88): accepts int index or cab name string.
+    For DynaCab Mic (pid 89-92): accepts int index or mic name string.
+    For Mode (pid 31): accepts int index or mode name string.
+    """
+    # If it's already a number, return as int
+    if isinstance(value, (int, float)) and not isinstance(value, str):
+        return int(value)
+
+    # String-based lookup
+    value_str = str(value).strip()
+
+    # Try integer string first
+    try:
+        return int(value_str)
+    except ValueError:
+        pass
+
+    # DynaCab Type (pid 85-88): lookup in dynacab_types list
+    if pid in (85, 86, 87, 88):
+        names = EFFECT_DEFS.get("dynacab_types", [])
+        # Exact match (case-insensitive)
+        for i, name in enumerate(names):
+            if name.lower() == value_str.lower():
+                return i
+        # Partial match
+        matches = [(i, name) for i, name in enumerate(names)
+                   if value_str.lower() in name.lower()]
+        if len(matches) == 1:
+            return matches[0][0]
+        elif len(matches) > 1:
+            raise ValueError(
+                f"Ambiguous DynaCab Type '{value_str}'. Matches: {[m[1] for m in matches[:10]]}"
+            )
+        raise ValueError(f"DynaCab Type '{value_str}' not found. Use fm9_list_effect_types('cab') or integer index.")
+
+    # DynaCab Mic (pid 89-92): lookup in DYNACAB_MIC_NAMES
+    if pid in (89, 90, 91, 92):
+        for idx, name in DYNACAB_MIC_NAMES.items():
+            if name.lower() == value_str.lower():
+                return idx
+        raise ValueError(f"DynaCab Mic '{value_str}' not found. Valid: {list(DYNACAB_MIC_NAMES.values())}")
+
+    # Mode (pid 31): lookup in CAB_MODE_NAMES
+    if pid == 31:
+        for idx, name in CAB_MODE_NAMES.items():
+            if name.lower() == value_str.lower():
+                return idx
+        raise ValueError(f"Cab Mode '{value_str}' not found. Valid: {list(CAB_MODE_NAMES.values())}")
+
+    # Fallback: try int conversion
+    return int(value)
+
 
 def register(mcp):
     """Register generic block tools on the MCP server."""
@@ -159,6 +263,12 @@ def register(mcp):
                     entry["min"] = param_min
                     entry["max"] = param_max
 
+                # Resolve enum names where possible
+                if param_type == "enum":
+                    enum_name = _resolve_enum_name(block_id, pid, raw_val)
+                    if enum_name:
+                        entry["name"] = enum_name
+
                 params[pinfo["display_name"]] = entry
 
             return {
@@ -194,7 +304,8 @@ def register(mcp):
             block_id = int(block_id_str, 16)
 
             # Cab blocks have mixed encoding:
-            # - Frequency params (Hz), Mode, Mute, DynaCab Type/Mic: raw float
+            # - Frequency params (Hz), Mode, Mute: raw float via set_param_value
+            # - DynaCab Type/Mic: enum via _send_sub09 (integer index)
             # - DynaCab R/Z (position/distance): normalized 0-1
             # - Other continuous params: needs verification (assume raw float)
             CAB_BLOCK_IDS = {0x3E, 0x3F, 0x40, 0x41}  # Cab 1-4
@@ -203,6 +314,13 @@ def register(mcp):
             CAB_NORMALIZED_PARAMS = {
                 93, 94, 95, 96,   # Dynacab R1-R4 (position)
                 97, 98, 99, 104,  # Dynacab Z1-Z4 (distance)
+            }
+
+            # Enum params that must be sent via _send_sub09 (integer index)
+            CAB_ENUM_PARAMS = {
+                31,               # Mode
+                85, 86, 87, 88,   # Dynacab Type1-4
+                89, 90, 91, 92,   # Dynacab Mic1-4
             }
 
             # Param_id overrides (generic name -> correct per-mic pid)
@@ -222,7 +340,12 @@ def register(mcp):
                     if normalized_name in CAB_PID_OVERRIDES:
                         pid = CAB_PID_OVERRIDES[normalized_name]
 
-                    if pid in CAB_NORMALIZED_PARAMS:
+                    if pid in CAB_ENUM_PARAMS:
+                        # Enum params: send integer index via sub=0x09
+                        # Support name-based lookup for DynaCab Type (pid 85-88)
+                        int_value = _resolve_cab_enum_value(pid, value)
+                        midi._send_sub09(block_id, pid, int_value)
+                    elif pid in CAB_NORMALIZED_PARAMS:
                         # These use standard normalized 0-1
                         midi.set_param_value(block_id, pid, float(value), 1.0)
                     else:
