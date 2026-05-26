@@ -219,17 +219,27 @@ MIT
 
 ### Known Issues
 
-#### Cab frequency parameters use raw Hz encoding (different from other blocks)
+#### Cab block uses mixed parameter encoding (fixed)
 
-**Status**: Fixed for Cab. Other blocks unverified.
+**Status**: Fixed. Cab block fully operational via `fm9_set_block_params`.
 
-**Background**: Most parameters use normalized 0.0–1.0 encoding via sub=0x09 (value divided by max). However, Cab block frequency parameters (High Cut, Low Cut) require the **actual Hz value** sent as IEEE 754 float, and use per-mic param_ids (pid 66 for High Cut, pid 62 for Low Cut) rather than the generic param_ids (39, 38).
+**Background**: The Cab block uses three different encoding modes depending on the parameter type, unlike Amp/Drive which use normalized 0.0–1.0 for everything:
 
-**Current behavior**: `fm9_set_block_params` detects Cab frequency parameters and automatically sends raw Hz values to the correct param_ids. Pass the desired frequency in Hz (e.g., `{"High Cut": 6400}`).
+| Category | Parameters | Encoding | Example |
+|----------|-----------|----------|---------|
+| Frequency | High Cut (pid 66), Low Cut (pid 62), per-mic variants | Raw Hz as IEEE 754 float | `{"High Cut": 6400}` |
+| Enum/Index | Mode (31), Mute1-4 (24-27), DynaCab Type (85/86), Mic (89/90) | Raw integer as float | `{"Mode": 1}`, `{"Dynacab Mic1": 2}` |
+| Position | DynaCab R1-4 (93-96), Z1-4 (97-99, 104) | Normalized 0.0–1.0 | `{"Dynacab R1": 0.5}` |
+
+Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in the parameter table, but the Editor uses per-mic param_ids (66, 62). The code overrides these automatically.
+
+**Cab IR selection** requires two steps: set Bank param (0/1) then Type param (4/5). Use `fm9_set_cab_ir(ir_id, bank, slot)`. Banks: 0=Factory 1, 1=Factory 2, 2=User, 3=Legacy.
+
+**DynaCab Mic index mapping**: 0=Condenser, 1=Ribbon, 2=Dynamic 1, 3=Dynamic 2.
 
 **Scope of verification**:
-- ✅ **Cab**: Confirmed via Wireshark capture — raw Hz to pid 66/62
-- ✅ **Amp**: Confirmed working with normalized encoding (value/max_value) via dedicated tool
+- ✅ **Cab**: Fully verified via Wireshark capture (High Cut, Low Cut, IR selection, DynaCab Type/Mic/Mode/Mute/Position)
+- ✅ **Amp**: Confirmed working with normalized encoding via dedicated tool
 - ✅ **Drive**: Confirmed working with normalized encoding via dedicated tool
 - ❓ **Delay, Reverb, Chorus, Flanger, etc.**: Frequency params (max=20000) are **unverified**. They currently use normalized encoding. If issues arise, capture verification is needed.
 

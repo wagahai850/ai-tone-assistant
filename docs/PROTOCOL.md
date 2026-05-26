@@ -215,13 +215,27 @@ Two parameters must be set in sequence:
 
 Cab Mode (param 31): 0=IR mode, 1=DynaCab mode. Must be set to 0 for IR selection to take effect.
 
-DynaCab parameters (when Mode=1):
+DynaCab parameters (when Mode=1) — all use raw float encoding:
+| Param | Description | Values |
+|-------|-------------|--------|
+| 85 | DynaCab Type slot 1 | Cabinet index (raw float) |
+| 86 | DynaCab Type slot 2 | Cabinet index (raw float) |
+| 89 | DynaCab Mic slot 1 | 0=Condenser, 1=Ribbon, 2=Dynamic 1, 3=Dynamic 2 |
+| 90 | DynaCab Mic slot 2 | 0=Condenser, 1=Ribbon, 2=Dynamic 1, 3=Dynamic 2 |
+| 93-96 | DynaCab R1-R4 (position) | **Normalized 0.0–1.0** (exception to raw float rule) |
+| 97-99, 104 | DynaCab Z1-Z4 (distance) | **Normalized 0.0–1.0** (exception to raw float rule) |
+
+Mute parameters (raw float 0=unmuted, 1=muted):
 | Param | Description |
 |-------|-------------|
-| 85 | DynaCab Type slot 1 |
-| 86 | DynaCab Type slot 2 |
-| 89 | DynaCab Mic slot 1 |
-| 90 | DynaCab Mic slot 2 |
+| 24 | Mute slot 1 |
+| 25 | Mute slot 2 |
+| 26 | Mute slot 3 |
+| 27 | Mute slot 4 |
+
+> **Note**: Most Cab parameters use raw float encoding (actual values as IEEE 754 float),
+> unlike Amp/Drive which use normalized 0.0–1.0. The exceptions are DynaCab R/Z (position/distance)
+> which use normalized 0.0–1.0.
 
 ### For Continuous Parameters (Gain, Bass, Mid, etc.)
 
