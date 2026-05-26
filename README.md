@@ -77,8 +77,8 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_add_block` | Add effect block to grid |
 | `fm9_delete_block` | Remove block from grid |
 | `fm9_move_block` | Move block to different position |
-| `fm9_connect_blocks` | Connect blocks with cable (auto-shunt) |
-| `fm9_disconnect_blocks` | Remove cable connection |
+| `fm9_connect_blocks` | Connect blocks with cable (auto-shunt, cross-row supported) |
+| `fm9_disconnect_blocks` | Remove cable connection (same-row or cross-row) |
 | `fm9_read_grid` | Read full grid layout with cable info |
 
 ### Preset Management

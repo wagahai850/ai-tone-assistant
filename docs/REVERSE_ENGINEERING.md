@@ -170,3 +170,20 @@ Shunt 4: sub=0x32 byte[3]=0x03, byte[4]=0x08
 ```
 
 **Fix**: Read the grid before placing shunts, find the maximum existing shunt index, and increment from there.
+
+### Cable Coordinate Encoding — d10 bit 6 (2026-05-26)
+
+**Symptom**: Cross-row cable connections (e.g., R1C1 → R2C2) silently failed. Same-row connections worked fine.
+
+**Root cause**: The cable coordinate encoding in `connect_adjacent` had `d10 = (to_pos >> 2) | ((to_pos & 0x01) << 6)`. This placed `to_pos` bit 0 into d10 bit 6. For same-row connections (row=0), `to_pos` was always even so bit 6 was always 0 — masking the bug.
+
+**Discovery method**: USB capture of FM9 Editor performing a cross-row cable connection (R1C1 → R2C2). The capture showed `d10=0x01` while our code produced `d10=0x41`.
+
+**Correct encoding**:
+```
+d9  = from_pos >> 1           (from_pos upper bits)
+d10 = (to_pos >> 2) | ((from_pos & 0x01) << 6)   (to_pos upper + from_pos bit 0)
+d11 = (to_pos & 0x03) << 5   (to_pos lower 2 bits)
+```
+
+d10 bit 6 carries `from_pos` bit 0, NOT `to_pos` bit 0. This matters when the source block is on an odd row (row 1, 3).
