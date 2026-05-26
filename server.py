@@ -693,6 +693,129 @@ def fm9_list_effect_types(block: str) -> dict[str, Any]:
         return {"success": False, "error": str(e)}
 
 
+# --- Wiki / Reference Lookup Tools ---
+
+TYPE_VALID_PARAMS: dict = load_json("fm9_type_valid_params.json")
+
+
+@mcp.tool()
+def fm9_lookup_model_info(query: str, block_type: str = "amp") -> dict[str, Any]:
+    """Look up amp/drive model info from Fractal Wiki reference data.
+
+    Args:
+        query: Search string (model name, original amp name, or keyword).
+               Case-insensitive partial match.
+        block_type: "amp" or "drive"
+
+    Returns matching models with details (based_on, cab, tubes, controls, notes).
+    """
+    try:
+        # Load wiki data if available
+        wiki_file = f"wiki_{block_type}_models_raw.txt"
+        wiki_path = BASE_DIR / wiki_file
+        if not wiki_path.exists():
+            return {"success": False, "error": f"Wiki data not found: {wiki_file}"}
+
+        with open(wiki_path, 'r') as f:
+            content = f.read()
+
+        # Simple search: find lines containing the query
+        query_lower = query.lower()
+        matches = []
+        for line in content.split('\n'):
+            if query_lower in line.lower():
+                matches.append(line.strip())
+
+        return {
+            "success": True,
+            "query": query,
+            "block_type": block_type,
+            "match_count": len(matches),
+            "matches": matches[:20],
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@mcp.tool()
+def fm9_lookup_block_info(query: str, block_type: str = "") -> dict[str, Any]:
+    """Look up effect block info from Fractal Wiki reference data.
+
+    Args:
+        query: Search string (effect type name, parameter name, or keyword).
+               Case-insensitive partial match within block wiki pages.
+        block_type: Block category to search. If empty, searches all blocks.
+                    Valid: "delay", "reverb", "chorus", "compressor", "flanger",
+                    "phaser", "wah", "pitch", "filter", "cab", "tremolo",
+                    "enhancer", "synth", "formant", "rotary", "ring_mod",
+                    "megatap", "plex_delay", "resonator", "ten_tap", "multitap"
+
+    Returns matching sections from wiki pages.
+    """
+    try:
+        # Use type_valid_params data for block info
+        blocks_data = TYPE_VALID_PARAMS.get("blocks", {})
+        query_lower = query.lower()
+
+        results = []
+
+        if block_type:
+            # Search specific block
+            block_key = None
+            for key in blocks_data:
+                if block_type.lower() in key.lower():
+                    block_key = key
+                    break
+            if block_key and block_key in blocks_data:
+                block_info = blocks_data[block_key]
+                for var_key, var_info in block_info.get("variants", {}).items():
+                    if query_lower in var_info.get("name", "").lower():
+                        results.append({
+                            "block": block_key,
+                            "type_value": var_key,
+                            "name": var_info["name"],
+                            "param_count": len(var_info.get("params", [])),
+                            "params": var_info.get("params", []),
+                        })
+        else:
+            # Search all blocks
+            for block_key, block_info in blocks_data.items():
+                for var_key, var_info in block_info.get("variants", {}).items():
+                    if query_lower in var_info.get("name", "").lower() or \
+                       any(query_lower in p.lower() for p in var_info.get("params", [])):
+                        results.append({
+                            "block": block_key,
+                            "type_value": var_key,
+                            "name": var_info["name"],
+                            "param_count": len(var_info.get("params", [])),
+                            "params": var_info.get("params", [])[:15],
+                        })
+
+        # Also search amp type-specific params
+        amp_data = TYPE_VALID_PARAMS.get("amp", {})
+        if block_type in ("", "amp"):
+            type_specific = amp_data.get("type_specific", {})
+            for tid, params in type_specific.items():
+                if any(query_lower in p.lower() for p in params):
+                    results.append({
+                        "block": "Amp",
+                        "type_id": tid,
+                        "param_count": len(params),
+                        "params": params[:15],
+                    })
+                    if len(results) > 10:
+                        break
+
+        return {
+            "success": True,
+            "query": query,
+            "match_count": len(results),
+            "results": results[:10],
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 @mcp.tool()
 def fm9_set_scene(scene: int) -> dict[str, Any]:
     """Switch FM9 to a specific scene.

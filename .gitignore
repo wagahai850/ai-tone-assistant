@@ -31,6 +31,18 @@ fm9_enum_scan.py
 fm9_scanner.py
 auto_param_scan.py
 status_dump.py
+capture_*.py
+parse_*.py
+generate_param_map.py
+
+# Pipeline tools (run locally, output committed)
+pipeline_*.py
+
+# Extracted resources (intermediate, not needed at runtime)
+fm9_edit_resources/
+fm9_edit_param_tables.json
+fm9_edit_type_variants.json
+fm9_effect_defs_strings.json
 
 # Snapshot data
 block01_*.json
