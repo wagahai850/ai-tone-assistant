@@ -194,12 +194,14 @@ MIT
 
 ### What works
 - **All 40 effect blocks**: parameter read/write with display values (type-aware decoding)
-- **1321 parameters mapped**: all with type/min/max metadata (102 hand-verified, 1219 pattern-inferred)
+- **1380 parameters mapped**: all with type/min/max metadata (102 hand-verified, 1278 pattern-inferred)
 - **Amp 1**: full model selection (331 models) + display-value parameter control (Gain=5.0, etc.)
 - **Drive 1**: full model selection (86 models) + display-value parameter control
-- **Delay/Reverb/Chorus/etc.**: parameter control via `fm9_set_block_params` (verified on Delay)
+- **Delay/Reverb/Chorus/Pitch/etc.**: parameter control via `fm9_set_block_params`
 - **All blocks**: channel control (A/B/C/D), bypass, scene switching
-- **Grid operations**: add, delete, move, connect, disconnect, read
+- **Grid operations**: add (upsert), delete, move, connect (cross-row), disconnect (cross-row), read
+- **Declarative preset construction**: `fm9_apply_graph` builds presets from signal-flow graphs (auto-layout, parallel routing, split/merge)
+- **Graph readback**: `fm9_read_graph` reads any preset as a signal-flow graph (traces through shunts)
 - **Preset management**: store, change, rename, query name by number
 - **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 2000+ cab IRs
 - **Type-specific valid parameters**: know which params are active for each model variant (331 amp types, 16 pitch types, 11 compressor types, etc.)
