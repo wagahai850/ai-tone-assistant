@@ -367,7 +367,23 @@ def register(mcp):
                         midi.set_param_value(block_id, pid, float(value), 1.0,
                                              raw_float=True)
                 else:
-                    midi.set_param_value(block_id, pid, float(value), 1.0)
+                    # Non-Cab blocks: check if frequency param (max >= 20000)
+                    # or enum param — these need raw_float encoding
+                    pinfo_meta = block_info["params"].get(str(pid), {}).get("meta", {})
+                    param_max = pinfo_meta.get("max", 10.0)
+                    param_type = pinfo_meta.get("type", "continuous")
+
+                    if param_type == "enum":
+                        # Enum: send integer as raw float
+                        midi.set_param_value(block_id, pid, float(int(float(value))), 1.0,
+                                             raw_float=True)
+                    elif param_max >= 20000:
+                        # Frequency params: send Hz value as raw float
+                        midi.set_param_value(block_id, pid, float(value), 1.0,
+                                             raw_float=True)
+                    else:
+                        # Standard normalized 0-1
+                        midi.set_param_value(block_id, pid, float(value), 1.0)
 
                 changes[param_name] = value
 
