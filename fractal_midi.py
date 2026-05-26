@@ -306,7 +306,7 @@ class FractalMidi:
         return self._send_sub09(block_id, 0x04, ir_id)
 
     def set_param_value(self, block_id: int, param_id: int, value: float, max_value: float,
-                       channel: int = 0) -> bool:
+                       channel: int = 0, raw_float: bool = False) -> bool:
         """Set a parameter value using sub=0x09 with IEEE 754 float encoding.
 
         Args:
@@ -315,10 +315,15 @@ class FractalMidi:
             value: Display value (e.g., 5.0 for Gain=5)
             max_value: Maximum display value (e.g., 10.0 for Gain range 0-10)
             channel: Target channel (0=A, 1=B, 2=C, 3=D). Encoded as channel * 0x20.
+            raw_float: If True, send value as-is (no normalization/clamping).
+                       Used for frequency params where FM9 expects Hz directly.
         """
         import struct
-        normalized = value / max_value if max_value != 0 else 0.0
-        normalized = max(0.0, min(1.0, normalized))
+        if raw_float:
+            normalized = value
+        else:
+            normalized = value / max_value if max_value != 0 else 0.0
+            normalized = max(0.0, min(1.0, normalized))
         raw32 = struct.unpack('I', struct.pack('f', normalized))[0]
         d = [
             raw32 & 0x7F,

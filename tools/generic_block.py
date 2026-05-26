@@ -193,35 +193,38 @@ def register(mcp):
 
             block_id = int(block_id_str, 16)
 
-            # Guard: Cab frequency parameters are corrupted by normalized writes.
-            # See Known Issues in README. These params use logarithmic scaling that
-            # is incompatible with the IEEE 754 float encoding used by sub=0x09.
+            # Special handling: Cab frequency parameters require raw Hz values
+            # and use per-mic param_ids (not the generic ones).
+            # See: Cab High Cut = pid 66 (HICUT1), Low Cut = pid 62 (LOCUT1)
             CAB_BLOCK_IDS = {0x3E, 0x3F, 0x40, 0x41}  # Cab 1-4
-            CAB_FREQ_PARAMS = {
-                "high cut", "low cut",
-                "hicut1", "hicut2", "hicut3", "hicut4",
-                "locut1", "locut2", "locut3", "locut4",
+            CAB_FREQ_PARAM_MAP = {
+                # normalized_name (no spaces) -> (correct_pid, is_raw_float)
+                "highcut": (66, True),
+                "lowcut": (62, True),
+                "hicut1": (66, True),
+                "hicut2": (67, True),
+                "hicut3": (68, True),
+                "hicut4": (69, True),
+                "locut1": (62, True),
+                "locut2": (63, True),
+                "locut3": (64, True),
+                "locut4": (65, True),
             }
-            if block_id in CAB_BLOCK_IDS:
-                for param_name in params:
-                    if param_name.lower().replace(" ", "").replace("_", "") in {
-                        p.replace(" ", "") for p in CAB_FREQ_PARAMS
-                    }:
-                        return {
-                            "success": False,
-                            "error": (
-                                f"Cannot set '{param_name}' on Cab via SysEx — this corrupts the "
-                                f"parameter and requires a preset reload to recover. "
-                                f"Adjust Cab High Cut / Low Cut manually via FM9-Edit or hardware UI."
-                            ),
-                        }
 
             changes = {}
 
             for param_name, value in params.items():
                 pid, internal_name = resolve_param(block_info, param_name)
-                # Value is normalized 0.0-1.0, send directly
-                midi.set_param_value(block_id, pid, float(value), 1.0)
+
+                # Override for Cab frequency params
+                normalized_name = param_name.lower().replace(" ", "").replace("_", "")
+                if block_id in CAB_BLOCK_IDS and normalized_name in CAB_FREQ_PARAM_MAP:
+                    correct_pid, is_raw = CAB_FREQ_PARAM_MAP[normalized_name]
+                    midi.set_param_value(block_id, correct_pid, float(value), 1.0,
+                                         raw_float=is_raw)
+                else:
+                    midi.set_param_value(block_id, pid, float(value), 1.0)
+
                 changes[param_name] = value
 
             return {
