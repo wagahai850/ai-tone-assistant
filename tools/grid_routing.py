@@ -461,3 +461,137 @@ def register(mcp):
             }
         except Exception as e:
             return {"success": False, "error": str(e)}
+
+    @mcp.tool()
+    def fm9_apply_graph(blocks: dict[str, str], connections: list[list[str]]) -> dict[str, Any]:
+        """Apply a signal-flow graph to the FM9 grid.
+
+        Computes a 2D layout from the graph, clears the grid, places blocks,
+        and connects cables. Block parameters are preserved across the operation.
+
+        Args:
+            blocks: Dict of {node_id: block_type_name}.
+                    Example: {"in": "Input 1", "amp": "Amp 1", "out": "Output 1"}
+            connections: List of [from_node_id, to_node_id] pairs.
+                    Example: [["in", "amp"], ["amp", "out"]]
+
+        Returns success status with the computed layout.
+        """
+        try:
+            ensure_connected()
+
+            # Validate block types
+            all_block_types = {v["block_id_int"]: name for name, v in BLOCKS.items()}
+            all_block_types[0x25] = "Input 1"
+            all_block_types[0x2A] = "Output 1"
+            name_to_id = {name: bid for bid, name in all_block_types.items()}
+            # Also check BLOCK_TYPE_MAP for aliases
+            for alias, bid in BLOCK_TYPE_MAP.items():
+                if alias not in name_to_id:
+                    name_to_id[alias] = bid
+
+            for node_id, block_type in blocks.items():
+                if block_type not in name_to_id:
+                    return {"success": False, "error": f"Unknown block type '{block_type}' for node '{node_id}'."}
+
+            # Validate connections reference valid nodes
+            for conn in connections:
+                if conn[0] not in blocks:
+                    return {"success": False, "error": f"Connection source '{conn[0]}' not in blocks."}
+                if conn[1] not in blocks:
+                    return {"success": False, "error": f"Connection target '{conn[1]}' not in blocks."}
+
+            # Compute layout: topological sort → column assignment
+            # Build adjacency
+            from collections import defaultdict, deque
+            successors = defaultdict(list)
+            predecessors = defaultdict(list)
+            for src, dst in connections:
+                successors[src].append(dst)
+                predecessors[dst].append(src)
+
+            # Find roots (no predecessors)
+            roots = [n for n in blocks if n not in predecessors]
+            if not roots:
+                return {"success": False, "error": "Graph has no root nodes (cycle detected?)."}
+
+            # BFS to assign columns (longest path from any root = column)
+            col_assign = {}
+            queue = deque()
+            for r in roots:
+                col_assign[r] = 0
+                queue.append(r)
+
+            while queue:
+                node = queue.popleft()
+                for succ in successors[node]:
+                    new_col = col_assign[node] + 1
+                    if succ not in col_assign or new_col > col_assign[succ]:
+                        col_assign[succ] = new_col
+                        queue.append(succ)
+
+            # Group nodes by column
+            col_groups = defaultdict(list)
+            for node, col in col_assign.items():
+                col_groups[col].append(node)
+
+            # Assign rows: distribute nodes in same column across rows
+            # Start from row 0, center vertically
+            max_parallel = max(len(g) for g in col_groups.values())
+            start_row = max(0, (5 - max_parallel) // 2)
+
+            layout = {}  # node_id -> (row, col) 0-indexed
+            for col_idx in sorted(col_groups.keys()):
+                nodes = col_groups[col_idx]
+                # Sort for deterministic ordering (keep Input/Output on consistent rows)
+                nodes.sort()
+                for i, node in enumerate(nodes):
+                    row = start_row + i
+                    if row >= 5:
+                        return {"success": False, "error": f"Too many parallel blocks in column {col_idx+1} (max 5 rows)."}
+                    layout[node] = (row, col_idx)
+
+            # Check column limit (14 max)
+            max_col = max(c for _, c in layout.values())
+            if max_col >= 14:
+                return {"success": False, "error": f"Graph requires {max_col+1} columns (max 14)."}
+
+            # Phase 1: Clear all blocks from grid
+            raw_grid = midi.read_grid_raw()
+            for row in range(5):
+                for col in range(14):
+                    cell = raw_grid[row][col]
+                    bid = cell["block_id"]
+                    raw32 = cell["raw_32"]
+                    byte2 = (raw32 >> 16) & 0xFF
+                    if bid != 0 or byte2 == 0x08:
+                        midi.delete_block_at(row, col)
+
+            # Phase 2: Place blocks
+            for node_id, (row, col) in layout.items():
+                block_type = blocks[node_id]
+                bid = name_to_id[block_type]
+                midi.add_block_at(bid, row, col)
+
+            # Phase 3: Connect cables
+            # For each connection, use connect_blocks (handles shunts + cross-row)
+            for src, dst in connections:
+                src_row, src_col = layout[src]
+                dst_row, dst_col = layout[dst]
+                if src_col < dst_col:
+                    midi.connect_blocks(src_row, src_col, dst_row, dst_col)
+                elif src_col == dst_col and src_row != dst_row:
+                    # Same column, different row (unusual but valid)
+                    midi.connect_adjacent(src_row, src_col, dst_row, dst_col)
+
+            # Build output layout (1-indexed for user)
+            layout_out = {nid: [r + 1, c + 1] for nid, (r, c) in layout.items()}
+
+            return {
+                "success": True,
+                "layout": layout_out,
+                "blocks_placed": len(blocks),
+                "connections_made": len(connections),
+            }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
