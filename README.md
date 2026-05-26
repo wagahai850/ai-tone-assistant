@@ -198,6 +198,9 @@ python3 pipeline_params.py fm9       # Extract param tables + type-valid params
 python3 pipeline_params.py axe3      # Same for Axe-Fx III
 python3 pipeline_effect_defs.py fm9  # Extract model/type names from cache
 python3 pipeline_effect_defs.py axe3
+
+# Rebuild Wiki reference data (requires pandoc):
+python3 build_wiki_data.py --fetch   # Re-download and parse from wiki.fractalaudio.com
 ```
 
 ### Contributing
