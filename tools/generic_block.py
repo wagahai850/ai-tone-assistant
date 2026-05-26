@@ -292,7 +292,7 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_set_block_params(block: str, params: dict[str, float]) -> dict[str, Any]:
+    def fm9_set_block_params(block: str, params: dict[str, float | int | str]) -> dict[str, Any]:
         """Set one or more parameters on any effect block.
 
         Args:
@@ -301,6 +301,8 @@ def register(mcp):
                     Values are normalized 0.0-1.0 (will be sent as IEEE 754 float).
                     For known blocks (Amp, Drive), use the dedicated tools instead for
                     proper display-value scaling.
+                    For Cab DynaCab Type: use integer index (0-44) or name (e.g. "4x12 1960TV").
+                    For Cab DynaCab Mic: use integer (0-3) or name (e.g. "Dynamic 1").
 
         Example: fm9_set_block_params(block="Chorus 1", params={"Rate": 0.5, "Depth": 0.7})
         """
