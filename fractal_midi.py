@@ -421,36 +421,58 @@ class FractalMidi:
 
     def get_preset_info(self) -> dict:
         """Get current preset number and name using func=0x0D.
-        Returns {'preset_number': int, 'name': str} or empty dict on failure."""
+
+        Protocol (confirmed 2026-05-26):
+        - Request (no args): F0 00 01 74 12 0D [cs] F7
+          Response: [0x0D] [echo_cs] [preset_lo] [preset_hi] [zeros:32] [cs]
+          Returns current preset number but NOT the name.
+        - Request (with preset number): F0 00 01 74 12 0D [lo] [hi] [cs] F7
+          Response: [0x0D] [preset_lo] [preset_hi] [name:32 ASCII] [0x00] [cs]
+          Returns the specified preset's name.
+
+        This method does a 2-step query: get number, then get name.
+        Returns {'preset_number': int, 'name': str} or empty dict on failure.
+        """
         with self._midi_lock:
             self._flush_input()
-            # func=0x0D: GET PRESET NAME (no payload needed for current preset)
+
+            # Step 1: Get current preset number (no argument)
             cs = self._checksum(0x0D)
             self._send_sysex([0x0D, cs])
-            time.sleep(0.5)
+            time.sleep(0.3)
 
             messages = self._receive_sysex(timeout=1.0)
+            preset_number = None
             for msg in messages:
-                if len(msg.data) >= 7 and msg.data[4] == 0x0D:
-                    # Response: func=0x0D, preset_lo, preset_hi, name_bytes...
-                    data = list(msg.data[5:-1])  # strip header and checksum
-                    if len(data) >= 2:
-                        preset_number = data[0] | (data[1] << 7)
-                        # Decode name from 7-bit packed bytes
-                        name_data = data[2:]
-                        if name_data:
-                            bits = ''.join(f'{b:07b}' for b in name_data)
-                            name = ''
-                            for i in range(0, len(bits) - 7, 8):
-                                ch = int(bits[i:i+8], 2)
-                                if ch == 0:
-                                    break
-                                name += chr(ch)
-                            name = name.rstrip()
-                        else:
-                            name = ""
-                        return {"preset_number": preset_number, "name": name}
-            return {}
+                if len(msg.data) >= 9 and msg.data[4] == 0x0D:
+                    # Response: [mfr:3][model:1][func:1][echo_cs:1][lo:1][hi:1][...][cs:1]
+                    # Indices in mido data (no F0/F7): [0-2]=mfr, [3]=model, [4]=func
+                    # [5]=echo_cs, [6]=preset_lo, [7]=preset_hi
+                    preset_number = msg.data[6] | (msg.data[7] << 7)
+                    break
+
+            if preset_number is None:
+                return {}
+
+            # Step 2: Get preset name by querying with the preset number
+            self._flush_input()
+            lo = preset_number & 0x7F
+            hi = (preset_number >> 7) & 0x7F
+            cs = self._checksum(0x0D, lo, hi)
+            self._send_sysex([0x0D, lo, hi, cs])
+            time.sleep(0.3)
+
+            messages = self._receive_sysex(timeout=1.0)
+            name = ""
+            for msg in messages:
+                if len(msg.data) >= 9 and msg.data[4] == 0x0D:
+                    # Response: [mfr:3][model:1][func:1][lo:1][hi:1][name:32][0x00][cs:1]
+                    # Name starts at index 7, 32 bytes of plain ASCII
+                    name_bytes = list(msg.data[7:-1])  # exclude checksum
+                    name = ''.join(chr(b) for b in name_bytes if 32 <= b < 127).rstrip()
+                    break
+
+            return {"preset_number": preset_number, "name": name}
 
     def add_block(self, block_id: int) -> bool:
         """Add a block to the current preset layout.

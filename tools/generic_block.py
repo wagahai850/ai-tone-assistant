@@ -3,7 +3,7 @@
 from typing import Any
 
 from tools import (
-    ALL_PARAMS, EFFECT_DEFS,
+    ALL_PARAMS, EFFECT_DEFS, TYPE_VALID_PARAMS,
     midi, ensure_connected, resolve_block, resolve_param,
 )
 
@@ -129,12 +129,37 @@ def register(mcp):
                 hi = chunks[0][offset + 1]
                 msb = chunks[0][offset + 2]
                 raw_val = lo | (hi << 7) | (msb << 14)
-                normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
-                params[pinfo["display_name"]] = {
+
+                meta = pinfo.get("meta", {})
+                param_type = meta.get("type", "continuous")
+                param_max = meta.get("max", 10.0)
+                param_min = meta.get("min", 0)
+
+                # Calculate display value based on type
+                if param_type == "switch":
+                    display_value = bool(lo)
+                elif param_type == "enum":
+                    display_value = raw_val
+                elif param_type == "bipolar":
+                    # Bipolar: raw 0 = -max, 32767 = 0 (center), 65534 = +max
+                    # Uses same formula as decode_bipolar: raw/65534 * (2*max) - max
+                    display_value = round(raw_val / 65534.0 * (2 * param_max) - param_max, 2)
+                else:
+                    # Continuous: raw 0 = 0, 65534 = max
+                    normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
+                    display_value = round(normalized * param_max, 2)
+
+                entry = {
+                    "value": display_value,
                     "raw": raw_val,
-                    "normalized": round(normalized, 4),
                     "param_id": pid,
+                    "type": param_type,
                 }
+                if param_type not in ("switch", "enum"):
+                    entry["min"] = param_min
+                    entry["max"] = param_max
+
+                params[pinfo["display_name"]] = entry
 
             return {
                 "success": True,
@@ -171,6 +196,7 @@ def register(mcp):
 
             for param_name, value in params.items():
                 pid, internal_name = resolve_param(block_info, param_name)
+                # Value is normalized 0.0-1.0, send directly
                 midi.set_param_value(block_id, pid, float(value), 1.0)
                 changes[param_name] = value
 
@@ -196,11 +222,18 @@ def register(mcp):
             prefix, block_info = resolve_block(block)
             params_list = []
             for pid_str, pinfo in sorted(block_info["params"].items(), key=lambda x: int(x[0])):
-                params_list.append({
+                entry = {
                     "param_id": int(pid_str),
                     "display_name": pinfo["display_name"],
                     "internal_name": pinfo["name"],
-                })
+                }
+                meta = pinfo.get("meta")
+                if meta:
+                    entry["type"] = meta.get("type", "unknown")
+                    entry["min"] = meta.get("min", 0)
+                    entry["max"] = meta.get("max", 10.0)
+                    entry["verified"] = meta.get("verified", False)
+                params_list.append(entry)
 
             return {
                 "success": True,
