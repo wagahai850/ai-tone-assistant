@@ -54,7 +54,7 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_set_scene` | Switch scene (1-8) |
 | `fm9_set_bypass` | Bypass/engage any effect block |
 | `fm9_set_channel` | Switch block channel (A/B/C/D) |
-| `fm9_set_cab_ir` | Select cabinet IR |
+| `fm9_set_cab_ir` | Select cabinet IR (bank + index, supports Factory/Legacy/User) |
 
 ### Generic Block Control (all 40 blocks)
 | Tool | Description |

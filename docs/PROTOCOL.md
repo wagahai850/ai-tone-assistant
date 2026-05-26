@@ -193,16 +193,35 @@ On FM9, this byte follows the same encoding (verified: Channel B = 0x20 works on
 
 > **Important**: Parameter IDs (param field) differ between Axe-Fx III and FM9, even for the same block type and model variant. Each device requires its own parameter scan. The channel encoding and message structure are identical across devices.
 
-### For Enum Parameters (Amp Type, Drive Type, Cab IR)
+### For Enum Parameters (Amp Type, Drive Type)
 
 | block_id | param | Purpose |
 |----------|-------|---------|
 | 0x3A (Amp) | 0x0A | Amp model type |
 | 0x76 (Drive) | 0x0A | Drive model type |
-| 0x3E (Cab) | 0x04 | Cabinet IR selection |
 
-Type/IR ID is 21-bit packed into d[2:5]: `d[2] | (d[3] << 7) | (d[4] << 14)`
+Type ID is 21-bit packed into d[2:5]: `d[2] | (d[3] << 7) | (d[4] << 14)`
 (d[0] and d[1] are zero for enum parameters)
+
+### For Cab IR Selection
+
+Cab IR selection uses **raw float encoding** (same as continuous params), NOT the enum format above.
+Two parameters must be set in sequence:
+
+| Step | Param | Value (raw float) | Description |
+|------|-------|-------------------|-------------|
+| 1 | 0 (slot 1) or 1 (slot 2) | Bank number | 0=Factory 1, 1=Factory 2, 2=User, 3=Legacy |
+| 2 | 4 (slot 1) or 5 (slot 2) | IR index | 0-based index within the selected bank |
+
+Cab Mode (param 31): 0=IR mode, 1=DynaCab mode. Must be set to 0 for IR selection to take effect.
+
+DynaCab parameters (when Mode=1):
+| Param | Description |
+|-------|-------------|
+| 85 | DynaCab Type slot 1 |
+| 86 | DynaCab Type slot 2 |
+| 89 | DynaCab Mic slot 1 |
+| 90 | DynaCab Mic slot 2 |
 
 ### For Continuous Parameters (Gain, Bass, Mid, etc.)
 
