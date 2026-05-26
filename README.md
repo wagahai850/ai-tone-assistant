@@ -59,10 +59,11 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 ### Generic Block Control (all 40 blocks)
 | Tool | Description |
 |------|-------------|
-| `fm9_get_block_params` | Read parameters for any block (normalized 0-1) |
+| `fm9_get_block_params` | Read parameters for any block (display values with type info) |
 | `fm9_set_block_params` | Set parameters on any block (normalized 0-1) |
-| `fm9_list_block_params` | List all parameter names/IDs for a block |
+| `fm9_list_block_params` | List parameter names/IDs/type/min/max for a block |
 | `fm9_list_effect_types` | List available types/models for a block category |
+| `fm9_set_effect_type` | Change effect type/model for any block |
 
 ### Reference / Lookup
 | Tool | Description |
@@ -133,7 +134,7 @@ ai-tone-assistant/
 ├── data/fm9/          ← Runtime data (JSON, committed)
 │   ├── amp_types.json, drive_types.json
 │   ├── amp_params.json, drive_params.json
-│   ├── blocks.json, all_params.json
+│   ├── blocks.json, all_params.json (with meta: type/min/max)
 │   ├── effect_definitions.json
 │   ├── wiki_models.json, wiki_blocks.json
 │   └── type_valid_params.json
@@ -189,20 +190,21 @@ MIT
 **Working Proof of Concept** — all blocks controllable, core workflow functional.
 
 ### What works
-- **All 40 effect blocks**: parameter read/write via generic tools (normalized 0-1 values)
+- **All 40 effect blocks**: parameter read/write with display values (type-aware decoding)
+- **1321 parameters mapped**: all with type/min/max metadata (102 hand-verified, 1219 pattern-inferred)
 - **Amp 1**: full model selection (331 models) + display-value parameter control (Gain=5.0, etc.)
 - **Drive 1**: full model selection (86 models) + display-value parameter control
 - **Delay/Reverb/Chorus/etc.**: parameter control via `fm9_set_block_params` (verified on Delay)
 - **All blocks**: channel control (A/B/C/D), bypass, scene switching
 - **Grid operations**: add, delete, move, connect, disconnect, read
-- **Preset management**: store, change, rename
+- **Preset management**: store, change, rename, query name by number
 - **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 2000+ cab IRs
 - **Type-specific valid parameters**: know which params are active for each model variant (331 amp types, 16 pitch types, 11 compressor types, etc.)
 - **Axe-Fx III support**: same protocol, parameter data extracted via automated pipeline
 
 ### Known Limitations
 - **Generic block tools use normalized 0-1 values** — The `fm9_set_block_params` tool sends values as 0.0-1.0 (normalized). Only Amp and Drive have dedicated tools with display-value scaling (e.g., "Gain=5.0" maps to 0-10 range). Other blocks require the caller to normalize manually.
-- **Parameter min/max not yet available for most blocks** — Amp and Drive have confirmed ranges (Gain: 0-10, Level: -80 to +20 dB, etc.). Other blocks lack min/max metadata, so the generic tools can't auto-scale display values.
+- **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
 - **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
 - **No Delay/Reverb time sync or tap tempo**
@@ -211,13 +213,11 @@ MIT
 - **Error recovery is minimal** — MIDI port errors require server restart
 
 ### Roadmap
-1. Fix preset number query (func=0x0D response format needs investigation)
-2. Add display-value scaling for remaining blocks (requires min/max data)
-3. Expose type-specific valid params in tool responses (filter out inactive params)
-4. Update Session Guide and RE Methods docs to reflect v0.2 structure
-5. Modifier/controller assignment support
-6. Scene-level parameter management
-7. Direct firmware query for effect definitions (eliminate Editor cache dependency)
+1. Hand-verify min/max for remaining blocks (promote inferred → verified)
+2. Modifier/controller assignment support
+3. Scene-level parameter management
+4. Direct firmware query for effect definitions (eliminate Editor cache dependency)
+5. Demo video re-record
 
 ### Data Pipeline
 

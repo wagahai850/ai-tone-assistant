@@ -1,13 +1,28 @@
 # Reverse Engineering Guide
 
-How to map new block parameters and extend the FM9 Tone Assistant.
+How parameter maps and model databases were built for the FM9 Tone Assistant.
 
-## Prerequisites
+## Methodology Overview
 
-- FM9 connected via USB
-- FM9 Editor running (Mac recommended for AppleScript automation)
-- Python 3 with `mido` + `python-rtmidi`
-- For protocol capture: Windows + Wireshark + USBPcap
+All protocol knowledge was obtained through **observing USB MIDI traffic** between the FM9 and its official Editor application, combined with **reading the Editor's local cache files** (JSON/XML stored on disk by the Editor for its own use).
+
+No firmware was modified. No copy protection was circumvented.
+
+### Techniques Used
+
+| Method | What it reveals | Tools |
+|--------|----------------|-------|
+| USB MIDI traffic capture | SysEx message format, command structure | Wireshark + USBPcap (Windows) |
+| MIDI port sniffing | Device broadcast messages, response formats | Python + mido |
+| Editor cache parsing | Parameter names, model names, type definitions | Python (JSON/XML parsing) |
+| Differential analysis | Parameter offsets (change value → observe byte diff) | Python scripts |
+| AppleScript UI reading | Parameter display names, slider values | macOS Accessibility API |
+
+### What was NOT done
+
+- No firmware dumping or modification
+- No DRM/copy-protection circumvention
+- No distribution of proprietary data (model names are publicly documented on the Fractal Wiki)
 
 ## Core Concepts
 
@@ -40,161 +55,98 @@ def decode(lo, hi, msb, display_max):
 
 To change any block parameter:
 
-1. **GET**: Send `func 0x1F` with block_id → FM9 responds with `func 0x74` (block select) + `func 0x75` × N (data chunks) + `func 0x76` (commit)
-2. **MODIFY**: Change bytes in the data chunks at the correct offset
-3. **PUT**: Send back the `func 0x74` header (from GET response) + modified `func 0x75` chunks + `func 0x76`
+1. **GET**: Send `func 0x1F` with block_id → FM9 responds with block data chunks
+2. **MODIFY**: Change bytes at the correct offset
+3. **PUT**: Send back the modified chunks with proper headers
 
-```python
-# GET
-outport.send(sysex([0x1F, block_id, 0x00, checksum]))
-# Response: func 0x74 + func 0x75 × N + func 0x76
+## How Parameters Were Mapped
 
-# MODIFY chunk[0] at offset
-chunks[0][offset:offset+3] = encode(value, max)
+### Method 1: Differential Analysis (Primary)
 
-# Recalculate checksum
-chunks[0][-1] = recalc_checksum(chunks[0])
+1. Set a parameter to a known unique value in the Editor
+2. GET the block data via MIDI
+3. Search for the encoded value in the response
+4. Record the offset → parameter name mapping
 
-# PUT
-outport.send(block_select_from_get)  # func 0x74
-for chunk in chunks:
-    outport.send(chunk)              # func 0x75
-outport.send(commit)                 # func 0x76
-```
+This was automated with AppleScript (to read Editor UI) + Python (to send/receive MIDI).
 
-## How to Map a New Block's Parameters
+### Method 2: Editor Cache Parsing
 
-### Method 1: AppleScript Scanner (Mac, Automated)
+The FM9 Editor stores parameter definitions locally as part of its normal operation. These files contain:
+- Parameter names and their internal identifiers
+- Effect type/model name lists
+- Type-specific parameter visibility rules
 
-The fastest method. Requires FM9 Editor on Mac.
+Parsing these files provided the complete parameter name database (1321 parameters across 40 blocks) without needing to scan each one individually on hardware.
 
-1. Open FM9 Editor, select the block you want to map
-2. Run `full_tab_scan.py` with the block_id:
-   ```bash
-   python full_tab_scan.py --block 0x46  # Delay 1
-   ```
-3. The scanner will:
-   - Write a unique value to each param index (0-255)
-   - Read all Editor tabs via AppleScript to find which slider changed
-   - Output a JSON map of `{param_name: {idx, offset, max, type}}`
+### Method 3: USB Traffic Observation
 
-**Time:** ~30 minutes per block (256 params × 4+ tabs)
-
-### Method 2: Manual Diff (Any Platform)
-
-1. In FM9 Editor, set a parameter to a unique value (e.g., Bass = 7.77)
-2. GET the block data:
-   ```python
-   chunks = midi.get_block_data(block_id)
-   ```
-3. Search for the encoded value:
-   ```python
-   target = encode(7.77, 10.0)  # [0x61, 0x65, 0x02]
-   for i in range(0, len(chunks[0])-2, 3):
-       if chunks[0][i:i+3] == target:
-           print(f"Found at offset {i}, param_idx = {(i-7)//3}")
-   ```
-4. Record the mapping in the block's JSON file
-
-### Method 3: Wireshark Capture (Windows, requires admin privileges)
-
-For discovering new commands or understanding Editor behavior.
-USBPcap needs administrator access to capture USB traffic.
-
-1. Connect FM9 to Windows via USB
-2. Start USBPcap capture (admin required):
-   ```powershell
-   & "C:\Program Files\USBPcap\USBPcapCMD.exe" -d '\\.\USBPcap1' -A -o "capture.pcapng"
-   ```
-3. Perform the operation in FM9 Editor
-4. Stop capture (Ctrl+C)
-5. Analyze with `parse_capture.py`:
-   ```bash
-   python parse_capture.py capture.pcapng --compact
-   ```
+For discovering command formats (grid operations, preset management, etc.), USB traffic between the Editor and FM9 was captured and analyzed to understand the message structure.
 
 ## Block ID Discovery
 
-### Finding a Block's Effect ID
-
-Use STATUS DUMP (`func 0x13`):
+Use STATUS DUMP (`func 0x13`) to see which blocks are present:
 ```python
 status = midi.get_status_dump()
 # Returns: {effect_id: {bypass, channel}, ...}
 ```
 
-Toggle bypass on the target block in Editor, then compare STATUS DUMP before/after.
-
-### Block IDs > 0x7F
-
-Some blocks (Gate=0x92, Rotary=0x82) have IDs exceeding 7-bit MIDI range. These are stored in the grid as `id & 0x7F` and must be cross-referenced with STATUS DUMP for full resolution.
-
-## Grid Layout (sub=0x2E)
-
-### Query
-
-```python
-# Send sub=0x2E query (23 bytes)
-query = [0x00, 0x01, 0x74, 0x12, 0x01, 0x2E, 0x00, 0x00, 0x00, 0x00, 0x00,
-         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38]
-# Response: 753 bytes
-```
-
-### Decoding
-
-The grid region starts at byte offset 361 (11 header + 350 pre-grid data).
-
-Each cell = 32 bits in a continuous 7-bit bitstream:
-```
-cell_start_bit = 46 + col * 192 + row * 32
-```
-
-Cell structure (32 bits):
-```
-bits 0-7:   block_id << 1 (7-bit block_id + LSB flag)
-bits 8-15:  0x08 if shunt, 0x00 if real block
-bits 16-23: cable input bitmask (bit N+1 = input from row N)
-bits 24-31: reserved (0x00)
-```
+Toggle bypass on a block in Editor, compare before/after to identify its ID.
 
 ## Enum Scanning (Amp/Drive Models)
 
-### AppleScript + MIDI Method
+Model names were obtained by:
+1. Writing each model ID to the block's Type parameter via MIDI
+2. Reading the resulting model name from the Editor UI via AppleScript
+3. Cross-referencing with the publicly available Fractal Wiki
 
-1. Write a model ID to the block's Type parameter
-2. Read the model name from Editor via AppleScript
-3. Repeat for all valid IDs
+## Data Pipeline
 
-See `fm9_amp_enum_scan.py` and `fm9_enum_scan.py` for working implementations.
-
-### Amp Type Command
-
+```bash
+# After firmware update, regenerate data:
+python3 pipeline/pipeline_params.py fm9       # Extract param tables
+python3 pipeline/pipeline_effect_defs.py fm9  # Extract model/type names
+python3 pipeline/enrich_params.py             # Add min/max metadata
+python3 pipeline/build_wiki_data.py --fetch   # Update Wiki reference
 ```
-sub=0x09, block_id, param=0x0A, value=type_id (21-bit)
-```
-
-### Drive Type
-
-Written directly to param[0] of the Drive block via GET→MODIFY→PUT.
 
 ## File Structure
 
 ```
-fm9_tone_assistant/
-├── server.py              # MCP server (FastMCP, stdio transport)
-├── fm9_midi.py            # MIDI communication layer (singleton)
-├── fm9_amp_types.json     # 331 amp models {id: name}
-├── fm9_drive_types.json   # 86 drive models {id: name}
-├── fm9_amp_params.json    # Amp parameter map
-├── fm9_drive_params.json  # Drive parameter map
-├── fm9_blocks.json        # All known blocks + their params
-└── run.py                 # Cross-platform launcher
+ai-tone-assistant/
+├── server.py              # MCP server entry point (FastMCP, stdio)
+├── fractal_midi.py        # MIDI communication layer (device-agnostic singleton)
+├── tools/                 # MCP tool definitions (by category)
+│   ├── __init__.py        # Shared state, data loading, encoding helpers
+│   ├── amp_drive.py       # Amp/Drive (display-value scaling)
+│   ├── generic_block.py   # Any block (normalized 0-1, meta-aware)
+│   ├── grid_routing.py    # Grid layout operations
+│   ├── preset.py          # Scene/bypass/channel/store/name
+│   ├── lookup.py          # Wiki reference search
+│   └── lab.py             # RE/debug (raw sysex, snapshot, diff)
+├── data/fm9/              # Runtime data (JSON, committed)
+│   ├── all_params.json    # 1321 params with meta (type/min/max/verified)
+│   ├── amp_params.json    # Amp 1: 74 hand-verified params
+│   ├── drive_params.json  # Drive 1: 28 hand-verified params
+│   ├── amp_types.json     # 331 amp models {id: name}
+│   ├── drive_types.json   # 86 drive models {id: name}
+│   ├── blocks.json        # 137 block IDs
+│   ├── effect_definitions.json  # All model/type names
+│   ├── type_valid_params.json   # Type-specific valid params
+│   ├── wiki_models.json   # Wiki amp/drive model info
+│   └── wiki_blocks.json   # Wiki effect block info
+├── pipeline/              # RE/extraction scripts (.gitignore'd)
+├── docs/
+│   ├── PROTOCOL.md        # SysEx protocol reference
+│   └── REVERSE_ENGINEERING.md  # This file
+└── README.md
 ```
 
 ## Tips
 
-- **Changes are volatile until STORE**: Parameter edits and block operations take effect immediately on the DSP, but are lost on preset change unless you call `fm9_store_preset`. This is actually a safety feature — you can experiment freely without risk.
-- **GET returns active channel only**: The FM9 has 4 channels (A/B/C/D) per block. GET only returns the currently active channel's data. Switch channels before reading if needed.
-- **Block SELECT (func 0x74) varies per block**: The header bytes differ between Amp (5 bytes), Drive (4 bytes), Delay (4 bytes), etc. Always reuse the one from the GET response.
-- **Moving blocks disconnects cables**: This is FM9 behavior, not a bug. Reconnect after move.
-- **FM9 Editor can coexist**: Both the MCP server and Editor can control FM9 simultaneously via USB MIDI. No exclusive lock.
+- **Changes are volatile until STORE**: Parameter edits take effect immediately on the DSP but are lost on preset change unless you call `fm9_store_preset`.
+- **GET returns active channel only**: FM9 has 4 channels (A/B/C/D) per block. GET returns the currently active channel's data.
+- **Block SELECT header varies per block**: Always reuse the one from the GET response.
+- **Moving blocks disconnects cables**: FM9 behavior, not a bug. Reconnect after move.
+- **FM9 Editor can coexist**: Both the MCP server and Editor can control FM9 simultaneously via USB MIDI.
+- **Block IDs > 0x7F**: Use 2-byte encoding `[id & 0x7F, (id >> 7) & 0x7F]` in SysEx messages.

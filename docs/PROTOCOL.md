@@ -37,6 +37,7 @@ checksum = (checksum ^ 0x05) & 0x7F
 | 0x08 | FIRMWARE_INFO | (none) | Query firmware version |
 | 0x0A | SET_BYPASS | id_lo, id_hi, dd | Set block bypass state |
 | 0x0C | SET_SCENE | scene | Switch scene (0-7) |
+| 0x0D | GET_PRESET_NAME | [lo, hi] (optional) | Get preset name (see below) |
 | 0x13 | STATUS_DUMP | (none) | Query all block states |
 | 0x1F | GET_BLOCK | block_id, 0x00 | Request block data |
 | 0x47 | DEVICE_INFO | (none) | Query device configuration |
@@ -96,6 +97,44 @@ F0 00 01 74 [model] 0C [scene] [cs] F7
 ```
 
 - scene: 0x00=Scene 1, 0x01=Scene 2, ..., 0x07=Scene 8
+
+## GET_PRESET_NAME (func=0x0D)
+
+Two modes of operation:
+
+### Query Current Preset Number (no argument)
+
+```
+Request:  F0 00 01 74 [model] 0D [cs] F7
+Response: F0 00 01 74 [model] 0D [echo_cs] [preset_lo] [preset_hi] [zeros × 32] [cs] F7
+```
+
+Returns the current preset number. Name field is all zeros (not populated).
+`echo_cs` = the checksum byte from the request (echoed back).
+
+### Query Preset Name by Number (with argument)
+
+```
+Request:  F0 00 01 74 [model] 0D [preset_lo] [preset_hi] [cs] F7
+Response: F0 00 01 74 [model] 0D [preset_lo] [preset_hi] [name × 32] [0x00] [cs] F7
+```
+
+Returns the specified preset's number and name.
+Name is **plain ASCII** (not 7-bit packed), 32 bytes, space-padded.
+
+### Typical Usage (2-step query)
+
+```python
+# Step 1: Get current preset number
+send([0x0D, checksum])
+# Response byte[6] = preset_lo, byte[7] = preset_hi
+preset_number = response[6] | (response[7] << 7)
+
+# Step 2: Get name for that preset
+send([0x0D, preset_lo, preset_hi, checksum])
+# Response byte[7:39] = name (32 bytes ASCII)
+name = ''.join(chr(b) for b in response[7:39] if 32 <= b < 127).rstrip()
+```
 
 ## STATUS_DUMP (func=0x13)
 
