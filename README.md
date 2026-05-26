@@ -208,7 +208,6 @@ MIT
 - **Axe-Fx III support**: same protocol, parameter data extracted via automated pipeline
 
 ### Known Limitations
-- **`fm9_get_status` reports incorrect preset number** — `func=0x0D` returns a stale/incorrect preset number. `change_preset` works correctly (FM9 switches presets) but the query response is unreliable. Under investigation.
 - **Generic block tools use normalized 0-1 values** — The `fm9_set_block_params` tool sends values as 0.0-1.0 (normalized). Only Amp and Drive have dedicated tools with display-value scaling (e.g., "Gain=5.0" maps to 0-10 range). Other blocks require the caller to normalize manually.
 - **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
