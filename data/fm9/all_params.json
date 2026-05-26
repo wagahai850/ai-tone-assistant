@@ -14781,5 +14781,602 @@
         }
       }
     }
+  },
+  "PITCH": {
+    "block_name": "Pitch 1",
+    "block_id": "0x6E",
+    "param_count": 59,
+    "params": {
+      "0": {
+        "name": "PITCH_TYPE",
+        "display_name": "Type",
+        "meta": {
+          "type": "enum",
+          "min": 0,
+          "max": 127,
+          "verified": false
+        }
+      },
+      "1": {
+        "name": "PITCH_PITCHMODE",
+        "display_name": "Pitchmode",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "2": {
+        "name": "PITCH_CTRL",
+        "display_name": "Ctrl",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "3": {
+        "name": "PITCH_UCTRL",
+        "display_name": "Uctrl",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "4": {
+        "name": "PITCH_HARM1",
+        "display_name": "Harm1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "5": {
+        "name": "PITCH_HARM2",
+        "display_name": "Harm2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "6": {
+        "name": "PITCH_HARM3",
+        "display_name": "Harm3",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "7": {
+        "name": "PITCH_HARM4",
+        "display_name": "Harm4",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "8": {
+        "name": "PITCH_KEY",
+        "display_name": "Key",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "9": {
+        "name": "PITCH_SCALE",
+        "display_name": "Scale",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "10": {
+        "name": "PITCH_QUANTIZE",
+        "display_name": "Quantize",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "11": {
+        "name": "PITCH_DETUNE1",
+        "display_name": "Detune1",
+        "meta": {
+          "type": "bipolar",
+          "min": -50,
+          "max": 50.0,
+          "verified": true
+        }
+      },
+      "12": {
+        "name": "PITCH_DETUNE2",
+        "display_name": "Detune2",
+        "meta": {
+          "type": "bipolar",
+          "min": -50,
+          "max": 50.0,
+          "verified": true
+        }
+      },
+      "13": {
+        "name": "PITCH_DETUNE3",
+        "display_name": "Detune3",
+        "meta": {
+          "type": "bipolar",
+          "min": -50,
+          "max": 50.0,
+          "verified": true
+        }
+      },
+      "14": {
+        "name": "PITCH_DETUNE4",
+        "display_name": "Detune4",
+        "meta": {
+          "type": "bipolar",
+          "min": -50,
+          "max": 50.0,
+          "verified": true
+        }
+      },
+      "15": {
+        "name": "PITCH_SHIFT1",
+        "display_name": "Shift1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "16": {
+        "name": "PITCH_SHIFT2",
+        "display_name": "Shift2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "17": {
+        "name": "PITCH_SHIFT3",
+        "display_name": "Shift3",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "18": {
+        "name": "PITCH_SHIFT4",
+        "display_name": "Shift4",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "19": {
+        "name": "PITCH_LEVEL1",
+        "display_name": "Level1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "20": {
+        "name": "PITCH_LEVEL2",
+        "display_name": "Level2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "21": {
+        "name": "PITCH_LEVEL3",
+        "display_name": "Level3",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "22": {
+        "name": "PITCH_LEVEL4",
+        "display_name": "Level4",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "23": {
+        "name": "PITCH_PAN1",
+        "display_name": "Pan1",
+        "meta": {
+          "type": "bipolar",
+          "min": -100,
+          "max": 200.0,
+          "verified": false
+        }
+      },
+      "24": {
+        "name": "PITCH_PAN2",
+        "display_name": "Pan2",
+        "meta": {
+          "type": "bipolar",
+          "min": -100,
+          "max": 200.0,
+          "verified": false
+        }
+      },
+      "25": {
+        "name": "PITCH_PAN3",
+        "display_name": "Pan3",
+        "meta": {
+          "type": "bipolar",
+          "min": -100,
+          "max": 200.0,
+          "verified": false
+        }
+      },
+      "26": {
+        "name": "PITCH_PAN4",
+        "display_name": "Pan4",
+        "meta": {
+          "type": "bipolar",
+          "min": -100,
+          "max": 200.0,
+          "verified": false
+        }
+      },
+      "27": {
+        "name": "PITCH_DELAY1",
+        "display_name": "Delay1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "28": {
+        "name": "PITCH_DELAY2",
+        "display_name": "Delay2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "29": {
+        "name": "PITCH_DELAY3",
+        "display_name": "Delay3",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "30": {
+        "name": "PITCH_DELAY4",
+        "display_name": "Delay4",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "31": {
+        "name": "PITCH_FEEDBACK1",
+        "display_name": "Feedback1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "32": {
+        "name": "PITCH_FEEDBACK2",
+        "display_name": "Feedback2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "33": {
+        "name": "PITCH_FEEDBACK3",
+        "display_name": "Feedback3",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "34": {
+        "name": "PITCH_FEEDBACK4",
+        "display_name": "Feedback4",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "35": {
+        "name": "PITCH_TRACKMODE",
+        "display_name": "Trackmode",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "36": {
+        "name": "PITCH_TRACKING",
+        "display_name": "Tracking",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "37": {
+        "name": "PITCH_FORMCORRECT",
+        "display_name": "Formcorrect",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "38": {
+        "name": "PITCH_MIX",
+        "display_name": "Mix",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 100.0,
+          "verified": true
+        }
+      },
+      "39": {
+        "name": "PITCH_LEVEL",
+        "display_name": "Level",
+        "meta": {
+          "type": "bipolar",
+          "min": -80,
+          "max": 100.0,
+          "verified": false
+        }
+      },
+      "40": {
+        "name": "PITCH_PAN",
+        "display_name": "Pan",
+        "meta": {
+          "type": "bipolar",
+          "min": -100,
+          "max": 200.0,
+          "verified": false
+        }
+      },
+      "41": {
+        "name": "PITCH_BYPASSMODE",
+        "display_name": "Bypassmode",
+        "meta": {
+          "type": "enum",
+          "min": 0,
+          "max": 4,
+          "verified": false
+        }
+      },
+      "42": {
+        "name": "PITCH_GLOBALMIX",
+        "display_name": "Globalmix",
+        "meta": {
+          "type": "switch",
+          "min": 0,
+          "max": 1,
+          "verified": false
+        }
+      },
+      "43": {
+        "name": "PITCH_GAIN",
+        "display_name": "Gain",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "44": {
+        "name": "PITCH_BYPASS",
+        "display_name": "Bypass",
+        "meta": {
+          "type": "switch",
+          "min": 0,
+          "max": 1,
+          "verified": false
+        }
+      },
+      "45": {
+        "name": "PITCH_XFADE",
+        "display_name": "Xfade",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "46": {
+        "name": "PITCH_XFADETYPE",
+        "display_name": "Xfadetype",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "47": {
+        "name": "PITCH_SPLICE1",
+        "display_name": "Splice1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "48": {
+        "name": "PITCH_SPLICE2",
+        "display_name": "Splice2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "49": {
+        "name": "PITCH_DTEMPO1",
+        "display_name": "Dtempo1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "50": {
+        "name": "PITCH_DTEMPO2",
+        "display_name": "Dtempo2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "51": {
+        "name": "PITCH_DTEMPO3",
+        "display_name": "Dtempo3",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "52": {
+        "name": "PITCH_DTEMPO4",
+        "display_name": "Dtempo4",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "53": {
+        "name": "PITCH_STEMPO1",
+        "display_name": "Stempo1",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "54": {
+        "name": "PITCH_STEMPO2",
+        "display_name": "Stempo2",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "55": {
+        "name": "PITCH_FBTYPE",
+        "display_name": "Fbtype",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "56": {
+        "name": "PITCH_DIRECTION",
+        "display_name": "Direction",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      },
+      "57": {
+        "name": "PITCH_LPFREQ",
+        "display_name": "Lpfreq",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 20000.0,
+          "verified": false
+        }
+      },
+      "58": {
+        "name": "PITCH_GLIDE",
+        "display_name": "Glide",
+        "meta": {
+          "type": "continuous",
+          "min": 0,
+          "max": 10.0,
+          "verified": false
+        }
+      }
+    }
   }
 }
