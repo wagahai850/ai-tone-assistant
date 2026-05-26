@@ -150,3 +150,23 @@ ai-tone-assistant/
 - **Moving blocks disconnects cables**: FM9 behavior, not a bug. Reconnect after move.
 - **FM9 Editor can coexist**: Both the MCP server and Editor can control FM9 simultaneously via USB MIDI.
 - **Block IDs > 0x7F**: Use 2-byte encoding `[id & 0x7F, (id >> 7) & 0x7F]` in SysEx messages.
+- **Shunt index must be unique**: When placing multiple shunts (cable pass-throughs), each one needs a unique sequential index in the sub=0x32 payload byte[3]. Sending the same index twice causes the FM9 to silently reject the second placement. Query the grid to find the current max index before adding new shunts.
+
+## Notable Discoveries
+
+### Shunt Sequential Index (2026-05-26)
+
+**Symptom**: `add_shunt_at` succeeded on the first call but silently failed on subsequent calls within the same preset. Normal block placement (`add_block_at`) worked reliably in any quantity.
+
+**Root cause**: The sub=0x32 message for shunt placement has a sequential index field at byte[3] that must be unique per preset. Our code was sending 0x00 for every shunt, causing the FM9 to reject duplicates.
+
+**Discovery method**: USB traffic capture (Wireshark + USBPcap on Windows) of FM9 Editor performing a multi-shunt cable connection. The capture revealed:
+
+```
+Shunt 1: sub=0x32 byte[3]=0x00, byte[4]=0x08
+Shunt 2: sub=0x32 byte[3]=0x01, byte[4]=0x08
+Shunt 3: sub=0x32 byte[3]=0x02, byte[4]=0x08
+Shunt 4: sub=0x32 byte[3]=0x03, byte[4]=0x08
+```
+
+**Fix**: Read the grid before placing shunts, find the maximum existing shunt index, and increment from there.

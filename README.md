@@ -173,6 +173,7 @@ The reverse-engineered FM9 USB MIDI protocol is documented in detail in the proj
 - **Channel control**: Direct channel targeting via payload byte (A=0x00, B=0x20, C=0x40, D=0x60)
 - **Grid layout**: sub=0x2E query returns 753-byte bitstream-encoded grid map
 - **Block routing**: sub=0x30/0x32/0x33/0x35/0x36 for add/delete/move/connect
+- **Shunt placement**: sub=0x32 with sequential index per shunt (byte[3] must be unique in preset)
 - **Block ID encoding**: 2-byte split (`id & 0x7F`, `id >> 7`) supports all blocks including >0x7F (Gate, Synth, etc.)
 
 ## Credits

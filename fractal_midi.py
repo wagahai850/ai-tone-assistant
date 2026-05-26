@@ -688,7 +688,6 @@ class FractalMidi:
             0x35, 0x00, [0, 0, 0],
             [0x01, 0, 0, 0, 0, 0, 0, 0x02, 0, d9, d10, d11, 0, 0]
         )
-        time.sleep(0.1)
         return True
 
     def disconnect_adjacent(self, from_row: int, from_col: int, to_row: int, to_col: int) -> bool:
@@ -709,33 +708,68 @@ class FractalMidi:
         time.sleep(0.1)
         return True
 
-    def add_shunt_at(self, row: int, col: int) -> bool:
+    def add_shunt_at(self, row: int, col: int, shunt_index: int = 0) -> bool:
         """Add a shunt block (cable routing placeholder) at a grid position.
-        Used internally when connecting non-adjacent blocks."""
+        Used internally when connecting non-adjacent blocks.
+
+        Args:
+            row: Grid row (0-4)
+            col: Grid column (0-13)
+            shunt_index: Sequential index for this shunt (0, 1, 2, 3...).
+                         FM9 requires each shunt in a batch to have a unique index.
+        """
         pos = self.grid_pos(row, col)
-        # sub=0x30 — layout start
-        self._send_layout_msg(0x30, 0x25, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.05)
-        # sub=0x32 with p[0]=0x08 — shunt block
-        self._send_layout_msg(0x32, 0x25, [0x08, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.1)
+
+        # Step 1: sub=0x30 — layout operation start
+        self._send_layout_msg(0x30, 0x00, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
+
+        # Step 2: sub=0x32 — shunt add
+        # byte[3] = shunt_index (increments for each shunt in a batch)
+        # byte[4] = 0x08 (shunt flag)
+        with self._midi_lock:
+            payload2 = [0x01, 0x32, 0x00, shunt_index, 0x08, 0x00, 0x00,
+                        pos, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+            cs = self.model_id
+            for b in payload2:
+                cs ^= b
+            cs = (cs ^ 0x05) & 0x7F
+            payload2.append(cs)
+            self._send_sysex(payload2)
+            time.sleep(0.1)
+            self._flush_input()
         return True
 
     def connect_blocks(self, from_row: int, from_col: int, to_row: int, to_col: int) -> bool:
         """Connect two blocks on the same row, placing shunts in between if needed.
         Blocks must be on the same row. from_col must be < to_col.
-        Shunts are placed in all intermediate columns, then connections are made.
+        Phase 1: Place all shunts with sequential indices (starting after existing shunts).
+        Phase 2: Connect each adjacent pair with cables.
         """
         if from_row != to_row:
             raise ValueError("connect_blocks only supports same-row connections.")
         if from_col >= to_col:
             raise ValueError("from_col must be less than to_col.")
 
-        # Place shunts in intermediate columns
-        for col in range(from_col + 1, to_col):
-            self.add_shunt_at(from_row, col)
+        # Determine next shunt index by reading current grid
+        raw_grid = self.read_grid_raw()
+        max_shunt_idx = -1
+        for row_data in raw_grid:
+            for cell in row_data:
+                raw = cell["raw_32"]
+                byte2 = (raw >> 16) & 0xFF
+                if byte2 == 0x08:  # is shunt
+                    bid = cell["block_id"]
+                    if bid > max_shunt_idx:
+                        max_shunt_idx = bid
 
-        # Connect each adjacent pair (from_col to to_col)
+        next_idx = max_shunt_idx + 1
+
+        # Phase 1: Place shunts with incrementing index
+        shunt_cols = list(range(from_col + 1, to_col))
+        for i, col in enumerate(shunt_cols):
+            self.add_shunt_at(from_row, col, shunt_index=next_idx + i)
+
+        # Phase 2: Connect each adjacent pair (from_col to to_col)
         for col in range(from_col, to_col):
             self.connect_adjacent(from_row, col, from_row, col + 1)
 
@@ -798,7 +832,18 @@ class FractalMidi:
             for row in range(self.GRID_ROWS):
                 bit_offset = self.GRID_BASE_BIT + col * self.GRID_COL_STRIDE + row * self.GRID_ROW_STRIDE
                 block_id = self._read_block_id_at_bit(grid_data, bit_offset)
-                grid[row][col] = block_id
+                # Check for shunt: block_id=0 but block_type (bits 8-15) = 0x08
+                if block_id == 0:
+                    raw_32 = self._read_bits(grid_data, bit_offset, 32)
+                    block_type = (raw_32 >> 8) & 0xFF
+                    if block_type == 0x08:
+                        # Shunt block — use a sentinel value to indicate presence
+                        # Use 0x7F (127) as shunt marker in the simple grid view
+                        grid[row][col] = 0x7F
+                    else:
+                        grid[row][col] = 0
+                else:
+                    grid[row][col] = block_id
 
         return grid
 

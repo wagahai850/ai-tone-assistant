@@ -276,7 +276,22 @@ id_hi = (block_id >> 7) & 0x7F
 # e.g., Gate (0x92=146): id_lo=0x12, id_hi=0x01
 ```
 
-For shunts: `p=[08,00,00]` instead of `p=[00,00,00]`
+### SHUNT_ADD (sub=0x30 + sub=0x32)
+
+Shunts are cable pass-through placeholders. They use the same sub=0x30/0x32 pair
+as block add, but with a **sequential shunt index** in byte[3]:
+
+```
+Step 1 (sub=0x30): block_id=0x00, p=[00,00,00], d[0]=grid_position
+Step 2 (sub=0x32): payload=[01,32,00,shunt_index,08,00,00,grid_pos,00...00,cs]
+```
+
+- `byte[3]` = shunt_index (0, 1, 2, 3, ... — must be unique per preset)
+- `byte[4]` = 0x08 (shunt type flag)
+
+**Critical**: Each shunt in a preset must have a unique index. When adding multiple
+shunts, increment the index for each one. Query the grid first to find the current
+maximum shunt index, then start from max + 1.
 
 ### BLOCK_DELETE (sub=0x30 + sub=0x33)
 
