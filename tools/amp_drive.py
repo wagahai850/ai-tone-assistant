@@ -211,6 +211,12 @@ def register(mcp):
 
                 changes[name] = value
 
+            # Read back actual state after SET
+            import time
+            time.sleep(0.2)
+            readback = fm9_get_amp_params()
+            if readback.get("success"):
+                return {"success": True, "block": "Amp 1", "changes": changes, "params": readback["params"]}
             return {"success": True, "block": "Amp 1", "changes": changes}
         except Exception as e:
             return {"success": False, "error": str(e)}
@@ -287,6 +293,12 @@ def register(mcp):
 
                 changes[name] = value
 
+            # Read back actual state after SET
+            import time
+            time.sleep(0.2)
+            readback = fm9_get_drive_params()
+            if readback.get("success"):
+                return {"success": True, "block": "Drive 1", "changes": changes, "params": readback["params"]}
             return {"success": True, "block": "Drive 1", "changes": changes}
         except Exception as e:
             return {"success": False, "error": str(e)}

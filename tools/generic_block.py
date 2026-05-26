@@ -212,6 +212,65 @@ def register(mcp):
         except Exception as e:
             return {"success": False, "error": str(e)}
 
+    def _decode_block_params(block_id: int, block_info: dict, chunks: list) -> dict:
+        """Decode all parameters from block data chunks into display values."""
+        import math
+        params = {}
+        for pid_str, pinfo in block_info["params"].items():
+            pid = int(pid_str)
+            offset = 7 + pid * 3
+            if offset + 2 >= len(chunks[0]):
+                continue
+            lo = chunks[0][offset]
+            hi = chunks[0][offset + 1]
+            msb = chunks[0][offset + 2]
+            raw_val = lo | (hi << 7) | (msb << 14)
+
+            meta = pinfo.get("meta", {})
+            param_type = meta.get("type", "continuous")
+            param_max = meta.get("max", 10.0)
+            param_min = meta.get("min", 0)
+
+            # Calculate display value based on type
+            if param_type == "switch":
+                display_value = bool(lo)
+            elif param_type == "enum":
+                display_value = raw_val
+            elif param_type == "bipolar":
+                display_value = round(raw_val / 65534.0 * (2 * param_max) - param_max, 2)
+            elif param_max >= 20000:
+                # Frequency params: log scale decode
+                if raw_val == 0:
+                    display_value = 20.0
+                else:
+                    display_value = round(
+                        20.0 * 10 ** (raw_val / 65534.0 * math.log10(param_max / 20.0)), 1
+                    )
+            else:
+                # Continuous: raw 0 = 0, 65534 = max
+                normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
+                display_value = round(normalized * param_max, 2)
+
+            entry = {
+                "value": display_value,
+                "raw": raw_val,
+                "param_id": pid,
+                "type": param_type,
+            }
+            if param_type not in ("switch", "enum"):
+                entry["min"] = param_min
+                entry["max"] = param_max
+
+            # Resolve enum names where possible
+            if param_type == "enum":
+                enum_name = _resolve_enum_name(block_id, pid, raw_val)
+                if enum_name:
+                    entry["name"] = enum_name
+
+            params[pinfo["display_name"]] = entry
+
+        return params
+
     @mcp.tool()
     def fm9_get_block_params(block: str) -> dict[str, Any]:
         """Get current parameter values for any effect block.
@@ -233,63 +292,7 @@ def register(mcp):
             if not chunks:
                 return {"success": False, "error": f"Failed to get block data for {block_info['block_name']}."}
 
-            params = {}
-            for pid_str, pinfo in block_info["params"].items():
-                pid = int(pid_str)
-                offset = 7 + pid * 3
-                if offset + 2 >= len(chunks[0]):
-                    continue
-                lo = chunks[0][offset]
-                hi = chunks[0][offset + 1]
-                msb = chunks[0][offset + 2]
-                raw_val = lo | (hi << 7) | (msb << 14)
-
-                meta = pinfo.get("meta", {})
-                param_type = meta.get("type", "continuous")
-                param_max = meta.get("max", 10.0)
-                param_min = meta.get("min", 0)
-
-                # Calculate display value based on type
-                if param_type == "switch":
-                    display_value = bool(lo)
-                elif param_type == "enum":
-                    display_value = raw_val
-                elif param_type == "bipolar":
-                    # Bipolar: raw 0 = -max, 32767 = 0 (center), 65534 = +max
-                    # Uses same formula as decode_bipolar: raw/65534 * (2*max) - max
-                    display_value = round(raw_val / 65534.0 * (2 * param_max) - param_max, 2)
-                elif param_max >= 20000:
-                    # Frequency params: log scale decode
-                    # freq = 20 * 10^(raw / 65534 * log10(max_freq / 20))
-                    import math
-                    if raw_val == 0:
-                        display_value = 20.0
-                    else:
-                        display_value = round(
-                            20.0 * 10 ** (raw_val / 65534.0 * math.log10(param_max / 20.0)), 1
-                        )
-                else:
-                    # Continuous: raw 0 = 0, 65534 = max
-                    normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
-                    display_value = round(normalized * param_max, 2)
-
-                entry = {
-                    "value": display_value,
-                    "raw": raw_val,
-                    "param_id": pid,
-                    "type": param_type,
-                }
-                if param_type not in ("switch", "enum"):
-                    entry["min"] = param_min
-                    entry["max"] = param_max
-
-                # Resolve enum names where possible
-                if param_type == "enum":
-                    enum_name = _resolve_enum_name(block_id, pid, raw_val)
-                    if enum_name:
-                        entry["name"] = enum_name
-
-                params[pinfo["display_name"]] = entry
+            params = _decode_block_params(block_id, block_info, chunks)
 
             return {
                 "success": True,
@@ -405,12 +408,27 @@ def register(mcp):
 
                 changes[param_name] = value
 
-            return {
-                "success": True,
-                "block": block_info["block_name"],
-                "block_id": block_id_str,
-                "changes": changes,
-            }
+            # Read back actual state after SET (confirms FM9 accepted values)
+            import time
+            time.sleep(0.2)  # Allow FM9 to process
+            chunks = midi.get_block_data(block_id)
+            if chunks:
+                actual_params = _decode_block_params(block_id, block_info, chunks)
+                return {
+                    "success": True,
+                    "block": block_info["block_name"],
+                    "block_id": block_id_str,
+                    "changes": changes,
+                    "params": actual_params,
+                }
+            else:
+                return {
+                    "success": True,
+                    "block": block_info["block_name"],
+                    "block_id": block_id_str,
+                    "changes": changes,
+                    "note": "Read-back failed; values were sent but could not be verified.",
+                }
         except Exception as e:
             return {"success": False, "error": str(e)}
 
