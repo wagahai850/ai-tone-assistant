@@ -57,6 +57,25 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
+    def fm9_set_scene_name(scene: int, name: str) -> dict[str, Any]:
+        """Set the name for a scene in the current preset.
+
+        Args:
+            scene: Scene number (1-8).
+            name: Scene name (max 32 ASCII characters, e.g. "Clean", "Riff", "Solo").
+
+        Returns success status.
+        """
+        try:
+            ensure_connected()
+            if not 1 <= scene <= 8:
+                return {"success": False, "error": "Scene must be 1-8."}
+            midi.set_scene_name(scene - 1, name)
+            return {"success": True, "scene": scene, "name": name}
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    @mcp.tool()
     def fm9_set_bypass(block: str, bypassed: bool) -> dict[str, Any]:
         """Set bypass state for an effect block.
 

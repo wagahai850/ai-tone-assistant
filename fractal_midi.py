@@ -546,6 +546,36 @@ class FractalMidi:
             self._flush_input()
             return True
 
+    def set_scene_name(self, scene_index: int, name: str) -> bool:
+        """Set scene name (0-based: 0=Scene 1, 7=Scene 8).
+
+        Protocol (confirmed via Wireshark 2026-05-27):
+        Same structure as set_preset_name but sub=0x2B instead of 0x28.
+        payload[5] = scene_index (0-based).
+        """
+        with self._midi_lock:
+            name_bytes = self.encode_preset_name(name)
+
+            # Build 60-byte message:
+            # payload: 01 2B 00 00 00 [scene_index] 00 00 00 00 00 00 00 00 20 00 [name_37bytes] [cs]
+            payload = [0x01, 0x2B, 0x00, 0x00, 0x00, scene_index, 0x00,
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x00] + name_bytes
+            # Pad/truncate to 53 bytes (+ cs = 54)
+            while len(payload) < 53:
+                payload.append(0x00)
+            payload = payload[:53]
+
+            cs = self.model_id
+            for b in payload:
+                cs ^= b
+            cs = (cs ^ 0x05) & 0x7F
+            payload.append(cs)
+
+            self._send_sysex(payload)
+            time.sleep(0.3)
+            self._flush_input()
+            return True
+
     # --- Grid / Routing Operations ---
 
     @staticmethod
