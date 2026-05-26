@@ -211,11 +211,13 @@ MIT
 - **Error recovery is minimal** — MIDI port errors require server restart
 
 ### Roadmap
-1. Add display-value scaling for remaining blocks (requires min/max data)
-2. Expose type-specific valid params in tool responses (filter out inactive params)
-3. Modifier/controller assignment support
-4. Scene-level parameter management
-5. Direct firmware query for effect definitions (eliminate Editor cache dependency)
+1. Fix preset number query (func=0x0D response format needs investigation)
+2. Add display-value scaling for remaining blocks (requires min/max data)
+3. Expose type-specific valid params in tool responses (filter out inactive params)
+4. Update Session Guide and RE Methods docs to reflect v0.2 structure
+5. Modifier/controller assignment support
+6. Scene-level parameter management
+7. Direct firmware query for effect definitions (eliminate Editor cache dependency)
 
 ### Data Pipeline
 
