@@ -455,6 +455,244 @@ def fm9_set_drive_params(params: dict[str, float | bool]) -> dict[str, Any]:
         return {"success": False, "error": str(e)}
 
 
+# --- Generic Block Parameter Tools (using fm9_all_params.json) ---
+
+ALL_PARAMS: dict = load_json("fm9_all_params.json")
+EFFECT_DEFS: dict = load_json("fm9_effect_definitions.json")
+
+# Build lookup: block_name (lowercase) -> prefix key in ALL_PARAMS
+BLOCK_NAME_TO_PREFIX: dict[str, str] = {}
+for prefix, info in ALL_PARAMS.items():
+    BLOCK_NAME_TO_PREFIX[info["block_name"].lower()] = prefix
+    # Also add short names without " 1" suffix
+    short = info["block_name"].replace(" 1", "").lower()
+    if short not in BLOCK_NAME_TO_PREFIX:
+        BLOCK_NAME_TO_PREFIX[short] = prefix
+
+
+def _resolve_block(block_str: str) -> tuple[str, dict]:
+    """Resolve a block name or hex ID to (prefix, block_info)."""
+    # Try hex ID first
+    if block_str.startswith("0x") or block_str.startswith("0X"):
+        hex_id = block_str.upper()
+        for prefix, info in ALL_PARAMS.items():
+            if info.get("block_id") == hex_id:
+                return prefix, info
+        raise ValueError(f"No block with ID {block_str}")
+
+    # Try name match (case-insensitive)
+    key = block_str.lower().strip()
+    if key in BLOCK_NAME_TO_PREFIX:
+        prefix = BLOCK_NAME_TO_PREFIX[key]
+        return prefix, ALL_PARAMS[prefix]
+
+    # Fuzzy: try partial match
+    for name, prefix in BLOCK_NAME_TO_PREFIX.items():
+        if key in name or name in key:
+            return prefix, ALL_PARAMS[prefix]
+
+    available = sorted(set(info["block_name"] for info in ALL_PARAMS.values()))
+    raise ValueError(f"Unknown block '{block_str}'. Available: {available}")
+
+
+def _resolve_param(block_info: dict, param_name: str) -> tuple[int, str]:
+    """Resolve a parameter name to (param_id, internal_name).
+    Supports display_name or internal_name matching."""
+    params = block_info["params"]
+
+    # Exact match by display_name
+    for pid_str, pinfo in params.items():
+        if pinfo["display_name"].lower() == param_name.lower():
+            return int(pid_str), pinfo["name"]
+
+    # Exact match by internal name (without prefix)
+    for pid_str, pinfo in params.items():
+        short_internal = pinfo["name"].split("_", 1)[-1] if "_" in pinfo["name"] else pinfo["name"]
+        if short_internal.lower() == param_name.lower():
+            return int(pid_str), pinfo["name"]
+
+    # Partial match
+    for pid_str, pinfo in params.items():
+        if param_name.lower() in pinfo["display_name"].lower():
+            return int(pid_str), pinfo["name"]
+
+    available = sorted(pinfo["display_name"] for pinfo in params.values())
+    raise ValueError(f"Unknown parameter '{param_name}'. Available: {available[:20]}...")
+
+
+@mcp.tool()
+def fm9_get_block_params(block: str) -> dict[str, Any]:
+    """Get current parameter values for any effect block.
+
+    Args:
+        block: Block name (e.g., "Amp 1", "Delay 1", "Chorus") or hex ID (e.g., "0x3A").
+
+    Returns all mapped parameters with their current display values.
+    """
+    try:
+        ensure_connected()
+        prefix, block_info = _resolve_block(block)
+        block_id_str = block_info.get("block_id")
+        if not block_id_str:
+            return {"success": False, "error": f"Block '{block}' has no known block_id."}
+
+        block_id = int(block_id_str, 16)
+        chunks = midi.get_block_data(block_id)
+        if not chunks:
+            return {"success": False, "error": f"Failed to get block data for {block_info['block_name']}."}
+
+        params = {}
+        for pid_str, pinfo in block_info["params"].items():
+            pid = int(pid_str)
+            offset = 7 + pid * 3
+            if offset + 2 >= len(chunks[0]):
+                continue
+            lo = chunks[0][offset]
+            hi = chunks[0][offset + 1]
+            msb = chunks[0][offset + 2]
+            # Decode as normalized 0-1 float, then scale to display
+            raw_val = lo | (hi << 7) | (msb << 14)
+            # For now, report raw normalized value (0-65534 range)
+            # TODO: apply min/max when available
+            normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
+            params[pinfo["display_name"]] = {
+                "raw": raw_val,
+                "normalized": round(normalized, 4),
+                "param_id": pid,
+            }
+
+        return {
+            "success": True,
+            "block": block_info["block_name"],
+            "block_id": block_id_str,
+            "param_count": len(params),
+            "params": params,
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@mcp.tool()
+def fm9_set_block_params(block: str, params: dict[str, float]) -> dict[str, Any]:
+    """Set one or more parameters on any effect block.
+
+    Args:
+        block: Block name (e.g., "Amp 1", "Delay 1", "Chorus") or hex ID (e.g., "0x3A").
+        params: Dictionary of parameter name-value pairs.
+                Values are normalized 0.0-1.0 (will be sent as IEEE 754 float).
+                For known blocks (Amp, Drive), use the dedicated tools instead for
+                proper display-value scaling.
+
+    Example: fm9_set_block_params(block="Chorus 1", params={"Rate": 0.5, "Depth": 0.7})
+    """
+    try:
+        ensure_connected()
+        prefix, block_info = _resolve_block(block)
+        block_id_str = block_info.get("block_id")
+        if not block_id_str:
+            return {"success": False, "error": f"Block '{block}' has no known block_id."}
+
+        block_id = int(block_id_str, 16)
+        changes = {}
+
+        for param_name, value in params.items():
+            pid, internal_name = _resolve_param(block_info, param_name)
+            # Send as normalized 0-1 (value IS the normalized value)
+            midi.set_param_value(block_id, pid, float(value), 1.0)
+            changes[param_name] = value
+
+        return {
+            "success": True,
+            "block": block_info["block_name"],
+            "block_id": block_id_str,
+            "changes": changes,
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@mcp.tool()
+def fm9_list_block_params(block: str) -> dict[str, Any]:
+    """List all known parameters for a block.
+
+    Args:
+        block: Block name (e.g., "Amp 1", "Delay 1", "Chorus") or hex ID.
+
+    Returns parameter names and IDs for the specified block.
+    """
+    try:
+        prefix, block_info = _resolve_block(block)
+        params_list = []
+        for pid_str, pinfo in sorted(block_info["params"].items(), key=lambda x: int(x[0])):
+            params_list.append({
+                "param_id": int(pid_str),
+                "display_name": pinfo["display_name"],
+                "internal_name": pinfo["name"],
+            })
+
+        return {
+            "success": True,
+            "block": block_info["block_name"],
+            "block_id": block_info.get("block_id"),
+            "param_count": len(params_list),
+            "params": params_list,
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@mcp.tool()
+def fm9_list_effect_types(block: str) -> dict[str, Any]:
+    """List available effect types/models for a block.
+
+    Args:
+        block: Block category name. Valid values:
+               "amp", "drive", "delay", "reverb", "chorus", "flanger",
+               "phaser", "pitch", "tremolo", "wah", "compressor", "geq",
+               "filter", "cab", "multitap", "plex", "synth"
+
+    Returns list of type/model names available for that block.
+    """
+    try:
+        # Map block name to effect_definitions key
+        block_lower = block.lower().strip()
+        key_map = {
+            "amp": "amp_models",
+            "drive": "drive_models",
+            "delay": "delay_types",
+            "reverb": "reverb_types",
+            "chorus": "chorus_types" if "chorus_types" in EFFECT_DEFS else None,
+            "flanger": "flanger_types",
+            "phaser": "phaser_types",
+            "pitch": "pitch_types",
+            "tremolo": "tremolo_types",
+            "wah": "wah_types",
+            "compressor": "compressor_types",
+            "geq": "geq_types",
+            "filter": "filter_types",
+            "cab": "cab_factory_1",
+            "cab_legacy": "cab_legacy",
+            "multitap": "multitap_delay_types",
+            "plex": "plex_delay_types",
+            "synth": "synth_types",
+        }
+
+        key = key_map.get(block_lower)
+        if not key or key not in EFFECT_DEFS:
+            available = sorted(key_map.keys())
+            return {"success": False, "error": f"Unknown block '{block}'. Available: {available}"}
+
+        names = EFFECT_DEFS[key]
+        return {
+            "success": True,
+            "block": block,
+            "type_count": len(names),
+            "types": names,
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 @mcp.tool()
 def fm9_set_scene(scene: int) -> dict[str, Any]:
     """Switch FM9 to a specific scene.
@@ -1188,6 +1426,98 @@ def fm9_diff_block(block_id: str, label_a: str = "before", label_b: str = "after
             "diff_count": len(diffs),
             "truncated": len(diffs) >= max_diffs,
             "diffs": diffs,
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+# --- Wiki Model Lookup Tool ---
+
+WIKI_MODELS: dict = load_json("fm9_wiki_models.json")
+WIKI_BLOCKS: dict = load_json("fm9_wiki_blocks.json")
+
+
+@mcp.tool()
+def fm9_lookup_model_info(query: str, block_type: str = "amp") -> dict[str, Any]:
+    """Look up amp/drive model info from Fractal Wiki reference data.
+
+    Args:
+        query: Search string (model name, original amp name, or keyword).
+               Case-insensitive partial match.
+        block_type: "amp" or "drive"
+
+    Returns matching models with details (based_on, cab, tubes, controls, notes).
+    """
+    try:
+        q = query.lower()
+
+        if block_type == "amp":
+            models = WIKI_MODELS.get("amp_models", [])
+        elif block_type == "drive":
+            models = WIKI_MODELS.get("drive_models", [])
+        else:
+            return {"success": False, "error": f"Unknown block_type '{block_type}'. Use 'amp' or 'drive'."}
+
+        results = []
+        for m in models:
+            searchable = " ".join(str(v) for v in m.values()).lower()
+            if q in searchable:
+                results.append(m)
+
+        return {
+            "success": True,
+            "query": query,
+            "block_type": block_type,
+            "count": len(results),
+            "models": results[:20],  # limit to 20 results
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+@mcp.tool()
+def fm9_lookup_block_info(query: str, block_type: str = "") -> dict[str, Any]:
+    """Look up effect block info from Fractal Wiki reference data.
+
+    Args:
+        query: Search string (effect type name, parameter name, or keyword).
+               Case-insensitive partial match within block wiki pages.
+        block_type: Block category to search. If empty, searches all blocks.
+                    Valid: "delay", "reverb", "chorus", "compressor", "flanger",
+                    "phaser", "wah", "pitch", "filter", "cab", "tremolo",
+                    "enhancer", "synth", "formant", "rotary", "ring_mod",
+                    "megatap", "plex_delay", "resonator", "ten_tap", "multitap"
+
+    Returns matching sections from wiki pages.
+    """
+    try:
+        q = query.lower()
+        results = []
+
+        blocks_to_search = {}
+        if block_type:
+            if block_type in WIKI_BLOCKS:
+                blocks_to_search = {block_type: WIKI_BLOCKS[block_type]}
+            else:
+                return {"success": False, "error": f"Unknown block_type '{block_type}'. Valid: {list(WIKI_BLOCKS.keys())}"}
+        else:
+            blocks_to_search = WIKI_BLOCKS
+
+        for btype, data in blocks_to_search.items():
+            for section in data.get("sections", []):
+                if q in section["title"].lower() or q in section["content"].lower():
+                    results.append({
+                        "block": btype,
+                        "section": section["title"],
+                        "content": section["content"][:1000],  # truncate long sections
+                    })
+
+        return {
+            "success": True,
+            "query": query,
+            "block_type": block_type or "(all)",
+            "count": len(results),
+            "results": results[:15],  # limit to 15 results
         }
     except Exception as e:
         return {"success": False, "error": str(e)}
