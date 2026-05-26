@@ -409,31 +409,39 @@ def register(mcp):
             # Trace connections: for each cell with cable_from_rows, trace left
             # through shunts until we hit a real block.
             def trace_source(row, col):
-                """Trace leftward from (row, col) to find the source real block."""
-                # cable_from_rows tells us which row the cable comes from
+                """Trace leftward from (row, col) to find all source real blocks."""
                 info = cells.get((row, col))
                 if not info or not info["cable_from_rows"]:
                     return []
                 sources = []
                 for src_row in info["cable_from_rows"]:
-                    # The cable comes from src_row, previous column
-                    prev_col = col - 1
-                    # Walk left through shunts
-                    while prev_col >= 0:
-                        prev_info = cells.get((src_row, prev_col))
-                        if prev_info is None:
-                            break
-                        if not prev_info["is_shunt"]:
-                            # Found a real block
-                            if (src_row, prev_col) in node_ids:
-                                sources.append(node_ids[(src_row, prev_col)])
-                            break
-                        # It's a shunt — check if it has cable input from further left
-                        if prev_info["cable_from_rows"]:
-                            # Shunt receives from another row — follow that
-                            src_row = prev_info["cable_from_rows"][0]
-                        prev_col -= 1
+                    found = _trace_left(src_row, col - 1)
+                    sources.extend(found)
                 return sources
+
+            def _trace_left(cur_row, col):
+                """Walk left from (cur_row, col) through shunts to find real blocks."""
+                while col >= 0:
+                    info = cells.get((cur_row, col))
+                    if info is None:
+                        break
+                    if not info["is_shunt"]:
+                        # Found a real block
+                        if (cur_row, col) in node_ids:
+                            return [node_ids[(cur_row, col)]]
+                        break
+                    # It's a shunt — if it has multiple cable inputs, branch
+                    if info["cable_from_rows"]:
+                        if len(info["cable_from_rows"]) == 1:
+                            cur_row = info["cable_from_rows"][0]
+                        else:
+                            # Multiple inputs to this shunt (merge point)
+                            results = []
+                            for r in info["cable_from_rows"]:
+                                results.extend(_trace_left(r, col - 1))
+                            return results
+                    col -= 1
+                return []
 
             connections = []
             for (row, col), node_id in node_ids.items():
