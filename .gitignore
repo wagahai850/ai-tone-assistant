@@ -8,8 +8,40 @@ build/
 .venv/
 venv/
 .env
+.DS_Store
 
-# RE scripts (not part of the MCP server)
+# Pipeline tools (RE scripts, run locally, output committed to data/)
+pipeline/
+
+# Extracted resources (intermediate, not needed at runtime)
+fm9_edit_resources/
+
+# Legacy root-level data files (now in data/fm9/)
+/fm9_amp_types.json
+/fm9_drive_types.json
+/fm9_amp_params.json
+/fm9_drive_params.json
+/fm9_blocks.json
+/fm9_all_params.json
+/fm9_effect_definitions.json
+/fm9_effect_defs_strings.json
+/fm9_wiki_models.json
+/fm9_wiki_blocks.json
+/fm9_type_valid_params.json
+/fm9_edit_param_tables.json
+/fm9_edit_type_variants.json
+/axe3_all_params.json
+/axe3_effect_definitions.json
+/axe3_type_valid_params.json
+/editor_param_enums.json
+
+# Scan results and logs
+scan_*.json
+scan_*_log*.txt
+batch_scan_log*.txt
+block01_*.json
+
+# Legacy scripts (moved to pipeline/)
 analyze_*.py
 compare_*.py
 diff_*.py
@@ -34,22 +66,17 @@ status_dump.py
 capture_*.py
 parse_*.py
 generate_param_map.py
-
-# Pipeline tools (run locally, output committed)
 pipeline_*.py
-
-# Extracted resources (intermediate, not needed at runtime)
-fm9_edit_resources/
-fm9_edit_param_tables.json
-fm9_edit_type_variants.json
-fm9_effect_defs_strings.json
-
-# Snapshot data
-block01_*.json
-scan_*.json
-.DS_Store
-scan_*.json
-scan_*_log*.txt
-batch_scan_log*.txt
+build_wiki_data.py
 run_batch.sh
-build_wiki_data_old.py
+run.py
+batch_scan.py
+param_scanner.py
+
+# Wiki raw text (intermediate)
+wiki_*_raw.txt
+wiki_amp_models.md
+
+# Legacy docs at root (now in docs/)
+/PROTOCOL.md
+/REVERSE_ENGINEERING.md

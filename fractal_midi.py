@@ -267,13 +267,19 @@ class FractalMidi:
 
     def _send_sub09(self, block_id: int, param: int, value_id: int) -> bool:
         """Send sub=0x09 command (enum/model/IR selection).
-        Used for Amp Type, Drive Type, Cab IR, etc."""
+        Used for Amp Type, Drive Type, Cab IR, etc.
+        Supports block_id > 0x7F via 2-byte encoding."""
         with self._midi_lock:
             id_lo = value_id & 0x7F
             id_hi = (value_id >> 7) & 0x7F
             id_msb = (value_id >> 14) & 0x7F
 
-            payload = [0x01, 0x09, 0x00, block_id, 0x00, param, 0x00,
+            block_lo = block_id & 0x7F
+            block_hi = (block_id >> 7) & 0x7F
+            param_lo = param & 0x7F
+            param_hi = (param >> 7) & 0x7F
+
+            payload = [0x01, 0x09, 0x00, block_lo, block_hi, param_lo, param_hi,
                        0x00, 0x00, id_lo, id_hi, id_msb, 0x00, 0x00, 0x00, 0x00]
             cs = self.model_id
             for b in payload:
@@ -412,6 +418,39 @@ class FractalMidi:
         lo = preset_number & 0x7F
         hi = (preset_number >> 7) & 0x7F
         return self._send_param_msg(0x27, 0x00, [lo, hi, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
+
+    def get_preset_info(self) -> dict:
+        """Get current preset number and name using func=0x0D.
+        Returns {'preset_number': int, 'name': str} or empty dict on failure."""
+        with self._midi_lock:
+            self._flush_input()
+            # func=0x0D: GET PRESET NAME (no payload needed for current preset)
+            cs = self._checksum(0x0D)
+            self._send_sysex([0x0D, cs])
+            time.sleep(0.5)
+
+            messages = self._receive_sysex(timeout=1.0)
+            for msg in messages:
+                if len(msg.data) >= 7 and msg.data[4] == 0x0D:
+                    # Response: func=0x0D, preset_lo, preset_hi, name_bytes...
+                    data = list(msg.data[5:-1])  # strip header and checksum
+                    if len(data) >= 2:
+                        preset_number = data[0] | (data[1] << 7)
+                        # Decode name from 7-bit packed bytes
+                        name_data = data[2:]
+                        if name_data:
+                            bits = ''.join(f'{b:07b}' for b in name_data)
+                            name = ''
+                            for i in range(0, len(bits) - 7, 8):
+                                ch = int(bits[i:i+8], 2)
+                                if ch == 0:
+                                    break
+                                name += chr(ch)
+                            name = name.rstrip()
+                        else:
+                            name = ""
+                        return {"preset_number": preset_number, "name": name}
+            return {}
 
     def add_block(self, block_id: int) -> bool:
         """Add a block to the current preset layout.

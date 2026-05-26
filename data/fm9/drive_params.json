@@ -1,0 +1,259 @@
+{
+  "block_id": "0x76",
+  "block_id_int": 118,
+  "_note": "Generated from scan_fm9_drive_1_chunk0.json. param_id = chunk index, offset = 7 + param_id * 3",
+  "params": {
+    "Drive": {
+      "param_id": 1,
+      "offset": [
+        10,
+        13
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Tone": {
+      "param_id": 2,
+      "offset": [
+        13,
+        16
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Level": {
+      "param_id": 3,
+      "offset": [
+        16,
+        19
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mix": {
+      "param_id": 4,
+      "offset": [
+        19,
+        22
+      ],
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Slew Rate": {
+      "param_id": 6,
+      "offset": [
+        25,
+        28
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Low Cut": {
+      "param_id": 8,
+      "offset": [
+        31,
+        34
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "High Cut": {
+      "param_id": 9,
+      "offset": [
+        34,
+        37
+      ],
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Bias": {
+      "param_id": 11,
+      "offset": [
+        40,
+        43
+      ],
+      "max": 1.0,
+      "type": "bipolar"
+    },
+    "Bass": {
+      "param_id": 12,
+      "offset": [
+        43,
+        46
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mid": {
+      "param_id": 13,
+      "offset": [
+        46,
+        49
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Mid Frequency": {
+      "param_id": 14,
+      "offset": [
+        49,
+        52
+      ],
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "Treble": {
+      "param_id": 15,
+      "offset": [
+        52,
+        55
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "Bit Reduce": {
+      "param_id": 16,
+      "offset": [
+        55,
+        58
+      ],
+      "max": 24.0,
+      "type": "continuous"
+    },
+    "Balance": {
+      "param_id": 18,
+      "offset": [
+        61,
+        64
+      ],
+      "max": 200.0,
+      "type": "bipolar"
+    },
+    "Sample Rate": {
+      "param_id": 19,
+      "offset": [
+        64,
+        67
+      ],
+      "max": 20000.0,
+      "type": "continuous"
+    },
+    "100": {
+      "param_id": 22,
+      "offset": [
+        73,
+        76
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "160": {
+      "param_id": 23,
+      "offset": [
+        76,
+        79
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "250": {
+      "param_id": 24,
+      "offset": [
+        79,
+        82
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "400": {
+      "param_id": 25,
+      "offset": [
+        82,
+        85
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "640": {
+      "param_id": 26,
+      "offset": [
+        85,
+        88
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "1000": {
+      "param_id": 27,
+      "offset": [
+        88,
+        91
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "1600": {
+      "param_id": 28,
+      "offset": [
+        91,
+        94
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "2500": {
+      "param_id": 29,
+      "offset": [
+        94,
+        97
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "4000": {
+      "param_id": 30,
+      "offset": [
+        97,
+        100
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "6400": {
+      "param_id": 31,
+      "offset": [
+        100,
+        103
+      ],
+      "max": 12.0,
+      "type": "bipolar"
+    },
+    "Dry Level": {
+      "param_id": 36,
+      "offset": [
+        115,
+        118
+      ],
+      "max": 100.0,
+      "type": "continuous"
+    },
+    "Bass Response": {
+      "param_id": 37,
+      "offset": [
+        118,
+        121
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    },
+    "High Mid": {
+      "param_id": 38,
+      "offset": [
+        121,
+        124
+      ],
+      "max": 10.0,
+      "type": "continuous"
+    }
+  }
+}

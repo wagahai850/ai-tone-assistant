@@ -110,10 +110,39 @@ Add to your MCP client configuration:
   "mcpServers": {
     "fm9-tone-assistant": {
       "command": "python",
-      "args": ["path/to/fm9_tone_assistant/server.py", "--device", "fm9"]
+      "args": ["path/to/ai-tone-assistant/server.py", "--device", "fm9"]
     }
   }
 }
+```
+
+### Project Structure
+
+```
+ai-tone-assistant/
+├── server.py          ← Entry point (thin: MCP init + tool registration)
+├── fm9_midi.py        ← MIDI communication layer (SysEx engine)
+├── tools/             ← MCP tool definitions (by category)
+│   ├── __init__.py    ← Shared state, data loading, encoding helpers
+│   ├── amp_drive.py   ← Amp/Drive (display-value scaling)
+│   ├── generic_block.py ← Any block (normalized 0-1)
+│   ├── grid_routing.py  ← Grid layout operations
+│   ├── preset.py      ← Scene/bypass/channel/store/name
+│   ├── lookup.py      ← Wiki reference search
+│   └── lab.py         ← RE/debug (raw sysex, snapshot, diff)
+├── data/fm9/          ← Runtime data (JSON, committed)
+│   ├── amp_types.json, drive_types.json
+│   ├── amp_params.json, drive_params.json
+│   ├── blocks.json, all_params.json
+│   ├── effect_definitions.json
+│   ├── wiki_models.json, wiki_blocks.json
+│   └── type_valid_params.json
+├── docs/              ← Protocol documentation
+│   ├── PROTOCOL.md
+│   └── REVERSE_ENGINEERING.md
+├── pipeline/          ← RE scripts (.gitignore'd)
+├── README.md
+└── LICENSE
 ```
 
 ### Device Selection
@@ -193,14 +222,14 @@ MIT
 Parameter maps and model names are extracted automatically from the Editor binary and firmware cache:
 
 ```bash
-# Run after firmware update:
-python3 pipeline_params.py fm9       # Extract param tables + type-valid params
-python3 pipeline_params.py axe3      # Same for Axe-Fx III
-python3 pipeline_effect_defs.py fm9  # Extract model/type names from cache
-python3 pipeline_effect_defs.py axe3
+# Run after firmware update (from project root):
+python3 pipeline/pipeline_params.py fm9       # Extract param tables + type-valid params
+python3 pipeline/pipeline_params.py axe3      # Same for Axe-Fx III
+python3 pipeline/pipeline_effect_defs.py fm9  # Extract model/type names from cache
+python3 pipeline/pipeline_effect_defs.py axe3
 
 # Rebuild Wiki reference data (requires pandoc):
-python3 build_wiki_data.py --fetch   # Re-download and parse from wiki.fractalaudio.com
+python3 pipeline/build_wiki_data.py --fetch   # Re-download and parse from wiki.fractalaudio.com
 ```
 
 ### Contributing
