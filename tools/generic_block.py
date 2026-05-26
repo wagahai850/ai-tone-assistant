@@ -167,6 +167,16 @@ def register(mcp):
 
             defs_key = key_map.get(base_name)
             if not defs_key or defs_key not in EFFECT_DEFS:
+                if base_name == "cab":
+                    return {
+                        "success": False,
+                        "error": (
+                            f"Cab block does not support fm9_set_effect_type. "
+                            f"Use fm9_set_block_params(block=\"{block}\", params={{\"Dynacab Type1\": \"<name>\"}}) "
+                            f"for DynaCab Type, or fm9_set_cab_ir() for IR mode. "
+                            f"Available DynaCab types: use integer index 0-44 or name (e.g. '4x12 1960TV')."
+                        ),
+                    }
                 return {"success": False, "error": f"No type list found for block '{block}' (base: '{base_name}')."}
 
             type_list = EFFECT_DEFS[defs_key]
