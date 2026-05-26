@@ -328,7 +328,9 @@ def register(mcp):
                 97, 98, 99, 104,  # Dynacab Z1-Z4 (distance)
             }
 
-            # Enum params that must be sent via _send_sub09 (integer index)
+            # Enum params that must be sent as raw float (integer value as IEEE 754)
+            # Verified via Wireshark: Editor sends sub=0x09 SET_PARAM with raw float
+            # e.g., Mode=1.0, DynaCab Type1=42.0, DynaCab Mic1=2.0
             CAB_ENUM_PARAMS = {
                 31,               # Mode
                 85, 86, 87, 88,   # Dynacab Type1-4
@@ -353,10 +355,10 @@ def register(mcp):
                         pid = CAB_PID_OVERRIDES[normalized_name]
 
                     if pid in CAB_ENUM_PARAMS:
-                        # Enum params: send integer index via sub=0x09
-                        # Support name-based lookup for DynaCab Type (pid 85-88)
+                        # Enum params: send integer as raw float (verified via Wireshark)
                         int_value = _resolve_cab_enum_value(pid, value)
-                        midi._send_sub09(block_id, pid, int_value)
+                        midi.set_param_value(block_id, pid, float(int_value), 1.0,
+                                             raw_float=True)
                     elif pid in CAB_NORMALIZED_PARAMS:
                         # These use standard normalized 0-1
                         midi.set_param_value(block_id, pid, float(value), 1.0)
