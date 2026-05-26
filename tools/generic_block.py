@@ -192,6 +192,30 @@ def register(mcp):
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
 
             block_id = int(block_id_str, 16)
+
+            # Guard: Cab frequency parameters are corrupted by normalized writes.
+            # See Known Issues in README. These params use logarithmic scaling that
+            # is incompatible with the IEEE 754 float encoding used by sub=0x09.
+            CAB_BLOCK_IDS = {0x3E, 0x3F, 0x40, 0x41}  # Cab 1-4
+            CAB_FREQ_PARAMS = {
+                "high cut", "low cut",
+                "hicut1", "hicut2", "hicut3", "hicut4",
+                "locut1", "locut2", "locut3", "locut4",
+            }
+            if block_id in CAB_BLOCK_IDS:
+                for param_name in params:
+                    if param_name.lower().replace(" ", "").replace("_", "") in {
+                        p.replace(" ", "") for p in CAB_FREQ_PARAMS
+                    }:
+                        return {
+                            "success": False,
+                            "error": (
+                                f"Cannot set '{param_name}' on Cab via SysEx — this corrupts the "
+                                f"parameter and requires a preset reload to recover. "
+                                f"Adjust Cab High Cut / Low Cut manually via FM9-Edit or hardware UI."
+                            ),
+                        }
+
             changes = {}
 
             for param_name, value in params.items():

@@ -217,6 +217,26 @@ MIT
 - **No scene-level parameter overrides**
 - **Error recovery is minimal** — MIDI port errors require server restart
 
+### Known Issues
+
+#### ⚠️ `fm9_set_block_params` corrupts Cab frequency parameters (High Cut / Low Cut)
+
+**Affected parameters**: Cab block's `High Cut` (param_id 39, "Preamp/High Cut") and likely `Low Cut` (param_id 38) and per-mic `Hicut1`-`Hicut4` / `Locut1`-`Locut4`.
+
+**Symptom**: Sending any normalized value (e.g., `{"High Cut": 0.32}`) to a Cab frequency parameter via `fm9_set_block_params` sets the internal raw value to 0 (0 Hz), causing extreme low-pass filtering ("completely muffled" sound). The parameter becomes unresponsive — subsequent writes (including `1.0`) and even FM9-Edit adjustments have no effect.
+
+**Root cause**: Not yet determined. Sending normalized 0.0–1.0 via sub=0x09 to Cab frequency parameters results in the value being set to 0 and becoming unresponsive. The correct encoding for these parameters is unknown.
+
+**Reproduction**:
+1. Place a Cab block in any preset
+2. Send `fm9_set_block_params(block="Cab 1", params={"High Cut": 0.32})`
+3. Read back with `fm9_read_param_raw(block_id="0x3E", param_index=39)` → raw_value = 0
+4. Sound is completely muffled; Editor shows 20000 Hz but the value is not applied
+
+**Recovery**: Switch to a different preset and switch back (reloads the edit buffer from flash). If the preset was stored after corruption, it must be rebuilt.
+
+**Workaround**: Do not use `fm9_set_block_params` for Cab frequency parameters. Adjust Cab High Cut / Low Cut manually via FM9-Edit or the hardware UI. For high-frequency roll-off, use the Amp block's Presence/Treble controls or add a PEQ block instead.
+
 ### Roadmap
 1. Hand-verify min/max for remaining blocks (promote inferred → verified)
 2. Modifier/controller assignment support
