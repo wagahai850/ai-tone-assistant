@@ -680,7 +680,7 @@ class FractalMidi:
         from_pos = from_col * 6 + from_row
         to_pos = to_col * 6 + to_row
         d9 = from_pos >> 1
-        d10 = (to_pos >> 2) | ((to_pos & 0x01) << 6)
+        d10 = (to_pos >> 2) | ((from_pos & 0x01) << 6)
         d11 = (to_pos & 0x03) << 5
 
         # sub=0x35, block=0x00(fixed), d[0]=0x01(connect), d[7]=0x02(fixed), d[9:12]=coords
@@ -697,7 +697,7 @@ class FractalMidi:
         from_pos = from_col * 6 + from_row
         to_pos = to_col * 6 + to_row
         d9 = from_pos >> 1
-        d10 = (to_pos >> 2) | ((to_pos & 0x01) << 6)
+        d10 = (to_pos >> 2) | ((from_pos & 0x01) << 6)
         d11 = (to_pos & 0x03) << 5
 
         # sub=0x35, block=0x00(fixed), d[0]=0x02(disconnect), d[7]=0x02(fixed), d[9:12]=coords
@@ -705,7 +705,6 @@ class FractalMidi:
             0x35, 0x00, [0, 0, 0],
             [0x02, 0, 0, 0, 0, 0, 0, 0x02, 0, d9, d10, d11, 0, 0]
         )
-        time.sleep(0.1)
         return True
 
     def add_shunt_at(self, row: int, col: int, shunt_index: int = 0) -> bool:
@@ -741,30 +740,20 @@ class FractalMidi:
 
     def connect_blocks(self, from_row: int, from_col: int, to_row: int, to_col: int) -> bool:
         """Connect two blocks with a cable, placing shunts in between if needed.
-        Rules:
-        - Same row: can span multiple columns (shunts auto-placed in between).
-        - Different row: must be same column or adjacent column (no shunts, direct cable).
-        from_col must be <= to_col.
+        Supports same-row and cross-row connections.
+
+        Routing strategy:
+        - Same row: shunts placed horizontally between from_col and to_col.
+        - Cross row: first cable crosses rows (from_row,from_col → to_row,from_col+1),
+          then shunts extend horizontally on to_row toward to_col.
+          If same column, direct cross-row cable (no shunts).
+
+        from_col must be < to_col (unless same-column cross-row).
         """
-        if from_col > to_col:
-            raise ValueError("from_col must be <= to_col.")
-
-        # Cross-row connection: no shunts allowed, must be adjacent column or same column
-        if from_row != to_row:
-            if to_col - from_col > 1:
-                raise ValueError(
-                    "Cross-row connections cannot span multiple columns. "
-                    "Use same-row shunts to reach the target column first, "
-                    "then connect across rows at that column."
-                )
-            self.connect_adjacent(from_row, from_col, to_row, to_col)
-            with self._midi_lock:
-                self._flush_input()
-            return True
-
-        # Same-row connection: place shunts in intermediate columns
-        if from_col == to_col:
+        if from_row == to_row and from_col >= to_col:
             raise ValueError("from_col must be < to_col for same-row connections.")
+        if from_row != to_row and from_col > to_col:
+            raise ValueError("from_col must be <= to_col for cross-row connections.")
 
         # Determine next shunt index by reading current grid
         raw_grid = self.read_grid_raw()
@@ -777,17 +766,31 @@ class FractalMidi:
                     bid = cell["block_id"]
                     if bid > max_shunt_idx:
                         max_shunt_idx = bid
-
         next_idx = max_shunt_idx + 1
 
-        # Phase 1: Place shunts in intermediate columns
-        shunt_cols = list(range(from_col + 1, to_col))
-        for i, col in enumerate(shunt_cols):
-            self.add_shunt_at(from_row, col, shunt_index=next_idx + i)
+        if from_row == to_row:
+            # Same-row: shunts in intermediate columns
+            shunt_cols = list(range(from_col + 1, to_col))
+            for i, col in enumerate(shunt_cols):
+                self.add_shunt_at(from_row, col, shunt_index=next_idx + i)
+            for col in range(from_col, to_col):
+                self.connect_adjacent(from_row, col, from_row, col + 1)
+        elif from_col == to_col:
+            # Same column, cross-row: direct cable, no shunts
+            self.connect_adjacent(from_row, from_col, to_row, to_col)
+        else:
+            # Cross-row + cross-column:
+            # Shunts on to_row from from_col+1 to to_col-1
+            shunt_cols = list(range(from_col + 1, to_col))
+            for i, col in enumerate(shunt_cols):
+                self.add_shunt_at(to_row, col, shunt_index=next_idx + i)
 
-        # Phase 2: Connect each adjacent pair
-        for col in range(from_col, to_col):
-            self.connect_adjacent(from_row, col, from_row, col + 1)
+            # First cable: cross rows (from_row,from_col) → (to_row,from_col+1)
+            self.connect_adjacent(from_row, from_col, to_row, from_col + 1)
+
+            # Remaining cables: horizontal on to_row
+            for col in range(from_col + 1, to_col):
+                self.connect_adjacent(to_row, col, to_row, col + 1)
 
         with self._midi_lock:
             self._flush_input()

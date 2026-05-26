@@ -333,7 +333,7 @@ def encode_cable_coords(from_row, from_col, to_row, to_col):
     from_pos = from_col * 6 + from_row
     to_pos = to_col * 6 + to_row
     d9 = from_pos >> 1
-    d10 = (to_pos >> 2) | ((to_pos & 0x01) << 6)
+    d10 = (to_pos >> 2) | ((from_pos & 0x01) << 6)
     d11 = (to_pos & 0x03) << 5
     return d9, d10, d11
 ```

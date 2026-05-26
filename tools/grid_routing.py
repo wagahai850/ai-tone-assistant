@@ -188,10 +188,10 @@ def register(mcp):
                 return {"success": False, "error": "Row must be 1-5."}
             if not (1 <= from_col <= 14) or not (1 <= to_col <= 14):
                 return {"success": False, "error": "Column must be 1-14."}
-            if from_col >= to_col:
-                return {"success": False, "error": "from_col must be less than to_col (cables go left to right)."}
-            if from_row != to_row and to_col - from_col > 1:
-                return {"success": False, "error": "Cross-row connections cannot span multiple columns. Connect along the row first, then cross rows."}
+            if from_col >= to_col and from_row == to_row:
+                return {"success": False, "error": "from_col must be less than to_col for same-row connections."}
+            if from_col > to_col and from_row != to_row:
+                return {"success": False, "error": "from_col must be <= to_col for cross-row connections."}
 
             midi.connect_blocks(from_row - 1, from_col - 1, to_row - 1, to_col - 1)
             shunts = to_col - from_col - 1
@@ -205,14 +205,18 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_disconnect_blocks(row: int, col: int) -> dict[str, Any]:
+    @mcp.tool()
+    def fm9_disconnect_blocks(row: int, col: int, to_row: int = 0, to_col: int = 0) -> dict[str, Any]:
         """Disconnect (remove cable from) the block at the given position.
 
-        Removes the cable going from this block to its right neighbor.
+        Removes the cable going from this block to its right neighbor (same row),
+        or to a specific destination if to_row/to_col are provided.
 
         Args:
-            row: Row of the block (1-5).
-            col: Column of the block whose right-side cable to remove (1-14).
+            row: Row of the source block (1-5).
+            col: Column of the source block (1-14).
+            to_row: Row of the destination block (1-5). If 0, defaults to same row.
+            to_col: Column of the destination block (1-14). If 0, defaults to col+1.
 
         Returns success status.
         """
@@ -222,11 +226,20 @@ def register(mcp):
                 return {"success": False, "error": "Row must be 1-5."}
             if not (1 <= col <= 14):
                 return {"success": False, "error": "Column must be 1-14."}
-            if col >= 14:
-                return {"success": False, "error": "Cannot disconnect from last column."}
 
-            midi.disconnect_adjacent(row - 1, col - 1, row - 1, col)
-            return {"success": True, "position": {"row": row, "col": col}}
+            # Default: disconnect to right neighbor on same row
+            if to_row == 0:
+                to_row = row
+            if to_col == 0:
+                to_col = col + 1
+
+            if not (1 <= to_row <= 5):
+                return {"success": False, "error": "to_row must be 1-5."}
+            if not (1 <= to_col <= 14):
+                return {"success": False, "error": "to_col must be 1-14."}
+
+            midi.disconnect_adjacent(row - 1, col - 1, to_row - 1, to_col - 1)
+            return {"success": True, "from": {"row": row, "col": col}, "to": {"row": to_row, "col": to_col}}
         except Exception as e:
             return {"success": False, "error": str(e)}
 
