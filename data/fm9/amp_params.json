@@ -671,6 +671,15 @@
       ],
       "max": 10.0,
       "type": "continuous"
+    },
+    "Bright": {
+      "type": "switch",
+      "param_id": 45,
+      "offset": [
+        142,
+        145
+      ],
+      "max": 1
     }
   }
 }
