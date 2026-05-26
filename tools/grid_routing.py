@@ -190,6 +190,8 @@ def register(mcp):
                 return {"success": False, "error": "Column must be 1-14."}
             if from_col >= to_col:
                 return {"success": False, "error": "from_col must be less than to_col (cables go left to right)."}
+            if from_row != to_row and to_col - from_col > 1:
+                return {"success": False, "error": "Cross-row connections cannot span multiple columns. Connect along the row first, then cross rows."}
 
             midi.connect_blocks(from_row - 1, from_col - 1, to_row - 1, to_col - 1)
             shunts = to_col - from_col - 1

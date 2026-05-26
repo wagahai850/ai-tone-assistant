@@ -740,15 +740,31 @@ class FractalMidi:
         return True
 
     def connect_blocks(self, from_row: int, from_col: int, to_row: int, to_col: int) -> bool:
-        """Connect two blocks on the same row, placing shunts in between if needed.
-        Blocks must be on the same row. from_col must be < to_col.
-        Phase 1: Place all shunts with sequential indices (starting after existing shunts).
-        Phase 2: Connect each adjacent pair with cables.
+        """Connect two blocks with a cable, placing shunts in between if needed.
+        Rules:
+        - Same row: can span multiple columns (shunts auto-placed in between).
+        - Different row: must be same column or adjacent column (no shunts, direct cable).
+        from_col must be <= to_col.
         """
+        if from_col > to_col:
+            raise ValueError("from_col must be <= to_col.")
+
+        # Cross-row connection: no shunts allowed, must be adjacent column or same column
         if from_row != to_row:
-            raise ValueError("connect_blocks only supports same-row connections.")
-        if from_col >= to_col:
-            raise ValueError("from_col must be less than to_col.")
+            if to_col - from_col > 1:
+                raise ValueError(
+                    "Cross-row connections cannot span multiple columns. "
+                    "Use same-row shunts to reach the target column first, "
+                    "then connect across rows at that column."
+                )
+            self.connect_adjacent(from_row, from_col, to_row, to_col)
+            with self._midi_lock:
+                self._flush_input()
+            return True
+
+        # Same-row connection: place shunts in intermediate columns
+        if from_col == to_col:
+            raise ValueError("from_col must be < to_col for same-row connections.")
 
         # Determine next shunt index by reading current grid
         raw_grid = self.read_grid_raw()
@@ -764,12 +780,12 @@ class FractalMidi:
 
         next_idx = max_shunt_idx + 1
 
-        # Phase 1: Place shunts with incrementing index
+        # Phase 1: Place shunts in intermediate columns
         shunt_cols = list(range(from_col + 1, to_col))
         for i, col in enumerate(shunt_cols):
             self.add_shunt_at(from_row, col, shunt_index=next_idx + i)
 
-        # Phase 2: Connect each adjacent pair (from_col to to_col)
+        # Phase 2: Connect each adjacent pair
         for col in range(from_col, to_col):
             self.connect_adjacent(from_row, col, from_row, col + 1)
 
