@@ -74,12 +74,14 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 ### Grid / Routing
 | Tool | Description |
 |------|-------------|
-| `fm9_add_block` | Add effect block to grid |
+| `fm9_add_block` | Add effect block to grid (upsert — replaces existing) |
 | `fm9_delete_block` | Remove block from grid |
 | `fm9_move_block` | Move block to different position |
 | `fm9_connect_blocks` | Connect blocks with cable (auto-shunt, cross-row supported) |
 | `fm9_disconnect_blocks` | Remove cable connection (same-row or cross-row) |
 | `fm9_read_grid` | Read full grid layout with cable info |
+| `fm9_read_graph` | Read preset as signal-flow graph (blocks + connections) |
+| `fm9_apply_graph` | Build preset from graph (declarative, auto-layout) |
 
 ### Preset Management
 | Tool | Description |
