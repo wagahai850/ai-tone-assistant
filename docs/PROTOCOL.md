@@ -71,6 +71,7 @@ Total: 23 bytes (standard) or 26 bytes (extended, sub=0x35)
 | 0x27 | OUT | CHANGE_PRESET | Switch to different preset |
 | 0x28 | OUT | SET_PRESET_NAME | Rename preset (60 bytes, 7-bit packed name) |
 | 0x2A | OUT | QUERY_PRESET_NAME | Get preset name by number |
+| 0x2B | OUT | SET_SCENE_NAME | Set scene name (60 bytes, 7-bit packed) |
 | 0x2E | both | GRID_QUERY | Read grid layout (753-byte response) |
 | 0x30 | OUT | LAYOUT_BEGIN | Start grid operation (block add/delete/move) |
 | 0x32 | OUT | BLOCK_ADD | Add block at grid position |
@@ -427,6 +428,81 @@ def decode_name(data):
     return ''.join(chr(int(bits[i:i+8], 2)) for i in range(0, len(bits)-7, 8)
                    if int(bits[i:i+8], 2) > 0).rstrip()
 ```
+
+## SET_SCENE_NAME (sub=0x2B)
+
+Same structure as SET_PRESET_NAME but sets a scene name instead.
+
+```
+F0 00 01 74 [model] 01 2B 00 00 00 [scene_index] 00 00 00 00 00 00 00 00 20 00 [name_37bytes] [cs] F7
+```
+
+- scene_index: 0x00=Scene 1, 0x01=Scene 2, ..., 0x07=Scene 8
+- name: 7-bit packed encoding (same as preset name), max 32 ASCII characters
+- Total message: 60 bytes (same as SET_PRESET_NAME)
+
+Confirmed via Wireshark capture (2026-05-27).
+
+## Block-Specific Parameter Encoding
+
+Different blocks use different encoding for SET_PARAM (sub=0x09):
+
+### Amp / Drive (block 0x3A, 0x76)
+- Continuous params: **Normalized 0.0–1.0** (value / max)
+- Type selection: Uses dedicated `fm9_set_amp_type` / `fm9_set_drive_type` tools
+
+### Cab (block 0x3E–0x41)
+- Mode, DynaCab Type, DynaCab Mic: **Raw float** (integer as IEEE 754, e.g., 31.0 for Type index 31)
+- Frequency params (High Cut, Low Cut): **Raw float** (Hz value directly)
+- DynaCab R/Z (position/distance): **Normalized 0.0–1.0**
+- All other params: **Raw float**
+
+### Parametric EQ (block 0x36–0x39)
+- ALL params: **Raw float** (display values directly)
+  - Freq: Hz value (e.g., 2500.0 for 2500 Hz)
+  - Gain: dB value (e.g., 3.0 for +3 dB, -2.0 for -2 dB cut)
+  - Q: Q value directly (e.g., 1.5)
+  - Type: enum index (e.g., 0=Peaking, 3=Shelving 2, 4=High Pass)
+
+### All Other Blocks
+- Continuous params: **Normalized 0.0–1.0**
+- Frequency params (max >= 20000): **Raw float** (Hz value)
+- Enum params: **Raw float** (integer index as IEEE 754)
+
+### Frequency Parameter Storage (Log Scale)
+
+Frequency parameters are stored internally using logarithmic scale:
+```
+Encode: raw = 65534 × log₁₀(freq / 20) / log₁₀(max_freq / 20)
+Decode: freq = 20 × 10^(raw / 65534 × log₁₀(max_freq / 20))
+```
+Where min_freq = 20 Hz (fixed), max_freq depends on block/type (typically 20000 Hz).
+
+## Effect Type param_id per Block
+
+The Type parameter ID varies by block. `fm9_set_effect_type` uses the correct ID automatically.
+
+| Block | Type param_id | Notes |
+|-------|--------------|-------|
+| Amp 1 | 10 (0x0A) | |
+| Drive 1 | 0 (0x00) | |
+| Delay 1 | 11 (0x0B) | |
+| Reverb 1 | 10 (0x0A) | |
+| Chorus 1 | 0 (0x00) | |
+| Flanger 1 | 0 (0x00) | |
+| Phaser 1 | 0 (0x00) | |
+| Pitch 1 | 0 (0x00) | |
+| Wah 1 | 0 (0x00) | |
+| Tremolo/Panner 1 | 0 (0x00) | |
+| Compressor 1 | 12 (0x0C) | |
+| Graphic EQ 1 | 15 (0x0F) | |
+| Enhancer 1 | 6 (0x06) | |
+| Volume/Pan 1 | 9 (0x09) | |
+| Megatap Delay 1 | 28 (0x1C) | |
+| Ring Modulator | 10 (0x0A) | |
+| Ten-Tap Delay 1 | 0 (0x00) | |
+
+Type is set using raw float encoding (integer as IEEE 754 float), NOT the legacy _send_sub09 enum format.
 
 ## Known Block IDs
 

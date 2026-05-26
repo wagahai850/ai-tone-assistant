@@ -89,6 +89,7 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_store_preset` | Save preset to flash |
 | `fm9_change_preset` | Switch to different preset |
 | `fm9_set_preset_name` | Rename preset |
+| `fm9_set_scene_name` | Set scene name (1-8) |
 | `fm9_list_amp_types` | Search amp models |
 | `fm9_list_drive_types` | Search drive models |
 
@@ -206,9 +207,14 @@ MIT
 - **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 31 flanger types, 18 chorus types, 17 phaser types, 7 tremolo types, 16 pitch types, 19 compressor types, 2000+ cab IRs
 - **Type-specific valid parameters**: know which params are active for each model variant (331 amp types, 16 pitch types, 11 compressor types, etc.)
 - **Axe-Fx III support**: same protocol, parameter data extracted via automated pipeline
+- **DynaCab control**: Mode/Type/Mic selection by name or index via `fm9_set_block_params`
+- **Parametric EQ**: Full control of Freq (Hz), Gain (dB), Q, Type via `fm9_set_block_params` with raw display values
+- **Scene names**: Set scene names (1-8) via `fm9_set_scene_name`
+- **SET read-back**: All SET tools return full parameter read-back confirming actual device state
+- **Effect type selection**: `fm9_set_effect_type` works for all blocks (correct per-block Type param_id)
 
 ### Known Limitations
-- **Generic block tools use normalized 0-1 values** — The `fm9_set_block_params` tool sends values as 0.0-1.0 (normalized). Only Amp and Drive have dedicated tools with display-value scaling (e.g., "Gain=5.0" maps to 0-10 range). Other blocks require the caller to normalize manually.
+- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 via dedicated tools. PEQ sends raw display values (Hz, dB, Q). Cab uses raw float for most params (Mode, Type, Mic, frequency) and normalized 0-1 for DynaCab R/Z position. The `fm9_set_block_params` tool handles this automatically based on block type.
 - **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
 - **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
@@ -216,12 +222,14 @@ MIT
 - **No modifier/controller support**
 - **No scene-level parameter overrides**
 - **Error recovery is minimal** — MIDI port errors require server restart
+- **PEQ/Cab/frequency params use raw display values** — Unlike Amp/Drive (which use normalized 0-1), PEQ sends actual Hz/dB values, and Cab DynaCab sends integer indices. The `fm9_set_block_params` tool handles this automatically based on block type.
+- **PEQ frequency read-back uses max=20000 for log decode** — If the band Type has a lower max (e.g., Shelving=2000Hz), the read-back may show incorrect Hz at the clamped maximum. The SET is correct; only the GET display is affected.
 
 ### Known Issues
 
 #### Cab block uses mixed parameter encoding (fixed)
 
-**Status**: Fixed. Cab block fully operational via `fm9_set_block_params`.
+**Status**: Fixed. Cab block fully operational via `fm9_set_block_params`, including DynaCab Type/Mic name resolution (e.g., `{"Dynacab Type1": "4x12 1960TV"}`, `{"Dynacab Mic1": "Dynamic 1"}`).
 
 **Background**: The Cab block uses three different encoding modes depending on the parameter type, unlike Amp/Drive which use normalized 0.0–1.0 for everything:
 
