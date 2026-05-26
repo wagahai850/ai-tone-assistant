@@ -258,6 +258,16 @@ def register(mcp):
                     # Bipolar: raw 0 = -max, 32767 = 0 (center), 65534 = +max
                     # Uses same formula as decode_bipolar: raw/65534 * (2*max) - max
                     display_value = round(raw_val / 65534.0 * (2 * param_max) - param_max, 2)
+                elif param_max >= 20000:
+                    # Frequency params: log scale decode
+                    # freq = 20 * 10^(raw / 65534 * log10(max_freq / 20))
+                    import math
+                    if raw_val == 0:
+                        display_value = 20.0
+                    else:
+                        display_value = round(
+                            20.0 * 10 ** (raw_val / 65534.0 * math.log10(param_max / 20.0)), 1
+                        )
                 else:
                     # Continuous: raw 0 = 0, 65534 = max
                     normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
