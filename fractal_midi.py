@@ -559,10 +559,7 @@ class FractalMidi:
         return pos % 6, pos // 6
 
     def _send_layout_msg(self, sub: int, block_id: int, p: list[int], d: list[int]) -> bool:
-        """Send a 23-byte func=0x01 layout message.
-        Wire: F0 [mfr(3)] [model] 01 [sub] 00 [block_id] [p0 p1 p2] [d0..d8] [cs] F7
-        payload (after _send_sysex prefix) = [0x01, sub, 0x00, block_id, p0, p1, p2, d0..d8, cs]
-        """
+        """Send a 23-byte func=0x01 layout message."""
         with self._midi_lock:
             p_padded = (p + [0, 0, 0])[:3]
             d_padded = (d + [0] * 9)[:9]
@@ -573,12 +570,11 @@ class FractalMidi:
             cs = (cs ^ 0x05) & 0x7F
             payload.append(cs)
             self._send_sysex(payload)
-            time.sleep(0.1)
+            time.sleep(0.02)
             return True
 
     def _send_layout_msg_26byte(self, sub: int, block_id: int, p: list[int], d: list[int]) -> bool:
-        """Send a 26-byte (mido data) func=0x01 message (used for cable connect/disconnect sub=0x35).
-        Same structure but d is 14 bytes instead of 9. Total payload = 4+3+14+1(cs) = 22."""
+        """Send a 26-byte (mido data) func=0x01 message (used for cable connect/disconnect sub=0x35)."""
         with self._midi_lock:
             p_padded = (p + [0, 0, 0])[:3]
             d_padded = (d + [0] * 14)[:14]
@@ -589,7 +585,7 @@ class FractalMidi:
             cs = (cs ^ 0x05) & 0x7F
             payload.append(cs)
             self._send_sysex(payload)
-            time.sleep(0.1)
+            time.sleep(0.02)
             return True
 
     def add_block_at(self, block_id: int, row: int, col: int) -> bool:
@@ -607,7 +603,6 @@ class FractalMidi:
 
         # Step 1: sub=0x30 — layout operation start
         self._send_layout_msg(0x30, 0x00, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.05)
         # Step 2: sub=0x32 — block add (2-byte block_id in positions [3:5])
         with self._midi_lock:
             payload = [0x01, 0x32, 0x00, id_lo, id_hi, 0x00, 0x00,
@@ -618,23 +613,16 @@ class FractalMidi:
             cs = (cs ^ 0x05) & 0x7F
             payload.append(cs)
             self._send_sysex(payload)
-            time.sleep(0.3)
+            time.sleep(0.1)
             self._flush_input()
         return True
 
     def delete_block_at(self, row: int, col: int) -> bool:
-        """Delete the block at a specific grid position.
-        Args:
-            row: Grid row (0-4)
-            col: Grid column (0-13)
-        """
+        """Delete the block at a specific grid position."""
         pos = self.grid_pos(row, col)
-        # Step 1: sub=0x30 — layout operation start
         self._send_layout_msg(0x30, 0x25, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.05)
-        # Step 2: sub=0x33 — block delete
         self._send_layout_msg(0x33, 0x25, [0, 0, 0], [pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.3)
+        time.sleep(0.1)
         with self._midi_lock:
             self._flush_input()
         return True
@@ -642,32 +630,24 @@ class FractalMidi:
     def move_block(self, from_row: int, from_col: int, to_row: int, to_col: int) -> bool:
         """Move a block from one grid position to another.
         Movement is done step-by-step (1 cell at a time) using direction codes.
-        Direction codes: 0=left, 1=right, 2=up, 3=down.
         """
         from_pos = self.grid_pos(from_row, from_col)
-        # Step 1: sub=0x30 — start move (from position)
         self._send_layout_msg(0x30, 0x25, [0, 0, 0], [from_pos, 0, 0, 0, 0, 0, 0, 0, 0])
-        time.sleep(0.05)
 
-        # Calculate moves needed
         col_diff = to_col - from_col
         row_diff = to_row - from_row
 
-        # Horizontal moves first
         if col_diff != 0:
-            direction = 0x01 if col_diff > 0 else 0x00  # right or left
+            direction = 0x01 if col_diff > 0 else 0x00
             for _ in range(abs(col_diff)):
                 self._send_layout_msg(0x36, 0x25, [0, 0, 0], [direction, 0, 0, 0, 0, 0, 0, 0, 0])
-                time.sleep(0.05)
 
-        # Then vertical moves
         if row_diff != 0:
-            direction = 0x03 if row_diff > 0 else 0x02  # down or up
+            direction = 0x03 if row_diff > 0 else 0x02
             for _ in range(abs(row_diff)):
                 self._send_layout_msg(0x36, 0x25, [0, 0, 0], [direction, 0, 0, 0, 0, 0, 0, 0, 0])
-                time.sleep(0.05)
 
-        time.sleep(0.2)
+        time.sleep(0.05)
         with self._midi_lock:
             self._flush_input()
         return True
