@@ -76,22 +76,24 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_set_cab_ir(ir_id: int, block_id: str = "0x3E") -> dict[str, Any]:
-        """Set Cab IR by numeric ID.
+    def fm9_set_cab_ir(ir_id: int, block_id: str = "0x3E", slot: int = 1,
+                       bank: int = 0) -> dict[str, Any]:
+        """Set Cab IR by bank and index.
 
         Args:
-            ir_id: The 21-bit IR identifier. Use fm9_read_param_raw with block 0x3E
-                   param_index 4 to read the current IR ID, or capture from Editor.
+            ir_id: IR index within the bank (0-based).
             block_id: Cab block ID as hex string (default "0x3E" = Cab 1).
+            slot: Cab slot (1=R/first, 2=L/second).
+            bank: IR bank (0=Factory 1, 1=Factory 2, 2=User, 3=Legacy).
 
-        Returns success status. Note: IR IDs are not yet mapped to names.
-        This is a low-level command for testing. IR ID mapping will be added later.
+        Returns success status.
         """
         try:
             ensure_connected()
             bid = int(block_id, 16) if block_id.startswith("0x") else int(block_id)
-            midi.set_cab_ir(ir_id, bid)
-            return {"success": True, "ir_id": ir_id, "block_id": block_id}
+            midi.set_cab_ir(ir_id, bid, slot=slot, bank=bank)
+            return {"success": True, "ir_id": ir_id, "bank": bank,
+                    "slot": slot, "block_id": block_id}
         except Exception as e:
             return {"success": False, "error": str(e)}
 

@@ -300,10 +300,27 @@ class FractalMidi:
         """Set Drive Type using sub=0x09, param=0x0A."""
         return self._send_sub09(block_id, 0x0A, type_id)
 
-    def set_cab_ir(self, ir_id: int, block_id: int = 0x3E) -> bool:
-        """Set Cab IR using sub=0x09, param=0x04.
-        ir_id is the 21-bit IR identifier (from Factory/User bank)."""
-        return self._send_sub09(block_id, 0x04, ir_id)
+    def set_cab_ir(self, ir_id: int, block_id: int = 0x3E, slot: int = 1,
+                  bank: int = 0) -> bool:
+        """Set Cab IR using Bank + Type params with raw float encoding.
+
+        Args:
+            ir_id: IR index within the bank (0-based).
+            block_id: Cab block ID (0x3E=Cab 1, 0x3F=Cab 2, etc.)
+            slot: Cab slot (1=R/first, 2=L/second). Maps to param pairs.
+            bank: IR bank (0=Factory 1, 1=Factory 2, 2=User, 3=Legacy).
+        """
+        # Slot 1: BANK1=param 0, TYPE1=param 4
+        # Slot 2: BANK2=param 1, TYPE2=param 5
+        bank_param = 0 if slot == 1 else 1
+        type_param = 4 if slot == 1 else 5
+
+        # Send bank first, then type — both as raw float
+        self.set_param_value(block_id, bank_param, float(bank), 1.0, raw_float=True)
+        import time
+        time.sleep(0.1)
+        self.set_param_value(block_id, type_param, float(ir_id), 1.0, raw_float=True)
+        return True
 
     def set_param_value(self, block_id: int, param_id: int, value: float, max_value: float,
                        channel: int = 0, raw_float: bool = False) -> bool:
