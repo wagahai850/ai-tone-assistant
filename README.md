@@ -41,6 +41,7 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 
 ## Available MCP Tools
 
+### Core Control
 | Tool | Description |
 |------|-------------|
 | `fm9_get_status` | Connection state + block bypass/channel status |
@@ -54,12 +55,34 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_set_bypass` | Bypass/engage any effect block |
 | `fm9_set_channel` | Switch block channel (A/B/C/D) |
 | `fm9_set_cab_ir` | Select cabinet IR |
+
+### Generic Block Control (all 40 blocks)
+| Tool | Description |
+|------|-------------|
+| `fm9_get_block_params` | Read parameters for any block (normalized 0-1) |
+| `fm9_set_block_params` | Set parameters on any block (normalized 0-1) |
+| `fm9_list_block_params` | List all parameter names/IDs for a block |
+| `fm9_list_effect_types` | List available types/models for a block category |
+
+### Reference / Lookup
+| Tool | Description |
+|------|-------------|
+| `fm9_lookup_model_info` | Search amp/drive model info (based-on, cab, notes) |
+| `fm9_lookup_block_info` | Query type-specific valid parameters |
+
+### Grid / Routing
+| Tool | Description |
+|------|-------------|
 | `fm9_add_block` | Add effect block to grid |
 | `fm9_delete_block` | Remove block from grid |
 | `fm9_move_block` | Move block to different position |
 | `fm9_connect_blocks` | Connect blocks with cable (auto-shunt) |
 | `fm9_disconnect_blocks` | Remove cable connection |
 | `fm9_read_grid` | Read full grid layout with cable info |
+
+### Preset Management
+| Tool | Description |
+|------|-------------|
 | `fm9_store_preset` | Save preset to flash |
 | `fm9_change_preset` | Switch to different preset |
 | `fm9_set_preset_name` | Rename preset |
@@ -134,29 +157,54 @@ MIT
 
 ## Status
 
-**Proof of Concept** — functional but not production-ready.
+**Working Proof of Concept** — all blocks controllable, core workflow functional.
 
 ### What works
-- Amp 1: full model selection + 74 parameter control (GET/SET verified)
-- Drive 1: full model selection + 28 parameter control (GET/SET verified)
-- Delay 1: 52 parameters scanned (FM9), 37 parameters scanned (Axe-Fx III)
-- All blocks: channel control (A/B/C/D) via sub=0x09 channel byte
-- Grid operations: add, delete, move, connect, disconnect, read
-- Preset management: store, change, rename
-- 14 block types scanned (Amp, Drive, Cab, Reverb, Delay, Chorus, Comp, GEQ, PEQ, Flanger, Phaser, Wah, Formant, Volume/Pan)
+- **All 40 effect blocks**: parameter read/write via generic tools (normalized 0-1 values)
+- **Amp 1**: full model selection (331 models) + display-value parameter control (Gain=5.0, etc.)
+- **Drive 1**: full model selection (86 models) + display-value parameter control
+- **Delay/Reverb/Chorus/etc.**: parameter control via `fm9_set_block_params` (verified on Delay)
+- **All blocks**: channel control (A/B/C/D), bypass, scene switching
+- **Grid operations**: add, delete, move, connect, disconnect, read
+- **Preset management**: store, change, rename
+- **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 2000+ cab IRs
+- **Type-specific valid parameters**: know which params are active for each model variant (331 amp types, 16 pitch types, 11 compressor types, etc.)
+- **Axe-Fx III support**: same protocol, parameter data extracted via automated pipeline
 
-### Known Issues
-- **Parameter IDs differ between Axe-Fx III and FM9** — Same block type + same model variant can have different param_id mappings. Each device needs its own parameter scan.
-- **Amp "Presence" varies by model** — Preamp-only models (e.g., USA Pre Clean) use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
-- Parameter maps for most blocks beyond Amp/Drive are scanned but not yet exposed as MCP tools
+### Known Limitations
+- **Generic block tools use normalized 0-1 values** — The `fm9_set_block_params` tool sends values as 0.0-1.0 (normalized). Only Amp and Drive have dedicated tools with display-value scaling (e.g., "Gain=5.0" maps to 0-10 range). Other blocks require the caller to normalize manually.
+- **Parameter min/max not yet available for most blocks** — Amp and Drive have confirmed ranges (Gain: 0-10, Level: -80 to +20 dB, etc.). Other blocks lack min/max metadata, so the generic tools can't auto-scale display values.
+- **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
+- **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
+- **No Delay/Reverb time sync or tap tempo**
+- **No modifier/controller support**
+- **No scene-level parameter overrides**
+- **Error recovery is minimal** — MIDI port errors require server restart
 
-### What's missing
-- MCP tools for scanned blocks (Reverb, Delay, Chorus, etc.) — data exists, tools not yet implemented
-- No Delay/Reverb time sync or tap tempo
-- No modifier/controller support
-- No scene-level parameter overrides
-- Error recovery is minimal (MIDI port errors require manual restart)
+### Roadmap
+1. Add display-value scaling for remaining blocks (requires min/max data)
+2. Expose type-specific valid params in tool responses (filter out inactive params)
+3. Modifier/controller assignment support
+4. Scene-level parameter management
+5. Direct firmware query for effect definitions (eliminate Editor cache dependency)
+
+### Data Pipeline
+
+Parameter maps and model names are extracted automatically from the Editor binary and firmware cache:
+
+```bash
+# Run after firmware update:
+python3 pipeline_params.py fm9       # Extract param tables + type-valid params
+python3 pipeline_params.py axe3      # Same for Axe-Fx III
+python3 pipeline_effect_defs.py fm9  # Extract model/type names from cache
+python3 pipeline_effect_defs.py axe3
+```
 
 ### Contributing
 
-Parameter maps are the biggest gap. If you have a Mac with FM9 Editor, the automated AppleScript scanner (`full_tab_scan.py`) can map any block's parameters in ~30 minutes. PRs welcome.
+The automated pipeline handles parameter extraction. If you want to help:
+- **min/max values**: Run the param scanner on blocks to determine display ranges
+- **Type-specific behavior**: Document which params are ignored for specific model types
+- **FM3 testing**: Same protocol should work, needs verification
+
+PRs welcome.

@@ -50,3 +50,6 @@ scan_*.json
 .DS_Store
 scan_*.json
 scan_*_log*.txt
+batch_scan_log*.txt
+run_batch.sh
+build_wiki_data.py
