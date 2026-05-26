@@ -1,0 +1,4269 @@
+{
+  "_source": "Fractal Audio Wiki (wiki.fractalaudio.com)",
+  "_note": "Parameter names and model info from public wiki. For MCP lookup.",
+  "amp_models": [
+    {
+      "model_name": "5F1 TWEED CHAMPLIFIER",
+      "based_on": "narrow-panel Fender Tweed Champ, 5F1",
+      "cab_original": "Fender 1x8",
+      "cab_dynacab": "1x8 5F1 Tweed",
+      "power_tubes": "6V6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5F1 TWEED EC CHAMPLIFIER",
+      "based_on": "2011 Fender EC Vibro-Champ",
+      "cab_original": "Fender 1x8",
+      "cab_dynacab": "1x8 5F1 Tweed",
+      "power_tubes": "6V6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5F8 TWEED BRIGHT",
+      "based_on": "Keith Urban\\'s 1959 narrow-panel high-power Fender Tweed Twin, 5F8",
+      "cab_original": "Fender 2x12 (P12N). Keith Urban\\'s cab has Two-Rock speakers",
+      "cab_dynacab": "2x12 Double Verb",
+      "power_tubes": "6L6, cathode follower",
+      "controls": "Volume Bright, Volume Normal, Presence, Middle, Bass, Treble",
+      "variants": [
+        "Normal channel",
+        "Bright channel",
+        "Jumpered channels"
+      ],
+      "notes": [
+        "All the Fender models except the 59 Bassman and 5F8 Tweed don"
+      ]
+    },
+    {
+      "model_name": "5F8 TWEED JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5F8 TWEED NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "6G4 SUPER",
+      "based_on": "1960 brownface Fender Super, 6G4",
+      "cab_original": "Fender 2x10 with Jensen Alnico 25W P10R, 40W P10Q, Oxford",
+      "cab_dynacab": "2x10 Super 6G4",
+      "power_tubes": "6L6",
+      "controls": "Volume, Bass, Treble, Presence, Vibrato effect (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "6G12 CONCERT",
+      "based_on": "1960 brownface Fender Concert, 6G12",
+      "cab_original": "Fender 4x10 with Jensen Alnico 25W P10R or 40W P10Q, ceramic",
+      "cab_dynacab": "4x10 Bassguy RI",
+      "power_tubes": "6L6",
+      "controls": "Volume, Bass, Treble, Presence, Vibrato effect (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "59 BASSGUY BRIGHT",
+      "based_on": "1959 narrow-panel Fender Tweed Bassman, 5F6-A",
+      "cab_original": "Fender 4x10 with Jensen Alnico 25W P10R or 40W P10Q",
+      "cab_dynacab": "4x10 Bassguy RI",
+      "power_tubes": "6L6/5881, cathode follower",
+      "controls": "Volume Normal, Volume Bright, Bass, Middle, Treble, Presence",
+      "variants": [
+        "Normal channel",
+        "Bright channel",
+        "Jumpered channels"
+      ],
+      "notes": [
+        "All the Fender models except the 59 Bassman and 5F8 Tweed don"
+      ]
+    },
+    {
+      "model_name": "59 BASSGUY JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "59 BASSGUY NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "59 BASSGUY RI JUMPED",
+      "based_on": "Fender 59 Bassman LTD Vintage Reissue",
+      "cab_original": "Fender 4x10 with Jensen Alnico 25W P10R or 40W P10Q",
+      "cab_dynacab": "4x10 Bassguy RI",
+      "power_tubes": "6L6",
+      "controls": "Volume Normal, Volume Bright, Bass, Middle, Treble, Presence",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "65 BASSGUY BASS",
+      "based_on": "1965 blackface Fender Bassman head, AB165",
+      "cab_original": "Fender 2x12 (Oxford)",
+      "cab_dynacab": "2x12 65 Bassguy",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [
+        "Bass channel",
+        "Normal channel"
+      ],
+      "notes": [
+        "Has a pissed-off Marshall vibe to it."
+      ]
+    },
+    {
+      "model_name": "65 BASSGUY NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "block in front: Type: Peaking, Freq: \\~800 Hz, Q: 0.707, Gain 12",
+      "variants": [],
+      "notes": [
+        "One of the first mods people make to real"
+      ]
+    },
+    {
+      "model_name": "1959SLP JUMPED",
+      "based_on": "100W Marshall Super Lead Plexi 1959 reissue",
+      "cab_original": "Marshall 4x12 (G12M, G12H)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Volume Normal, Volume Treble, Bass, Middle, Treble, Presence",
+      "variants": [
+        "Normal channel",
+        "Treble (High) channel",
+        "Jumpered channels"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "1959SLP NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "1959SLP TREBLE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "1987X JUMPED",
+      "based_on": "50W Marshall 1987X reissue",
+      "cab_original": "Marshall 4x12 (G12M, G12H)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Volume Normal, Volume Treble, Bass, Middle, Treble, Presence",
+      "variants": [
+        "Normal channel",
+        "Treble channel",
+        "Jumpered channels"
+      ],
+      "notes": [
+        "The 1987X model is based on a reissue 1987. It doesn"
+      ]
+    },
+    {
+      "model_name": "1987X NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "1987X TREBLE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5153 100W BLUE",
+      "based_on": "EVH 5150-III",
+      "cab_original": "5150 4x12, 2x12 (G12H, G12EVH)",
+      "cab_dynacab": "4x12 5153, 2x12 5153 Stealth",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [
+        "100W amp, Green channel",
+        "100W amp, Blue channel",
+        "100W amp, Red channel",
+        "100W Stealth amp, Green channel",
+        "100W Stealth amp, Blue channel",
+        "100W Stealth amp, Red channel",
+        "50W amp, Blue channel"
+      ],
+      "notes": [
+        "The red channels (of 50w and 100w models) are identical.",
+        "The 5150 models are absolutely identical to our reference amp.",
+        "The more stages an amp has the more the tube"
+      ]
+    },
+    {
+      "model_name": "5153 100W GREEN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5153 100W RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5153 100W STEALTH BLUE",
+      "based_on": "EVH 5150III 100S 100W",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "Every channel in the 100S is different than the OG 5153."
+      ]
+    },
+    {
+      "model_name": "5153 100W STEALTH GREEN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5153 100W STEALTH RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "5153 50W BLUE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "AC-20 12AX7 BASS",
+      "based_on": "Morgan AC20 Deluxe",
+      "cab_original": "Morgan 1x12 (G12 Alnico Blue)",
+      "cab_dynacab": "1x12 AC20",
+      "power_tubes": "EL84",
+      "controls": "Bass Cut), power scaling (not modeled), EF86/12AX7 switch",
+      "variants": [
+        "12AX7 Bass",
+        "12AX7 Treble",
+        "EF86 Bass",
+        "EF86 Treble"
+      ],
+      "notes": [
+        "As with the real amp I dial in quite a bit of Hi-Cut.",
+        "I think an AC-20 does the Vox thing better than Vox.",
+        "Our reference amp is a head with matching 1x12 cab."
+      ]
+    },
+    {
+      "model_name": "AC-20 12AX7 TREBLE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "AC-20 EF86 BASS",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "AC-20 EF86 TREBLE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ANGLE SEVERE 1",
+      "based_on": "Engl Savage 120",
+      "cab_original": "Engl 4x12 (V30, V60)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6550",
+      "controls": "Gain (input sensitivity), Lead (distortion), Lead Boost switch, Contour",
+      "variants": [
+        "Lead channel, Contour switch: off (boosts lower midrange around 500"
+      ],
+      "notes": [
+        "The Depth control on the amp is a switch. You would set the Depth\n    on the model to either 0 or 10 to duplicate this behavior. Depth\n    being controlled by a switch goes back to Peavey and their patent\n    for a pot to control depth. If you use a pot for depth you had to\n    pay them royalties so amp makers would use a switch to get around\n    this. I believe the patent has expired so newer amps more often have\n    a knob. Also note that older versions of the Savage had a different\n    feedback network that caused the volume to change pretty\n    dramatically as a function of Presence. Newer versions (like our\n    reference amp) have an added resistor that makes the Presence\n    control behave more predictably."
+      ]
+    },
+    {
+      "model_name": "ANGLE SEVERE 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ARCHEAN",
+      "based_on": "100W PRS Archon",
+      "cab_original": "Celestion V-Type",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "6L6",
+      "controls": "Master, Bass, Middle, Treble, Bright switch, Volume, Depth, Presence,",
+      "variants": [
+        "Archean Clean: Clean channel",
+        "Archean: Lead channel, Bright: off",
+        "Archean Bright: Lead channel, Bright: on"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "ARCHEAN BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ARCHEAN CLEAN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ATOMICA HIGH",
+      "based_on": "Cameron Atomica",
+      "cab_original": "cab with G12H speakers",
+      "cab_dynacab": "4x12 5153",
+      "power_tubes": "EL34",
+      "controls": "Thump/Depth, Presence, Bass, Middle, Treble, Master, Gain, Edge (=",
+      "variants": [
+        "Low gain input",
+        "High gain input"
+      ],
+      "notes": [
+        "The Atomica can tolerate high MV because it is a",
+        "The Cameron is a genuine Cameron. I don",
+        "I have an early Mark-built CCV. I"
+      ]
+    },
+    {
+      "model_name": "ATOMICA LOW",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BAND-COMMANDER",
+      "based_on": "1968 silverface/blackface Fender Bandmaster head, AB763",
+      "cab_original": "Fender 2x12",
+      "cab_dynacab": "2x12 65 Bassguy",
+      "power_tubes": "6L6",
+      "controls": "Vibrato channel: Volume, Bright switch, Treble, Bass, Tremolo effect",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BIG HAIR",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "It was a total guess. I just tuned it by ear. It",
+        "The FAS models are idealized and have some of the"
+      ]
+    },
+    {
+      "model_name": "BLANKENSHIP LEEDS",
+      "based_on": "Dweezil Zappa\\'s Blankenship Leeds 21",
+      "cab_original": "2x10, 1x12, 2x12 (G12M)",
+      "cab_dynacab": "1x12 Div13 CJ11",
+      "power_tubes": "EL84",
+      "controls": "Volume, Tone, Tremolo effect",
+      "variants": [],
+      "notes": [
+        "The model was matched to Dweezil",
+        "The amp has no hi-cut circuit therefore the control won"
+      ]
+    },
+    {
+      "model_name": "BLUDOJAI CLEAN",
+      "based_on": "Bludotone Ojai",
+      "cab_original": "Bludotone 1x12, 2x12 (G12-65, EVM)",
+      "cab_dynacab": "4x12 Rumble EV12L",
+      "power_tubes": "6L6",
+      "controls": "Treble, Middle, Bass, Master, Presence. Switches: Bright, Mid (not",
+      "variants": [
+        "Clean channel, PAB (Pre-Amp Bypass) off",
+        "Overdrive channel, PAB off",
+        "Overdrive channel, PAB on"
+      ],
+      "notes": [
+        "Pre, mid and post aren"
+      ]
+    },
+    {
+      "model_name": "BLUDOJAI LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BLUDOJAI LEAD PAB",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BOGFISH BROWN",
+      "based_on": "Bogner Fish preamp",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34",
+      "controls": "Master, Gain, Bass, Mid, Treble",
+      "variants": [
+        "Strato channel",
+        "Brown channel"
+      ],
+      "notes": [
+        "I used the power amp models from the XTC."
+      ]
+    },
+    {
+      "model_name": "BOGFISH STRATO",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "I have four JCM800s. Every one has a 1000pF bright cap."
+      ]
+    },
+    {
+      "model_name": "BRIT 800 2204 HIGH",
+      "based_on": "50W Marshall JCM 800 2204",
+      "cab_original": "Marshall 4x12 (G12M, G12H, G12-75, V30)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Pre-amp Volume, Bass, Middle, Treble, Presence, Master",
+      "variants": [
+        "Low input",
+        "High input"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT 800 2204 LOW",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT 800 2203 HIGH",
+      "based_on": "100W Marshall JCM 800 2203 JMP",
+      "cab_original": "Marshall 4x12 (G12M)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Presence, Bass, Middle, Treble, Master Volume, Pre-Amp Volume",
+      "variants": [],
+      "notes": [
+        "The reference amp I just received had no bright cap. It wasn"
+      ]
+    },
+    {
+      "model_name": "BRIT 800 2203 LOW",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT 800 #34",
+      "based_on": "50W Marshall JCM 800 with Santiago #34 modifications",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT 800 MOD",
+      "based_on": "50W Marshall JCM 800 with modifications",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT 800 STUDIO 20",
+      "based_on": "Marshall Studio Classic SC20H",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Gain, Bass, Middle, Treble, Presence, Master",
+      "variants": [],
+      "notes": [
+        "That little JCM800 Studio is a cool amp. It doesn"
+      ]
+    },
+    {
+      "model_name": "BRIT AFS100 1",
+      "based_on": "Marshall AFD100SCE",
+      "cab_original": "Marshall 4x12 (V30)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "6550",
+      "controls": "Gain, Bass, Middle, Treble, Presence, Master, #34/AFD switch, Depth",
+      "variants": [
+        "Amp in mode \\\"#34\\\"",
+        "Amp in mode \\\"AFD\\\""
+      ],
+      "notes": [
+        "Reference amp is a Slash AFD100 Signature Special Collector"
+      ]
+    },
+    {
+      "model_name": "BRIT AFS100 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT BROWN",
+      "based_on": "custom model: Plexi \\\"Brown Sound\\\"",
+      "cab_original": "",
+      "cab_dynacab": "4x12 5153",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "The Brit Brown was built by ear.",
+        "Brit Brown is my personal take on what the ultimate",
+        "The FAS models are idealized and have some of the"
+      ]
+    },
+    {
+      "model_name": "BRIT JM45",
+      "based_on": "Marshall JTM 45",
+      "cab_original": "Marshall 4x12 (G12M, G12H)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Volume Normal, Volume High Treble, Bass, Middle, Treble, Presence",
+      "variants": [
+        "Treble (High) channel",
+        "Jumpered channels"
+      ],
+      "notes": [
+        "The very first models used a 5881, after that KT66 then EL34."
+      ]
+    },
+    {
+      "model_name": "BRIT JM45 JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT JVM OD1 GREEN",
+      "based_on": "Marshall JVM410H",
+      "cab_original": "Marshall 4x12 G12T75",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Master, Bass, Middle, Treble, Gain, Presence, Resonance/Depth, Reverb",
+      "variants": [
+        "OD1 Green",
+        "OD1 Orange",
+        "OD1 Red",
+        "OD2 Green",
+        "OD2 Orange",
+        "OD2 Red"
+      ],
+      "notes": [
+        "The JVM is a cool amp but cleans are not its strength. There are\n    many clean models that can give you something better.",
+        "With an amp like the JVM it"
+      ]
+    },
+    {
+      "model_name": "BRIT JVM OD1 ORANGE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT JVM OD1 RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT JVM OD2 GREEN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT JVM OD2 ORANGE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT JVM OD2 RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT PRE",
+      "based_on": "Marshall JMP-1 preamp",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "EL34",
+      "controls": "Volume, Gain, Bass, Mid, Treble, Presence, Bass Shift (not modeled)",
+      "variants": [],
+      "notes": [
+        "Brit Pre is a legacy model from the original Axe-Fx. It"
+      ]
+    },
+    {
+      "model_name": "BRIT SILVER",
+      "based_on": "Marshall Silver Jubilee, previously: Lerxst Omega",
+      "cab_original": "Marshall 4x12 (V30)",
+      "cab_dynacab": "4x12 Lerxst",
+      "power_tubes": "EL34",
+      "controls": "Presence, Bass, Middle, Treble, Gain, Master",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "BRIT SUPER",
+      "based_on": "Marshall AFD100 schematics",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "Brit Super model is based on the Marshall AFD100."
+      ]
+    },
+    {
+      "model_name": "BUDDAH DUOMASTER",
+      "based_on": "Budda Twinmaster",
+      "cab_original": "1x15 Budda Phat 15, 1x12 Budda Phat 12",
+      "cab_dynacab": "2x12 Double Verb",
+      "power_tubes": "EL84",
+      "controls": "Bass, Treble, Volume",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CA3+ CLEAN",
+      "based_on": "Custom Audio Amplifiers 3+ SE preamp",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [
+        "Clean channel",
+        "Rhythm channel",
+        "Lead channel"
+      ],
+      "notes": [
+        "The CA3+SE model is basically an OD100.",
+        "An OD100 is the head version of a CAE 3+."
+      ]
+    },
+    {
+      "model_name": "CA3+ LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CA3+ RHYTHM",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAMERON CCV 1A",
+      "based_on": "Cameron CCV-100",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL34",
+      "controls": "Bass, Middle, Treble, two Gain controls, 3-way Gain Style switch, two",
+      "variants": [
+        "(1A) Channel 1, less gain",
+        "(1B) Channel 1, more gain",
+        "(2A) Channel 2, Bright 1 switch left, Bright 2 switch left, Gain Style"
+      ],
+      "notes": [
+        "The key to the CCV sound is the Sat Switch.",
+        "The Cameron is a genuine Cameron. I don",
+        "I have an early Mark-built CCV. I"
+      ]
+    },
+    {
+      "model_name": "CAMERON CCV 1B",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAMERON CCV 2A",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAMERON CCV 2B",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAMERON CCV 2C",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAMERON CCV 2D",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAPT HOOK 1A",
+      "based_on": "Hook Captain 34",
+      "cab_original": "Hook 2x12 or 4x12 (V30, G12H, G12-65, WGS)",
+      "cab_dynacab": "2x12 5153 Stealth",
+      "power_tubes": "EL34",
+      "controls": "Channels 2 and 3: Gain, Level, Bass, Mid, Treble, Boost switch, Edge",
+      "variants": [
+        "(1A) Channel 1, EQ Bypass off, Boost switch off",
+        "(1B) Channel 1, EQ Bypass switch engaged (no Bass/Middle/Treble),"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "CAPT HOOK 1B",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAPT HOOK 2A",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAPT HOOK 2B",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAPT HOOK 3A",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAPT HOOK 3B",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAR AMBLER",
+      "based_on": "Carr Rambler",
+      "cab_original": "Carr 1x12 (Eminence Elsinore)",
+      "cab_dynacab": "1x12 Car Ambler",
+      "power_tubes": "6L6",
+      "controls": "Volume, Treble, Middle, Bass, Pentode/Triode (not modeled), Reverb",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAROL-ANN OD-2",
+      "based_on": "Carol-Ann OD-2",
+      "cab_original": "EV-12L, Classic Lead 80, Scholz",
+      "cab_dynacab": "1x12 Scholz",
+      "power_tubes": "6L6",
+      "controls": "Master, Pre Gain, Drive, Bass, Middle, Treble, Presence, Sparkle (not",
+      "variants": [],
+      "notes": [
+        "CAs are definitely dark amps. Sound great though."
+      ]
+    },
+    {
+      "model_name": "CAROL-ANN TRIPTIK CLASSIC",
+      "based_on": "Carol-Ann Triptik",
+      "cab_original": "Carol-Ann 1x12 (Scholz Classic)",
+      "cab_dynacab": "1x12 Scholz",
+      "power_tubes": "EL34",
+      "controls": "Input Level, Drive on channels 2 and 3, Bass, Middle, Treble, Presence,",
+      "variants": [
+        "Clean channel",
+        "Classic channel",
+        "Modern channel"
+      ],
+      "notes": [
+        "CAs are definitely dark amps. Sound great though."
+      ]
+    },
+    {
+      "model_name": "CAROL-ANN TRIPTIK CLEAN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAROL-ANN TRIPTIK MODERN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CAROL-ANN TUCANA CLEAN",
+      "based_on": "Carol-Ann Tucana 3",
+      "cab_original": "G12M, Classic Lead 80, Scholz",
+      "cab_dynacab": "1x12 Scholz",
+      "power_tubes": "KT88",
+      "controls": "Input Level, Bass, Mid, Treble, Gain (Overdrive channels), Master (all",
+      "variants": [
+        "Clean channel",
+        "Lead channel"
+      ],
+      "notes": [
+        "CAs are definitely dark amps. Sound great though."
+      ]
+    },
+    {
+      "model_name": "CAROL-ANN TUCANA LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CITRUS A30 CLEAN",
+      "based_on": "Orange AD30HTC",
+      "cab_original": "Orange 2x12 (V30)",
+      "cab_dynacab": "4x12 Citrus",
+      "power_tubes": "EL84",
+      "controls": "Gain, Master, Bass, Middle, Treble",
+      "variants": [
+        "Clean channel",
+        "Dirty channel"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "CITRUS A30 DIRTY",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CITRUS BASS 200",
+      "based_on": "Orange AD200B bass amp",
+      "cab_original": "Orange bass cab",
+      "cab_dynacab": "1x15 Heart Key",
+      "power_tubes": "6550",
+      "controls": "Volume, Gain, Bass, Middle, Treble",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CITRUS RV50",
+      "based_on": "Orange Rockerverb 50 MK II",
+      "cab_original": "Orange 4x12 (V30)",
+      "cab_dynacab": "4x12 Citrus",
+      "power_tubes": "EL34",
+      "controls": "Dirty channel: Volume, Gain, Treble, Middle, Bass, Reverb effect (not",
+      "variants": [],
+      "notes": [
+        "The model is based on a MKII."
+      ]
+    },
+    {
+      "model_name": "CITRUS TERRIER",
+      "based_on": "Orange Tiny Terror",
+      "cab_original": "Orange 1x12 or 2x12 (G12H)",
+      "cab_dynacab": "2x12 Texas Star",
+      "power_tubes": "EL84",
+      "controls": "Volume, Gain, Tone (High Cut), 7w/15w switch (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CLASS-A 15W TB",
+      "based_on": "Vox AC15 Top Boost",
+      "cab_original": "Vox 1x12 (G12M, Alnico)",
+      "cab_dynacab": "1x12 AC20",
+      "power_tubes": "EL84",
+      "controls": "Volume, Cut, Bass, Treble",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CLASS-A 30W",
+      "based_on": "Vox AC30",
+      "cab_original": "Vox 2x12 (Alnico, G12M)",
+      "cab_dynacab": "2x12 Class-A 30W",
+      "power_tubes": "EL84",
+      "controls": "",
+      "variants": [
+        "AC-30: Normal channel of AC30HW head, Bright switch disabled",
+        "AC-30 Bright: possibly a model of the Bright channel of an older Vox"
+      ],
+      "notes": [
+        "An AC30 has no power amp feedback so it doesn",
+        "The reference AC30 is an AC30HWHD.",
+        "So-called Class-A amps (like the AC30) don"
+      ]
+    },
+    {
+      "model_name": "CLASS-A 30W BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CLASS-A 30W BRILLIANT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CLASS-A 30W HOT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CLASS-A 30W TB",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "COMET 60",
+      "based_on": "Komet 60",
+      "cab_original": "Komet\\'s 2x12 has Classic Lead 80",
+      "cab_dynacab": "2x12 Lead 80",
+      "power_tubes": "EL34",
+      "controls": "Volume, Treble, Middle, Bass, Presence, Hi Cut, Touch Response switch:",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "COMET CONCOURSE",
+      "based_on": "Komet Concorde",
+      "cab_original": "Komet\\'s 2x12 has Classic Lead 80",
+      "cab_dynacab": "2x12 Lead 80",
+      "power_tubes": "EL34",
+      "controls": "Volume, Treble, Middle, Bass, Presence, Hi Cut, Touch Response switch:",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "CORNFED M50",
+      "based_on": "Cornford MK50 II",
+      "cab_original": "Cornford 4x12 (V30)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34",
+      "controls": "Gain, Overdrive, Bass, Middle (500Hz), Treble, Master, Presence,",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DAS METALL",
+      "based_on": "Diezel VH4 schematics",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DELUXE 6G3",
+      "based_on": "brownface Fender Deluxe, 6G3",
+      "cab_original": "",
+      "cab_dynacab": "1x12 Deluxe Verb",
+      "power_tubes": "6V6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DELUXE TWEED BRIGHT",
+      "based_on": "1957 narrow-panel Fender Tweed Deluxe, 5E3",
+      "cab_original": "Fender 1x12 (Jensen P12R or C12N, or Celestion Alnico Blue)",
+      "cab_dynacab": "1x12 Deluxe Tweed",
+      "power_tubes": "6V6",
+      "controls": "Volume Normal, Volume Bright, Tone",
+      "variants": [
+        "Bright input",
+        "Normal input",
+        "Jumpered inputs"
+      ],
+      "notes": [
+        "IMO the designs are poor because",
+        "When you dime the controls and whack a big chord the sound",
+        "If you plug into a real Deluxe the",
+        "I finished the 57 Tweed Deluxe today and it"
+      ]
+    },
+    {
+      "model_name": "DELUXE TWEED NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DELUXE TWEED JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DELUXE VERB NORMAL",
+      "based_on": "1965 blackface Fender Deluxe Reverb, AB763",
+      "cab_original": "Fender 1x12 with a Jensen C12(K), EVM 12L, or JBL D120. Or",
+      "cab_dynacab": "1x12 Deluxe Verb",
+      "power_tubes": "6V6",
+      "controls": "Volume, Bass, Treble, Reverb effect, Vibrato effect (not modeled)",
+      "variants": [
+        "Normal channel",
+        "Vibrato channel"
+      ],
+      "notes": [
+        "Take a Deluxe Reverb. Gain on 10, Treble on 10, Bass at 0. Nasty."
+      ]
+    },
+    {
+      "model_name": "DELUXE VERB VIBRATO",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIAMANTE FIRE",
+      "based_on": "22W Diamond Del Fuego",
+      "cab_original": "single GH12H, V30",
+      "cab_dynacab": "1x12 Hot Kitty",
+      "power_tubes": "EL84",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIRTY SHIRLEY 1",
+      "based_on": "40W Friedman Dirty Shirley",
+      "cab_original": "Friedman 4x12 (V30, G12M, G12-65, G12H)",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "5881",
+      "controls": "Gain, Master, Bass, Middle, Treble, Presence",
+      "variants": [
+        "Earlier version of the amp with different component values, a little"
+      ],
+      "notes": [
+        "If you want more clarity in the low mids (",
+        "Dirty Shirley 1 is actually the latest version of the amp."
+      ]
+    },
+    {
+      "model_name": "DIRTY SHIRLEY 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIV/13 CJ",
+      "based_on": "Divided By 13 CJ 11",
+      "cab_original": "Divided by 13 (G12M)",
+      "cab_dynacab": "1x12 Div13 CJ11",
+      "power_tubes": "6V6",
+      "controls": "Volume (pull: Mid Gain boost), Treble, Bass, Master",
+      "variants": [
+        "Mid Gain Boost: off",
+        "Mid Gain Boost: on"
+      ],
+      "notes": [
+        "It is a bassy amp. Works best with single coils."
+      ]
+    },
+    {
+      "model_name": "DIV/13 CJ BOOST",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIV/13 FT37 HIGH",
+      "based_on": "Divided By 13 FTR 37",
+      "cab_original": "Divided by 13 (G12H and Alnico)",
+      "cab_dynacab": "2x12 Chiefman",
+      "power_tubes": "6V6",
+      "controls": "Volume (pull: Mid Gain Boost), Treble, Bass",
+      "variants": [
+        "Low: channel 1, Mid Gain Boost: off",
+        "High: channel 1, Mid Gain Boost: on"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "DIV/13 FT37 LOW",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIZZY V4 BLUE 2",
+      "based_on": "Diezel VH4",
+      "cab_original": "Diezel 4x12 (V30, G12-100)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "KT77",
+      "controls": "Gain, Volume, Bass, Mid, Treble, Presence (4kHz), Deep (80Hz), Bright",
+      "variants": [
+        "Blue faceplate, channel 2 Crunch",
+        "Blue faceplate, channel 3 Mega",
+        "Blue faceplate, channel 4 Lead",
+        "Silver faceplate, channel 2 Crunch",
+        "Silver faceplate, channel 3 Mega",
+        "Silver faceplate, channel 4 Lead"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "DIZZY V4 BLUE 3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIZZY V4 BLUE 4",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIZZY V4 SILVER 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIZZY V4 SILVER 3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DIZZY V4 SILVER 4",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DOUBLE VERB NORMAL",
+      "based_on": "1966 blackface Fender Twin Reverb",
+      "cab_original": "Fender 2x12 with original speakers",
+      "cab_dynacab": "2x12 Double Verb",
+      "power_tubes": "6L6",
+      "controls": "Volume, Bass, Middle, Treble, Bright switch, Reverb effect (not",
+      "variants": [
+        "Normal: based on 1966 blackface Fender Twin Reverb, tuned by Andy"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "DOUBLE VERB SILVERFACE",
+      "based_on": "1971 silverface Fender Twin Reverb",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DOUBLE VERB VIBRATO",
+      "based_on": "1966 blackface Fender Twin Reverb",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "DWEEZIL\\'S BASSGUY",
+      "based_on": "Dweezil Zappa\\'s 1965 blackface Fender Bassman, AB165",
+      "cab_original": "Fender 2x12 (Oxford)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ENERGYBALL",
+      "based_on": "Engl Powerball",
+      "cab_original": "Engl 4x12 (V30, V60)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "Lead channel: Gain, Lo/Hi Lead switch, Bass, Mid-Open, Mid-Focused,",
+      "variants": [],
+      "notes": [
+        "People think Bogners are dark but they really aren"
+      ]
+    },
+    {
+      "model_name": "EURO BLUE",
+      "based_on": "Bogner Ecstasy 20th Anniversary",
+      "cab_original": "Bogner 2x12 or 4x12 (V30)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34 (earlier models were based on the 6L6 version)",
+      "controls": "Gain, Master, Bass, Middle, Treble, Presence, Bright switch, Structure",
+      "variants": [
+        "Blue channel, structure: Vintage",
+        "Blue channel, structure: Modern",
+        "Red channel, structure: Vintage",
+        "Red channel, structure: Modern"
+      ],
+      "notes": [
+        "The tonestack tapers in the Ecstasy model match the amp.",
+        "Excursion is Depth. Adjust to taste."
+      ]
+    },
+    {
+      "model_name": "EURO BLUE MODERN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "EURO RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "EURO RED MODERN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "EURO UBER",
+      "based_on": "Bogner Uberschall",
+      "cab_original": "Bogner 4x12 Uberkab (G12-T75 and V30)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "EL34",
+      "controls": "Gain, Master, Bass, Middle, Treble, Presence, Depth (only on Twin-Jet",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS 6160",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 5153",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "The FAS models are idealized and have some of the"
+      ]
+    },
+    {
+      "model_name": "FAS BASS",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "1x15 Portabass",
+      "power_tubes": "6550",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS BROOTALZ",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 515 Stealth",
+      "power_tubes": "6550",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS BROWN",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS BUTTERY",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "2x12 Double Verb",
+      "power_tubes": "EL84",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "Yeah, Buttery was a legacy model from the first Axe-Fx.",
+        "The previous model wasn"
+      ]
+    },
+    {
+      "model_name": "FAS CLASS-A",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "2x12 Class-A 30W",
+      "power_tubes": "EL84",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS CRUNCH",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "My take on the ultimate Plexi."
+      ]
+    },
+    {
+      "model_name": "FAS EXPRESS",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "Based on hypothetical modifications to a Trainwreck Express.",
+        "It has a master volume. That"
+      ]
+    },
+    {
+      "model_name": "FAS HOT ROD",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS LEAD 1",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 V30 5153 Stealth",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS LEAD 2",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 V30 5153 Stealth",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS MODERN",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS MODERN II",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS MODERN III",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS RHYTHM",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS SKULL CRUSHER",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS STEALTH BLUE",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FAS WRECK",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "Based on the original WRECKER 1 model from the Axe-Fx Ultra."
+      ]
+    },
+    {
+      "model_name": "FOX ODS",
+      "based_on": "Fuchs Overdrive Supreme 50",
+      "cab_original": "Fuchs 2x12 (Eminence)",
+      "cab_dynacab": "4x12 Rumble EV12S",
+      "power_tubes": "6L6",
+      "controls": "Gain, High (pull: mid boost), Mid (pull: gain boost), Low, Input, Brite",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FOX ODS DEEP",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN BE 2010",
+      "based_on": "Friedman BE",
+      "cab_original": "Friedman 4x12 (V30 and/or G12M)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34",
+      "controls": "Gain, Master, Bass, Middle, Treble, Presence, Bright (clean channel",
+      "variants": [],
+      "notes": [
+        "The BE has very light power supply filtering like old Plexis."
+      ]
+    },
+    {
+      "model_name": "FRIEDMAN BE C45",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN BE V1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN BE V1 FAT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN BE V2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN BE V3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN HBE 2010",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN HBE C45",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN HBE V1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN HBE V1 FAT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN HBE V2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN HBE V3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "FRIEDMAN SMALL BOX",
+      "based_on": "Friedman Smallbox",
+      "cab_original": "Friedman 3x12 (V30 and/or G12M)",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL34",
+      "controls": "Gain, Master, Bass, Middle, Treble, Presence, Bright switch (channel 1",
+      "variants": [],
+      "notes": [
+        "If you want more clarity in the low mids ("
+      ]
+    },
+    {
+      "model_name": "FRYETTE D60 LESS",
+      "based_on": "Fryette Deliverance 60 Series II",
+      "cab_original": "Fryette 4x12 P50E (Fane F70G)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "KT88",
+      "controls": "Gain 1, Gain 2, Master, Bass, Middle, Treble, Presence, Depth, More/Less",
+      "variants": [
+        "\\\"Less\\\" mode",
+        "\\\"More\\\" mode"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "FRYETTE D60 MORE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "GIBTONE SCOUT",
+      "based_on": "Gibson GA17RVT Scout",
+      "cab_original": "Gibson 1x10",
+      "cab_dynacab": "1x10 BF Princetone",
+      "power_tubes": "6AQ5",
+      "controls": "Volume, Tremolo effect, Reverb effect (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "HERBIE CH2+",
+      "based_on": "Diezel Herbert",
+      "cab_original": "Diezel 4x12 (V30, G12-K100)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "KT77",
+      "controls": "Gain (not on channel 1), Bass, Middle (1 kHz), Treble, Master, Presence",
+      "variants": [
+        "original Herbert, channel 2+ (based on Marshall JC800)",
+        "original Herbert, channel 2- (based on Marshall Plexi)",
+        "original Herbert, Channel 3 (based on Diezel VH4)",
+        "Black-panel Herbert MK III, Channel 2+"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "HERBIE CH2-",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "HERBIE CH3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "HERBIE MK3",
+      "based_on": "Diezel Herbert MKIII",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "HIPOWER BRILLIANT",
+      "based_on": "Hiwatt DR103",
+      "cab_original": "Hiwatt 4x12 (Fane)",
+      "cab_dynacab": "4x12 Lerxst",
+      "power_tubes": "EL34",
+      "controls": "Normal Volume, Bright Volume, Master, Bass, Middle, Treble, Presence",
+      "variants": [
+        "Normal channel",
+        "Brilliant channel",
+        "Jumpered channels"
+      ],
+      "notes": [
+        "Real ones are sterile. They"
+      ]
+    },
+    {
+      "model_name": "HIPOWER JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "HIPOWER NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "HOT KITTY",
+      "based_on": "Bad Cat Hot Cat 30",
+      "cab_original": "BadCat 1x12 (proprietary Celestion)",
+      "cab_dynacab": "1x12 Hot Kitty",
+      "power_tubes": "EL34",
+      "controls": "Gain, Edge (not modeled), Level, Bass, Treble, Mid-range switch (not",
+      "variants": [],
+      "notes": [
+        "The amp has a Hi Cut but it"
+      ]
+    },
+    {
+      "model_name": "JAZZ 120",
+      "based_on": "Roland Jazz Chorus 120",
+      "cab_original": "Roland 2x12 (\\\"silver\\\" AlNiCo)",
+      "cab_dynacab": "2x12 Double Verb",
+      "power_tubes": "transistor",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 CLEAN 1",
+      "based_on": "Marshall JMP-1 preamp",
+      "cab_original": "",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Volume, Gain, Bass, Mid, Treble, Presence (preamp), Bass shift, Depth,",
+      "variants": [
+        "Clean 1",
+        "Clean 1, Bass Shift",
+        "Clean 2",
+        "Clean 2, Bass Shift",
+        "OD1 mode",
+        "OD1 mode, Bass Shift",
+        "OD2 mode",
+        "OD2 mode, Bass Shift"
+      ],
+      "notes": [
+        "[before firmware 19.02 for the Axe-Fx III"
+      ]
+    },
+    {
+      "model_name": "JMPRE-1 CLEAN 1 BASS SHIFT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 CLEAN 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 CLEAN 2 BASS SHIFT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 OD1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 OD1 BASS SHIFT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 OD2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JMPRE-1 OD2 BASS SHIFT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JR BLUES",
+      "based_on": "Fender Blues Junior",
+      "cab_original": "Fender 1x12 (Eminence, Jensen C12N, P12R)",
+      "cab_dynacab": "1x12 Jr Blues",
+      "power_tubes": "EL84",
+      "controls": "",
+      "variants": [
+        "Fat switch off",
+        "Fat switch on"
+      ],
+      "notes": [
+        "Our reference amp has a Fender speaker in it. No indication as to\n    who makes it but probably Jensen.",
+        "The Blues Jr. amp has a fixed presence circuit."
+      ]
+    },
+    {
+      "model_name": "JR BLUES FAT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JS410 CRUNCH ORANGE",
+      "based_on": "Joe Satriani\\'s Marshall JVM410HJS",
+      "cab_original": "Marshall 4x12 (V30 and G12H)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34",
+      "controls": "Channel Volume, Gain, Bass, Middle, Treble, Master, Presence, Resonance,",
+      "variants": [],
+      "notes": [
+        "Joe said he puts all the tone controls at around 10:00.",
+        "The model is based on Joe",
+        "Our models are based on Joe"
+      ]
+    },
+    {
+      "model_name": "JS410 CRUNCH RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JS410 LEAD GREEN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JS410 LEAD ORANGE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "JS410 LEAD RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "LEGEND 100",
+      "based_on": "Steve Vai\\'s Carvin Legacy VL100",
+      "cab_original": "Carvin 2x12 or 4x12 (V30)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "EL34",
+      "controls": "VL100: Presence, Treble (11kHz), Mid (650Hz), Bass (80Hz), Drive, Volume",
+      "variants": [
+        "Legend 100: lead channel of Steve Vai\\'s Carvin VL100 Legacy",
+        "Legend 100 II: channel 3 of Carvin VL300 Legacy 3"
+      ],
+      "notes": [
+        "Legend II is channel 3 from the Legacy 3.",
+        "The tonestack in a Legacy is a James. A Baxandall is active."
+      ]
+    },
+    {
+      "model_name": "LEGEND 100 II",
+      "based_on": "Carvin Legacy VL300",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "MATCHBOX CHIEFTAIN 1",
+      "based_on": "Matchless Chieftain",
+      "cab_original": "Matchless 2x12 (G12H)",
+      "cab_dynacab": "2x12 Chiefman",
+      "power_tubes": "EL34",
+      "controls": "Volume, Master, Bass, Mid, Treble, Brilliance",
+      "variants": [
+        "Single channel",
+        "Boosted (more gain and high-frequency emphasis)"
+      ],
+      "notes": [
+        "The Treble control in a Chieftain is actually a"
+      ]
+    },
+    {
+      "model_name": "MATCHBOX CHIEFTAIN 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "MATCHBOX D-30",
+      "based_on": "Matchless DC-30",
+      "cab_original": "Matchless 2x12 (25w G12M and 30w G12H)",
+      "cab_dynacab": "2x12 Chiefman",
+      "power_tubes": "EL84",
+      "controls": "Channel 1: Volume, Bass, Treble, Cut, bypassable Master",
+      "variants": [
+        "Channel 1 D-30 (12AX7 preamp tubes)",
+        "Channel 2 D-30 EF86 (EF86 preamp tubes)"
+      ],
+      "notes": [
+        "The new DC-30 model may have dethroned the mighty AC-20 as my\n    favorite \\"
+      ]
+    },
+    {
+      "model_name": "MATCHBOX D-30 EF86",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "MR Z HWY 66",
+      "based_on": "Dr. Z Route 66",
+      "cab_original": "Dr. Z 2x12 (V30 and G12H)",
+      "cab_dynacab": "2x12 Chiefman",
+      "power_tubes": "KT66",
+      "controls": "Volume, Bass, Treble",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "MR Z MZ-38",
+      "based_on": "Dr. Z Maz 38 SR",
+      "cab_original": "Dr. Z 1x12 (G12H)",
+      "cab_dynacab": "1x12 AC20",
+      "power_tubes": "EL84",
+      "controls": "Volume, Master, Bass, Mid, Treble, Cut, Reverb effect on some models",
+      "variants": [],
+      "notes": [
+        "Dr. Z is the quintessential country amp.",
+        "IMO the designs are poor because"
+      ]
+    },
+    {
+      "model_name": "MR Z MZ-8",
+      "based_on": "Dr. Z Maz 8",
+      "cab_original": "Dr. Z 1x12 (G12H)",
+      "cab_dynacab": "1x12 AC20",
+      "power_tubes": "EL84",
+      "controls": "Volume, Master, Bass, Mid, Treble, Cut, Reverb effect (not modeled),",
+      "variants": [],
+      "notes": [
+        "Dr. Z is the quintessential country amp."
+      ]
+    },
+    {
+      "model_name": "NUCLEAR-TONE",
+      "based_on": "Swart Atomic Space Tone",
+      "cab_original": "Swart 1x12 (Mojotone BV-25m)",
+      "cab_dynacab": "1x12 Nuclear Tone",
+      "power_tubes": "6V6",
+      "controls": "Volume, Tone, Tremolo effect, Reverb effect (not modeled)",
+      "variants": [],
+      "notes": [
+        "The real amp is known for it"
+      ]
+    },
+    {
+      "model_name": "ODS-100 CLEAN",
+      "based_on": "Dumble Overdrive Special",
+      "cab_original": "Dumble 2x12 or 4x12 (G12-65, EVM)",
+      "cab_dynacab": "4x12 Rumble EV12L",
+      "power_tubes": "EL34 (HRM), 6L6 (Ford)",
+      "controls": "Volume (Clean), Bass, Middle, Treble, Overdrive Level, Overdrive Ratio,",
+      "variants": [
+        "Clean: clean channel of ODS-100 Ford",
+        "Ford: based on schematics of Robben Ford\\'s #102 Dumble, Overdrive"
+      ],
+      "notes": [
+        "My Dumble is S/N 0213 IIRC. It",
+        "The Mid switch, sometimes labeled"
+      ]
+    },
+    {
+      "model_name": "ODS-100 FORD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ODS-100 FORD PAB",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ODS-100 FORD PAB MID",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ODS-100 HRM",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "ODS-100 HRM MID",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "block in front: Type: Peaking, Freq: \\~800 Hz, Q: 0.707, Gain 12",
+      "variants": [],
+      "notes": [
+        "One of the first mods people make to real"
+      ]
+    },
+    {
+      "model_name": "PLEXI 100W 1970",
+      "based_on": "1970 100W Marshall Plexi",
+      "cab_original": "Marshall 4x12 (G12M, G12H)",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "Volume Normal / Volume Treble, Bass, Middle, Treble, Presence, Master",
+      "variants": [
+        "1970 100 watts, EL34, jumpered channels",
+        "1969 100 watts, High Treble channel",
+        "1969 100 watts, jumpered channels",
+        "1969 100 watts, Normal channel",
+        "1972 50 watts, 6550 power tubes",
+        "6AC7 50 watts, 6AC7 power tubes",
+        "1981 50 watts JMP with master volume, EL34",
+        "1967 50 watts, EL34, High Treble channel (\\\"High 1\\\")",
+        "1967 50 watts, EL34, High Treble channel (\\\"High 2\\\") (2nd triode"
+      ],
+      "notes": [
+        "The Plexi 100W 1970 model is a non-MV",
+        "The 1970 model has less negative feedback."
+      ]
+    },
+    {
+      "model_name": "PLEXI 100W HIGH",
+      "based_on": "1969 100W Marshall Plexi",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "All the pots are log pots in our reference amp",
+        "Our reference 100W is a late 60s."
+      ]
+    },
+    {
+      "model_name": "PLEXI 100W JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 100W NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 2204",
+      "based_on": "1981 50W Marshall JMP 2204",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "Based on a 1981 JMP 50W Master Volume head.",
+        "There were several versions of the",
+        "There were two versions of the 2204. One was a"
+      ]
+    },
+    {
+      "model_name": "PLEXI 50W 6550",
+      "based_on": "1972 50W Marshall Plexi",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "6550",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 50W 6CA7",
+      "based_on": "50W Marshall Plexi",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "6CA7",
+      "controls": "",
+      "variants": [
+        "Single channel",
+        "Jumpered channels"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 50W 6CA7 JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 50W HIGH 1",
+      "based_on": "1967 50W Marshall Plexi",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 50W HIGH 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 50W JUMPED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI 50W NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PLEXI STUDIO 20",
+      "based_on": "Marshall SV20H",
+      "cab_original": "Celestion V-Type",
+      "cab_dynacab": "4x12 1960TV",
+      "power_tubes": "EL34",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PORTA-BASS",
+      "based_on": "Ampeg Portaflex bass amp",
+      "cab_original": "SVT cab with one or more 10\", 12\" or 15\" Eminence speakers",
+      "cab_dynacab": "1x15 Portabass",
+      "power_tubes": "6L6",
+      "controls": "Gain, Volume, Bass, Mid, Treble, Mid Frequency (not modeled), input pad",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PRINCETONE 5F2",
+      "based_on": "Fender Tweed Princeton, 5F2-A",
+      "cab_original": "Fender 1x10 (C10n)",
+      "cab_dynacab": "1x8 Princetone",
+      "power_tubes": "6V6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PRINCETONE AA964",
+      "based_on": "silverface Fender Princeton without reverb, AA964",
+      "cab_original": "Fender 1x10",
+      "cab_dynacab": "1x10 BF Princetone",
+      "power_tubes": "6V6",
+      "controls": "Volume, Bass, Treble",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PRINCETONE REVERB",
+      "based_on": "1966 blackface Fender Princeton with reverb, AA964",
+      "cab_original": "Fender 1x10",
+      "cab_dynacab": "1x10 SF Princetone",
+      "power_tubes": "6V6",
+      "controls": "Volume, Bass, Treble, Reverb effect (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160 BLOCK",
+      "based_on": "Peavey \\\"Block Letter\\\" EVH 5150",
+      "cab_original": "Peavey 4x12 (Sheffield 1200)",
+      "cab_dynacab": "4x12 5153",
+      "power_tubes": "6L6",
+      "controls": "Pre Gain, Post Gain (Master), Low, Mid, High, Resonance/Depth, Presence,",
+      "variants": [
+        "Clean channel (firmware 32.05)",
+        "Rhythm channel, Crunch switch engaged",
+        "Lead channel"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160 BLOCK CLEAN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160 BLOCK CRUNCH",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160+ CLEAN",
+      "based_on": "Peavey 6505+ / EVH 5150-II",
+      "cab_original": "Peavey 4x12 (V30)",
+      "cab_dynacab": "4x12 5153",
+      "power_tubes": "6L6",
+      "controls": "channel), Crunch switch, Low, Mid, High, Post (Master), Resonance/Depth,",
+      "variants": [
+        "Clean channel, Bright switch off",
+        "Clean channel, Bright switch on",
+        "Crunch channel, Bright switch off",
+        "Crunch channel, Bright switch on",
+        "Lead channel"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160+ CLEAN BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160+ CRUNCH",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160+ CRUNCH BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "PVH 6160+ LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RECTO1 ORANGE MODERN",
+      "based_on": "MESA Dual Rectifier, 2 channels",
+      "cab_original": "Mesa 4x12 (V30)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "Gain, Master, Bass, Middle, Treble, Presence, Supply Sag",
+      "variants": [
+        "Recto1: original 2-channel Rectifier, Orange channel, Modern mode",
+        "Recto1: original 2-channel Rectifier, Orange channel, Vintage mode",
+        "Recto1: original 2-channel Rectifier, Red channel, Modern mode",
+        "Recto2: later 3-channel Rectifier, Orange channel, Modern mode",
+        "Recto2: later 3-channel Rectifier, Orange channel, Vintage mode",
+        "Recto2: later 3-channel Rectifier, Red channel, Modern mode",
+        "Recto2: later 3-channel Rectifier, Red channel, Vintage mode"
+      ],
+      "notes": [
+        "The Modern mode in Rectos has no negative feedback so there",
+        "If you are using the Modern mode then it",
+        "We have three of them, a single and two duals.",
+        "The Rectifier preamp is almost identical to an SLO100.",
+        "On the amp the MV is around 9 o"
+      ]
+    },
+    {
+      "model_name": "RECTO1 ORANGE NORMAL",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RECTO1 RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RECTO2 ORANGE MODERN",
+      "based_on": "MESA Dual Rectifier, 3 channels",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RECTO2 ORANGE VINTAGE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RECTO2 RED MODERN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RECTO2 RED VINTAGE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN GREEN 1",
+      "based_on": "REVV GENERATOR 120 MKIII",
+      "cab_original": "Revv 4x12 (V30)",
+      "cab_dynacab": "4x12 Friedman V30",
+      "power_tubes": "6L6",
+      "controls": "Gain, Bass, Mid, Treble, Level, Master, Presence, Depth",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN GREEN 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN GREEN 3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN PURPLE 1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN PURPLE 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN PURPLE 3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN RED 1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN RED 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "REVV GEN RED 3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "RUBY ROCKET",
+      "based_on": "Paul Ruby Rocket",
+      "cab_original": "1x12 (Alnico, G12M)",
+      "cab_dynacab": "1x12 Div13 CJ",
+      "power_tubes": "EL84",
+      "controls": "Volume, Bass, Treble, Cut, Bright switch",
+      "variants": [
+        "Bright switch: on",
+        "Bright switch: off"
+      ],
+      "notes": [
+        "The Ruby Rocket has a bright switch but it"
+      ]
+    },
+    {
+      "model_name": "RUBY ROCKET BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SHIVER CLEAN",
+      "based_on": "Bogner Shiva 20th Anniversary",
+      "cab_original": "Bogner 1x12 or 2x12 (Classic 80, V30)",
+      "cab_dynacab": "2x12 Lead 80",
+      "power_tubes": "KT88",
+      "controls": "Clean channel: Volume, Bass, Treble, Bright switch",
+      "variants": [
+        "Clean channel",
+        "Lead channel"
+      ],
+      "notes": [
+        "People think Bogners are dark but they really aren"
+      ]
+    },
+    {
+      "model_name": "SHIVER LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SOLO 88 CLEAN",
+      "based_on": "Soldano X88R preamp",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Solo 100",
+      "power_tubes": "same as SLO-100 model (6L6)",
+      "controls": "",
+      "variants": [
+        "Clean channel",
+        "Rhythm channel",
+        "Lead channel"
+      ],
+      "notes": [
+        "We have two X88s and they sound and measure quite different.\n    They\\'re both OG versions. Ultimately I found one had a quality in\n    the low end that I liked better so I went with that."
+      ]
+    },
+    {
+      "model_name": "SOLO 88 LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SOLO 88 RHYTHM",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SOLO 99 CLEAN",
+      "based_on": "Soldano/Caswell X99 preamp",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Solo 100",
+      "power_tubes": "same as SLO-100 model (6L6)",
+      "controls": "Gain, Bass, Middle, Treble, Volume, Bright switch",
+      "variants": [
+        "Clean channel",
+        "Lead channel, Bright off",
+        "Lead channel, Bright on"
+      ],
+      "notes": [
+        "The rhythm channel of an X99 is identical to a SLO 100.",
+        "Power amp: same as SLO100."
+      ]
+    },
+    {
+      "model_name": "SOLO 99 LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SOLO 99 LEAD BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SOLO 100 CLEAN",
+      "based_on": "Soldano SLO-100",
+      "cab_original": "Soldano 4x12 (Eminence)",
+      "cab_dynacab": "4x12 Solo 100",
+      "power_tubes": "6L6",
+      "controls": "Gain, Bass, Middle, Treble, Master, Presence, Bright switch (Normal",
+      "variants": [
+        "Normal channel, Clean mode",
+        "Normal channel, Rhythm mode",
+        "Overdrive channel"
+      ],
+      "notes": [
+        "Cold-biased stages are where there",
+        "The SLO-100 is the loudest amp I",
+        "Note that the knobs on",
+        "Another caveat when comparing amps: many times the knobs aren",
+        "Many people find SLOs too bright. The"
+      ]
+    },
+    {
+      "model_name": "SOLO 100 LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SOLO 100 RHYTHM",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN NITROUS 1",
+      "based_on": "Splawn Nitro",
+      "cab_original": "Splawn 4x12 (G12M, G12-65, V30)",
+      "cab_dynacab": "4x12 Lerxst",
+      "power_tubes": "KT88",
+      "controls": "Resonance/Depth, Presence, Bass, Middle, Treble, Master, Gain",
+      "variants": [
+        "Overdrive channel, OD-1 (Rhythm) mode",
+        "Overdrive channel, OD-2 (Lead) mode"
+      ],
+      "notes": [
+        "Based on a Splawn Nitro with KT-88 power tubes."
+      ]
+    },
+    {
+      "model_name": "SPAWN NITROUS 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN Q-ROD OD1-1",
+      "based_on": "Splawn Quickrod",
+      "cab_original": "Splawn (G12M, G12-65, V30)",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL34",
+      "controls": "Presence, Bass, Middle, Treble, Volume, Gain, Mode",
+      "variants": [
+        "Overdrive channel, Rhythm mode, 1st gear (\\\"Plexi\\\")",
+        "Overdrive channel, Rhythm mode, 2nd gear (\\\"hot-rodded JCM 800\\\")",
+        "Overdrive channel, Rhythm mode, 3rd gear (\\\"super hot-rodded 800\\\")",
+        "Overdrive channel, Lead mode, 1st gear",
+        "Overdrive channel, Lead mode, 2nd gear",
+        "Overdrive channel, Lead mode, 3rd gear"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN Q-ROD OD1-2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN Q-ROD OD1-3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN Q-ROD OD2-1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN Q-ROD OD2-2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SPAWN Q-ROD OD2-3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SUHR BADGER 18",
+      "based_on": "Suhr Badger 18",
+      "cab_original": "Suhr 1x12 or 2x12 (V30)",
+      "cab_dynacab": "1x12 Hot Kitty",
+      "power_tubes": "EL84 (Badger 18), EL34 (Badger 30)",
+      "controls": "Bass, Middle, Treble, Gain, Power (controls Power Scaling, not modeled),",
+      "variants": [],
+      "notes": [
+        "The Badgers were MIMIC"
+      ]
+    },
+    {
+      "model_name": "SUHR BADGER 30",
+      "based_on": "Suhr Badger 30",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SUPER VERB NORMAL",
+      "based_on": "1964 Fender Super Reverb, AB763",
+      "cab_original": "Fender 4x10 (C10R, C10Q, P10R)",
+      "cab_dynacab": "4x10 Bassguy RI",
+      "power_tubes": "6L6",
+      "controls": "Volume, Bass, Middle (Vibrato channel only), Treble, Bright switch,",
+      "variants": [
+        "Normal channel",
+        "Vibrato channel"
+      ],
+      "notes": [
+        "The Super Reverb model is"
+      ]
+    },
+    {
+      "model_name": "SUPER VERB VIBRATO",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SUPERTWEED",
+      "based_on": "custom model",
+      "cab_original": "",
+      "cab_dynacab": "1x12 Deluxe Tweed",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SUPREMO TREM",
+      "based_on": "Supro 1964T",
+      "cab_original": "Supro 2x12",
+      "cab_dynacab": "1x12 AC20",
+      "power_tubes": "6973",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SUPRO BLACK MAGICK",
+      "based_on": "Supro 1695T Black Magick",
+      "cab_original": "",
+      "cab_dynacab": "1x12 Black Magick",
+      "power_tubes": "6973",
+      "controls": "Volume, Tone, Tremolo effect",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SV BASS 1",
+      "based_on": "Ampeg SVT bass amp",
+      "cab_original": "SVT 8x10",
+      "cab_dynacab": "8x10 SV Bass",
+      "power_tubes": "6550",
+      "controls": "Volume, Treble, Midrange, Bass, Master, Midrange switch (not modeled),",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "SV BASS 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "TEXAS STAR CLEAN",
+      "based_on": "MESA Lone Star Classic",
+      "cab_original": "Mesa 2x12 (C90)",
+      "cab_dynacab": "2x12 Texas Star",
+      "power_tubes": "6L6",
+      "controls": "Gain, Drive (Lead channel), Treble, Mid, Bass, Presence, Master, Channel",
+      "variants": [
+        "Clean channel",
+        "Lead channel"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "TEXAS STAR LEAD",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "THORDENDAL MODERN",
+      "based_on": "custom model of MESA Dual Rectifier",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "6L6",
+      "controls": "",
+      "variants": [
+        "Modern mode",
+        "Vintage mode"
+      ],
+      "notes": [
+        "The old Recto models weren"
+      ]
+    },
+    {
+      "model_name": "THORDENDAL VINTAGE",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "TREMOLO LUX",
+      "based_on": "blackface Fender Tremolux, AA763",
+      "cab_original": "Fender 2x10",
+      "cab_dynacab": "2x12 Super 6G4",
+      "power_tubes": "6L6",
+      "controls": "Vibrato channel: Volume, Bright switch, Treble, Bass, Tremolo effect",
+      "variants": [
+        "Normal channel",
+        "Vibrato channel"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "TRIPLE CREST 2",
+      "based_on": "MESA Triple Crown TC-100",
+      "cab_original": "MESA cab with V30 speakers",
+      "cab_dynacab": "4x12 USA Mc90",
+      "power_tubes": "EL34",
+      "controls": "Reverb effect (not modeled), Master, attenuator (not modeled)",
+      "variants": [
+        "Low gain channel",
+        "High gain channel"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "TRIPLE CREST 3",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "TUBE PRE",
+      "based_on": "generic tube preamp model",
+      "cab_original": "",
+      "cab_dynacab": "1x12 G12T-100",
+      "power_tubes": "5881",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "TWO STONE J35",
+      "based_on": "Two-Rock Jet 35",
+      "cab_original": "",
+      "cab_dynacab": "4x12 Rumble EV12L",
+      "power_tubes": "6L6",
+      "controls": "Treble, Mid, Bass, Gain, Master, Lead Gain, Pull Bright, Pre Amp Bypass",
+      "variants": [
+        "Lead mode, Preamp Bypass (PAB): off",
+        "Lead mode, Preamp Bypass (PAB): on (bypassed tonestack)"
+      ],
+      "notes": [
+        "The Two Rock is the most unique amp I"
+      ]
+    },
+    {
+      "model_name": "TWO STONE J35 PAB",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA BASS 400 1",
+      "based_on": "MESA Bass 400 bass amp",
+      "cab_original": "Mesa bass speaker cabinet",
+      "cab_dynacab": "1x15 Heart Key",
+      "power_tubes": "6550",
+      "controls": "Bass, Middle, Treble, Pull Bright, Bass Shift, Treble Shift (not",
+      "variants": [
+        "Bass Shift: off",
+        "Bass Shift: on"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "USA BASS 400 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": [
+        "I have a Mark IIC+, a Mark IV, a Mark V and a Triaxis. They",
+        "With the presence control at noon it"
+      ]
+    },
+    {
+      "model_name": "USA JP IIC+ GREEN",
+      "based_on": "MESA/Boogie JP-2C",
+      "cab_original": "Mesa 1x12 (C90, V30)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "(Pull) Gain, Master, (Pull) Presence, Presence Shift, Treble, Mid, Bass,",
+      "variants": [
+        "Green: channel 1",
+        "Yellow: channel 2",
+        "Yellow: channel 2, Shred mode",
+        "Red: channel 3",
+        "Red: channel 3, Shred mode"
+      ],
+      "notes": [
+        "The JP amp has a fixed input gain control. The",
+        "JP himself gave the models his stamp of approval."
+      ]
+    },
+    {
+      "model_name": "USA JP IIC+ RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA JP IIC+ RED SHRED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA JP IIC+ YELLOW",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA JP IIC+ YELLOW SHRED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA METRO BLUES",
+      "based_on": "MESA Subway Blues",
+      "cab_original": "",
+      "cab_dynacab": "1x10 Metro Blues",
+      "power_tubes": "EL84",
+      "controls": "Volume, Bass, Mid, Treble, FAT switch, Reverb effect (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IIC+",
+      "based_on": "MESA/Boogie Mark IIC+",
+      "cab_original": "Mesa 1x12 (C90, EVM)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "Volume (pull: Bright), Treble (pull: Shift = Fat), Bass (pull: Shift,",
+      "variants": [
+        "Lead Master, Pull Bright engaged",
+        "Lead Master, Pull Bright off",
+        "Lead Master, Pull Deep engaged",
+        "Lead Master, Pull Deep off"
+      ],
+      "notes": [
+        "The Pull Bright on the Volume knob is the classic",
+        "The IIC+ does not have a gain boost and doesn",
+        "I always used the Fat switch with the real amp."
+      ]
+    },
+    {
+      "model_name": "USA MK IIC+ BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IIC+ DEEP",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IIC+ DEEP BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IIC++",
+      "based_on": "custom model of MESA/Boogie IIC+",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IV LEAD / RHYTHM",
+      "based_on": "MESA/Boogie Mark IV",
+      "cab_original": "Mesa 1x12 (C90, V30)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "Rhythm 1 channel: Gain, Treble, Bass, Mid, Presence, Master, Pull Bright",
+      "variants": [
+        "Rhythm 1 channel (previously: USA Clean model)",
+        "Rhythm 2 channel",
+        "Lead channel, Voicing: Harmonics, Pull Bright engaged",
+        "Lead channel, Voicing: Mid Gain, Pull Bright engaged",
+        "Lead channel, Voicing: Harmonics, Pull Bright off",
+        "Lead channel, Voicing: Mid Gain, Pull Bright off"
+      ],
+      "notes": [
+        "Having owned multiple Mark IV",
+        "Fat and Presence shift work as the real amp.",
+        "USA Clean is based on the MKIV."
+      ]
+    },
+    {
+      "model_name": "USA MK IV LEAD BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IV LEAD MID GAIN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IV LEAD MID GAIN BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IV RHYTHM 1",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK IV RHYTHM 2",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK V GREEN",
+      "based_on": "MESA/Boogie Mark V",
+      "cab_original": "Mesa 1x12 (C90, V30)",
+      "cab_dynacab": "4x12 Recto Straight",
+      "power_tubes": "6L6",
+      "controls": "Channel 1: Gain, Bass, Mid, Treble, Presence, Master, Normal/Bold",
+      "variants": [],
+      "notes": [
+        "A Mark V is a greatest hits of the Mark IV and IIC+. You already\n    have all those models.",
+        "I have a Mark IIC+, a Mark IV, a Mark V and a Triaxis. They"
+      ]
+    },
+    {
+      "model_name": "USA MK V RED IIC+",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK V RED IIC+ Bright",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK V RED MKIV",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK V RED MKIV Bright",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK V RED XT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA MK V RED XT Bright",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA PRE CLEAN",
+      "based_on": "MESA TriAxis preamp",
+      "cab_original": "",
+      "cab_dynacab": "2x12 Lead 80",
+      "power_tubes": "same as USA Lead model (6L6)",
+      "controls": "Drive, Lead Drive (Lead channel), Treble, Middle, Bass, preamp Presence,",
+      "variants": [
+        "Rhythm Green",
+        "Lead 1 Red (TX-4 board)",
+        "Lead 2 Green",
+        "Lead 2 Red",
+        "Lead 2 Yellow"
+      ],
+      "notes": [
+        "I have a Mark IIC+, a Mark IV, a Mark V and a Triaxis. They",
+        "I have two of them. Both with the Lead 1 Red board."
+      ]
+    },
+    {
+      "model_name": "USA PRE LD1 RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA PRE LD2 GREEN",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA PRE LD2 RED",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "USA PRE LD2 YELLOW",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "VIBRA-KING",
+      "based_on": "custom Fender Vibro-King",
+      "cab_original": "Fender 3x10",
+      "cab_dynacab": "4x10 Bassguy RI",
+      "power_tubes": "6L6",
+      "controls": "Volume, Treble, Bass, Middle, Fat switch, Tremolo effect, Reverb effect",
+      "variants": [
+        "Fat switch: on",
+        "Fat switch: off"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "VIBRA-KING FAT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "VIBRATO LUX",
+      "based_on": "1962/1963 brownface Fender Vibrolux, 6G11",
+      "cab_original": "Fender 2x10 or 1x12",
+      "cab_dynacab": "1x12 Vibrato Lux",
+      "power_tubes": "6L6",
+      "controls": "Vibrato channel: Volume, Bass, Treble, Vibrato effect (not modeled)",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "VIBRATO VERB",
+      "based_on": "Fender Vibroverb, old model",
+      "cab_original": "Fender 1x15 (Jensen C15N, JBL D130, Eminence)",
+      "cab_dynacab": "1x15 Vibratoverb",
+      "power_tubes": "6L6",
+      "controls": "Volume, Bass, Treble, Bright switch, Reverb effect (not modeled),",
+      "variants": [
+        "Vibrato Verb: old model ported from the Axe-Fx Ultra (not included on"
+      ],
+      "notes": [
+        "Some different component values in the AA vs. AB.",
+        "The 1x15 Vibroverb is a D130."
+      ]
+    },
+    {
+      "model_name": "VIBRATO VERB AA",
+      "based_on": "1964 blackface Fender Vibroverb, AA763",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "VIBRATO VERB AB",
+      "based_on": "Fender Vibroverb, AB763",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "VIBRATO VERB SRV",
+      "based_on": "Fender Vibroverb Custom Reissue",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "WRECKER EXPRESS",
+      "based_on": "Trainwreck Express",
+      "cab_original": "Marshall 4x12 (G12-M25)",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL34",
+      "controls": "Volume, Bass, Mid, Treble, Presence, three-position Bright switch",
+      "variants": [
+        "Wrecker Express: Bright switch in center or top position",
+        "Wrecker Express Bright: Bright switch in bottom (brightest) position"
+      ],
+      "notes": []
+    },
+    {
+      "model_name": "WRECKER EXPRESS BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "WRECKER LIVERPOOL",
+      "based_on": "Trainwreck Liverpool",
+      "cab_original": "Marshall 4x12 (G12-M25)",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL84",
+      "controls": "Volume, Bass, Mid, Treble, Presence, three-position Bright switch",
+      "variants": [
+        "Liverpool: Bright switch in center or top position",
+        "Liverpool Bright: Bright switch in bottom (brightest) position"
+      ],
+      "notes": [
+        "Just because a power amp is",
+        "Uses a Vox-style phase inverter."
+      ]
+    },
+    {
+      "model_name": "WRECKER LIVERPOOL BRIGHT",
+      "based_on": "",
+      "cab_original": "",
+      "cab_dynacab": "",
+      "power_tubes": "",
+      "controls": "",
+      "variants": [],
+      "notes": []
+    },
+    {
+      "model_name": "WRECKER ROCKET",
+      "based_on": "Trainwreck Rocket",
+      "cab_original": "Marshall 4x12 (G12-M25)",
+      "cab_dynacab": "4x12 Friedman GB",
+      "power_tubes": "EL84",
+      "controls": "Volume, Treble, Bass, Cut",
+      "variants": [],
+      "notes": []
+    }
+  ],
+  "drive_models": [
+    {
+      "model_name": "11.70 SUPER FUZZ",
+      "based_on": "Univox Super-Fuzz",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.71 SUPER OD",
+      "based_on": "BOSS SD-1 Super OverDrive",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.72 SWEDISH METAL",
+      "based_on": "BOSS Waza Craft HM-2W Heavy Metal",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.73 T808 OD",
+      "based_on": "Ibanez TS-808 Tube Screamer",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.74 T808 MOD",
+      "based_on": "modded Ibanez TS-808 Tube Screamer",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.75 TAPE DISTORTION",
+      "based_on": "tape distortion",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.76 TIMOTHY DOWN",
+      "based_on": "Paul Cochrane Timmy V4",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.77 TIMOTHY MID",
+      "based_on": "Paul Cochrane Timmy V4",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.78 TIMOTHY UP",
+      "based_on": "Paul Cochrane Timmy V4",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.79 TONE OF KINGS",
+      "based_on": "Analog Man King of Tone",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.80 TREBLE BOOST",
+      "based_on": "silicon treble booster circuit",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.81 TS9DX +",
+      "based_on": "Ibanez TS9DX Turbo Tube Screamer",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.82 TS9DX HOT",
+      "based_on": "Ibanez TS9DX Turbo Tube Screamer",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.83 TUBE DRIVE 3-KNOB",
+      "based_on": "Butler Tube Driver",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.84 TUBE DRIVE 4-KNOB",
+      "based_on": "Butler Tube Driver",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.85 TUBE DRIVE 5-KNOB",
+      "based_on": "Butler Tube Driver / Dean Markley Overlord",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.86 VALVE SCREAMER VS9",
+      "based_on": "Ibanez TS9 Tube Screamer",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "11.87 ZEN MASTER",
+      "based_on": "Hermida Zendrive",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "12 Videos",
+      "based_on": "",
+      "category": "- 11.69 SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Jam Ray • Klone Chiron • Maxoff 808 • MCMLXXXI Drv • M-Zone",
+      "based_on": "",
+      "category": "FRACTAL AUDIO QUOTES"
+    },
+    {
+      "model_name": "OD-One Overdrive • Paradigm Shifter • PI Fuzz (all) • Plus",
+      "based_on": "",
+      "category": "FRACTAL AUDIO QUOTES"
+    },
+    {
+      "model_name": "July 2022, for Axe-Fx III, FM9 and FM3",
+      "based_on": "",
+      "category": "FRACTAL AUDIO QUOTES"
+    },
+    {
+      "model_name": "1970’s Op-Amp Distortion",
+      "based_on": "JHS",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Busting the myth of magic op-amps and diodes?",
+      "based_on": "Wampler",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "What do all the parts do on a guitar pedal?",
+      "based_on": "Wampler",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Transistors Explained",
+      "based_on": "The Engineering Mindset",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Diode-Based Overdrive and Distortion Effects",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Leon Todd's video tutorial “Using Amps as Drives”",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Demonstration",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "two T808s",
+      "based_on": "like SRV",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "two Face Fuzz models",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Octave Distortion followed by Face Fuzz",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Face Fuzz followed by Treble Booster",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "EHX Soul Food",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "AA Workhorse",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Solo Dallas Schaffer Replica pedal, more information",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Xotic EP Booster",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Roger Mayer Axis Fuzz",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Boss HM-2",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Cornish SS2",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "JHS Superbolt",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Mesa Grid Slammer",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "band 1 Shelving2, 150 Hz, 0.707, -12",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "band 5 Shelving2, 2253 Hz, 0.707, -12, Level 1.5",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Attach an expression pedal to Sample Rate",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Lower the low and high sliders in a GEQ block",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Use the IR of a tiny speaker cabinet",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Crank Speaker Drive in the Amp block",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Use the Ring Modulator block in non-tracking mode",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Use low-pass and high-pass filtering",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Generate pink or white noise with the Synth block",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Boost: emphasizes treble content",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Flat: neutral",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Cut: de-emphasizes treble content",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Fat",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Thin",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Raw",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Drive: amount of overdrive",
+      "based_on": "model: Drive",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Tone: controls tone, noon is neutral",
+      "based_on": "model: Tone",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Volume: output level",
+      "based_on": "model: Level",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "DRIVE adjusts the overall gain structure and overdrive.",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "LEVEL regulates the XLR and affected 1/4″ output levels.",
+      "based_on": "",
+      "category": "FX8, AX8"
+    },
+    {
+      "model_name": "Coda Effects",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Vintage Guitar",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Premier Guitar",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Shin-Ei",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Reverb: The Story of the HM-2: The Dark Side of Boss",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Bossinfo: HM-2: The Sound of Swedish Death Metal and Beyond",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "Catalinbread",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1979-1982: TS-808, JRC4558D, Japan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1984: ST9 Nine Series Super Tube Screamer, 2x JRC4558D",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1985: STL (Super Tube Series), 2x JRC4558D, Japan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1986-1989: TS-10, JRC4558, MC4558, Japan and Taiwan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1989-1999: TS-5 Soundtank, TA75558, NJM4558, Taiwan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1993: TS9 Nine Series Reissue, TA75558, Japan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1996: TS-9 Reissue, TA75558 CE, Japan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "1998: TS9DX Nine Series, TA75558",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2000: TS-7 Tone-Lok, NJM4558, JRC4558D, Taiwan and China",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2002: TS-9 Reissue",
+      "based_on": "not Maxon anymore",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2004: TS-808 Reissue, JRC5458, JRC4588D, Japan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2008: TS 808HW, JRC4558, Japan",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2010: TS9B Bass Tube Screamer",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2012: TS-9 30th Anniversary, JRC4558",
+      "based_on": "",
+      "category": "SUNRISE SPLENDOR HI-CUT"
+    },
+    {
+      "model_name": "2014: Ibanez TS-808 35TH (narrow box reissue), JRC4558",
+      "based_on": "",
+      "category": "- 2014: TS808DX"
+    },
+    {
+      "model_name": "2015: Ibanez Tube Screamer Mini",
+      "based_on": "",
+      "category": "- 2014: TS808DX"
+    },
+    {
+      "model_name": "And more …",
+      "based_on": "",
+      "category": "- 2014: TS808DX"
+    },
+    {
+      "model_name": "WoodyTone: Ritchie Blackmore’s Tone",
+      "based_on": "",
+      "category": "- 2014: TS808DX"
+    },
+    {
+      "model_name": "Axe-Fx2",
+      "based_on": "",
+      "category": "- 2014: TS808DX"
+    },
+    {
+      "model_name": "Axe-Fx3",
+      "based_on": "",
+      "category": "- 2014: TS808DX"
+    },
+    {
+      "model_name": "Sounds",
+      "based_on": "",
+      "category": "- FX8"
+    },
+    {
+      "model_name": "All",
+      "based_on": "",
+      "category": "- FX8"
+    }
+  ]
+}
