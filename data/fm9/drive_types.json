@@ -1,11 +1,11 @@
 {
-  "0": "Mid Boost",
+  "0": "Rat Distortion",
   "1": "PI Fuzz",
   "2": "Tube Drive 3-Knob",
   "3": "Super OD",
   "4": "Treble Boost",
   "5": "Mid Boost",
-  "6": "Mid Boost",
+  "6": "T808 OD",
   "7": "Fat Rat",
   "8": "T808 Mod",
   "9": "Octave Distortion",
@@ -22,7 +22,7 @@
   "20": "Master Fuzz",
   "21": "Face Fuzz",
   "22": "Bit Crusher",
-  "23": "Bit Crusher",
+  "23": "Eternal Love",
   "24": "Esoteric ACB",
   "25": "Esoteric RCB",
   "26": "Zen Master",
@@ -35,7 +35,7 @@
   "33": "FAS Boost",
   "34": "Timothy Mid",
   "35": "Shimmer Drive",
-  "36": "Shimmer Drive",
+  "36": "Blackglass 7K",
   "37": "Suhr Riot LED (L)",
   "38": "Timothy Up",
   "39": "Tone of Kings",
@@ -84,10 +84,5 @@
   "82": "PI Fuzz - Bass",
   "83": "NoAmp Bass DI",
   "84": "NoAmp Bass Pre",
-  "85": "Royal Bass DI",
-  "86": "Royal Bass DI",
-  "87": "Royal Bass DI",
-  "88": "Royal Bass DI",
-  "89": "Royal Bass DI",
-  "90": "Royal Bass DI"
+  "85": "Royal Bass DI"
 }

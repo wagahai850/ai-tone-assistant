@@ -3943,26 +3943,6 @@
     "Digital Stereo",
     "Analog Mono",
     "Analog Stereo",
-    "Japan CE-2",
-    "Warm Stereo",
-    "80'S Style",
-    "Triangle Chorus",
-    "8-Voice Stereo",
-    "Tape Chorus",
-    "Dimension 1",
-    "Dimension 2",
-    "Dimension 3",
-    "4-Voice Analog",
-    "8-Voice Analog",
-    "Stereo Tri-Chorus",
-    "Dual Chorus",
-    "Tape Flanger"
-  ],
-  "phaser_types": [
-    "Digital Mono",
-    "Digital Stereo",
-    "Analog Mono",
-    "Analog Stereo",
     "Thru-Zero",
     "Stereo Jet",
     "Zero Flanger",
@@ -3991,7 +3971,7 @@
     "Tubular",
     "Vowel Flanger"
   ],
-  "tremolo_types": [
+  "phaser_types": [
     "Digital Mono",
     "Digital Stereo",
     "Script 45",
@@ -4010,16 +3990,34 @@
     "Mutated Twin-Phaser",
     "Modern Vibe"
   ],
+  "tremolo_types": [
+    "VCA Trem",
+    "Panner",
+    "Bias Trem",
+    "Harmonic Trem",
+    "Optical Trem 1",
+    "Optical Trem 2",
+    "Neon Trem"
+  ],
   "wah_types": [
-    "FAS Wah",
-    "Clyde",
-    "Cry Babe",
-    "VX846",
-    "Color-Tone",
-    "Funk Wah",
-    "Mortal",
-    "VX845",
-    "Paragon"
+    "Null",
+    "Low-Pass",
+    "Band-Pass",
+    "High-Pass",
+    "Low-Shelf",
+    "High-Shelf",
+    "Peaking",
+    "Notch",
+    "Tilt EQ",
+    "Low-Shelf 2",
+    "High-Shelf 2",
+    "Peaking 2",
+    "Feedforward Comb",
+    "Feedback Comb",
+    "All-Pass",
+    "Envelope Filter",
+    "Auto-Wah",
+    "Touch-Wah"
   ],
   "pitch_types": [
     "Dual Detune",
@@ -4170,5 +4168,25 @@
     "Take Five",
     "Diffused Ping-Pong Echo",
     "Echo Room"
+  ],
+  "chorus_types": [
+    "Digital Mono",
+    "Digital Stereo",
+    "Analog Mono",
+    "Analog Stereo",
+    "Japan CE-2",
+    "Warm Stereo",
+    "80'S Style",
+    "Triangle Chorus",
+    "8-Voice Stereo",
+    "Tape Chorus",
+    "Dimension 1",
+    "Dimension 2",
+    "Dimension 3",
+    "4-Voice Analog",
+    "8-Voice Analog",
+    "Stereo Tri-Chorus",
+    "Dual Chorus",
+    "Tape Flanger"
   ]
 }

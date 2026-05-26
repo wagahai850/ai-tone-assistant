@@ -203,7 +203,7 @@ MIT
 - **Declarative preset construction**: `fm9_apply_graph` builds presets from signal-flow graphs (auto-layout, parallel routing, split/merge)
 - **Graph readback**: `fm9_read_graph` reads any preset as a signal-flow graph (traces through shunts)
 - **Preset management**: store, change, rename, query name by number
-- **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 2000+ cab IRs
+- **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 31 flanger types, 18 chorus types, 17 phaser types, 7 tremolo types, 16 pitch types, 19 compressor types, 2000+ cab IRs
 - **Type-specific valid parameters**: know which params are active for each model variant (331 amp types, 16 pitch types, 11 compressor types, etc.)
 - **Axe-Fx III support**: same protocol, parameter data extracted via automated pipeline
 
