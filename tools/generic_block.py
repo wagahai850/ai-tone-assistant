@@ -206,8 +206,17 @@ def register(mcp):
                 else:
                     return {"success": False, "error": f"Type '{type_name}' not found for {block_info['block_name']}."}
 
-            # Send sub=0x09, param=0x0A (TYPE parameter) with type_id
-            midi._send_sub09(block_id, 0x0A, type_id)
+            # Find the actual Type param_id for this block (varies per block)
+            type_pid = None
+            for pid_str, pinfo in block_info["params"].items():
+                if pinfo["display_name"] == "Type" and pinfo.get("meta", {}).get("type") == "enum":
+                    type_pid = int(pid_str)
+                    break
+            if type_pid is None:
+                type_pid = 0x0A  # Fallback to legacy default
+
+            # Send type change as raw_float (same encoding as PEQ/Cab enum params)
+            midi.set_param_value(block_id, type_pid, float(type_id), 1.0, raw_float=True)
             return {"success": True, "block": block_info["block_name"], "type": matched_name, "type_id": type_id}
         except Exception as e:
             return {"success": False, "error": str(e)}
