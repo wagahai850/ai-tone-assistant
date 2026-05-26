@@ -193,27 +193,22 @@ def register(mcp):
 
             block_id = int(block_id_str, 16)
 
-            # Special handling: Cab frequency parameters require raw Hz values
-            # and use per-mic param_ids (not the generic ones).
-            # See: Cab High Cut = pid 66 (HICUT1), Low Cut = pid 62 (LOCUT1)
+            # Cab blocks have mixed encoding:
+            # - Frequency params (Hz), Mode, Mute, DynaCab Type/Mic: raw float
+            # - DynaCab R/Z (position/distance): normalized 0-1
+            # - Other continuous params: needs verification (assume raw float)
             CAB_BLOCK_IDS = {0x3E, 0x3F, 0x40, 0x41}  # Cab 1-4
-            CAB_FREQ_PARAM_MAP = {
-                # normalized_name (no spaces) -> (correct_pid, is_raw_float)
-                "highcut": (66, True),
-                "lowcut": (62, True),
-                "hicut1": (66, True),
-                "hicut2": (67, True),
-                "hicut3": (68, True),
-                "hicut4": (69, True),
-                "locut1": (62, True),
-                "locut2": (63, True),
-                "locut3": (64, True),
-                "locut4": (65, True),
-                "dynacabtype1": (85, True),
-                "dynacabtype2": (86, True),
-                "dynacabmic1": (89, True),
-                "dynacabmic2": (90, True),
-                "mode": (31, True),
+
+            # Params that use NORMALIZED 0-1 encoding (like Amp/Drive)
+            CAB_NORMALIZED_PARAMS = {
+                93, 94, 95, 96,   # Dynacab R1-R4 (position)
+                97, 98, 99, 104,  # Dynacab Z1-Z4 (distance)
+            }
+
+            # Param_id overrides (generic name -> correct per-mic pid)
+            CAB_PID_OVERRIDES = {
+                "highcut": 66,
+                "lowcut": 62,
             }
 
             changes = {}
@@ -221,12 +216,19 @@ def register(mcp):
             for param_name, value in params.items():
                 pid, internal_name = resolve_param(block_info, param_name)
 
-                # Override for Cab frequency params
-                normalized_name = param_name.lower().replace(" ", "").replace("_", "")
-                if block_id in CAB_BLOCK_IDS and normalized_name in CAB_FREQ_PARAM_MAP:
-                    correct_pid, is_raw = CAB_FREQ_PARAM_MAP[normalized_name]
-                    midi.set_param_value(block_id, correct_pid, float(value), 1.0,
-                                         raw_float=is_raw)
+                if block_id in CAB_BLOCK_IDS:
+                    # Check for pid override
+                    normalized_name = param_name.lower().replace(" ", "").replace("_", "")
+                    if normalized_name in CAB_PID_OVERRIDES:
+                        pid = CAB_PID_OVERRIDES[normalized_name]
+
+                    if pid in CAB_NORMALIZED_PARAMS:
+                        # These use standard normalized 0-1
+                        midi.set_param_value(block_id, pid, float(value), 1.0)
+                    else:
+                        # Everything else on Cab uses raw float
+                        midi.set_param_value(block_id, pid, float(value), 1.0,
+                                             raw_float=True)
                 else:
                     midi.set_param_value(block_id, pid, float(value), 1.0)
 
