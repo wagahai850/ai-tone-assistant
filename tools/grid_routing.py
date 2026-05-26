@@ -330,3 +330,126 @@ def register(mcp):
             }
         except Exception as e:
             return {"success": False, "error": str(e)}
+
+    @mcp.tool()
+    def fm9_read_graph() -> dict[str, Any]:
+        """Read the current FM9 preset as a signal-flow graph.
+
+        Returns the preset structure as blocks + connections (directed edges),
+        abstracting away grid coordinates and shunts.
+
+        Returns:
+        - blocks: dict of {node_id: block_type_name} (real blocks only, no shunts)
+        - connections: list of [from_node_id, to_node_id] pairs
+        - layout: dict of {node_id: [row, col]} (current grid coordinates, 1-indexed)
+        """
+        try:
+            ensure_connected()
+            raw_grid = midi.read_grid_raw()
+            status = midi.get_status_dump()
+
+            # Build high-ID lookup
+            high_id_lookup = {}
+            for eid in status.keys():
+                if eid > 0x7F:
+                    high_id_lookup[eid & 0x7F] = eid
+
+            known_blocks = {v["block_id_int"]: name for name, v in BLOCKS.items()}
+            known_blocks[0x25] = "Input 1"
+            known_blocks[0x2A] = "Output 1"
+
+            # Parse grid into cells with metadata
+            cells = {}  # (row, col) -> {bid, is_shunt, cable_from_rows}
+            for row in range(5):
+                for col in range(14):
+                    cell = raw_grid[row][col]
+                    bid = cell["block_id"]
+                    raw32 = cell["raw_32"]
+                    byte2 = (raw32 >> 16) & 0xFF
+                    byte3 = (raw32 >> 8) & 0xFF
+                    is_shunt = byte2 == 0x08
+
+                    if bid != 0 and bid in high_id_lookup:
+                        bid = high_id_lookup[bid]
+
+                    cable_from_rows = []
+                    for r in range(5):
+                        if byte3 & (1 << (r + 1)):
+                            cable_from_rows.append(r)
+
+                    if bid != 0 or is_shunt:
+                        cells[(row, col)] = {
+                            "bid": bid,
+                            "is_shunt": is_shunt,
+                            "cable_from_rows": cable_from_rows,
+                        }
+
+            # Build graph: trace cables through shunts to find real block connections
+            # For each real block that has cable inputs, trace backwards through shunts
+            # to find the source real block.
+
+            real_blocks = {}  # (row, col) -> block_name
+            for (row, col), info in cells.items():
+                if not info["is_shunt"] and info["bid"] != 0:
+                    name = known_blocks.get(info["bid"], f"Block 0x{info['bid']:02X}")
+                    real_blocks[(row, col)] = name
+
+            # Create node IDs from block names (lowercase, no spaces)
+            node_ids = {}  # (row, col) -> node_id
+            name_counts = {}
+            for (row, col), name in real_blocks.items():
+                base_id = name.lower().replace(" ", "_").replace("/", "_")
+                if base_id not in name_counts:
+                    name_counts[base_id] = 0
+                    node_ids[(row, col)] = base_id
+                else:
+                    name_counts[base_id] += 1
+                    node_ids[(row, col)] = f"{base_id}_{name_counts[base_id]}"
+
+            # Trace connections: for each cell with cable_from_rows, trace left
+            # through shunts until we hit a real block.
+            def trace_source(row, col):
+                """Trace leftward from (row, col) to find the source real block."""
+                # cable_from_rows tells us which row the cable comes from
+                info = cells.get((row, col))
+                if not info or not info["cable_from_rows"]:
+                    return []
+                sources = []
+                for src_row in info["cable_from_rows"]:
+                    # The cable comes from src_row, previous column
+                    prev_col = col - 1
+                    # Walk left through shunts
+                    while prev_col >= 0:
+                        prev_info = cells.get((src_row, prev_col))
+                        if prev_info is None:
+                            break
+                        if not prev_info["is_shunt"]:
+                            # Found a real block
+                            if (src_row, prev_col) in node_ids:
+                                sources.append(node_ids[(src_row, prev_col)])
+                            break
+                        # It's a shunt — check if it has cable input from further left
+                        if prev_info["cable_from_rows"]:
+                            # Shunt receives from another row — follow that
+                            src_row = prev_info["cable_from_rows"][0]
+                        prev_col -= 1
+                return sources
+
+            connections = []
+            for (row, col), node_id in node_ids.items():
+                sources = trace_source(row, col)
+                for src_id in sources:
+                    connections.append([src_id, node_id])
+
+            # Build output
+            blocks_out = {nid: real_blocks[pos] for pos, nid in node_ids.items()}
+            layout_out = {nid: [row + 1, col + 1] for (row, col), nid in node_ids.items()}
+
+            return {
+                "success": True,
+                "blocks": blocks_out,
+                "connections": connections,
+                "layout": layout_out,
+            }
+        except Exception as e:
+            return {"success": False, "error": str(e)}
