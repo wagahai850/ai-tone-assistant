@@ -204,7 +204,7 @@ The reverse-engineered FM9 USB MIDI protocol is documented in detail in the proj
 
 - **Checksum**: `XOR(model_id, func, data...) ^ 0x05 & 0x7F`
 - **Parameter control**: sub=0x09 (value set) and sub=0x52 (real-time slide) with IEEE 754 float encoding
-- **Channel control**: Direct channel targeting via payload byte (A=0x00, B=0x20, C=0x40, D=0x60)
+- **Channel control**: Block data (GET_BLOCK) stores all 4 channels contiguously with stride = (combined_length - 7) // 4. Active channel is switched via SET_CHANNEL (sub=0x16) before SET_PARAM
 - **Grid layout**: sub=0x2E query returns 753-byte bitstream-encoded grid map
 - **Block routing**: sub=0x30/0x32/0x33/0x35/0x36 for add/delete/move/connect
 - **Shunt placement**: sub=0x32 with sequential index per shunt (byte[3] must be unique in preset)
@@ -232,6 +232,7 @@ MIT
 - **Delay/Reverb/Chorus/Pitch/etc.**: parameter control via `fm9_set_block_params`
 - **Pitch block (Virtual Capo)**: Shift semitones via `fm9_set_block_params` (e.g., `{"Shift1": -1}` for down 1 semitone, range ±24)
 - **All blocks**: channel control (A/B/C/D), bypass, scene switching
+- **Channel-aware parameter read/write (A/B/C/D)** for all blocks
 - **Grid operations**: add (upsert), delete, move, connect (cross-row), disconnect (cross-row), read
 - **Declarative preset construction**: `fm9_apply_graph` builds presets from signal-flow graphs (auto-layout, parallel routing, split/merge)
 - **Graph readback**: `fm9_read_graph` reads any preset as a signal-flow graph (traces through shunts)
@@ -246,7 +247,7 @@ MIT
 - **Effect type selection**: `fm9_set_effect_type` works for all blocks (correct per-block Type param_id)
 
 ### Known Limitations
-- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 via dedicated tools. All other effect blocks send raw display values directly via `fm9_set_block_params`. Cab DynaCab R/Z use normalized 0.0-1.0. Pitch Shift uses signed integer semitone values. The tool handles all of this automatically.
+- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 for continuous params and raw_float (IEEE 754 display value) for bipolar params (Level, Balance) via dedicated tools. All other effect blocks send raw display values directly via `fm9_set_block_params`. Cab DynaCab R/Z use normalized 0.0-1.0. Pitch Shift uses signed integer semitone values. The tool handles all of this automatically.
 - **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
 - **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)

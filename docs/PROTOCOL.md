@@ -168,6 +168,28 @@ Each chunk (func 0x75):
 
 Parameter at index N: `offset = 7 + N * 3`
 
+### Block Data Channel Layout
+
+All 4 channels (A/B/C/D) are stored contiguously in the block data returned by GET_BLOCK.
+Multiple SysEx chunks (func 0x75) are concatenated — strip the 7-byte header from chunks
+after the first to form one continuous buffer.
+
+```
+Channel stride = (combined_length - 7) // 4
+Channel N starts at offset: 7 + N * stride
+```
+
+| Channel | N | Offset |
+|---------|---|--------|
+| A | 0 | 7 |
+| B | 1 | 7 + stride |
+| C | 2 | 7 + 2×stride |
+| D | 3 | 7 + 3×stride |
+
+Within each channel's region, parameters are packed at 3 bytes each (same layout as the
+single-channel case). The active channel is determined by querying STATUS_DUMP (func 0x13)
+or by using SET_CHANNEL (sub=0x16) to switch before reading/writing.
+
 ## SET_TYPE / SET_PARAM (sub=0x09) / SLIDE_PARAM (sub=0x52)
 
 Change amp/drive model, cab IR, or set any parameter value.
@@ -190,7 +212,10 @@ The byte at position [14] (after func) specifies the target channel:
 | C | 0x40 | channel × 0x20 |
 | D | 0x60 | channel × 0x20 |
 
-On FM9, this byte follows the same encoding (verified: Channel B = 0x20 works on FM9).
+> **Important (FM9 behavior)**: In practice, the channel byte in SET_PARAM is always 0x00.
+> FM9 Edit does NOT use this byte to target a specific channel. Instead, it switches the
+> active channel first via SET_CHANNEL (sub=0x16), then sends SET_PARAM with channel=0x00.
+> The channel byte encoding above is from Axe-Fx III documentation but is not used on FM9.
 
 > **Important**: Parameter IDs (param field) differ between Axe-Fx III and FM9, even for the same block type and model variant. Each device requires its own parameter scan. The channel encoding and message structure are identical across devices.
 
@@ -451,7 +476,9 @@ Different blocks use different encoding for SET_PARAM (sub=0x09).
 Only Amp/Drive use normalized 0.0–1.0 via their dedicated tools.
 
 ### Amp / Drive (block 0x3A, 0x76)
-- Continuous params: **Normalized 0.0–1.0** (value / max) — via dedicated tools only
+- Continuous params (Gain, Bass, Mid, Treble, etc.): **Normalized 0.0–1.0** (value / max) — via dedicated tools only
+- Bipolar params (Level, Balance): **Raw float** (display value as IEEE 754, e.g., -10.0 for -10 dB). NOT normalized.
+  - Level range: -80 to +20 dB (most blocks). Compressor: -20 to +20 dB. Amp Out Comp Threshold: -60 to 0 dB.
 - Type selection: Uses dedicated `fm9_set_amp_type` / `fm9_set_drive_type` tools
 
 ### Cab (block 0x3E–0x41)
