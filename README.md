@@ -260,6 +260,23 @@ MIT
 
 ### Known Issues
 
+#### Amp/Drive bipolar and frequency encoding (under investigation)
+
+**Status**: Amp continuous params work (normalized). Amp bipolar (Level, Balance) works (raw_float). Drive continuous works (normalized). **Drive bipolar and frequency encoding is unverified** — round-trip test shows failures.
+
+**Evidence from round-trip test (`tests/test_roundtrip.py --block "Drive 1"`):**
+- Drive EQ bands (bipolar, max=±12 dB): sending 6.0 as raw_float results in 9.0 readback
+- Drive High Cut (frequency, max=20000): sending 1000.0 as raw_float results in 223.6 readback
+- Drive Balance (bipolar, max=±100): sending 100.0 as raw_float results in 200.0 readback (clamp)
+
+**Hypothesis**: Drive bipolar/frequency params may use normalized encoding (same as continuous), unlike Amp bipolar which uses raw_float. Needs Wireshark capture of FM9 Edit changing Drive EQ/frequency params to confirm.
+
+**Next steps**:
+1. Capture: FM9 Edit → Drive EQ band change + High Cut change
+2. Confirm float encoding in SysEx (normalized vs raw_float)
+3. Fix encoding rules in `set_drive_params` and `set_block_params`
+4. Re-run round-trip test to verify
+
 #### Cab block uses mixed parameter encoding (fixed)
 
 **Status**: Fixed. Cab block fully operational via `fm9_set_block_params`, including DynaCab Type/Mic name resolution (e.g., `{"Dynacab Type1": "4x12 1960TV"}`, `{"Dynacab Mic1": "Dynamic 1"}`).
