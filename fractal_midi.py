@@ -834,18 +834,26 @@ class FractalMidi:
             self._outport.send(mido.Message("sysex", data=query))
             time.sleep(1.0)
 
-            # Collect the large response (>700 bytes)
+            # Collect the large response (>700 bytes) with retry
             response = None
-            deadline = time.time() + 3.0
-            while time.time() < deadline:
-                msg = self._inport.poll()
-                if msg is None:
-                    time.sleep(0.05)
-                    continue
-                if (msg.type == "sysex" and len(msg.data) > 700
-                        and msg.data[4] == 0x01 and msg.data[5] == 0x2E):
-                    response = list(msg.data)
+            for attempt in range(3):
+                deadline = time.time() + 3.0
+                while time.time() < deadline:
+                    msg = self._inport.poll()
+                    if msg is None:
+                        time.sleep(0.05)
+                        continue
+                    if (msg.type == "sysex" and len(msg.data) > 700
+                            and msg.data[4] == 0x01 and msg.data[5] == 0x2E):
+                        response = list(msg.data)
+                        break
+                if response:
                     break
+                # Retry: flush and resend
+                self._flush_input()
+                time.sleep(0.5)
+                self._outport.send(mido.Message("sysex", data=query))
+                time.sleep(1.0)
 
         if not response:
             raise RuntimeError("No sub=0x2E response from device.")

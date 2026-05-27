@@ -585,6 +585,7 @@ def register(mcp):
 
             # Phase 1: Clear all blocks from grid
             raw_grid = midi.read_grid_raw()
+            import time as _time
             for row in range(5):
                 for col in range(14):
                     cell = raw_grid[row][col]
@@ -593,6 +594,9 @@ def register(mcp):
                     byte2 = (raw32 >> 16) & 0xFF
                     if bid != 0 or byte2 == 0x08:
                         midi.delete_block_at(row, col)
+
+            # Allow device to finish processing deletions
+            _time.sleep(1.0)
 
             # Phase 2: Place blocks
             for node_id, (row, col) in layout.items():
