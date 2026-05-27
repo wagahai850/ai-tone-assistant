@@ -320,9 +320,13 @@ def register(mcp):
         Args:
             block: Block name (e.g., "Amp 1", "Delay 1", "Chorus") or hex ID (e.g., "0x3A").
             params: Dictionary of parameter name-value pairs.
-                    Values are normalized 0.0-1.0 (will be sent as IEEE 754 float).
-                    For known blocks (Amp, Drive), use the dedicated tools instead for
-                    proper display-value scaling.
+                    Values are display values sent directly to the device:
+                    - Continuous params: display value (e.g., Mix=50 for 50%)
+                    - Frequency params: Hz value (e.g., 2500 for 2500 Hz)
+                    - Enum/Type params: integer index (e.g., 0=first type)
+                    - Switch params: 0 or 1
+                    For Amp/Drive, use the dedicated fm9_set_amp_params/fm9_set_drive_params
+                    tools instead (they handle the different normalized encoding).
                     For Cab DynaCab Type: use integer index (0-44) or name (e.g. "4x12 1960TV").
                     For Cab DynaCab Mic: use integer (0-3) or name (e.g. "Dynamic 1").
 
@@ -393,31 +397,12 @@ def register(mcp):
                         midi.set_param_value(block_id, pid, float(value), 1.0,
                                              raw_float=True)
                 else:
-                    # Non-Cab blocks: check if frequency param (max >= 20000),
-                    # enum param, or PEQ block (all params use raw_float)
-                    pinfo_meta = block_info["params"].get(str(pid), {}).get("meta", {})
-                    param_max = pinfo_meta.get("max", 10.0)
-                    param_type = pinfo_meta.get("type", "continuous")
-
-                    # PEQ blocks: ALL params use raw_float (display values directly)
-                    PEQ_BLOCK_IDS = {0x36, 0x37, 0x38, 0x39}  # Parametric EQ 1-4
-
-                    if block_id in PEQ_BLOCK_IDS:
-                        # PEQ: send display value as raw float
-                        # Freq=Hz, Gain=dB, Q=value, Type=enum index
-                        midi.set_param_value(block_id, pid, float(value), 1.0,
-                                             raw_float=True)
-                    elif param_type == "enum":
-                        # Enum: send integer as raw float
-                        midi.set_param_value(block_id, pid, float(int(float(value))), 1.0,
-                                             raw_float=True)
-                    elif param_max >= 20000:
-                        # Frequency params: send Hz value as raw float
-                        midi.set_param_value(block_id, pid, float(value), 1.0,
-                                             raw_float=True)
-                    else:
-                        # Standard normalized 0-1
-                        midi.set_param_value(block_id, pid, float(value), 1.0)
+                    # ALL effect blocks use raw_float for display values
+                    # (Verified via Wireshark: Delay, Reverb, Chorus, Comp, Flanger
+                    #  all send display values directly as IEEE 754 float)
+                    # Only Amp/Drive use normalized 0-1 (via dedicated tools).
+                    midi.set_param_value(block_id, pid, float(value), 1.0,
+                                         raw_float=True)
 
                 changes[param_name] = value
 
