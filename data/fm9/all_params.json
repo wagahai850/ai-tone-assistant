@@ -13022,7 +13022,7 @@
         "table_index": 4,
         "meta": {
           "type": "bipolar",
-          "min": -80,
+          "min": -20,
           "max": 20.0,
           "verified": false
         }
