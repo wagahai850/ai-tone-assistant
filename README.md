@@ -305,11 +305,37 @@ Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in 
 **Recovery** (if corruption occurred with old version): Switch to a different preset and switch back to reload the edit buffer from flash.
 
 ### Roadmap
-1. Hand-verify min/max for remaining blocks (promote inferred → verified)
-2. Modifier/controller assignment support
-3. Scene-level parameter management
-4. Direct firmware query for effect definitions (eliminate Editor cache dependency)
-5. Demo video re-record
+
+#### Current Priority: Full Parameter Round-Trip Verification
+
+**WHY**: Every parameter SET/GET must work correctly for the tone assistant to be reliable. Currently, 1300+ parameters are mapped but only ~30 have been verified against the actual device. The encoding rules differ by block type and parameter type in ways that aren't fully documented by Fractal Audio.
+
+**HOW**: Automated round-trip test (`tests/test_roundtrip.py`) that:
+1. Places each block type on the grid
+2. For each non-enum parameter: SET a known value → GET → verify match
+3. Reports failures with sent/received values for diagnosis
+
+**WHAT (next actions)**:
+1. **Capture Drive encoding** — On Windows, use Wireshark to capture FM9 Edit changing:
+   - Drive EQ band (bipolar, ±12 dB) — is the float normalized or raw?
+   - Drive High Cut (frequency, 20kHz) — is the float normalized or raw?
+   - This determines whether Drive bipolar/frequency uses the same encoding as Amp
+2. **Fix encoding rules** — Update `encode_and_set` in test script AND `set_drive_params` / `set_block_params` in server code based on capture results
+3. **Run full round-trip** — Execute `python3 tests/test_roundtrip.py` on EMPTY preset with FM9 connected. Fix failures iteratively until 0 FAIL
+4. **Promote to regression test** — Once passing, this becomes the gate for future changes
+
+**Key insight from this session**: Amp and Drive have DIFFERENT bipolar encoding despite both being "Amp/Drive" blocks. Amp Level uses raw_float (-10.0 sent directly). Drive EQ bands appear to use normalized (6.0 sent as raw_float resulted in 9.0 readback, suggesting FM9 interpreted it differently). Wireshark capture is the only way to resolve this — don't guess, capture.
+
+**Tools**:
+- `tests/test_roundtrip.py` — automated round-trip (requires FM9 USB)
+- `pipeline/parse_pcap.py` — decode Wireshark USB captures to readable SysEx
+- FM9 Edit on Windows + Wireshark with USBPcap — for protocol capture
+
+#### Future
+- Hand-verify min/max for remaining blocks (promote inferred → verified)
+- Modifier/controller assignment support
+- Scene-level parameter management
+- Direct firmware query for effect definitions (eliminate Editor cache dependency)
 
 ### Contributing
 
