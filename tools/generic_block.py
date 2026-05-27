@@ -245,6 +245,9 @@ def register(mcp):
                 display_value = bool(lo)
             elif param_type == "enum":
                 display_value = raw_val
+            elif param_type == "signed_int":
+                # Two's complement: raw > 32767 means negative
+                display_value = raw_val if raw_val <= 32767 else raw_val - 65536
             elif param_type == "bipolar":
                 display_value = round(raw_val / 65534.0 * (2 * param_max) - param_max, 2)
             elif param_max >= 20000:
