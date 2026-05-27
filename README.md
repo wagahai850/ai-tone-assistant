@@ -264,10 +264,12 @@ Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in 
 
 ### Data Pipeline
 
-Parameter maps and model names are extracted automatically from the Editor binary and firmware cache:
+Parameter maps and model names are extracted automatically from the Editor binary and firmware cache. The pipeline scripts are not included in this repository (they depend on local Editor installations and firmware cache files).
+
+The output of the pipeline (JSON files in `data/fm9/`) is committed and ready to use.
 
 ```bash
-# Run after firmware update (from project root):
+# For maintainers only (requires local pipeline/ scripts):
 python3 pipeline/pipeline_params.py fm9       # Extract param tables + type-valid params
 python3 pipeline/pipeline_params.py axe3      # Same for Axe-Fx III
 python3 pipeline/pipeline_effect_defs.py fm9  # Extract model/type names from cache
