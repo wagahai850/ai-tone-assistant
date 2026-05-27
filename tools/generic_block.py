@@ -329,6 +329,8 @@ def register(mcp):
                     tools instead (they handle the different normalized encoding).
                     For Cab DynaCab Type: use integer index (0-44) or name (e.g. "4x12 1960TV").
                     For Cab DynaCab Mic: use integer (0-3) or name (e.g. "Dynamic 1").
+                    For Cab DynaCab R1-R4, Z1-Z4: use normalized 0.0-1.0 (e.g. 0.5 = center).
+                    For Pitch Shift1-4 (Virtual Capo): use semitone value directly (e.g. -1 for down 1 semitone).
 
         Returns success status, the changes sent, and a full read-back of all
         block parameters confirming the actual state on the device. No separate
