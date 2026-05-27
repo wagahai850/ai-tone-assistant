@@ -119,11 +119,19 @@ def encode_bipolar(display_value: float, display_max: float) -> list[int]:
     return [raw & 0x7F, (raw >> 7) & 0x7F, (raw >> 14) & 0x7F]
 
 
-def decode_bipolar(lo: int, hi: int, msb: int, display_max: float) -> float:
-    """Decode bipolar 3-byte value."""
+def decode_bipolar(lo: int, hi: int, msb: int, display_max: float, display_min: float | None = None) -> float:
+    """Decode bipolar 3-byte value.
+
+    Args:
+        display_max: Maximum display value (e.g., 10.0 for -10 to +10)
+        display_min: Minimum display value. If None, assumes symmetric (-display_max).
+                     For asymmetric ranges (e.g., Level -80 to +20), pass both.
+    """
     raw = lo | (hi << 7) | (msb << 14)
-    half_max = display_max
-    return round(raw / 65534 * (2 * half_max) - half_max, 2)
+    if display_min is None:
+        display_min = -display_max
+    total_range = display_max - display_min
+    return round(raw / 65534 * total_range + display_min, 2)
 
 
 def encode_switch(value: bool) -> list[int]:

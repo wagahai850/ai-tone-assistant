@@ -175,7 +175,7 @@ def register(mcp):
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)
                 elif info["type"] == "bipolar":
-                    params[name] = decode_bipolar(lo, hi, msb, info["max"])
+                    params[name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
                 else:
                     params[name] = decode_param(lo, hi, msb, info["max"])
 
@@ -226,9 +226,9 @@ def register(mcp):
                 if info["type"] == "switch":
                     midi.set_param_value(AMP1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
-                    range_val = max_val * 2 if max_val <= 20 else max_val
-                    min_val = -max_val if max_val <= 20 else -80
-                    normalized = (float(value) - min_val) / (range_val if max_val <= 20 else 100)
+                    min_val = info.get("min", -max_val)
+                    total_range = max_val - min_val
+                    normalized = (float(value) - min_val) / total_range
                     midi.set_param_value(AMP1_BLOCK_ID, param_id, normalized, 1.0)
                 else:
                     midi.set_param_value(AMP1_BLOCK_ID, param_id, float(value), max_val)
@@ -287,7 +287,7 @@ def register(mcp):
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)
                 elif info["type"] == "bipolar":
-                    params[name] = decode_bipolar(lo, hi, msb, info["max"])
+                    params[name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
                 else:
                     params[name] = decode_param(lo, hi, msb, info["max"])
 
@@ -334,7 +334,9 @@ def register(mcp):
                 if info["type"] == "switch":
                     midi.set_param_value(DRIVE1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
-                    normalized = (float(value) + max_val / 2) / max_val
+                    min_val = info.get("min", -max_val)
+                    total_range = max_val - min_val
+                    normalized = (float(value) - min_val) / total_range
                     midi.set_param_value(DRIVE1_BLOCK_ID, param_id, normalized, 1.0)
                 else:
                     midi.set_param_value(DRIVE1_BLOCK_ID, param_id, float(value), max_val)

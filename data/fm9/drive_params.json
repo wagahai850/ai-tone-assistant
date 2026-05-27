@@ -126,8 +126,9 @@
         61,
         64
       ],
-      "max": 200.0,
-      "type": "bipolar"
+      "max": 100.0,
+      "type": "bipolar",
+      "min": -100
     },
     "Sample Rate": {
       "param_id": 19,
