@@ -432,12 +432,33 @@ def register(mcp):
                         midi.set_param_value(block_id, pid, float(value), 1.0,
                                              raw_float=True)
                 else:
-                    # ALL effect blocks use raw_float for display values
-                    # (Verified via Wireshark: Delay, Reverb, Chorus, Comp, Flanger
-                    #  all send display values directly as IEEE 754 float)
-                    # Only Amp/Drive use normalized 0-1 (via dedicated tools).
-                    midi.set_param_value(block_id, pid, float(value), 1.0,
-                                         raw_float=True)
+                    # Amp and Drive blocks use normalized 0-1 encoding
+                    # (same as fm9_set_amp_params / fm9_set_drive_params)
+                    AMP_DRIVE_BLOCK_IDS = {0x3A, 0x3B, 0x3C, 0x3D,  # Amp 1-4
+                                           0x76, 0x77, 0x78, 0x79}  # Drive 1-4
+                    if block_id in AMP_DRIVE_BLOCK_IDS:
+                        # Look up param metadata for encoding
+                        pid_str = str(pid)
+                        pinfo = block_info["params"].get(pid_str, {})
+                        meta = pinfo.get("meta", {})
+                        param_type = meta.get("type", "continuous")
+                        param_max = meta.get("max", 10.0)
+
+                        if param_type == "switch":
+                            midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
+                        elif param_type == "bipolar":
+                            param_min = meta.get("min", -param_max)
+                            total_range = param_max - param_min
+                            normalized = (float(value) - param_min) / total_range
+                            midi.set_param_value(block_id, pid, normalized, 1.0)
+                        else:
+                            midi.set_param_value(block_id, pid, float(value), param_max)
+                    else:
+                        # ALL other effect blocks use raw_float for display values
+                        # (Verified via Wireshark: Delay, Reverb, Chorus, Comp, Flanger
+                        #  all send display values directly as IEEE 754 float)
+                        midi.set_param_value(block_id, pid, float(value), 1.0,
+                                             raw_float=True)
 
                 changes[param_name] = value
 
