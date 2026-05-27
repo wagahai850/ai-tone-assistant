@@ -132,6 +132,25 @@ Add to your MCP client configuration:
 }
 ```
 
+### Steering Your AI (Recommended)
+
+MCP gives the AI *hands* (tool access), but a **steering file** gives it *expertise* — domain knowledge about tone design workflow, parameter relationships, and how to interpret your feedback.
+
+Without steering, the AI has tools but no methodology. It might set random parameters or skip research. With steering, it follows a structured workflow: research the target tone → propose amp/cab/drive → get your feedback → refine iteratively.
+
+An example steering file is included at [`docs/STEERING_EXAMPLE.md`](docs/STEERING_EXAMPLE.md). It covers:
+
+- **Role division** — You judge by ear, AI handles the engineering
+- **Research-first workflow** — AI looks up actual recording gear before guessing
+- **Phase-based construction** — Core tone → Post-production → Spatial (in that order)
+- **Feedback vocabulary** — How "too harsh" maps to specific parameter changes
+- **Block-specific rules** — Cab DynaCab setup, PEQ value ranges, Scene configuration
+
+How to use it depends on your AI client:
+- **Kiro**: Place in `.kiro/steering/` directory (auto-loaded every session)
+- **Claude Desktop**: Include in your system prompt or project instructions
+- **Other MCP clients**: Consult your client's documentation for context/instruction configuration
+
 ### Project Structure
 
 ```
