@@ -270,7 +270,7 @@ def register(mcp):
                 # Two's complement: raw > 32767 means negative
                 display_value = raw_val if raw_val <= 32767 else raw_val - 65536
             elif param_type == "bipolar":
-                display_value = round(raw_val / 65534.0 * (2 * param_max) - param_max, 2)
+                display_value = round(raw_val / 65534.0 * (param_max - param_min) + param_min, 2)
             elif param_max >= 20000:
                 # Frequency params: log scale decode
                 if raw_val == 0:

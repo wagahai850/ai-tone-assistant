@@ -22,7 +22,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": true
         }
       },
@@ -858,7 +858,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": true
         }
       },
@@ -2346,7 +2346,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -3167,7 +3167,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -3933,7 +3933,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -5227,7 +5227,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -6323,7 +6323,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -6649,7 +6649,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -6942,7 +6942,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -7235,7 +7235,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -7550,7 +7550,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -7821,7 +7821,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -7960,7 +7960,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -8165,7 +8165,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -8696,7 +8696,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -9044,7 +9044,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -9821,7 +9821,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -10125,7 +10125,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -10220,7 +10220,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -10568,7 +10568,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -11158,7 +11158,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -11605,7 +11605,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -11909,7 +11909,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       }
@@ -12741,7 +12741,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -13023,7 +13023,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -13503,7 +13503,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -13818,7 +13818,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -13986,7 +13986,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -14187,7 +14187,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -14293,7 +14293,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -14571,7 +14571,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -14699,7 +14699,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -14743,7 +14743,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
@@ -15183,7 +15183,7 @@
         "meta": {
           "type": "bipolar",
           "min": -80,
-          "max": 100.0,
+          "max": 20.0,
           "verified": false
         }
       },
