@@ -138,19 +138,36 @@ def register(mcp):
         """Get current Amp 1 parameter values.
 
         Returns all mapped Amp 1 parameters with their current display values.
+        Automatically reads the active channel's parameters (A/B/C/D).
         """
         try:
             ensure_connected()
+
+            # Get current channel from status dump
+            status = midi.get_status_dump()
+            current_channel = 0
+            if AMP1_BLOCK_ID in status:
+                current_channel = status[AMP1_BLOCK_ID].get("channel", 0)
+
             chunks = midi.get_block_data(AMP1_BLOCK_ID)
             if not chunks:
                 return {"success": False, "error": "Failed to get Amp 1 block data."}
+
+            # Calculate channel offset stride from chunk data
+            # Block data contains all 4 channels sequentially after the 7-byte header
+            chunk_data_len = len(chunks[0]) - 7  # subtract header
+            channel_stride = chunk_data_len // 4
+            channel_offset = current_channel * channel_stride
 
             params = {}
             for name, info in AMP_PARAMS["params"].items():
                 if info["type"] == "enum":
                     continue
                 start, end = info["offset"]
-                lo, hi, msb = chunks[0][start], chunks[0][start + 1], chunks[0][start + 2]
+                actual_start = start + channel_offset
+                if actual_start + 2 >= len(chunks[0]):
+                    continue
+                lo, hi, msb = chunks[0][actual_start], chunks[0][actual_start + 1], chunks[0][actual_start + 2]
 
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)
@@ -159,7 +176,8 @@ def register(mcp):
                 else:
                     params[name] = decode_param(lo, hi, msb, info["max"])
 
-            return {"success": True, "block": "Amp 1", "params": params}
+            channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
+            return {"success": True, "block": "Amp 1", "channel": channel_names.get(current_channel, "A"), "params": params}
         except Exception as e:
             return {"success": False, "error": str(e)}
 
@@ -219,7 +237,7 @@ def register(mcp):
             time.sleep(0.2)
             readback = fm9_get_amp_params()
             if readback.get("success"):
-                return {"success": True, "block": "Amp 1", "changes": changes, "params": readback["params"]}
+                return {"success": True, "block": "Amp 1", "channel": readback.get("channel", "A"), "changes": changes, "params": readback["params"]}
             return {"success": True, "block": "Amp 1", "changes": changes}
         except Exception as e:
             return {"success": False, "error": str(e)}
@@ -229,19 +247,36 @@ def register(mcp):
         """Get current Drive 1 parameter values.
 
         Returns all mapped Drive 1 parameters with their current display values.
+        Automatically reads the active channel's parameters (A/B/C/D).
         """
         try:
             ensure_connected()
+
+            # Get current channel from status dump
+            status = midi.get_status_dump()
+            current_channel = 0
+            if DRIVE1_BLOCK_ID in status:
+                current_channel = status[DRIVE1_BLOCK_ID].get("channel", 0)
+
             chunks = midi.get_block_data(DRIVE1_BLOCK_ID)
             if not chunks:
                 return {"success": False, "error": "Failed to get Drive 1 block data."}
+
+            # Calculate channel offset stride from chunk data
+            # Block data contains all 4 channels sequentially after the 7-byte header
+            chunk_data_len = len(chunks[0]) - 7  # subtract header
+            channel_stride = chunk_data_len // 4
+            channel_offset = current_channel * channel_stride
 
             params = {}
             for name, info in DRIVE_PARAMS["params"].items():
                 if info["type"] == "enum":
                     continue
                 start = info["offset"][0]
-                lo, hi, msb = chunks[0][start], chunks[0][start + 1], chunks[0][start + 2]
+                actual_start = start + channel_offset
+                if actual_start + 2 >= len(chunks[0]):
+                    continue
+                lo, hi, msb = chunks[0][actual_start], chunks[0][actual_start + 1], chunks[0][actual_start + 2]
 
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)
@@ -250,7 +285,8 @@ def register(mcp):
                 else:
                     params[name] = decode_param(lo, hi, msb, info["max"])
 
-            return {"success": True, "block": "Drive 1", "params": params}
+            channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
+            return {"success": True, "block": "Drive 1", "channel": channel_names.get(current_channel, "A"), "params": params}
         except Exception as e:
             return {"success": False, "error": str(e)}
 
@@ -304,7 +340,7 @@ def register(mcp):
             time.sleep(0.2)
             readback = fm9_get_drive_params()
             if readback.get("success"):
-                return {"success": True, "block": "Drive 1", "changes": changes, "params": readback["params"]}
+                return {"success": True, "block": "Drive 1", "channel": readback.get("channel", "A"), "changes": changes, "params": readback["params"]}
             return {"success": True, "block": "Drive 1", "changes": changes}
         except Exception as e:
             return {"success": False, "error": str(e)}
