@@ -2,6 +2,18 @@
 
 Control your Fractal Audio FM9 (and Axe-Fx III) in real-time through natural language conversation. Built as an [MCP](https://modelcontextprotocol.io/) server that connects any MCP-compatible AI assistant (Claude, Kiro, etc.) directly to your hardware via USB MIDI SysEx.
 
+## Philosophy
+
+This is not "AI making music." This is a power tool for guitarists.
+
+You play. You listen. You decide. The AI handles the engineering—translating "too harsh, needs more body" into the exact parameter changes across 1380+ knobs that would take a sound engineer to know by heart. Think of it as having a session engineer on call who speaks SysEx.
+
+A guitarist shouldn't need to be a sound engineer, a mix engineer, AND a Fractal Audio parameter specialist to get the tone in their head out of their speakers. LLMs carry domain knowledge across all these disciplines. This tool gives them hands—direct hardware control via USB MIDI—so that knowledge becomes actionable in real-time.
+
+**Your ears are the final authority.** The AI proposes, you dispose. It knows which of 1380 parameters to reach for when you say "too fizzy." You decide if the result sounds right.
+
+---
+
 > "Build me a crunch tone. JCM800 with a Tube Screamer in front." → Done in seconds.
 >
 > "Give me SRV's Little Wing tone." → Vibroverb + TS808, dialed in and ready to play.
