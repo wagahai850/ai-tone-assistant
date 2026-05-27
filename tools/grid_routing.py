@@ -605,14 +605,34 @@ def register(mcp):
                 midi.add_block_at(bid, row, col)
 
             # Phase 3: Connect cables
-            # For each connection, use connect_blocks (handles shunts + cross-row)
+            # Track shunt index locally (no grid query needed — we just cleared everything)
+            next_shunt_idx = 0
+
             for src, dst in connections:
                 src_row, src_col = layout[src]
                 dst_row, dst_col = layout[dst]
                 if src_col < dst_col:
-                    midi.connect_blocks(src_row, src_col, dst_row, dst_col)
+                    # Use inline connection logic (avoid connect_blocks which queries grid)
+                    if src_row == dst_row:
+                        # Same-row: place shunts in intermediate columns
+                        for col in range(src_col + 1, dst_col):
+                            midi.add_shunt_at(src_row, col, shunt_index=next_shunt_idx)
+                            next_shunt_idx += 1
+                        for col in range(src_col, dst_col):
+                            midi.connect_adjacent(src_row, col, src_row, col + 1)
+                    elif src_col + 1 == dst_col:
+                        # Adjacent columns, cross-row: direct cable
+                        midi.connect_adjacent(src_row, src_col, dst_row, dst_col)
+                    else:
+                        # Cross-row + cross-column: shunts on dst_row
+                        for col in range(src_col + 1, dst_col):
+                            midi.add_shunt_at(dst_row, col, shunt_index=next_shunt_idx)
+                            next_shunt_idx += 1
+                        midi.connect_adjacent(src_row, src_col, dst_row, src_col + 1)
+                        for col in range(src_col + 1, dst_col):
+                            midi.connect_adjacent(dst_row, col, dst_row, col + 1)
                 elif src_col == dst_col and src_row != dst_row:
-                    # Same column, different row (unusual but valid)
+                    # Same column, different row
                     midi.connect_adjacent(src_row, src_col, dst_row, dst_col)
 
             # Build output layout (1-indexed for user)
