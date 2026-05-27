@@ -55,7 +55,7 @@ identify_*.py
 parse_syx*.py
 probe_*.py
 read_*.py
-test_*.py
+
 check_*.py
 cab_enum_scan.py
 fm9_amp_enum_scan.py
