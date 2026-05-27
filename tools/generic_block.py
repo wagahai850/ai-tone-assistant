@@ -447,10 +447,8 @@ def register(mcp):
                         if param_type == "switch":
                             midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
                         elif param_type == "bipolar":
-                            param_min = meta.get("min", -param_max)
-                            total_range = param_max - param_min
-                            normalized = (float(value) - param_min) / total_range
-                            midi.set_param_value(block_id, pid, normalized, 1.0)
+                            # Bipolar params use raw_float (display value sent directly)
+                            midi.set_param_value(block_id, pid, float(value), 1.0, raw_float=True)
                         else:
                             midi.set_param_value(block_id, pid, float(value), param_max)
                     else:

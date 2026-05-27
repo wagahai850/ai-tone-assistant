@@ -226,10 +226,8 @@ def register(mcp):
                 if info["type"] == "switch":
                     midi.set_param_value(AMP1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
-                    min_val = info.get("min", -max_val)
-                    total_range = max_val - min_val
-                    normalized = (float(value) - min_val) / total_range
-                    midi.set_param_value(AMP1_BLOCK_ID, param_id, normalized, 1.0)
+                    # Bipolar params use raw_float (display value sent directly)
+                    midi.set_param_value(AMP1_BLOCK_ID, param_id, float(value), 1.0, raw_float=True)
                 else:
                     midi.set_param_value(AMP1_BLOCK_ID, param_id, float(value), max_val)
 
@@ -334,10 +332,8 @@ def register(mcp):
                 if info["type"] == "switch":
                     midi.set_param_value(DRIVE1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
-                    min_val = info.get("min", -max_val)
-                    total_range = max_val - min_val
-                    normalized = (float(value) - min_val) / total_range
-                    midi.set_param_value(DRIVE1_BLOCK_ID, param_id, normalized, 1.0)
+                    # Bipolar params use raw_float (display value sent directly)
+                    midi.set_param_value(DRIVE1_BLOCK_ID, param_id, float(value), 1.0, raw_float=True)
                 else:
                     midi.set_param_value(DRIVE1_BLOCK_ID, param_id, float(value), max_val)
 
