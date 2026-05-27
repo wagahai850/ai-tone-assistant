@@ -221,13 +221,26 @@ def register(mcp):
         except Exception as e:
             return {"success": False, "error": str(e)}
 
-    def _decode_block_params(block_id: int, block_info: dict, chunks: list) -> dict:
-        """Decode all parameters from block data chunks into display values."""
+    def _decode_block_params(block_id: int, block_info: dict, chunks: list, channel: int = 0) -> dict:
+        """Decode all parameters from block data chunks into display values.
+
+        Args:
+            block_id: Block ID
+            block_info: Block metadata from ALL_PARAMS
+            chunks: Raw chunk data from get_block_data
+            channel: Channel index (0=A, 1=B, 2=C, 3=D)
+        """
         import math
+
+        # Calculate channel stride: block data has 4 channels after 7-byte header
+        chunk_data_len = len(chunks[0]) - 7
+        channel_stride = chunk_data_len // 4
+        channel_offset = channel * channel_stride
+
         params = {}
         for pid_str, pinfo in block_info["params"].items():
             pid = int(pid_str)
-            offset = 7 + pid * 3
+            offset = 7 + pid * 3 + channel_offset
             if offset + 2 >= len(chunks[0]):
                 continue
             lo = chunks[0][offset]
@@ -300,16 +313,25 @@ def register(mcp):
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
 
             block_id = int(block_id_str, 16)
+
+            # Get current channel from status dump
+            status = midi.get_status_dump()
+            current_channel = 0
+            if block_id in status:
+                current_channel = status[block_id].get("channel", 0)
+
             chunks = midi.get_block_data(block_id)
             if not chunks:
                 return {"success": False, "error": f"Failed to get block data for {block_info['block_name']}."}
 
-            params = _decode_block_params(block_id, block_info, chunks)
+            params = _decode_block_params(block_id, block_info, chunks, channel=current_channel)
 
+            channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
             return {
                 "success": True,
                 "block": block_info["block_name"],
                 "block_id": block_id_str,
+                "channel": channel_names.get(current_channel, "A"),
                 "param_count": len(params),
                 "params": params,
             }
@@ -414,13 +436,22 @@ def register(mcp):
             # Read back actual state after SET (confirms FM9 accepted values)
             import time
             time.sleep(0.2)  # Allow FM9 to process
+
+            # Get current channel for correct readback offset
+            status = midi.get_status_dump()
+            current_channel = 0
+            if block_id in status:
+                current_channel = status[block_id].get("channel", 0)
+
             chunks = midi.get_block_data(block_id)
             if chunks:
-                actual_params = _decode_block_params(block_id, block_info, chunks)
+                actual_params = _decode_block_params(block_id, block_info, chunks, channel=current_channel)
+                channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
                 return {
                     "success": True,
                     "block": block_info["block_name"],
                     "block_id": block_id_str,
+                    "channel": channel_names.get(current_channel, "A"),
                     "changes": changes,
                     "params": actual_params,
                 }
