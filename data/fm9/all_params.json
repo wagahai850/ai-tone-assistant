@@ -14941,40 +14941,40 @@
         "name": "PITCH_SHIFT1",
         "display_name": "Shift1",
         "meta": {
-          "type": "continuous",
-          "min": 0,
-          "max": 10.0,
-          "verified": false
+          "type": "enum",
+          "min": -24,
+          "max": 24,
+          "verified": true
         }
       },
       "16": {
         "name": "PITCH_SHIFT2",
         "display_name": "Shift2",
         "meta": {
-          "type": "continuous",
-          "min": 0,
-          "max": 10.0,
-          "verified": false
+          "type": "enum",
+          "min": -24,
+          "max": 24,
+          "verified": true
         }
       },
       "17": {
         "name": "PITCH_SHIFT3",
         "display_name": "Shift3",
         "meta": {
-          "type": "continuous",
-          "min": 0,
-          "max": 10.0,
-          "verified": false
+          "type": "enum",
+          "min": -24,
+          "max": 24,
+          "verified": true
         }
       },
       "18": {
         "name": "PITCH_SHIFT4",
         "display_name": "Shift4",
         "meta": {
-          "type": "continuous",
-          "min": 0,
-          "max": 10.0,
-          "verified": false
+          "type": "enum",
+          "min": -24,
+          "max": 24,
+          "verified": true
         }
       },
       "19": {
