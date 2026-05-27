@@ -229,23 +229,33 @@ def register(mcp):
             block_info: Block metadata from ALL_PARAMS
             chunks: Raw chunk data from get_block_data
             channel: Channel index (0=A, 1=B, 2=C, 3=D)
+
+        Channel data layout depends on chunk count:
+        - Single chunk: all 4 channels packed with stride = (chunk_len - 7) // 4
+        - Multiple chunks: each chunk holds one channel (chunks[0]=A, chunks[1]=B, ...)
         """
         import math
 
-        # Calculate channel stride: block data has 4 channels after 7-byte header
-        chunk_data_len = len(chunks[0]) - 7
-        channel_stride = chunk_data_len // 4
-        channel_offset = channel * channel_stride
+        if len(chunks) >= 2 and channel < len(chunks):
+            # Multi-chunk block: each chunk = one channel
+            target_chunk = chunks[channel]
+            channel_offset = 0
+        else:
+            # Single-chunk block: channels packed with stride
+            target_chunk = chunks[0]
+            chunk_data_len = len(target_chunk) - 7
+            channel_stride = chunk_data_len // 4
+            channel_offset = channel * channel_stride
 
         params = {}
         for pid_str, pinfo in block_info["params"].items():
             pid = int(pid_str)
             offset = 7 + pid * 3 + channel_offset
-            if offset + 2 >= len(chunks[0]):
+            if offset + 2 >= len(target_chunk):
                 continue
-            lo = chunks[0][offset]
-            hi = chunks[0][offset + 1]
-            msb = chunks[0][offset + 2]
+            lo = target_chunk[offset]
+            hi = target_chunk[offset + 1]
+            msb = target_chunk[offset + 2]
             raw_val = lo | (hi << 7) | (msb << 14)
 
             meta = pinfo.get("meta", {})

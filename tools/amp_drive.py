@@ -153,21 +153,18 @@ def register(mcp):
             if not chunks:
                 return {"success": False, "error": "Failed to get Amp 1 block data."}
 
-            # Calculate channel offset stride from chunk data
-            # Block data contains all 4 channels sequentially after the 7-byte header
-            chunk_data_len = len(chunks[0]) - 7  # subtract header
-            channel_stride = chunk_data_len // 4
-            channel_offset = current_channel * channel_stride
+            # Amp uses separate chunks per channel (multi-chunk block)
+            chunk_idx = current_channel if current_channel < len(chunks) else 0
+            target_chunk = chunks[chunk_idx]
 
             params = {}
             for name, info in AMP_PARAMS["params"].items():
                 if info["type"] == "enum":
                     continue
                 start, end = info["offset"]
-                actual_start = start + channel_offset
-                if actual_start + 2 >= len(chunks[0]):
+                if start + 2 >= len(target_chunk):
                     continue
-                lo, hi, msb = chunks[0][actual_start], chunks[0][actual_start + 1], chunks[0][actual_start + 2]
+                lo, hi, msb = target_chunk[start], target_chunk[start + 1], target_chunk[start + 2]
 
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)
