@@ -530,26 +530,53 @@ def register(mcp):
                         col_assign[succ] = new_col
                         queue.append(succ)
 
-            # Group nodes by column
-            col_groups = defaultdict(list)
-            for node, col in col_assign.items():
-                col_groups[col].append(node)
+            # Assign rows: handle parallel paths (split → merge)
+            # Strategy: shortest branch stays on main row (shunts fill gaps),
+            # longer branches with intermediate blocks go to offset rows.
+            split_points = [n for n in blocks if len(successors.get(n, [])) > 1]
+            merge_points = set(n for n in blocks if len(predecessors.get(n, [])) > 1)
 
-            # Assign rows: distribute nodes in same column across rows
-            # Start from row 0, center vertically
-            max_parallel = max(len(g) for g in col_groups.values())
-            start_row = max(0, (5 - max_parallel) // 2)
+            row_assign = {n: 0 for n in blocks}
+
+            for split in split_points:
+                # Trace each branch from split to merge
+                branch_paths = {}
+                for succ in successors[split]:
+                    path = []
+                    current = succ
+                    while current and current not in merge_points:
+                        path.append(current)
+                        nexts = successors.get(current, [])
+                        current = nexts[0] if nexts else None
+                    branch_paths[succ] = path
+
+                # Shortest branch = main row, longer branches get offset rows
+                sorted_branches = sorted(branch_paths.items(), key=lambda x: len(x[1]))
+                for i, (succ, path) in enumerate(sorted_branches):
+                    if i == 0:
+                        continue  # Shortest stays on main row
+                    row_offset = -i
+                    for node in path:
+                        row_assign[node] = row_offset
+
+            # Normalize rows (shift so min = 0)
+            min_row = min(row_assign.values())
+            for node in row_assign:
+                row_assign[node] -= min_row
+
+            # Center vertically in 5-row grid
+            max_row = max(row_assign.values())
+            start_row = max(0, (4 - max_row) // 2)
+            for node in row_assign:
+                row_assign[node] += start_row
 
             layout = {}  # node_id -> (row, col) 0-indexed
-            for col_idx in sorted(col_groups.keys()):
-                nodes = col_groups[col_idx]
-                # Sort for deterministic ordering (keep Input/Output on consistent rows)
-                nodes.sort()
-                for i, node in enumerate(nodes):
-                    row = start_row + i
-                    if row >= 5:
-                        return {"success": False, "error": f"Too many parallel blocks in column {col_idx+1} (max 5 rows)."}
-                    layout[node] = (row, col_idx)
+            for node in blocks:
+                row = row_assign[node]
+                col = col_assign[node]
+                if row >= 5:
+                    return {"success": False, "error": f"Too many parallel branches (max 5 rows)."}
+                layout[node] = (row, col)
 
             # Check column limit (14 max)
             max_col = max(c for _, c in layout.values())
