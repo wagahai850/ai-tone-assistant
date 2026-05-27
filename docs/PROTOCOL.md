@@ -457,7 +457,7 @@ Only Amp/Drive use normalized 0.0–1.0 via their dedicated tools.
 ### Cab (block 0x3E–0x41)
 - Mode, DynaCab Type, DynaCab Mic: **Raw float** (integer as IEEE 754, e.g., 31.0 for Type index 31)
 - Frequency params (High Cut, Low Cut): **Raw float** (Hz value directly)
-- DynaCab R/Z (position/distance): **Normalized 0.0–1.0** (only exception)
+- DynaCab R/Z (position/distance): **Normalized 0.0–1.0** (only Cab params that use normalized)
 - All other params: **Raw float**
 
 ### All Effect Blocks (Delay, Reverb, Chorus, PEQ, Comp, Flanger, Phaser, Pitch, Wah, GEQ, etc.)
@@ -469,6 +469,18 @@ Only Amp/Drive use normalized 0.0–1.0 via their dedicated tools.
   - Switch: 0.0 or 1.0
 
 Verified via Wireshark capture (2026-05-27) on Delay 1, Reverb 1, Chorus 1, Compressor 1, Flanger 1.
+
+### Pitch Block — Virtual Capo Shift (signed integer)
+
+Pitch Shift1-4 parameters use a unique encoding:
+- **SET**: Send semitone value as raw float (e.g., -1.0 for down 1 semitone)
+- **GET**: Stored as 16-bit two's complement integer in block data
+  - raw 0-24 = positive semitones (0 to +24)
+  - raw 65535 = -1, raw 65534 = -2, etc. (65536 - |semitones|)
+- **Range**: ±24 semitones (±2 octaves)
+- **Decode formula**: `value = raw if raw <= 32767 else raw - 65536`
+
+Confirmed via Wireshark capture (2026-05-27).
 
 ### Frequency Parameter Storage (Log Scale)
 

@@ -160,7 +160,7 @@ ai-tone-assistant/
 ├── tools/             ← MCP tool definitions (by category)
 │   ├── __init__.py    ← Shared state, data loading, encoding helpers
 │   ├── amp_drive.py   ← Amp/Drive (display-value scaling)
-│   ├── generic_block.py ← Any block (normalized 0-1)
+│   ├── generic_block.py ← Any block (display values, auto-encoding)
 │   ├── grid_routing.py  ← Grid layout operations
 │   ├── preset.py      ← Scene/bypass/channel/store/name
 │   ├── lookup.py      ← Wiki reference search
@@ -230,6 +230,7 @@ MIT
 - **Amp 1**: full model selection (331 models) + display-value parameter control (Gain=5.0, etc.)
 - **Drive 1**: full model selection (86 models) + display-value parameter control
 - **Delay/Reverb/Chorus/Pitch/etc.**: parameter control via `fm9_set_block_params`
+- **Pitch block (Virtual Capo)**: Shift semitones via `fm9_set_block_params` (e.g., `{"Shift1": -1}` for down 1 semitone, range ±24)
 - **All blocks**: channel control (A/B/C/D), bypass, scene switching
 - **Grid operations**: add (upsert), delete, move, connect (cross-row), disconnect (cross-row), read
 - **Declarative preset construction**: `fm9_apply_graph` builds presets from signal-flow graphs (auto-layout, parallel routing, split/merge)
@@ -245,7 +246,7 @@ MIT
 - **Effect type selection**: `fm9_set_effect_type` works for all blocks (correct per-block Type param_id)
 
 ### Known Limitations
-- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 via dedicated tools. All other effect blocks (PEQ, Delay, Reverb, Chorus, Cab, etc.) send raw display values directly via `fm9_set_block_params`. The tool handles this automatically.
+- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 via dedicated tools. All other effect blocks send raw display values directly via `fm9_set_block_params`. Cab DynaCab R/Z use normalized 0.0-1.0. Pitch Shift uses signed integer semitone values. The tool handles all of this automatically.
 - **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
 - **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
@@ -281,8 +282,7 @@ Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in 
 - ✅ **Amp**: Confirmed working with normalized encoding via dedicated tool
 - ✅ **Drive**: Confirmed working with normalized encoding via dedicated tool
 - ✅ **Parametric EQ**: Fully verified via Wireshark (Freq/Gain/Q/Type all raw_float)
-- ✅ **Delay, Reverb, Chorus, Compressor, Flanger**: Verified raw_float encoding via Wireshark (2026-05-27)
-- ✅ **All other effect blocks**: Same raw_float encoding confirmed (display values sent directly)
+- ✅ **All effect blocks**: Verified raw_float encoding via Wireshark (2026-05-27) — display values sent directly
 
 **Recovery** (if corruption occurred with old version): Switch to a different preset and switch back to reload the edit buffer from flash.
 
