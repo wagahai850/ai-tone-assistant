@@ -443,9 +443,9 @@
         253,
         256
       ],
-      "max": 100.0,
+      "max": 0.0,
       "type": "bipolar",
-      "min": -80
+      "min": -60
     },
     "Master Vol Trim": {
       "param_id": 83,

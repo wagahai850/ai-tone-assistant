@@ -857,8 +857,8 @@
         "table_index": 76,
         "meta": {
           "type": "bipolar",
-          "min": -80,
-          "max": 20.0,
+          "min": -60,
+          "max": 0.0,
           "verified": true
         }
       },
