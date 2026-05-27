@@ -331,6 +331,53 @@ Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in 
 - `pipeline/parse_pcap.py` — decode Wireshark USB captures to readable SysEx
 - FM9 Edit on Windows + Wireshark with USBPcap — for protocol capture
 
+#### Protocol Investigation Plan (Remaining Unknowns)
+
+The protocol is largely decoded, but several response structures remain undocumented. Below is the plan to resolve each, prioritized by impact.
+
+**Available tools:**
+- 🔬 USB packet capture (Wireshark + USBPcap on Windows)
+- 👁️ Editor visual inspection (trigger specific actions, observe behavior)
+- 📁 Editor cache file analysis (JSON/binary files created at startup)
+- 🔧 Editor binary analysis (last resort — no EULA exists for Editor, but prefer other methods first)
+
+| # | Unknown | Priority | Best Approach | Method |
+|---|---------|----------|---------------|--------|
+| 1 | **PARAM_META (sub=0x1B)** — payload structure (min/max/name/type?) | 🔴 High | Capture while selecting blocks in Editor. Cross-reference with known param metadata (Amp Gain pid=11, max=10.0) to identify field boundaries | 🔬 |
+| 2 | **Grid Response bytes 0–360** — what precedes the grid region | 🔴 High | Diff captures: change Scene name → diff, change preset name → diff, toggle bypass → diff. Identify which bytes change | 🔬 + 👁️ |
+| 3 | **Block Select Header (func=0x74)** — variable-length, block-specific | 🟡 Medium | Send GET_BLOCK to Amp/Delay/PEQ/Cab, collect 0x74 responses, compare lengths and patterns. Correlate with chunk count | 🔬 |
+| 4 | **BLOCK_STATUS (sub=0x01) 115-byte response** — full field map | 🟡 Medium | Diff captures: bypass 1 block → diff, change channel → diff, switch scene → diff. Map bit positions | 🔬 |
+| 5 | **GET_BLOCK 3-byte parameter packing** — internal encoding per param | 🟡 Medium | SET known values (0.0, 0.5, 1.0) via sub=0x09, then GET_BLOCK and locate the 3 bytes. Reverse the encoding | 🔬 |
+| 6 | **TIMING_SYNC (sub=0x37) / HEARTBEAT (sub=0x7B)** — payload content | 🟢 Low | Passive capture during idle Editor session. Check if payload is fixed (pure ping) or varies (timestamp/counter) | 🔬 |
+| 7 | **STORE_PRESET (sub=0x26) / CHANGE_PRESET (sub=0x27)** — full payload | 🟢 Low | Trigger Save/Change in Editor, capture. Already working in MCP — this is documentation completeness only | 🔬 |
+| 8 | **DEVICE_INFO (0x47) / FIRMWARE_INFO (0x08)** — response structure | 🟢 Low | Capture Editor startup sequence. Also check Editor cache files for stored device info | 🔬 + 📁 |
+| 9 | **Frequency max_freq table** — per-block/type max frequency | 🟢 Low | First try: decode PARAM_META (#1). Second: inspect Editor cache files. Last resort: Editor binary strings/tables | 🔬 → 📁 → 🔧 |
+
+**Recommended session order:**
+
+```
+Session 1: Editor startup sequence (full capture)
+  → Resolves #6, #7, #8 in one pass
+  → Also captures initial PARAM_META broadcasts if any
+
+Session 2: PARAM_META deep dive
+  → Select Amp 1, Delay 1, PEQ 1, Cab 1 in Editor
+  → Collect all sub=0x1B responses
+  → If successful, #9 may be resolved automatically
+
+Session 3: Grid Response differential analysis
+  → Baseline capture → change Scene name → diff
+  → Change preset name → diff
+  → Toggle bypass → diff
+
+Session 4: GET_BLOCK internals
+  → SET known param values → GET_BLOCK → locate bytes
+  → Also captures func=0x74 headers for #3
+  → BLOCK_STATUS diffs for #4
+```
+
+**Legal note:** USB packet capture (observing your own device communication) and Editor cache file reading are unambiguously safe. Editor binary analysis is low-risk (no EULA exists for FM9-Edit; firmware EULA covers firmware only) but is reserved as last resort. All work is for interoperability purposes.
+
 #### Future
 - Hand-verify min/max for remaining blocks (promote inferred → verified)
 - Modifier/controller assignment support
