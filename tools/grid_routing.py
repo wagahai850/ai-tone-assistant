@@ -598,13 +598,17 @@ def register(mcp):
             # Allow device to finish processing deletions
             _time.sleep(1.0)
 
-            # Phase 2: Place blocks
+            # Phase 2: Place blocks (with pacing to avoid overwhelming device)
             for node_id, (row, col) in layout.items():
                 block_type = blocks[node_id]
                 bid = name_to_id[block_type]
                 midi.add_block_at(bid, row, col)
+                _time.sleep(0.15)
 
-            # Phase 3: Connect cables
+            # Allow device to settle after block placements
+            _time.sleep(1.5)
+
+            # Phase 3: Connect cables (paced)
             # Track shunt index locally (no grid query needed — we just cleared everything)
             next_shunt_idx = 0
 
@@ -634,6 +638,7 @@ def register(mcp):
                 elif src_col == dst_col and src_row != dst_row:
                     # Same column, different row
                     midi.connect_adjacent(src_row, src_col, dst_row, dst_col)
+                _time.sleep(0.1)  # Pace each connection group
 
             # Build output layout (1-indexed for user)
             layout_out = {nid: [r + 1, c + 1] for nid, (r, c) in layout.items()}
