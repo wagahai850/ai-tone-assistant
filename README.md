@@ -60,7 +60,7 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | Tool | Description |
 |------|-------------|
 | `fm9_get_block_params` | Read parameters for any block (display values with type info) |
-| `fm9_set_block_params` | Set parameters on any block (normalized 0-1) |
+| `fm9_set_block_params` | Set parameters on any block (display values directly) |
 | `fm9_list_block_params` | List parameter names/IDs/type/min/max for a block |
 | `fm9_list_effect_types` | List available types/models for a block category |
 | `fm9_set_effect_type` | Change effect type/model for any block |
@@ -214,7 +214,7 @@ MIT
 - **Effect type selection**: `fm9_set_effect_type` works for all blocks (correct per-block Type param_id)
 
 ### Known Limitations
-- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 via dedicated tools. PEQ sends raw display values (Hz, dB, Q). Cab uses raw float for most params (Mode, Type, Mic, frequency) and normalized 0-1 for DynaCab R/Z position. The `fm9_set_block_params` tool handles this automatically based on block type.
+- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 via dedicated tools. All other effect blocks (PEQ, Delay, Reverb, Chorus, Cab, etc.) send raw display values directly via `fm9_set_block_params`. The tool handles this automatically.
 - **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
 - **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
 - **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
@@ -222,7 +222,7 @@ MIT
 - **No modifier/controller support**
 - **No scene-level parameter overrides**
 - **Error recovery is minimal** — MIDI port errors require server restart
-- **PEQ/Cab/frequency params use raw display values** — Unlike Amp/Drive (which use normalized 0-1), PEQ sends actual Hz/dB values, and Cab DynaCab sends integer indices. The `fm9_set_block_params` tool handles this automatically based on block type.
+- **PEQ/Cab/frequency params use raw display values** — Unlike Amp/Drive (which use normalized 0-1), all effect blocks send actual display values directly (Hz, dB, %, etc.). The `fm9_set_block_params` tool handles this automatically. Only Amp/Drive dedicated tools use normalized encoding.
 - **PEQ frequency read-back uses max=20000 for log decode** — If the band Type has a lower max (e.g., Shelving=2000Hz), the read-back may show incorrect Hz at the clamped maximum. The SET is correct; only the GET display is affected.
 
 ### Known Issues
@@ -249,7 +249,9 @@ Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in 
 - ✅ **Cab**: Fully verified via Wireshark capture (High Cut, Low Cut, IR selection, DynaCab Type/Mic/Mode/Mute/Position)
 - ✅ **Amp**: Confirmed working with normalized encoding via dedicated tool
 - ✅ **Drive**: Confirmed working with normalized encoding via dedicated tool
-- ❓ **Delay, Reverb, Chorus, Flanger, etc.**: Frequency params (max=20000) are **unverified**. They currently use normalized encoding. If issues arise, capture verification is needed.
+- ✅ **Parametric EQ**: Fully verified via Wireshark (Freq/Gain/Q/Type all raw_float)
+- ✅ **Delay, Reverb, Chorus, Compressor, Flanger**: Verified raw_float encoding via Wireshark (2026-05-27)
+- ✅ **All other effect blocks**: Same raw_float encoding confirmed (display values sent directly)
 
 **Recovery** (if corruption occurred with old version): Switch to a different preset and switch back to reload the edit buffer from flash.
 

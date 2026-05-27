@@ -445,29 +445,30 @@ Confirmed via Wireshark capture (2026-05-27).
 
 ## Block-Specific Parameter Encoding
 
-Different blocks use different encoding for SET_PARAM (sub=0x09):
+Different blocks use different encoding for SET_PARAM (sub=0x09).
+
+**Key discovery (2026-05-27):** All effect blocks use raw float (display values directly).
+Only Amp/Drive use normalized 0.0–1.0 via their dedicated tools.
 
 ### Amp / Drive (block 0x3A, 0x76)
-- Continuous params: **Normalized 0.0–1.0** (value / max)
+- Continuous params: **Normalized 0.0–1.0** (value / max) — via dedicated tools only
 - Type selection: Uses dedicated `fm9_set_amp_type` / `fm9_set_drive_type` tools
 
 ### Cab (block 0x3E–0x41)
 - Mode, DynaCab Type, DynaCab Mic: **Raw float** (integer as IEEE 754, e.g., 31.0 for Type index 31)
 - Frequency params (High Cut, Low Cut): **Raw float** (Hz value directly)
-- DynaCab R/Z (position/distance): **Normalized 0.0–1.0**
+- DynaCab R/Z (position/distance): **Normalized 0.0–1.0** (only exception)
 - All other params: **Raw float**
 
-### Parametric EQ (block 0x36–0x39)
+### All Effect Blocks (Delay, Reverb, Chorus, PEQ, Comp, Flanger, Phaser, Pitch, Wah, GEQ, etc.)
 - ALL params: **Raw float** (display values directly)
-  - Freq: Hz value (e.g., 2500.0 for 2500 Hz)
-  - Gain: dB value (e.g., 3.0 for +3 dB, -2.0 for -2 dB cut)
-  - Q: Q value directly (e.g., 1.5)
-  - Type: enum index (e.g., 0=Peaking, 3=Shelving 2, 4=High Pass)
+  - Continuous: display value (e.g., Mix=50.0 for 50%, Depth=5.0)
+  - Frequency: Hz value (e.g., 2500.0 for 2500 Hz, 1100.0 for 1100 Hz)
+  - Gain/Level: dB or display value (e.g., PEQ Gain=3.0 for +3 dB)
+  - Enum/Type: integer index as float (e.g., 9.0 for type index 9)
+  - Switch: 0.0 or 1.0
 
-### All Other Blocks
-- Continuous params: **Normalized 0.0–1.0**
-- Frequency params (max >= 20000): **Raw float** (Hz value)
-- Enum params: **Raw float** (integer index as IEEE 754)
+Verified via Wireshark capture (2026-05-27) on Delay 1, Reverb 1, Chorus 1, Compressor 1, Flanger 1.
 
 ### Frequency Parameter Storage (Log Scale)
 
