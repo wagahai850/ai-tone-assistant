@@ -153,18 +153,24 @@ def register(mcp):
             if not chunks:
                 return {"success": False, "error": "Failed to get Amp 1 block data."}
 
-            # Amp uses separate chunks per channel (multi-chunk block)
-            chunk_idx = current_channel if current_channel < len(chunks) else 0
-            target_chunk = chunks[chunk_idx]
+            # Concatenate all chunks (strip 7-byte SysEx header from chunks after first)
+            combined = list(chunks[0])
+            for c in chunks[1:]:
+                combined.extend(c[7:])
+
+            # Calculate channel stride from combined data
+            channel_stride = (len(combined) - 7) // 4
+            channel_offset = current_channel * channel_stride
 
             params = {}
             for name, info in AMP_PARAMS["params"].items():
                 if info["type"] == "enum":
                     continue
                 start, end = info["offset"]
-                if start + 2 >= len(target_chunk):
+                actual_start = start + channel_offset
+                if actual_start + 2 >= len(combined):
                     continue
-                lo, hi, msb = target_chunk[start], target_chunk[start + 1], target_chunk[start + 2]
+                lo, hi, msb = combined[actual_start], combined[actual_start + 1], combined[actual_start + 2]
 
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)
@@ -259,10 +265,13 @@ def register(mcp):
             if not chunks:
                 return {"success": False, "error": "Failed to get Drive 1 block data."}
 
-            # Calculate channel offset stride from chunk data
-            # Block data contains all 4 channels sequentially after the 7-byte header
-            chunk_data_len = len(chunks[0]) - 7  # subtract header
-            channel_stride = chunk_data_len // 4
+            # Concatenate all chunks (strip 7-byte SysEx header from subsequent chunks)
+            combined = list(chunks[0])
+            for c in chunks[1:]:
+                combined.extend(c[7:])
+
+            # Calculate channel offset stride from combined data
+            channel_stride = (len(combined) - 7) // 4
             channel_offset = current_channel * channel_stride
 
             params = {}
@@ -271,9 +280,9 @@ def register(mcp):
                     continue
                 start = info["offset"][0]
                 actual_start = start + channel_offset
-                if actual_start + 2 >= len(chunks[0]):
+                if actual_start + 2 >= len(combined):
                     continue
-                lo, hi, msb = chunks[0][actual_start], chunks[0][actual_start + 1], chunks[0][actual_start + 2]
+                lo, hi, msb = combined[actual_start], combined[actual_start + 1], combined[actual_start + 2]
 
                 if info["type"] == "switch":
                     params[name] = decode_switch(lo, hi, msb)

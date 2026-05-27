@@ -230,32 +230,30 @@ def register(mcp):
             chunks: Raw chunk data from get_block_data
             channel: Channel index (0=A, 1=B, 2=C, 3=D)
 
-        Channel data layout depends on chunk count:
-        - Single chunk: all 4 channels packed with stride = (chunk_len - 7) // 4
-        - Multiple chunks: each chunk holds one channel (chunks[0]=A, chunks[1]=B, ...)
+        Channel data layout: all chunks are concatenated (stripping 7-byte SysEx
+        headers from chunks after the first), then channels are accessed via
+        stride = (combined_len - 7) // 4.
         """
         import math
 
-        if len(chunks) >= 2 and channel < len(chunks):
-            # Multi-chunk block: each chunk = one channel
-            target_chunk = chunks[channel]
-            channel_offset = 0
-        else:
-            # Single-chunk block: channels packed with stride
-            target_chunk = chunks[0]
-            chunk_data_len = len(target_chunk) - 7
-            channel_stride = chunk_data_len // 4
-            channel_offset = channel * channel_stride
+        # Concatenate all chunks (strip 7-byte SysEx header from subsequent chunks)
+        combined = list(chunks[0])
+        for c in chunks[1:]:
+            combined.extend(c[7:])
+
+        # Calculate channel stride from combined data
+        channel_stride = (len(combined) - 7) // 4
+        channel_offset = channel * channel_stride
 
         params = {}
         for pid_str, pinfo in block_info["params"].items():
             pid = int(pid_str)
             offset = 7 + pid * 3 + channel_offset
-            if offset + 2 >= len(target_chunk):
+            if offset + 2 >= len(combined):
                 continue
-            lo = target_chunk[offset]
-            hi = target_chunk[offset + 1]
-            msb = target_chunk[offset + 2]
+            lo = combined[offset]
+            hi = combined[offset + 1]
+            msb = combined[offset + 2]
             raw_val = lo | (hi << 7) | (msb << 14)
 
             meta = pinfo.get("meta", {})
