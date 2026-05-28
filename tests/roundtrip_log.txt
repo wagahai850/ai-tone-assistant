@@ -1,0 +1,644 @@
+Connected to FM9
+
+============================================================
+Block: Amp 1 (production: fm9_set_amp_params)
+============================================================
+  Placed Amp 1 at R0C1
+  FAIL Balance: sent=51.0, got=200.0
+  FAIL Low Cut Frequency: sent=5.0, got=0.0
+  FAIL High Cut Frequency: sent=1000.0, got=0.0
+  FAIL Tonestack Freq: sent=50.0, got=0.0
+  FAIL Bright Cap: sent=5.0, got=10.0
+  FAIL XFormer Low Freq: sent=5.0, got=0.0
+  FAIL XFormer Hi Freq: sent=1000.0, got=0.0
+  FAIL Negative Feedback: sent=5.0, got=10.0
+  FAIL Presence Frequency: sent=5.5, got=3.7
+  FAIL Low Freq: sent=50.0, got=0.0
+  FAIL LF Reso: sent=5.0, got=0.21
+  FAIL Depth Frequency: sent=50.0, got=0.0
+  FAIL Master Vol Cap: sent=5.0, got=10.0
+  FAIL B+ Time Constant: sent=5.0, got=10.0
+  FAIL LF Q: sent=5.0, got=3.49
+  FAIL Preamp Bias: sent=5.0, got=7.5
+  FAIL High Freq: sent=1000.0, got=0.0
+  FAIL HF Reso: sent=5.0, got=0.21
+  FAIL XFormer Drive: sent=5.0, got=5.66
+  FAIL Input Trim: sent=5.5, got=3.7
+  FAIL Speaker Drive: sent=5.0, got=1.0
+  FAIL XFormer Matching: sent=5.5, got=0.69
+  FAIL Screen Frequency: sent=5.0, got=0.0
+  FAIL Screen Q: sent=5.0, got=3.49
+  FAIL 80: sent=5.5, got=7.75
+  FAIL 240: sent=5.5, got=7.75
+  FAIL 750: sent=5.5, got=7.75
+  FAIL 2200: sent=5.5, got=7.75
+  FAIL 6600: sent=5.5, got=7.75
+  FAIL Bias Excursion: sent=50.5, got=25.25
+  FAIL Triode 2 Plate Freq: sent=1000.0, got=0.0
+  FAIL Triode 1 Plate Freq: sent=1000.0, got=0.0
+  FAIL Out Comp Clarity: sent=5.0, got=8.49
+  FAIL Q: sent=5.0, got=3.49
+  FAIL Frequency: sent=50.5, got=0.0
+  FAIL Master Vol Trim: sent=5.5, got=3.7
+  FAIL Definition: sent=5.5, got=10.0
+  FAIL High Cut: sent=1000.0, got=0.0
+  FAIL AC Line Frequency: sent=50.0, got=0.0
+  FAIL Hardness: sent=5.5, got=2.84
+  FAIL Cathode Time Const: sent=5.0, got=10.0
+  FAIL High Treble: sent=5.5, got=5.23
+  FAIL Mismatch: sent=5.5, got=7.75
+  FAIL Input Dynamics: sent=5.5, got=7.75
+  FAIL HF Slope: sent=5.0, got=6.99
+  FAIL Variac: sent=50.5, got=0.5
+  FAIL Saturation Drive: sent=5.0, got=0.0
+  FAIL Preamp Bias Excursion: sent=50.5, got=25.25
+  FAIL PI Bias Excursion: sent=50.5, got=25.25
+  FAIL Speaker Time Const: sent=1000.0, got=0.0
+  FAIL Boost Level: sent=5.5, got=0.23
+  FAIL Speaker Impedance: sent=5.5, got=0.69
+  FAIL Cab Resonance: sent=50.5, got=25.25
+  Result: 22 pass, 53 fail, 0 skip
+
+============================================================
+Block: Drive 1 (production: fm9_set_drive_params)
+============================================================
+  Placed Drive 1 at R0C1
+  FAIL Slew Rate: sent=5.0, got=3.49
+  FAIL Low Cut: sent=5.0, got=0.0
+  FAIL High Cut: sent=1000.0, got=0.0
+  FAIL Mid Frequency: sent=1000.0, got=0.0
+  FAIL Bit Reduce: sent=12.0, got=0.0
+  FAIL Balance: sent=1.0, got=100.0
+  FAIL Sample Rate: sent=1000.0, got=11326.33
+  FAIL Dry Level: sent=50.0, got=25.0
+  Result: 20 pass, 8 fail, 0 skip
+
+============================================================
+Block: Reverb 1 (production: fm9_set_block_params)
+============================================================
+  Placed Reverb 1 at R0C1
+  FAIL Mix: sent=0.51, got=0.01 (raw=33422)
+  FAIL Level: sent=1000.0, got=2000.0 (raw=65534)
+  FAIL Pan: sent=1.0, got=12.0 (raw=65534)
+  Result: 0 pass, 3 fail, 66 skip
+
+============================================================
+Block: Delay 1 (production: fm9_set_block_params)
+============================================================
+  Placed Delay 1 at R0C1
+  FAIL Mix: sent=0.51, got=0.01 (raw=33422)
+  FAIL Level: sent=5.0, got=8.5 (raw=55704)
+  FAIL Pan: sent=10.5, got=20.0 (raw=65534)
+  FAIL Time: sent=25.0, got=50.0 (raw=65534)
+  FAIL Feed: sent=25.0, got=50.0 (raw=65534)
+  FAIL Feedl: sent=25.0, got=50.0 (raw=65534)
+  FAIL Feedr: sent=25.0, got=50.0 (raw=65534)
+  FAIL Delaypan: sent=25.5, got=50.0 (raw=65534)
+  FAIL Tempo: sent=5.0, got=0.0 (raw=5)
+  FAIL Low Cut: sent=1000.0, got=7071.0 (raw=55670)
+  FAIL High Cut: sent=1000.0, got=698.97 (raw=22903)
+  FAIL Rate1: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Depth1: sent=10.0, got=20.0 (raw=65534)
+  FAIL Depth2: sent=5.0, got=10.0 (raw=65534)
+  FAIL Lfo1Type: sent=5.0, got=0.0 (raw=5)
+  FAIL Lfo2Type: sent=5.0, got=0.0 (raw=5)
+  FAIL Timer: sent=5.0, got=3.12 (raw=20477)
+  FAIL Hold: sent=5.0, got=0.0 (raw=2)
+  FAIL Mstrfdbk: sent=5000.5, got=10000.0 (raw=65534)
+  FAIL Tempor: sent=5.0, got=0.0 (raw=5)
+  FAIL Feedrl: sent=5.5, got=10.0 (raw=65534)
+  FAIL Panl: sent=1.0, got=2.0 (raw=65534)
+  FAIL Lfo1Phase: sent=5.0, got=10.0 (raw=65534)
+  FAIL Splicetime: sent=10.0, got=20.0 (raw=65534)
+  FAIL Lpf Order: sent=1.58, got=0.0 (raw=1)
+  FAIL Atten: sent=5.0, got=0.63 (raw=4096)
+  FAIL Thresh: sent=0.0, got=48.0 (raw=52427)
+  FAIL Release: sent=10.0, got=20.0 (raw=65534)
+  FAIL Diffuse: sent=5.0, got=10.0 (raw=65534)
+  FAIL Difftime: sent=4.5, got=8.0 (raw=65534)
+  FAIL Phase Reverse: sent=5000.0, got=0.46 (raw=3)
+  FAIL Lfo1Target: sent=5000.0, got=0.31 (raw=2)
+  FAIL Lfo2Target: sent=5000.0, got=0.31 (raw=2)
+  FAIL Lfo1Tempo: sent=5.0, got=0.0 (raw=5)
+  FAIL Lfo2Tempo: sent=5.0, got=0.0 (raw=5)
+  FAIL Rate3: sent=5.0, got=8.49 (raw=55670)
+  FAIL Lfo3Type: sent=5.0, got=0.0 (raw=5)
+  FAIL Lfo3Phase: sent=12.0, got=24.0 (raw=65534)
+  FAIL Lfo3Tempo: sent=1.0, got=0.0 (raw=1)
+  FAIL Fstop: sent=1000.0, got=602.07 (raw=19728)
+  FAIL Q: sent=1000.0, got=2000.0 (raw=65534)
+  FAIL Filterq: sent=10000.0, got=20000.0 (raw=65534)
+  FAIL Bitreduce: sent=5.0, got=0.0 (raw=5)
+  FAIL Freq1: sent=12.0, got=0.0 (raw=0)
+  FAIL Q1: sent=5000.0, got=10000.0 (raw=65534)
+  FAIL Q2: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Gain2: sent=1.5, got=1.13 (raw=36863)
+  FAIL Maxdepth: sent=5.0, got=0.0 (raw=1)
+  FAIL Speed: sent=5.5, got=10.0 (raw=65534)
+  FAIL Offset: sent=1.0, got=2.0 (raw=65534)
+  FAIL Hpf Order: sent=5.0, got=0.0 (raw=4)
+  FAIL Compander: sent=9.5, got=-1.0 (raw=1)
+  FAIL Comptime: sent=4.5, got=8.0 (raw=65534)
+  FAIL Compthresh: sent=5.5, got=10.0 (raw=65534)
+  FAIL Mstrtime: sent=40.0, got=78.0 (raw=65534)
+  FAIL Diffrate: sent=268435457.5, got=3.0 (raw=65534)
+  FAIL Diffdepth: sent=1.0, got=2.0 (raw=65534)
+  FAIL Lfo4Type: sent=5.0, got=0.0 (raw=5)
+  FAIL Rate4: sent=1.5, got=1.18 (raw=38537)
+  FAIL Lfo4Tempo: sent=5.0, got=0.0 (raw=5)
+  FAIL Depth4: sent=1.0, got=2.0 (raw=65534)
+  FAIL Lfo4Phase: sent=-1.0, got=-12.0 (raw=0)
+  FAIL Lfo4Target: sent=6.0, got=0.0 (raw=3)
+  Result: 5 pass, 63 fail, 18 skip
+
+============================================================
+Block: Multitap Delay 1 (production: fm9_set_block_params)
+============================================================
+  Placed Multitap Delay 1 at R0C1
+  FAIL Time1: sent=400.0, got=800.0 (raw=65534)
+  FAIL Time2: sent=5.5, got=11.0 (raw=65534)
+  FAIL Time3: sent=-5.0, got=-20.0 (raw=0)
+  FAIL Time4: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Tempo1: sent=9.5, got=-1.0 (raw=9)
+  FAIL Tempo2: sent=0.5, got=0.0 (raw=0)
+  FAIL Tempo3: sent=500.0, got=1.19 (raw=78)
+  FAIL Tempo4: sent=1000.0, got=20.2 (raw=78)
+  FAIL Feedback1: sent=25.0, got=50.0 (raw=65534)
+  FAIL Feedback2: sent=25.0, got=50.0 (raw=65534)
+  FAIL Feedback3: sent=13.0, got=50.0 (raw=65534)
+  FAIL Pan3: sent=12.0, got=24.0 (raw=65534)
+  FAIL Rate1: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Depth1: sent=0.0, got=-12.0 (raw=0)
+  FAIL Lfotempo1: sent=5000.0, got=11.9 (raw=78)
+  FAIL Lfotempo2: sent=5000.0, got=11.9 (raw=78)
+  FAIL Lfophase1: sent=1.0, got=-4.36 (raw=20860)
+  FAIL Lfophase2: sent=1.0, got=-4.36 (raw=20860)
+  FAIL Mix: sent=0.0, got=-12.0 (raw=0)
+  FAIL Level: sent=6.5, got=11.25 (raw=56687)
+  FAIL Pan: sent=12.5, got=24.0 (raw=65534)
+  FAIL Ingain: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Diffmix: sent=5.0, got=10.0 (raw=65534)
+  FAIL Difftime: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Thresh: sent=9.5, got=17.8 (raw=58653)
+  FAIL Mstrfreq: sent=5.5, got=10.0 (raw=65534)
+  FAIL Mstrq: sent=5.0, got=8.49 (raw=55670)
+  FAIL Freq1: sent=0.5, got=0.0 (raw=0)
+  FAIL Freq2: sent=371195914.0, got=20.0 (raw=65534)
+  FAIL Freq3: sent=1000.0, got=632.5 (raw=32767)
+  FAIL Freq4: sent=1000.0, got=632.5 (raw=32767)
+  FAIL Q1: sent=24.0, got=48.0 (raw=65534)
+  FAIL Q2: sent=5.0, got=9.0 (raw=58958)
+  FAIL Q3: sent=5.0, got=9.0 (raw=58958)
+  FAIL Q4: sent=5.0, got=9.0 (raw=58958)
+  FAIL Atten: sent=5.0, got=0.63 (raw=4096)
+  FAIL Speed: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Fbksend: sent=5.0, got=0.0 (raw=3)
+  FAIL Low Cut: sent=1000.0, got=7071.0 (raw=55670)
+  FAIL Highcut: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Feedback: sent=5.0, got=10.0 (raw=65534)
+  FAIL Release: sent=4.0, got=8.0 (raw=65534)
+  FAIL Drive: sent=1.0, got=0.2 (raw=6576)
+  FAIL Fltrate: sent=3.5, got=5.4 (raw=50594)
+  FAIL Fltdepth: sent=4.0, got=8.0 (raw=65534)
+  FAIL Flttype: sent=4.5, got=0.0 (raw=4)
+  FAIL Flttempo: sent=5.0, got=0.0 (raw=5)
+  FAIL Fltphase: sent=6.0, got=11.0 (raw=65534)
+  FAIL Envthresh: sent=6.0, got=12.0 (raw=65534)
+  FAIL Envattack: sent=15.5, got=31.0 (raw=65534)
+  FAIL Envrelease: sent=15.5, got=31.0 (raw=65534)
+  FAIL Mstrcombgain: sent=16.0, got=31.0 (raw=65534)
+  FAIL Combtype: sent=5.0, got=0.0 (raw=1)
+  FAIL Combtime1: sent=5.0, got=10.0 (raw=65534)
+  FAIL Combtime2: sent=8.5, got=17.0 (raw=65534)
+  FAIL Combtime3: sent=0.0, got=-24.0 (raw=0)
+  FAIL Combtime4: sent=0.0, got=-24.0 (raw=0)
+  FAIL Combgain2: sent=2.0, got=4.0 (raw=65534)
+  FAIL Combgain4: sent=1.0, got=2.0 (raw=65534)
+  FAIL Ringmix3: sent=12.0, got=24.0 (raw=65534)
+  FAIL Ringmix4: sent=5.0, got=10.0 (raw=65534)
+  FAIL Drate1: sent=5.0, got=8.49 (raw=55670)
+  FAIL Drate2: sent=5.0, got=8.49 (raw=55670)
+  FAIL Drate3: sent=5.0, got=8.49 (raw=55670)
+  FAIL Drate4: sent=5.0, got=8.49 (raw=55670)
+  FAIL Ddepth1: sent=5.0, got=10.0 (raw=65534)
+  FAIL Ddepth2: sent=1.0, got=2.0 (raw=65534)
+  FAIL Ddepth3: sent=5.0, got=10.0 (raw=65534)
+  FAIL Ddepth4: sent=5.0, got=10.0 (raw=65534)
+  FAIL Freq: sent=1000.0, got=632.5 (raw=32767)
+  FAIL Q: sent=8.5, got=16.6 (raw=63992)
+  FAIL Gain: sent=5.5, got=7.29 (raw=47785)
+  FAIL Lowslope: sent=5.0, got=0.0 (raw=5)
+  FAIL Highslope: sent=5.0, got=0.0 (raw=5)
+  FAIL Diffrate: sent=5.0, got=8.49 (raw=55670)
+  FAIL Diffdepth: sent=5.0, got=10.0 (raw=65534)
+  FAIL Presets: sent=5.0, got=0.0 (raw=5)
+  FAIL Feedback12: sent=85.0, got=0.0 (raw=65534)
+  FAIL Feedback23: sent=5.5, got=10.0 (raw=65534)
+  FAIL Feedback34: sent=11.0, got=21.0 (raw=65534)
+  FAIL Feedback41: sent=5.5, got=10.0 (raw=65534)
+  Result: 8 pass, 81 fail, 31 skip
+
+============================================================
+Block: Chorus 1 (production: fm9_set_block_params)
+============================================================
+  Placed Chorus 1 at R0C1
+  FAIL Voices: sent=1000.0, got=0.12 (raw=4)
+  FAIL Rate: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Tempo: sent=1000.0, got=2.38 (raw=78)
+  FAIL Depth: sent=9961.0, got=20000.0 (raw=65534)
+  FAIL High Cut: sent=10.0, got=0.0 (raw=0)
+  FAIL Delay Time: sent=9.5, got=20.0 (raw=65534)
+  FAIL LFO Type: sent=5.0, got=0.0 (raw=5)
+  FAIL Auto: sent=5.0, got=0.0 (raw=2)
+  FAIL Mix: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Level: sent=10.0, got=18.0 (raw=58981)
+  FAIL Pan: sent=10.5, got=20.0 (raw=65534)
+  FAIL Phase Reverse: sent=25.0, got=0.01 (raw=3)
+  FAIL Width: sent=12.5, got=24.0 (raw=65534)
+  FAIL Rate2: sent=10.0, got=20.0 (raw=65534)
+  FAIL Depth2: sent=5.0, got=10.0 (raw=65534)
+  FAIL Drive: sent=0.0, got=-20.0 (raw=0)
+  FAIL Low Cut: sent=1000.0, got=7071.0 (raw=55670)
+  FAIL Spread: sent=5.0, got=10.0 (raw=65534)
+  FAIL Depthl: sent=5.5, got=10.0 (raw=65534)
+  FAIL Depthc: sent=10.5, got=20.0 (raw=65534)
+  FAIL Depthr: sent=16.5, got=32.0 (raw=65534)
+  Result: 1 pass, 21 fail, 6 skip
+
+============================================================
+Block: Flanger 1 (production: fm9_set_block_params)
+============================================================
+  Placed Flanger 1 at R0C1
+  FAIL Rate: sent=2500.0, got=5000.0 (raw=65534)
+  FAIL Tempo: sent=9.5, got=-1.0 (raw=9)
+  FAIL Depth: sent=10.5, got=20.0 (raw=65534)
+  FAIL Feedback: sent=12.5, got=24.0 (raw=65534)
+  FAIL Manual: sent=26.0, got=50.0 (raw=65534)
+  FAIL Drydelay: sent=20.5, got=40.0 (raw=65534)
+  FAIL LFO Phase: sent=10.5, got=20.0 (raw=65534)
+  FAIL Auto: sent=9.5, got=-1.0 (raw=3)
+  FAIL Mix: sent=5000.5, got=10000.0 (raw=65534)
+  FAIL Level: sent=5050.0, got=10000.0 (raw=65534)
+  FAIL Pan: sent=10.5, got=20.0 (raw=65534)
+  FAIL Phase Reverse: sent=10.0, got=0.0 (raw=3)
+  FAIL Thruzero: sent=5.0, got=0.0 (raw=2)
+  FAIL Lpfreq: sent=9.5, got=-1.0 (raw=0)
+  FAIL Lpf Order: sent=0.0, got=-20.0 (raw=0)
+  FAIL Hpf Order: sent=9.5, got=-1.0 (raw=1)
+  FAIL Vco Curve: sent=1000.0, got=0.06 (raw=2)
+  FAIL Tmin: sent=0.0, got=-12.0 (raw=0)
+  FAIL Tmax: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Lfoquantize: sent=10.0, got=0.0 (raw=10)
+  FAIL Vcok: sent=1000.0, got=20000.0 (raw=65534)
+  Result: 3 pass, 21 fail, 8 skip
+
+============================================================
+Block: Rotary 1 (production: fm9_set_block_params)
+============================================================
+  Placed Rotary 1 at R0C1
+  FAIL Rate: sent=0.5, got=0.0 (raw=3277)
+  FAIL Lfdepth: sent=0.0, got=-20.0 (raw=0)
+  FAIL Hfdepth: sent=0.0, got=-20.0 (raw=0)
+  FAIL Hflevel: sent=1.0, got=3.33 (raw=38228)
+  FAIL Tempo: sent=5000.0, got=11.9 (raw=78)
+  FAIL Mix: sent=10.5, got=20.0 (raw=65534)
+  FAIL Pan: sent=6.05, got=10.0 (raw=65534)
+  FAIL Width: sent=1.0, got=-7.27 (raw=20860)
+  FAIL Lowrate: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Lowtime: sent=4.5, got=8.09 (raw=54171)
+  FAIL Hightime: sent=5.0, got=8.49 (raw=55670)
+  FAIL Spread: sent=5.0, got=10.0 (raw=65534)
+  FAIL Drive: sent=500.0, got=1000.0 (raw=65534)
+  FAIL Micdist: sent=-14.0, got=-40.0 (raw=0)
+  Result: 2 pass, 14 fail, 4 skip
+
+============================================================
+Block: Phaser 1 (production: fm9_set_block_params)
+============================================================
+  Placed Phaser 1 at R0C1
+  FAIL Order: sent=5.0, got=0.0 (raw=5)
+  FAIL Rate: sent=5.5, got=8.7 (raw=57026)
+  FAIL LFO Type: sent=5.0, got=0.0 (raw=5)
+  FAIL Tempo: sent=3.0, got=0.0 (raw=3)
+  FAIL Depth: sent=5.5, got=10.0 (raw=65534)
+  FAIL Feedback: sent=1000.0, got=20000.0 (raw=65534)
+  FAIL Fmin: sent=0.0, got=-24.0 (raw=0)
+  FAIL Fmax: sent=1.0, got=-24.0 (raw=0)
+  FAIL Bias: sent=25.5, got=50.0 (raw=65534)
+  FAIL Mix: sent=50.5, got=100.0 (raw=65534)
+  FAIL Level: sent=9.5, got=17.8 (raw=58653)
+  FAIL Pan: sent=25.5, got=50.0 (raw=65534)
+  FAIL Tone: sent=6.34, got=11.0 (raw=65534)
+  FAIL Lforeset: sent=5.0, got=0.0 (raw=4)
+  FAIL Lfoquantize: sent=5.0, got=0.0 (raw=5)
+  FAIL Vcr Curve: sent=6.0, got=0.0 (raw=3)
+  FAIL Vcrk: sent=5.5, got=8.7 (raw=57026)
+  FAIL Lfobeta: sent=5.0, got=10.0 (raw=65534)
+  FAIL Lfolpf: sent=0.49, got=0.0 (raw=0)
+  FAIL Attack: sent=25.0, got=50.0 (raw=65534)
+  FAIL Release: sent=5.0, got=10.0 (raw=65534)
+  FAIL Manual: sent=5.5, got=10.0 (raw=65534)
+  FAIL Hpf: sent=50.0, got=39.79 (raw=26079)
+  FAIL Lpf: sent=9.5, got=-1.0 (raw=0)
+  Result: 2 pass, 24 fail, 8 skip
+
+============================================================
+Block: Wah 1 (production: fm9_set_block_params)
+============================================================
+  Placed Wah 1 at R0C1
+  FAIL Fstart: sent=0.0, got=-20.0 (raw=0)
+  FAIL Q: sent=0.0, got=-20.0 (raw=0)
+  FAIL Track: sent=10000.0, got=20000.0 (raw=65534)
+  FAIL Control: sent=1.0, got=2.0 (raw=65534)
+  FAIL Level: sent=20.0, got=40.0 (raw=65534)
+  FAIL Mix: sent=4.5, got=9.0 (raw=65534)
+  FAIL Drive: sent=10.0, got=20.0 (raw=65534)
+  FAIL Taper: sent=5.0, got=0.0 (raw=5)
+  FAIL Bias: sent=4999.5, got=10000.0 (raw=65534)
+  FAIL Hpf: sent=1000.0, got=1698.97 (raw=55670)
+  FAIL Eq4: sent=1.0, got=1.67 (raw=35498)
+  FAIL Eq5: sent=1.0, got=1.67 (raw=35498)
+  FAIL Eq6: sent=1.0, got=1.67 (raw=35498)
+  FAIL Eq7: sent=1.0, got=1.67 (raw=35498)
+  FAIL Eq8: sent=1.0, got=1.67 (raw=35498)
+  Result: 4 pass, 15 fail, 5 skip
+
+============================================================
+Block: Formant 1 (production: fm9_set_block_params)
+============================================================
+  Placed Formant 1 at R0C1
+Connected to FM9
+
+============================================================
+Block: Formant 1 (production: fm9_set_block_params)
+============================================================
+  Placed Formant 1 at R0C1
+  FAIL F3: sent=15.0, got=0.0 (raw=9)
+  FAIL Q: sent=5000.0, got=10000.0 (raw=65534)
+  FAIL Ctrl: sent=1.0, got=2.0 (raw=65534)
+  FAIL Level: sent=5.05, got=8.52 (raw=55737)
+  FAIL Pan: sent=51.0, got=200.0 (raw=65534)
+  Result: 1 pass, 5 fail, 5 skip
+
+============================================================
+Block: Tremolo/Panner 1 (production: fm9_set_block_params)
+============================================================
+  Placed Tremolo/Panner 1 at R0C1
+  FAIL LFO Type: sent=0.0, got=-20.0 (raw=0)
+  FAIL Rate: sent=2000.0, got=4000.0 (raw=65534)
+  FAIL Depth: sent=0.0, got=-20.0 (raw=0)
+  FAIL Duty: sent=10.5, got=20.0 (raw=65534)
+  FAIL Level: sent=1.0, got=0.81 (raw=53083)
+  FAIL Pan: sent=51.0, got=200.0 (raw=65534)
+  FAIL Phase: sent=5.0, got=10.0 (raw=65534)
+  FAIL Width: sent=5.0, got=10.0 (raw=65534)
+  FAIL Center: sent=2000.5, got=4000.0 (raw=65534)
+  FAIL Startphase: sent=5.5, got=10.0 (raw=65534)
+  FAIL Order: sent=5.0, got=0.0 (raw=2)
+  FAIL Xover: sent=5.0, got=0.0 (raw=0)
+  FAIL Thresh: sent=5.0, got=8.12 (raw=53246)
+  FAIL Beta: sent=5.5, got=10.0 (raw=65534)
+  Result: 1 pass, 14 fail, 6 skip
+
+============================================================
+Block: Enhancer 1 (production: fm9_set_block_params)
+============================================================
+  Placed Enhancer 1 at R0C1
+  FAIL Depth: sent=1.0, got=20.0 (raw=65534)
+  FAIL Low Cut: sent=4970.0, got=10000.0 (raw=65534)
+  FAIL High Cut: sent=1.0, got=-20.0 (raw=0)
+  FAIL Level: sent=2500.25, got=5000.0 (raw=65534)
+  FAIL Panl: sent=50.0, got=200.0 (raw=65534)
+  FAIL Pan: sent=51.0, got=200.0 (raw=65534)
+  Result: 0 pass, 6 fail, 5 skip
+
+============================================================
+Block: Mixer 1 (production: fm9_set_block_params)
+============================================================
+  Placed Mixer 1 at R0C1
+  FAIL Gain1: sent=0.5, got=0.0 (raw=32767)
+  FAIL Pan1: sent=512.5, got=1023.0 (raw=65534)
+  FAIL Pan2: sent=51.0, got=200.0 (raw=65534)
+  FAIL Pan3: sent=51.0, got=200.0 (raw=65534)
+  FAIL Pan4: sent=6.05, got=10.0 (raw=65534)
+  FAIL Pan5: sent=51.0, got=200.0 (raw=65534)
+  FAIL Pan6: sent=51.0, got=200.0 (raw=65534)
+  FAIL Master: sent=50.0, got=100.0 (raw=65534)
+  FAIL Pan: sent=51.0, got=200.0 (raw=65534)
+  Result: 0 pass, 9 fail, 7 skip
+
+============================================================
+Block: Synth 1 (production: fm9_set_block_params)
+============================================================
+  Placed Synth 1 at R0C1
+  FAIL Type1: sent=0.51, got=0.0 (raw=0)
+  FAIL Freq1: sent=1000.0, got=2499.9 (raw=45806)
+  FAIL Track1: sent=10.0, got=0.0 (raw=3)
+  FAIL Shift1: sent=9.5, got=-1.0 (raw=9)
+  FAIL Detune1: sent=1.0, got=0.4 (raw=33422)
+  FAIL Duty1: sent=1.0, got=20.0 (raw=65534)
+  FAIL Attack1: sent=5.0, got=10.0 (raw=65534)
+  FAIL Hicut1: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Q1: sent=5.0, got=7.69 (raw=50371)
+  FAIL Type2: sent=5.0, got=0.0 (raw=5)
+  FAIL Freq2: sent=1000.0, got=2499.9 (raw=45806)
+  FAIL Track2: sent=9.5, got=-1.0 (raw=3)
+  FAIL Shift2: sent=5.0, got=0.0 (raw=5)
+  FAIL Duty2: sent=5.5, got=10.0 (raw=65534)
+  FAIL Pan2: sent=51.0, got=200.0 (raw=65534)
+  FAIL Attack2: sent=0.0, got=-20.0 (raw=0)
+  FAIL Hicut2: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Q2: sent=0.0, got=-20.0 (raw=0)
+  FAIL Mix: sent=0.0, got=-20.0 (raw=0)
+  FAIL Pan: sent=6.0, got=10.0 (raw=65534)
+  FAIL Type3: sent=5.0, got=0.0 (raw=5)
+  FAIL Freq3: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Track3: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Shift3: sent=6.0, got=0.0 (raw=6)
+  FAIL Detune3: sent=-29.0, got=-59.0 (raw=13762)
+  FAIL Duty3: sent=-29.0, got=-80.0 (raw=0)
+  FAIL Pan3: sent=51.0, got=200.0 (raw=65534)
+  FAIL Attack3: sent=5.0, got=10.0 (raw=65534)
+  FAIL Hicut3: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Q3: sent=5.0, got=7.69 (raw=50371)
+  Result: 4 pass, 30 fail, 7 skip
+
+============================================================
+Block: Vocoder 1 (production: fm9_set_block_params)
+============================================================
+  Placed Vocoder 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Vocoder 1.
+
+============================================================
+Block: Megatap Delay 1 (production: fm9_set_block_params)
+============================================================
+  Placed Megatap Delay 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Megatap Delay 1.
+
+============================================================
+Block: Crossover 1 (production: fm9_set_block_params)
+============================================================
+  Placed Crossover 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Crossover 1.
+
+============================================================
+Block: Ring Modulator (production: fm9_set_block_params)
+============================================================
+  Placed Ring Modulator at R0C1
+  ERROR: Cannot read block: Failed to get block data for Ring Modulator.
+
+============================================================
+Block: Multiband Comp 1 (production: fm9_set_block_params)
+============================================================
+  Placed Multiband Comp 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Multiband Comp 1.
+
+============================================================
+Block: Ten-Tap Delay 1 (production: fm9_set_block_params)
+============================================================
+  Placed Ten-Tap Delay 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Ten-Tap Delay 1.
+
+============================================================
+Block: Resonator 1 (production: fm9_set_block_params)
+============================================================
+  Placed Resonator 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Resonator 1.
+
+============================================================
+Block: Looper (production: fm9_set_block_params)
+============================================================
+  Placed Looper at R0C1
+  ERROR: Cannot read block: Failed to get block data for Looper.
+
+============================================================
+Block: Plex Delay 1 (production: fm9_set_block_params)
+============================================================
+  Placed Plex Delay 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Plex Delay 1.
+
+============================================================
+Block: Compressor 1 (production: fm9_set_block_params)
+============================================================
+  Placed Compressor 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Compressor 1.
+
+============================================================
+Block: Graphic EQ 1 (production: fm9_set_block_params)
+============================================================
+  Placed Graphic EQ 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Graphic EQ 1.
+
+============================================================
+Block: Parametric EQ 1 (production: fm9_set_block_params)
+============================================================
+  Placed Parametric EQ 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Parametric EQ 1.
+
+============================================================
+Block: Feedback Send 1 (production: fm9_set_block_params)
+============================================================
+  Placed Feedback Send 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Feedback Send 1.
+
+============================================================
+Block: Feedback Return 1 (production: fm9_set_block_params)
+============================================================
+  Placed Feedback Return 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Feedback Return 1.
+
+============================================================
+Block: MIDI Block (production: fm9_set_block_params)
+============================================================
+  Placed MIDI Block at R0C1
+  ERROR: Cannot read block: Failed to get block data for MIDI Block.
+
+============================================================
+Block: Multiplexer (production: fm9_set_block_params)
+============================================================
+  Placed Multiplexer at R0C1
+  ERROR: Cannot read block: Failed to get block data for Multiplexer.
+
+============================================================
+Block: Volume/Pan 1 (production: fm9_set_block_params)
+============================================================
+  Placed Volume/Pan 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Volume/Pan 1.
+
+============================================================
+Block: Pitch 1 (production: fm9_set_block_params)
+============================================================
+  Placed Pitch 1 at R0C1
+  ERROR: Cannot read block: Failed to get block data for Pitch 1.
+
+============================================================
+TOTAL: 6 pass, 64 fail, 30 skip
+============================================================
+
+Failed parameters:
+  Formant 1/F3: sent=15.0, got=0.0
+  Formant 1/Q: sent=5000.0, got=10000.0
+  Formant 1/Ctrl: sent=1.0, got=2.0
+  Formant 1/Level: sent=5.05, got=8.52
+  Formant 1/Pan: sent=51.0, got=200.0
+  Tremolo/Panner 1/LFO Type: sent=0.0, got=-20.0
+  Tremolo/Panner 1/Rate: sent=2000.0, got=4000.0
+  Tremolo/Panner 1/Depth: sent=0.0, got=-20.0
+  Tremolo/Panner 1/Duty: sent=10.5, got=20.0
+  Tremolo/Panner 1/Level: sent=1.0, got=0.81
+  Tremolo/Panner 1/Pan: sent=51.0, got=200.0
+  Tremolo/Panner 1/Phase: sent=5.0, got=10.0
+  Tremolo/Panner 1/Width: sent=5.0, got=10.0
+  Tremolo/Panner 1/Center: sent=2000.5, got=4000.0
+  Tremolo/Panner 1/Startphase: sent=5.5, got=10.0
+  Tremolo/Panner 1/Order: sent=5.0, got=0.0
+  Tremolo/Panner 1/Xover: sent=5.0, got=0.0
+  Tremolo/Panner 1/Thresh: sent=5.0, got=8.12
+  Tremolo/Panner 1/Beta: sent=5.5, got=10.0
+  Enhancer 1/Depth: sent=1.0, got=20.0
+  Enhancer 1/Low Cut: sent=4970.0, got=10000.0
+  Enhancer 1/High Cut: sent=1.0, got=-20.0
+  Enhancer 1/Level: sent=2500.25, got=5000.0
+  Enhancer 1/Panl: sent=50.0, got=200.0
+  Enhancer 1/Pan: sent=51.0, got=200.0
+  Mixer 1/Gain1: sent=0.5, got=0.0
+  Mixer 1/Pan1: sent=512.5, got=1023.0
+  Mixer 1/Pan2: sent=51.0, got=200.0
+  Mixer 1/Pan3: sent=51.0, got=200.0
+  Mixer 1/Pan4: sent=6.05, got=10.0
+  Mixer 1/Pan5: sent=51.0, got=200.0
+  Mixer 1/Pan6: sent=51.0, got=200.0
+  Mixer 1/Master: sent=50.0, got=100.0
+  Mixer 1/Pan: sent=51.0, got=200.0
+  Synth 1/Type1: sent=0.51, got=0.0
+  Synth 1/Freq1: sent=1000.0, got=2499.9
+  Synth 1/Track1: sent=10.0, got=0.0
+  Synth 1/Shift1: sent=9.5, got=-1.0
+  Synth 1/Detune1: sent=1.0, got=0.4
+  Synth 1/Duty1: sent=1.0, got=20.0
+  Synth 1/Attack1: sent=5.0, got=10.0
+  Synth 1/Hicut1: sent=1000.0, got=223.6
+  Synth 1/Q1: sent=5.0, got=7.69
+  Synth 1/Type2: sent=5.0, got=0.0
+  Synth 1/Freq2: sent=1000.0, got=2499.9
+  Synth 1/Track2: sent=9.5, got=-1.0
+  Synth 1/Shift2: sent=5.0, got=0.0
+  Synth 1/Duty2: sent=5.5, got=10.0
+  Synth 1/Pan2: sent=51.0, got=200.0
+  Synth 1/Attack2: sent=0.0, got=-20.0
+  Synth 1/Hicut2: sent=1000.0, got=223.6
+  Synth 1/Q2: sent=0.0, got=-20.0
+  Synth 1/Mix: sent=0.0, got=-20.0
+  Synth 1/Pan: sent=6.0, got=10.0
+  Synth 1/Type3: sent=5.0, got=0.0
+  Synth 1/Freq3: sent=-30.0, got=-80.0
+  Synth 1/Track3: sent=-30.0, got=-80.0
+  Synth 1/Shift3: sent=6.0, got=0.0
+  Synth 1/Detune3: sent=-29.0, got=-59.0
+  Synth 1/Duty3: sent=-29.0, got=-80.0
+  Synth 1/Pan3: sent=51.0, got=200.0
+  Synth 1/Attack3: sent=5.0, got=10.0
+  Synth 1/Hicut3: sent=1000.0, got=223.6
+  Synth 1/Q3: sent=5.0, got=7.69
+
+Results saved to /Users/piro/Documents/ai-tone-assistant/tests/roundtrip_results.json

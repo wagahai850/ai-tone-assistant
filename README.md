@@ -226,7 +226,7 @@ MIT
 
 ### What works
 - **All 40 effect blocks**: parameter read/write with display values (type-aware decoding)
-- **1380 parameters mapped**: all with type/min/max metadata (102 hand-verified, 1278 pattern-inferred)
+- **1380 parameters mapped**: all with type/min/max metadata (102 hand-verified, 1276 cache-derived, remainder pattern-inferred)
 - **Amp 1**: full model selection (331 models) + display-value parameter control (Gain=5.0, etc.)
 - **Drive 1**: full model selection (86 models) + display-value parameter control
 - **Delay/Reverb/Chorus/Pitch/etc.**: parameter control via `fm9_set_block_params`
@@ -262,20 +262,24 @@ MIT
 
 #### Amp/Drive bipolar and frequency encoding (under investigation)
 
-**Status**: Amp continuous params work (normalized). Amp bipolar (Level, Balance) works (raw_float). Drive continuous works (normalized). **Drive bipolar and frequency encoding is unverified** — round-trip test shows failures.
+**Status**: Core params (Gain, Bass, Mid, Treble, Master, Level, Drive, Tone, Mix) work correctly. Remaining failures are in advanced/type-specific params where encoding or min/max is unverified.
 
-**Evidence from round-trip test (`tests/test_roundtrip.py --block "Drive 1"`):**
-- Drive EQ bands (bipolar, max=±12 dB): sending 6.0 as raw_float results in 9.0 readback
-- Drive High Cut (frequency, max=20000): sending 1000.0 as raw_float results in 223.6 readback
-- Drive Balance (bipolar, max=±100): sending 100.0 as raw_float results in 200.0 readback (clamp)
+**Round-trip test progress (2026-05-28)**:
+- Automated test (`tests/test_roundtrip.py`) uses production code directly — no separate encoding logic
+- 1276 params now have cache-derived min/max (extracted from `effectDefinitions` binary cache)
+- Type-specific inactive params are auto-skipped (raw unchanged after SET)
+- Remaining failures are encoding mismatches that require Wireshark capture to resolve
 
-**Hypothesis**: Drive bipolar/frequency params may use normalized encoding (same as continuous), unlike Amp bipolar which uses raw_float. Needs Wireshark capture of FM9 Edit changing Drive EQ/frequency params to confirm.
+**Remaining encoding unknowns** (need USB capture of FM9 Edit):
+- Drive Balance: bipolar range representation
+- Frequency params on Amp/Drive: log-scale encoding details
+- A handful of params where `sent ≠ got` despite correct min/max
 
 **Next steps**:
-1. Capture: FM9 Edit → Drive EQ band change + High Cut change
-2. Confirm float encoding in SysEx (normalized vs raw_float)
-3. Fix encoding rules in `set_drive_params` and `set_block_params`
-4. Re-run round-trip test to verify
+1. Capture: FM9 Edit → Drive Balance, Drive High Cut, Amp Balance changes
+2. Confirm float encoding in SysEx (normalized vs raw_float for these specific params)
+3. Fix encoding rules in production code
+4. Re-run round-trip test → 0 FAIL
 
 #### Cab block uses mixed parameter encoding (fixed)
 
@@ -308,23 +312,26 @@ Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in 
 
 #### Current Priority: Full Parameter Round-Trip Verification
 
-**WHY**: Every parameter SET/GET must work correctly for the tone assistant to be reliable. Currently, 1300+ parameters are mapped but only ~30 have been verified against the actual device. The encoding rules differ by block type and parameter type in ways that aren't fully documented by Fractal Audio.
+**WHY**: Every parameter SET/GET must work correctly for the tone assistant to be reliable. Currently, 1300+ parameters are mapped with cache-derived min/max metadata. Core params are verified working; advanced params need encoding confirmation via Wireshark.
 
 **HOW**: Automated round-trip test (`tests/test_roundtrip.py`) that:
 1. Places each block type on the grid
-2. For each non-enum parameter: SET a known value → GET → verify match
-3. Reports failures with sent/received values for diagnosis
+2. Health-checks the block (aborts on preset corruption or firmware panic)
+3. For each non-enum parameter: SET a known value → GET → verify match
+4. Auto-skips type-specific inactive params (raw unchanged)
+5. Reports failures with sent/received values for diagnosis
+
+**Current state** (2026-05-28):
+- Test uses production MCP tools directly (same code path as real usage)
+- `effectDefinitions` cache parsed → 1276 params with accurate min/max
+- 152 params auto-fixed from failure pattern analysis
+- Remaining failures are encoding mismatches (need Wireshark capture)
 
 **WHAT (next actions)**:
-1. **Capture Drive encoding** — On Windows, use Wireshark to capture FM9 Edit changing:
-   - Drive EQ band (bipolar, ±12 dB) — is the float normalized or raw?
-   - Drive High Cut (frequency, 20kHz) — is the float normalized or raw?
-   - This determines whether Drive bipolar/frequency uses the same encoding as Amp
-2. **Fix encoding rules** — Update `encode_and_set` in test script AND `set_drive_params` / `set_block_params` in server code based on capture results
-3. **Run full round-trip** — Execute `python3 tests/test_roundtrip.py` on EMPTY preset with FM9 connected. Fix failures iteratively until 0 FAIL
-4. **Promote to regression test** — Once passing, this becomes the gate for future changes
-
-**Key insight from this session**: Amp and Drive have DIFFERENT bipolar encoding despite both being "Amp/Drive" blocks. Amp Level uses raw_float (-10.0 sent directly). Drive EQ bands appear to use normalized (6.0 sent as raw_float resulted in 9.0 readback, suggesting FM9 interpreted it differently). Wireshark capture is the only way to resolve this — don't guess, capture.
+1. **Wireshark capture** — Drive Balance, Drive High Cut, Amp Balance on Windows
+2. **Fix encoding** — Update production code based on capture evidence
+3. **Re-run full round-trip** → target: 0 FAIL on active params
+4. **Promote to regression gate** — CI-like check before push
 
 **Tools**:
 - `tests/test_roundtrip.py` — automated round-trip (requires FM9 USB)
