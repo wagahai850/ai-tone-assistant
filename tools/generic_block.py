@@ -452,24 +452,19 @@ def register(mcp):
                         else:
                             midi.set_param_value(block_id, pid, float(value), param_max)
                     else:
-                        # Effect blocks: encoding depends on parameter type
+                        # Effect blocks: ALL params use normalized encoding.
+                        # SET sends IEEE 754 float normalized to 0.0-1.0 range.
+                        # FM9 interprets: continuous → value * display_max
+                        #                 bipolar → value * (max-min) + min
                         pid_str = str(pid)
                         pinfo = block_info["params"].get(pid_str, {})
                         param_type = pinfo.get("type", "continuous")
                         param_max = pinfo.get("max", 10.0)
-                        param_name = pinfo.get("name", "")
+                        param_min = pinfo.get("min", 0)
 
-                        # Common block params (Mix/Level/Balance) use normalized
-                        # encoding. Identified by internal name suffix.
-                        # Confirmed: DELAY_MIX, DELAY_LEVEL, DELAY_PAN,
-                        #            REVERB_MIX, REVERB_LEVEL, REVERB_PAN, etc.
-                        NORMALIZED_SUFFIXES = {"_MIX", "_LEVEL", "_PAN"}
-                        is_common_param = any(param_name.endswith(s) for s in NORMALIZED_SUFFIXES)
-
-                        if is_common_param and param_type not in ("enum", "switch", "signed_int"):
-                            midi.set_param_value(block_id, pid, float(value), param_max)
-                        elif param_type == "switch":
-                            midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
+                        if param_type == "switch":
+                            midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0,
+                                                 raw_float=True)
                         elif param_type == "signed_int":
                             # Signed integer (e.g., Pitch Shift): raw float
                             midi.set_param_value(block_id, pid, float(value), 1.0,
@@ -478,16 +473,13 @@ def register(mcp):
                             # Enum: send integer as raw float
                             midi.set_param_value(block_id, pid, float(value), 1.0,
                                                  raw_float=True)
-                        elif param_max >= 20000:
-                            # Frequency params: raw float (Hz value directly)
-                            midi.set_param_value(block_id, pid, float(value), 1.0,
-                                                 raw_float=True)
                         elif param_type == "bipolar":
-                            # Bipolar: raw float (display value directly)
-                            midi.set_param_value(block_id, pid, float(value), 1.0,
-                                                 raw_float=True)
+                            # Bipolar: normalized = value / max
+                            # FM9 interprets: 0.0=center, +1.0=max, -1.0=min
+                            # e.g., Feed=20% (max=100) → 20/100=0.2 → FM9 shows +20%
+                            midi.set_param_value(block_id, pid, float(value), param_max)
                         else:
-                            # Continuous (knobs, Mix, Feed, Time, etc.): normalized
+                            # Continuous: normalized = value / max
                             midi.set_param_value(block_id, pid, float(value), param_max)
 
                 changes[param_name] = value
