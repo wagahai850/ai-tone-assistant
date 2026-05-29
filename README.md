@@ -190,7 +190,7 @@ ai-tone-assistant/
 ├── docs/
 │   ├── PROTOCOL.md        ← Full SysEx protocol reference
 │   ├── REVERSE_ENGINEERING.md
-│   ├── SESSION_2026-05-29.md ← Session handoff notes
+│   ├── POC_LIVE_PRESET_SESSION.md ← Live preset session POC report
 │   └── STEERING_EXAMPLE.md
 └── LICENSE (MIT)
 ```
