@@ -3212,7 +3212,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "3": {
         "name": "REVERB_BYPASSMODE",
@@ -3417,7 +3418,8 @@
         "type": "frequency",
         "max": 1.0,
         "min": 0,
-        "step": 0.1
+        "step": 0.1,
+        "decode_max": 125.06
       },
       "12": {
         "name": "REVERB_HICUT",
@@ -3481,7 +3483,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "20": {
         "name": "REVERB_LOWCUT",
@@ -3497,7 +3500,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "22": {
         "name": "REVERB_GLOBALMIX",
@@ -3505,7 +3509,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 58.86,
+        "decode_style": "zero"
       },
       "23": {
         "name": "REVERB_GAIN",
@@ -3585,7 +3591,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 143.07,
+        "decode_style": "zero"
       },
       "33": {
         "name": "REVERB_Q2",
@@ -3593,7 +3601,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 143.07,
+        "decode_style": "zero"
       },
       "34": {
         "name": "REVERB_GAIN1",
@@ -3601,7 +3611,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 1200.26,
+        "decode_style": "center"
       },
       "35": {
         "name": "REVERB_GAIN2",
@@ -3613,7 +3625,9 @@
         "values": [
           "NOTES",
           "CHORDS"
-        ]
+        ],
+        "decode_max": 120.03,
+        "decode_style": "center"
       },
       "36": {
         "name": "REVERB_DRIVE",
@@ -3621,14 +3635,16 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 5.89
       },
       "37": {
         "name": "REVERB_LFTIME",
         "display_name": "Lftime",
         "type": "continuous",
         "max": 10.0,
-        "min": 0
+        "min": 0,
+        "decode_max": 7.15
       },
       "38": {
         "name": "REVERB_LFXOVER",
@@ -3644,7 +3660,9 @@
         "type": "bipolar",
         "max": 1.0,
         "min": -1.0,
-        "step": 0.1
+        "step": 0.1,
+        "decode_max": 2.0,
+        "decode_style": "center"
       },
       "40": {
         "name": "REVERB_ATTEN",
@@ -3652,7 +3670,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_max": 7991.95
       },
       "41": {
         "name": "REVERB_THRESH",
@@ -3674,7 +3693,8 @@
         "display_name": "Release",
         "type": "continuous",
         "max": 10.0,
-        "min": 0
+        "min": 0,
+        "decode_max": 5.56
       },
       "43": {
         "name": "REVERB_EARLYDIFF",
@@ -3682,7 +3702,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "44": {
         "name": "REVERB_EARLYDIFFTIME",
@@ -3697,7 +3718,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "46": {
         "name": "REVERB_EARLYSEND",
@@ -3903,7 +3925,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "decode_max": 31.42
       },
       "51": {
         "name": "REVERB_INPUTSELECT",
@@ -4314,7 +4337,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 203.06,
+        "decode_style": "zero"
       },
       "61": {
         "name": "REVERB_PITCHPOS",
@@ -4330,7 +4355,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "63": {
         "name": "REVERB_KILLDRY",

@@ -1,0 +1,435 @@
+{
+  "Reverb 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Mix"
+    },
+    "1": {
+      "decode_style": "offset",
+      "decode_max": 20.0,
+      "raw_at_zero": 52427,
+      "raw_at_half": 52755,
+      "display_name": "Level"
+    },
+    "2": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_zero": 32767,
+      "raw_at_half": 49151,
+      "display_name": "Pan"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "4": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Indifftime"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Pitchbal"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 125.06,
+      "raw_at_zero": 0,
+      "raw_at_half": 262,
+      "display_name": "Time"
+    },
+    "12": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "High Cut"
+    },
+    "13": {
+      "decode_style": "zero",
+      "decode_max": 0.59,
+      "raw_at_zero": 0,
+      "raw_at_half": 55670,
+      "display_name": "Hfratio"
+    },
+    "14": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Diffusion"
+    },
+    "15": {
+      "decode_style": "zero",
+      "decode_max": 1.01,
+      "raw_at_zero": 0,
+      "raw_at_half": 32436,
+      "display_name": "Size"
+    },
+    "16": {
+      "decode_style": "zero",
+      "decode_max": 0.5,
+      "raw_at_zero": 0,
+      "raw_at_half": 65534,
+      "display_name": "Reverbdelay"
+    },
+    "17": {
+      "decode_style": "offset",
+      "decode_max": 1.0,
+      "raw_at_zero": 52427,
+      "raw_at_half": 53083,
+      "display_name": "Earlylevel"
+    },
+    "18": {
+      "decode_style": "offset",
+      "decode_max": 1.0,
+      "raw_at_zero": 52427,
+      "raw_at_half": 53083,
+      "display_name": "Reverblevel"
+    },
+    "19": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Pre-Delay"
+    },
+    "20": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Low Cut"
+    },
+    "21": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Depth"
+    },
+    "22": {
+      "decode_style": "zero",
+      "decode_max": 58.86,
+      "raw_at_zero": 0,
+      "raw_at_half": 55670,
+      "display_name": "Global Mix"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Gain"
+    },
+    "24": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 4,
+      "display_name": "Density"
+    },
+    "25": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Inpdiff"
+    },
+    "26": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Bypass"
+    },
+    "27": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 2,
+      "display_name": "Numsprings"
+    },
+    "28": {
+      "decode_style": "zero",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Tone"
+    },
+    "29": {
+      "decode_style": "zero",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Width"
+    },
+    "30": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq1"
+    },
+    "31": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq2"
+    },
+    "32": {
+      "decode_style": "zero",
+      "decode_max": 143.07,
+      "raw_at_zero": 0,
+      "raw_at_half": 22903,
+      "display_name": "Q1"
+    },
+    "33": {
+      "decode_style": "zero",
+      "decode_max": 143.07,
+      "raw_at_zero": 0,
+      "raw_at_half": 22903,
+      "display_name": "Q2"
+    },
+    "34": {
+      "decode_style": "center",
+      "decode_max": 1200.26,
+      "raw_at_zero": 32767,
+      "raw_at_half": 34132,
+      "display_name": "Gain1"
+    },
+    "35": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_zero": 32767,
+      "raw_at_half": 34132,
+      "display_name": "Gain2"
+    },
+    "36": {
+      "decode_style": "zero",
+      "decode_max": 5.89,
+      "raw_at_zero": 0,
+      "raw_at_half": 55670,
+      "display_name": "Drive"
+    },
+    "37": {
+      "decode_style": "zero",
+      "decode_max": 7.15,
+      "raw_at_zero": 0,
+      "raw_at_half": 45806,
+      "display_name": "Lftime"
+    },
+    "38": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfxover"
+    },
+    "39": {
+      "decode_style": "center",
+      "decode_max": 2.0,
+      "raw_at_zero": 32767,
+      "raw_at_half": 40959,
+      "display_name": "Spread"
+    },
+    "40": {
+      "decode_style": "zero",
+      "decode_max": 7991.95,
+      "raw_at_zero": 0,
+      "raw_at_half": 410,
+      "display_name": "Atten"
+    },
+    "41": {
+      "decode_style": "offset",
+      "decode_max": 10.0,
+      "raw_at_zero": 52427,
+      "raw_at_half": 52755,
+      "display_name": "Thresh"
+    },
+    "42": {
+      "decode_style": "zero",
+      "decode_max": 5.56,
+      "raw_at_zero": 0,
+      "raw_at_half": 58958,
+      "display_name": "Release"
+    },
+    "43": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Earlydiff"
+    },
+    "44": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Earlydifftime"
+    },
+    "45": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Earlydecay"
+    },
+    "46": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Earlysend"
+    },
+    "47": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Quality"
+    },
+    "48": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Hold"
+    },
+    "49": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Basetype"
+    },
+    "50": {
+      "decode_style": "zero",
+      "decode_max": 31.42,
+      "raw_at_zero": 0,
+      "raw_at_half": 10430,
+      "display_name": "LFO Phase"
+    },
+    "52": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Dispersion"
+    },
+    "53": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lowslope"
+    },
+    "54": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Highslope"
+    },
+    "55": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Pitchmix"
+    },
+    "56": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Shift1"
+    },
+    "57": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Shift2"
+    },
+    "58": {
+      "decode_style": "zero",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Pitchfdbk"
+    },
+    "59": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Pitchdir"
+    },
+    "60": {
+      "decode_style": "zero",
+      "decode_max": 203.06,
+      "raw_at_zero": 0,
+      "raw_at_half": 16137,
+      "display_name": "Pitchtime"
+    },
+    "61": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Pitchpos"
+    },
+    "62": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Pitchmod"
+    },
+    "64": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Predlytempo"
+    },
+    "65": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Predlyfdbk"
+    },
+    "66": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 32767,
+      "display_name": "Predlymix"
+    },
+    "67": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Pitchlpf"
+    },
+    "68": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Springtype"
+    },
+    "69": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Tonetype"
+    },
+    "70": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Predlytap"
+    },
+    "71": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_zero": 0,
+      "raw_at_half": 22903,
+      "display_name": "Lowq"
+    }
+  }
+}
