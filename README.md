@@ -380,6 +380,34 @@ The [POC session](docs/POC_LIVE_PRESET_SESSION.md) revealed that the AI has stro
 
 This eliminates the dependency on the user's FM9 expertise and makes the tool accessible to beginners who don't know what the hardware can do.
 
+### Future: Device Abstraction Layer
+
+The current implementation is FM9-specific by design. Abstraction into a device-agnostic interface will happen **when a second device implementation begins** (e.g., Line 6 Helix) — not before. Premature abstraction without a second concrete implementation leads to wrong boundaries.
+
+**Why not now**: FM9 has concepts (Channels A/B/C/D, DynaCab, Grid coordinates) that may not exist on other platforms. The correct interface can only be discovered by comparing two implementations. Abstracting from one example is guessing.
+
+**What we do now** (zero-cost preparation):
+- Maintain clear layer separation (transport → data → domain)
+- Keep `fm9_*` tool naming to make device-specificity explicit
+- Mark device-specific boundaries in code ("here be dragons for abstraction")
+
+**When the second device arrives**:
+```python
+class ToneDevice(Protocol):
+    def set_param(self, block: str, param: str, value: float,
+                  scene: int | None = None, variant: str | None = None) -> None: ...
+    def get_param(self, block: str, param: str) -> float: ...
+    def list_blocks(self) -> list[BlockInfo]: ...
+    def apply_routing(self, graph: SignalGraph) -> None: ...
+
+class FM9Device(ToneDevice): ...    # variant = Channel (A/B/C/D)
+class HelixDevice(ToneDevice): ...  # variant = None (no equivalent concept)
+```
+
+MCP tools become device-agnostic (`tone_set_params` instead of `fm9_set_amp_params`), with device-specific behavior hidden behind the `ToneDevice` interface. Knowledge bases are per-device (`data/fm9/`, `data/helix/`).
+
+**Timeline**: FM9 stable → second device → extract interface → generalize tools → third device onward is implementation-only.
+
 ## Credits
 
 - **Architect**: wagahai850 (system design, decisions)
