@@ -1,0 +1,65 @@
+Connected to FM9
+
+============================================================
+Block: Synth 1 (production: fm9_set_block_params)
+============================================================
+  Placed Synth 1 at R0C1
+  FAIL Type1: sent=0.51, got=0.0 (raw=0)
+  FAIL Freq1: sent=1000.0, got=2499.9 (raw=45806)
+  FAIL Shift1: sent=9.5, got=-1.0 (raw=9)
+  FAIL Detune1: sent=-4.0, got=-6.2 (raw=30146)
+  FAIL Duty1: sent=1.0, got=20.0 (raw=65534)
+  FAIL Attack1: sent=10.0, got=20.0 (raw=65534)
+  FAIL Hicut1: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Q1: sent=5.0, got=7.69 (raw=50371)
+  FAIL Freq2: sent=1000.0, got=2499.9 (raw=45806)
+  FAIL Track2: sent=9.5, got=-1.0 (raw=3)
+  FAIL Duty2: sent=5.5, got=10.0 (raw=65534)
+  FAIL Pan2: sent=51.0, got=200.0 (raw=65534)
+  FAIL Attack2: sent=0.0, got=-20.0 (raw=0)
+  FAIL Hicut2: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Q2: sent=0.0, got=-20.0 (raw=0)
+  FAIL Mix: sent=0.0, got=-20.0 (raw=0)
+  FAIL Pan: sent=6.0, got=10.0 (raw=65534)
+  FAIL Freq3: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Track3: sent=-30.0, got=-80.0 (raw=0)
+  FAIL Detune3: sent=-19.0, got=-42.8 (raw=20316)
+  FAIL Duty3: sent=-29.0, got=-80.0 (raw=0)
+  FAIL Pan3: sent=51.0, got=200.0 (raw=65534)
+  FAIL Attack3: sent=10.0, got=20.0 (raw=65534)
+  FAIL Hicut3: sent=1000.0, got=223.6 (raw=22903)
+  FAIL Q3: sent=5.0, got=7.69 (raw=50371)
+  Result: 4 pass, 25 fail, 12 skip
+
+============================================================
+TOTAL: 4 pass, 25 fail, 12 skip
+============================================================
+
+Failed parameters:
+  Synth 1/Type1: sent=0.51, got=0.0
+  Synth 1/Freq1: sent=1000.0, got=2499.9
+  Synth 1/Shift1: sent=9.5, got=-1.0
+  Synth 1/Detune1: sent=-4.0, got=-6.2
+  Synth 1/Duty1: sent=1.0, got=20.0
+  Synth 1/Attack1: sent=10.0, got=20.0
+  Synth 1/Hicut1: sent=1000.0, got=223.6
+  Synth 1/Q1: sent=5.0, got=7.69
+  Synth 1/Freq2: sent=1000.0, got=2499.9
+  Synth 1/Track2: sent=9.5, got=-1.0
+  Synth 1/Duty2: sent=5.5, got=10.0
+  Synth 1/Pan2: sent=51.0, got=200.0
+  Synth 1/Attack2: sent=0.0, got=-20.0
+  Synth 1/Hicut2: sent=1000.0, got=223.6
+  Synth 1/Q2: sent=0.0, got=-20.0
+  Synth 1/Mix: sent=0.0, got=-20.0
+  Synth 1/Pan: sent=6.0, got=10.0
+  Synth 1/Freq3: sent=-30.0, got=-80.0
+  Synth 1/Track3: sent=-30.0, got=-80.0
+  Synth 1/Detune3: sent=-19.0, got=-42.8
+  Synth 1/Duty3: sent=-29.0, got=-80.0
+  Synth 1/Pan3: sent=51.0, got=200.0
+  Synth 1/Attack3: sent=10.0, got=20.0
+  Synth 1/Hicut3: sent=1000.0, got=223.6
+  Synth 1/Q3: sent=5.0, got=7.69
+
+Results saved to /Users/piro/Documents/ai-tone-assistant/tests/roundtrip_results.json

@@ -583,6 +583,17 @@ def test_block(block_name: str, dry_run: bool = False, param_filter: str | None 
         except Exception:
             pass
 
+    # Post-test liveness check
+    try:
+        post_status = midi.get_status_dump()
+        if not post_status and block_pass + block_fail > 0:
+            print(f"  !!! FM9 may have died after {block_name} test")
+            raise FirmwarePanic(f"FM9 unresponsive after {block_name} test (status empty)")
+    except Exception as e:
+        if "FirmwarePanic" not in type(e).__name__:
+            raise FirmwarePanic(f"FM9 unresponsive after {block_name}: {e}")
+        raise
+
     print(f"  Result: {results['pass']} pass, {results['fail']} fail, {results['skip']} skip")
     return results
 
@@ -632,7 +643,21 @@ def main():
             # Test effect blocks (skip Amp/Drive/Cab which have dedicated paths)
             AMP_DRIVE_IDS = {0x3A, 0x3B, 0x3C, 0x3D, 0x76, 0x77, 0x78, 0x79}
             CAB_IDS = {0x3E, 0x3F, 0x40, 0x41}
-            SKIP_IDS = AMP_DRIVE_IDS | CAB_IDS
+            # Blocks where get_block_data consistently fails.
+            # Likely firmware limitation or block_id encoding issue.
+            # Placing these may destabilize firmware — skip until investigated.
+            UNSAFE_IDS = {
+                0x86,  # Vocoder
+                0x8A,  # Megatap Delay
+                0x8E,  # Crossover
+                0x96,  # Ring Modulator
+                0x9A,  # Multiband Comp
+                0x9E,  # Ten-Tap Delay
+                0xA2,  # Resonator
+                0xA6,  # Looper
+                0xB2,  # Plex Delay
+            }
+            SKIP_IDS = AMP_DRIVE_IDS | CAB_IDS | UNSAFE_IDS
 
             skipping = args.start_from is not None
 

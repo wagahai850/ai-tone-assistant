@@ -271,13 +271,15 @@ def register(mcp):
                 display_value = raw_val if raw_val <= 32767 else raw_val - 65536
             elif param_type == "bipolar":
                 display_value = round(raw_val / 65534.0 * (param_max - param_min) + param_min, 2)
-            elif param_max >= 20000:
-                # Frequency params: log scale decode
+            elif param_max >= 20000 or (block_id in CAB_BLOCK_IDS_SET and pid in (62, 63, 64, 65)):
+                # Frequency params with log scale decode:
+                # freq = min_freq * 10^(raw/65534 * log10(max_freq/min_freq))
+                min_freq = max(param_min, 20.0)  # min_freq from metadata (default 20 Hz)
                 if raw_val == 0:
-                    display_value = 20.0
+                    display_value = min_freq
                 else:
                     display_value = round(
-                        20.0 * 10 ** (raw_val / 65534.0 * math.log10(param_max / 20.0)), 1
+                        min_freq * 10 ** (raw_val / 65534.0 * math.log10(param_max / min_freq)), 1
                     )
             else:
                 # Continuous: raw 0 = 0, 65534 = max
@@ -452,11 +454,35 @@ def register(mcp):
                         else:
                             midi.set_param_value(block_id, pid, float(value), param_max)
                     else:
-                        # ALL other effect blocks use raw_float for display values
-                        # (Verified via Wireshark: Delay, Reverb, Chorus, Comp, Flanger
-                        #  all send display values directly as IEEE 754 float)
-                        midi.set_param_value(block_id, pid, float(value), 1.0,
-                                             raw_float=True)
+                        # Effect blocks: encoding depends on parameter type
+                        pid_str = str(pid)
+                        pinfo = block_info["params"].get(pid_str, {})
+                        meta = pinfo.get("meta", {})
+                        param_type = meta.get("type", "continuous")
+                        param_max = meta.get("max", 10.0)
+
+                        if param_type == "switch":
+                            midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
+                        elif param_type == "signed_int":
+                            # Signed integer (e.g., Pitch Shift): raw float
+                            midi.set_param_value(block_id, pid, float(value), 1.0,
+                                                 raw_float=True)
+                        elif param_type == "enum":
+                            # Enum: send integer as raw float
+                            midi.set_param_value(block_id, pid, float(value), 1.0,
+                                                 raw_float=True)
+                        elif param_max >= 20000:
+                            # Frequency params: raw float (Hz value directly)
+                            # Verified via Wireshark on PEQ Freq
+                            midi.set_param_value(block_id, pid, float(value), 1.0,
+                                                 raw_float=True)
+                        elif param_type == "bipolar":
+                            # Bipolar: raw float (display value directly)
+                            midi.set_param_value(block_id, pid, float(value), 1.0,
+                                                 raw_float=True)
+                        else:
+                            # Continuous (knobs, Mix, Feed, Time, etc.): normalized
+                            midi.set_param_value(block_id, pid, float(value), param_max)
 
                 changes[param_name] = value
 
