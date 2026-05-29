@@ -24,6 +24,10 @@ A guitarist shouldn't need to be a sound engineer, a mix engineer, AND a Fractal
 
 [![Demo Video](https://img.youtube.com/vi/Jh07yhjfunU/maxresdefault.jpg)](https://www.youtube.com/watch?v=Jh07yhjfunU)
 
+## POC: Live Preset Session
+
+Built 6 live performance presets from scratch in under an hour through natural conversation — research, architecture, iterative tone dialing, all via MCP. Full report with unabridged session log: **[POC Report](docs/POC_LIVE_PRESET_SESSION.md)**
+
 ## What It Does
 
 - **Build presets from scratch** — Add blocks, connect cables, set routing via chat
