@@ -1,0 +1,281 @@
+{
+  "cache_blocks": [
+    {
+      "cache_block_id": 1,
+      "offset": "0x0002e",
+      "param_count": 225,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 3,
+      "offset": "0x0f39c",
+      "param_count": 25,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 4,
+      "offset": "0x0fb3d",
+      "param_count": 7,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 7,
+      "offset": "0x0fc25",
+      "param_count": 37,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 8,
+      "offset": "0x1042a",
+      "param_count": 20,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 9,
+      "offset": "0x1083b",
+      "param_count": 33,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 10,
+      "offset": "0x10e53",
+      "param_count": 147,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 11,
+      "offset": "0x15161",
+      "param_count": 110,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 189,
+      "offset": "0x251e4",
+      "param_count": 8,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 13,
+      "offset": "0x2b6a5",
+      "param_count": 90,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 14,
+      "offset": "0x2dc04",
+      "param_count": 121,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 15,
+      "offset": "0x3090e",
+      "param_count": 96,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 16,
+      "offset": "0x33891",
+      "param_count": 29,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 17,
+      "offset": "0x3452b",
+      "param_count": 33,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 18,
+      "offset": "0x3513b",
+      "param_count": 21,
+      "matched_block": "TREMOLO"
+    },
+    {
+      "cache_block_id": 19,
+      "offset": "0x3579d",
+      "param_count": 35,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 20,
+      "offset": "0x3629c",
+      "param_count": 25,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 21,
+      "offset": "0x3668f",
+      "param_count": 12,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 22,
+      "offset": "0x36919",
+      "param_count": 22,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 23,
+      "offset": "0x3705f",
+      "param_count": 114,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 28,
+      "offset": "0x3bdc8",
+      "param_count": 17,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 33,
+      "offset": "0x3c855",
+      "param_count": 35,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 34,
+      "offset": "0x3cf73",
+      "param_count": 15,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 36,
+      "offset": "0x3d500",
+      "param_count": 13,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 37,
+      "offset": "0x3d71c",
+      "param_count": 37,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 38,
+      "offset": "0x3dc79",
+      "param_count": 48,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 39,
+      "offset": "0x3edba",
+      "param_count": 40,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 40,
+      "offset": "0x3f3af",
+      "param_count": 15,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 41,
+      "offset": "0x3f62f",
+      "param_count": 10,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 42,
+      "offset": "0x3f82c",
+      "param_count": 10,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 43,
+      "offset": "0x3fa29",
+      "param_count": 10,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 44,
+      "offset": "0x3fc26",
+      "param_count": 10,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 46,
+      "offset": "0x3fe23",
+      "param_count": 26,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 47,
+      "offset": "0x4016b",
+      "param_count": 26,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 48,
+      "offset": "0x404b3",
+      "param_count": 26,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 50,
+      "offset": "0x407fb",
+      "param_count": 24,
+      "matched_block": "WAH"
+    },
+    {
+      "cache_block_id": 54,
+      "offset": "0x42b93",
+      "param_count": 7,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 56,
+      "offset": "0x42d2b",
+      "param_count": 14,
+      "matched_block": null
+    },
+    {
+      "cache_block_id": 57,
+      "offset": "0x4302d",
+      "param_count": 50,
+      "matched_block": null
+    }
+  ],
+  "matches": {
+    "18": "TREMOLO",
+    "50": "WAH"
+  },
+  "all_params_counts": {
+    "DISTORT": 141,
+    "FUZZ": 42,
+    "CABINET": 101,
+    "REVERB": 69,
+    "DELAY": 86,
+    "MULTITAP": 120,
+    "CHORUS": 28,
+    "FLANGER": 32,
+    "ROTARY": 20,
+    "PHASER": 34,
+    "WAH": 24,
+    "FORMANT": 11,
+    "TREMOLO": 21,
+    "ENHANCER": 11,
+    "MIXER": 16,
+    "SYNTH": 41,
+    "VOCODER": 66,
+    "MEGATAP": 34,
+    "CROSSOVER": 14,
+    "RINGMOD": 12,
+    "MULTICOMP": 36,
+    "TENTAP": 47,
+    "RESONATOR": 39,
+    "LOOPER": 23,
+    "PLEX": 95,
+    "COMP": 36,
+    "GEQ": 19,
+    "PEQ": 32,
+    "FDBKSEND": 1,
+    "FDBKRET": 5,
+    "MIDIBLOCK": 11,
+    "MULTIPLEXER": 6,
+    "TONEMATCH": 20,
+    "IRCAPTURE": 2,
+    "IRPLAYER": 12,
+    "VOLUME": 14,
+    "PITCH": 59
+  }
+}
