@@ -508,8 +508,24 @@ Confirmed via Wireshark capture (2026-05-27).
 
 Different blocks use different encoding for SET_PARAM (sub=0x09).
 
-**Key discovery (2026-05-27):** All effect blocks use raw float (display values directly).
-Only Amp/Drive use normalized 0.0–1.0 via their dedicated tools.
+**Key discovery (2026-05-29):** All effect blocks use **unified normalized encoding**
+(value/max → 0.0-1.0) for SET. The FM9 interprets the normalized value based on
+the parameter's internal type. GET (func=0x1F) uses a different max value (internal
+storage max) which must be calibrated via roundtrip measurement.
+
+### SET Encoding (sub=0x09) — Confirmed 2026-05-29
+
+**All effect blocks** (Delay, Reverb, Chorus, PEQ, Comp, Flanger, Phaser, Pitch, Wah, GEQ, etc.):
+
+| Parameter type | Encoding | Formula | Example |
+|---|---|---|---|
+| Continuous | normalized 0.0–1.0 | `value / display_max` | Time=350ms, max=1000 → 0.35 |
+| Bipolar | normalized ±1.0 | `value / display_max` | Feed=20%, max=100 → 0.2 |
+| Switch | raw_float | `0.0` or `1.0` | — |
+| Enum | raw_float | integer index as float | Type=3 → 3.0 |
+| Signed int | raw_float | semitone value | Shift=-2 → -2.0 |
+
+FM9 interprets bipolar normalized values as: 0.0=center, +1.0=positive max, -1.0=negative max.
 
 ### Amp / Drive (block 0x3A, 0x76)
 - Continuous params (Gain, Bass, Mid, Treble, etc.): **Normalized 0.0–1.0** (value / max) — via dedicated tools only
@@ -523,15 +539,25 @@ Only Amp/Drive use normalized 0.0–1.0 via their dedicated tools.
 - DynaCab R/Z (position/distance): **Normalized 0.0–1.0** (only Cab params that use normalized)
 - All other params: **Raw float**
 
-### All Effect Blocks (Delay, Reverb, Chorus, PEQ, Comp, Flanger, Phaser, Pitch, Wah, GEQ, etc.)
-- ALL params: **Raw float** (display values directly)
-  - Continuous: display value (e.g., Mix=50.0 for 50%, Depth=5.0)
-  - Frequency: Hz value (e.g., 2500.0 for 2500 Hz, 1100.0 for 1100 Hz)
-  - Gain/Level: dB or display value (e.g., PEQ Gain=3.0 for +3 dB)
-  - Enum/Type: integer index as float (e.g., 9.0 for type index 9)
-  - Switch: 0.0 or 1.0
+### GET Decode (func=0x1F) — Calibration Required
 
-Verified via Wireshark capture (2026-05-27) on Delay 1, Reverb 1, Chorus 1, Compressor 1, Flanger 1.
+GET returns 21-bit integers (raw 0–65534). The decode formula depends on the parameter's
+calibrated `decode_style` and `decode_max`:
+
+| decode_style | Formula | When |
+|---|---|---|
+| `"center"` | `(raw - 32767) / 32767 * decode_max` | True bipolar (Feed, Spread, Gain1/2) |
+| `"zero"` / default | `raw / 65534 * decode_max` | Continuous + pseudo-bipolar |
+| uncalibrated bipolar | `raw / 65534 * (max - min) + min` | Fallback (may be inaccurate) |
+
+**Critical**: `decode_max` often differs from `display_max`. Examples:
+- Delay Time: display_max=1000ms, decode_max=16000ms (ratio 16:1)
+- LFO Phase: display_max=57.3°, decode_max=180° (ratio π:1)
+- Reverb Gain1: display_max=1.0, decode_max=12.0 (actually ±12 dB)
+
+Use `tests/calibrate_decode.py` to measure correct decode_max values.
+
+Verified via Wireshark capture (2026-05-27) and roundtrip testing (2026-05-29).
 
 ### Pitch Block — Virtual Capo Shift (signed integer)
 

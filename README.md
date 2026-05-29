@@ -162,13 +162,13 @@ ai-tone-assistant/
 ├── tools/                 ← MCP tool definitions (by category)
 │   ├── __init__.py        ← Shared state, data loading, block resolution, encoding
 │   ├── amp_drive.py       ← Amp/Drive dedicated tools (normalized encoding)
-│   ├── generic_block.py   ← Any block (raw_float encoding, type-aware)
+│   ├── generic_block.py   ← Any block (unified normalized encoding + calibrated decode)
 │   ├── grid_routing.py    ← Grid layout + routing operations
 │   ├── preset.py          ← Scene/bypass/channel/store/name
 │   ├── lookup.py          ← Wiki reference search
 │   └── lab.py             ← RE/debug (raw sysex, snapshot, diff)
 ├── data/fm9/              ← Runtime data (JSON, committed)
-│   ├── all_params.json    ← SSOT: all blocks × all params × metadata
+│   ├── all_params.json    ← SSOT: all blocks × all params × metadata + decode calibration
 │   ├── amp_types.json     ← Amp model enum (type_id → name, 396 entries)
 │   ├── drive_types.json   ← Drive model enum (type_id → name, 86 entries)
 │   ├── effect_definitions.json ← Effect type name lists (per block category)
@@ -177,18 +177,16 @@ ai-tone-assistant/
 │   └── wiki_blocks.json   ← Block descriptions from Fractal Wiki
 ├── pipeline/              ← RE & data extraction scripts
 │   ├── parse_cache_v5.py  ← effectDefinitions cache → all_params.json
-│   ├── migrate_all_params.py ← Schema migration tool
-│   ├── pipeline_params.py ← Ghidra binary → param names
-│   ├── pipeline_effect_defs.py ← Cache strings → effect_definitions.json
-│   ├── build_wiki_data.py ← Wiki scrape → wiki_*.json
-│   ├── batch_scan.py      ← Live device param scanner
-│   ├── parse_pcap.py      ← Wireshark capture decoder
 │   └── README.md          ← Pipeline documentation
 ├── tests/
-│   └── test_roundtrip.py  ← Automated SET→GET verification (requires FM9)
+│   ├── test_roundtrip.py  ← Automated SET→GET verification (requires FM9)
+│   ├── calibrate_decode.py ← GET decode calibration (measures decode_max per param)
+│   ├── classify_failures.py ← Categorize roundtrip failures
+│   └── fix_from_failures.py ← Auto-fix all_params.json from failure patterns
 ├── docs/
 │   ├── PROTOCOL.md        ← Full SysEx protocol reference
 │   ├── REVERSE_ENGINEERING.md
+│   ├── SESSION_2026-05-29.md ← Session handoff notes
 │   └── STEERING_EXAMPLE.md
 └── LICENSE (MIT)
 ```
@@ -197,33 +195,68 @@ ai-tone-assistant/
 
 ### Single Source of Truth: `all_params.json`
 
-All parameter definitions live in one file. Schema v2:
+All parameter definitions live in one file. Schema v2 with decode calibration:
 
 ```json
 {
   "_meta": { "firmware": "11.0", "schema_version": 2 },
-  "DISTORT": {
-    "block_name": "Amp",
-    "block_id_base": 58,
-    "max_instances": 2,
-    "encoding": "normalized",
+  "DELAY": {
+    "block_name": "Delay",
+    "block_id_base": 70,
+    "max_instances": 4,
     "params": {
-      "11": {
-        "name": "DISTORT_DRIVE",
-        "display_name": "Gain",
+      "12": {
+        "name": "DELAY_TIME",
+        "display_name": "Time",
         "type": "continuous",
-        "max": 10.0,
+        "max": 1000.0,
         "min": 0,
-        "verified": true
+        "decode_max": 16030.82,
+        "decode_style": "zero"
+      },
+      "14": {
+        "name": "DELAY_FEED",
+        "display_name": "Feed",
+        "type": "bipolar",
+        "max": 100.0,
+        "min": -100.0,
+        "decode_style": "center"
       }
     }
   }
 }
 ```
 
-- **block_id_base** + instance number → actual block_id (`Amp 2` = 58 + 1 = 59)
-- **encoding**: `"normalized"` (Amp/Drive continuous params) or `"raw_float"` (everything else)
+- **block_id_base** + instance number → actual block_id (`Delay 2` = 70 + 1 = 71)
+- **decode_max**: Calibrated max for GET decode (may differ from display `max`)
+- **decode_style**: `"center"` (raw=32767 is zero, true bipolar) or `"zero"` (raw=0 is min)
 - **39 blocks, 1380 parameters** with type/max/min metadata
+
+### Encoding Rules (Confirmed 2026-05-29)
+
+**SET (sub=0x09)** — All effect blocks use unified normalized encoding:
+
+| Parameter type | Encoding | Formula |
+|---|---|---|
+| Continuous | normalized 0.0–1.0 | `value / display_max` |
+| Bipolar | normalized ±1.0 | `value / display_max` (FM9 interprets ± direction) |
+| Switch | raw_float | `0.0` or `1.0` |
+| Enum | raw_float | integer index as float |
+| Signed int | raw_float | semitone value directly |
+
+Amp/Drive continuous params also use normalized (`value / max`).
+Amp/Drive bipolar params (Level, Balance) use raw_float (display value directly).
+
+**GET (func=0x1F)** — 21-bit integer (3×7-bit packed), decode depends on calibration:
+
+| decode_style | Formula |
+|---|---|
+| `"center"` | `(raw - 32767) / 32767 * decode_max` |
+| `"zero"` or default continuous | `raw / 65534 * decode_max` |
+| uncalibrated bipolar | `raw / 65534 * (max - min) + min` |
+
+**Key insight**: SET and GET use different max values. SET uses `display_max` (from cache).
+GET uses `decode_max` (internal storage range, measured via roundtrip calibration).
 
 ### Firmware Update Workflow
 
@@ -231,20 +264,28 @@ All parameter definitions live in one file. Schema v2:
 # 1. Connect FM9 to FM9-Edit (generates new effectDefinitions cache)
 # 2. Parse cache and update all_params.json:
 python3 pipeline/parse_cache_v5.py --apply
-# Or specify cache file explicitly:
-python3 pipeline/parse_cache_v5.py --cache ~/Library/.../effectDefinitions_12_12p0.cache --apply
-# 3. Restart MCP server to pick up changes
+# 3. Re-calibrate decode parameters:
+python3 tests/calibrate_decode.py --all --apply
+# 4. Verify roundtrip:
+python3 tests/test_roundtrip.py
+# 5. Restart MCP server to pick up changes
 ```
 
-### Encoding Rules
+### Calibration Workflow
 
-| Block type | Continuous params | Bipolar params | Enum/Switch |
-|-----------|------------------|----------------|-------------|
-| Amp / Drive | normalized (value/max → 0.0-1.0) | raw_float (display value directly) | raw_float |
-| All other blocks | raw_float | raw_float | raw_float |
-| Cab DynaCab R/Z | normalized 0.0-1.0 | — | — |
+After any change to all_params.json (firmware update, cache re-parse):
 
-The tools handle encoding automatically based on block type and parameter type.
+```bash
+# Calibrate a single block:
+python3 tests/calibrate_decode.py --block "Delay 1" --apply
+
+# Calibrate all effect blocks (takes ~5 min, requires FM9 connected):
+python3 tests/calibrate_decode.py --all --apply
+```
+
+This measures the actual `decode_max` and `decode_style` for each parameter by:
+1. SET a known value → read raw from GET → compute internal storage max
+2. SET 0 → read raw → determine if center-offset (raw≈32767) or zero-based (raw≈0)
 
 ## Device Support
 
