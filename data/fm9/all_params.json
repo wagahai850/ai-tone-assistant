@@ -4335,8 +4335,8 @@
       "63": {
         "name": "REVERB_KILLDRY",
         "display_name": "Killdry",
-        "type": "continuous",
-        "max": 1.0,
+        "type": "switch",
+        "max": 1,
         "min": 0,
         "step": 1.0
       },
