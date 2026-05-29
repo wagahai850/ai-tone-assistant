@@ -457,13 +457,16 @@ def register(mcp):
                         pinfo = block_info["params"].get(pid_str, {})
                         param_type = pinfo.get("type", "continuous")
                         param_max = pinfo.get("max", 10.0)
+                        param_name = pinfo.get("name", "")
 
-                        # Common params (pid 0-2: Mix/Level/Balance) use normalized
-                        # encoding on ALL effect blocks, regardless of type field.
-                        # Confirmed via Wireshark: Delay Mix pid=0 requires 0.0-1.0.
-                        COMMON_NORMALIZED_PIDS = {0, 1, 2}
+                        # Common block params (Mix/Level/Balance) use normalized
+                        # encoding. Identified by internal name suffix.
+                        # Confirmed: DELAY_MIX, DELAY_LEVEL, DELAY_PAN,
+                        #            REVERB_MIX, REVERB_LEVEL, REVERB_PAN, etc.
+                        NORMALIZED_SUFFIXES = {"_MIX", "_LEVEL", "_PAN"}
+                        is_common_param = any(param_name.endswith(s) for s in NORMALIZED_SUFFIXES)
 
-                        if pid in COMMON_NORMALIZED_PIDS:
+                        if is_common_param and param_type not in ("enum", "switch", "signed_int"):
                             midi.set_param_value(block_id, pid, float(value), param_max)
                         elif param_type == "switch":
                             midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
