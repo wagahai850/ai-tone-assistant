@@ -458,7 +458,14 @@ def register(mcp):
                         param_type = pinfo.get("type", "continuous")
                         param_max = pinfo.get("max", 10.0)
 
-                        if param_type == "switch":
+                        # Common params (pid 0-2: Mix/Level/Balance) use normalized
+                        # encoding on ALL effect blocks, regardless of type field.
+                        # Confirmed via Wireshark: Delay Mix pid=0 requires 0.0-1.0.
+                        COMMON_NORMALIZED_PIDS = {0, 1, 2}
+
+                        if pid in COMMON_NORMALIZED_PIDS:
+                            midi.set_param_value(block_id, pid, float(value), param_max)
+                        elif param_type == "switch":
                             midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
                         elif param_type == "signed_int":
                             # Signed integer (e.g., Pitch Shift): raw float
@@ -470,7 +477,6 @@ def register(mcp):
                                                  raw_float=True)
                         elif param_max >= 20000:
                             # Frequency params: raw float (Hz value directly)
-                            # Verified via Wireshark on PEQ Freq
                             midi.set_param_value(block_id, pid, float(value), 1.0,
                                                  raw_float=True)
                         elif param_type == "bipolar":
