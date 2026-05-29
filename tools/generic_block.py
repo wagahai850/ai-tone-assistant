@@ -132,11 +132,9 @@ def register(mcp):
         try:
             ensure_connected()
             prefix, block_info = resolve_block(block)
-            block_id_str = block_info.get("block_id")
-            if not block_id_str:
+            block_id = block_info.get("_block_id_int") or block_info.get("block_id_base")
+            if not block_id:
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
-
-            block_id = int(block_id_str, 16)
 
             # Find the type_id by matching type_name in EFFECT_DEFS
             # Determine which effect_defs key to search
@@ -206,14 +204,20 @@ def register(mcp):
                 else:
                     return {"success": False, "error": f"Type '{type_name}' not found for {block_info['block_name']}."}
 
-            # Find the actual Type param_id for this block (varies per block)
-            type_pid = None
-            for pid_str, pinfo in block_info["params"].items():
-                if pinfo["display_name"] == "Type" and pinfo.get("meta", {}).get("type") == "enum":
-                    type_pid = int(pid_str)
-                    break
+            # Find the actual Type param_id for this block
+            # Known Type param_ids from PROTOCOL.md (per block category)
+            TYPE_PID_MAP = {
+                "amp": 10, "drive": 0, "delay": 11, "reverb": 10,
+                "chorus": 0, "flanger": 0, "phaser": 0, "pitch": 0,
+                "wah": 0, "tremolo/panner": 0, "tremolo": 0,
+                "compressor": 12, "graphic eq": 15, "enhancer": 6,
+                "volume/pan": 9, "megatap delay": 28, "ring modulator": 10,
+                "ten-tap delay": 0, "filter": 0, "synth": 0,
+                "plex delay": 0, "multitap delay": 0,
+            }
+            type_pid = TYPE_PID_MAP.get(base_name)
             if type_pid is None:
-                type_pid = 0x0A  # Fallback to legacy default
+                return {"success": False, "error": f"No Type param_id known for block '{base_name}'. Add it to TYPE_PID_MAP."}
 
             # Send type change as raw_float (same encoding as PEQ/Cab enum params)
             midi.set_param_value(block_id, type_pid, float(type_id), 1.0, raw_float=True)
@@ -256,10 +260,9 @@ def register(mcp):
             msb = combined[offset + 2]
             raw_val = lo | (hi << 7) | (msb << 14)
 
-            meta = pinfo.get("meta", {})
-            param_type = meta.get("type", "continuous")
-            param_max = meta.get("max", 10.0)
-            param_min = meta.get("min", 0)
+            param_type = pinfo.get("type", "continuous")
+            param_max = pinfo.get("max", 10.0)
+            param_min = pinfo.get("min", 0)
 
             # Calculate display value based on type
             if param_type == "switch":
@@ -318,11 +321,9 @@ def register(mcp):
         try:
             ensure_connected()
             prefix, block_info = resolve_block(block)
-            block_id_str = block_info.get("block_id")
-            if not block_id_str:
+            block_id = block_info.get("_block_id_int") or block_info.get("block_id_base")
+            if not block_id:
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
-
-            block_id = int(block_id_str, 16)
 
             # Get current channel from status dump
             status = midi.get_status_dump()
@@ -340,7 +341,7 @@ def register(mcp):
             return {
                 "success": True,
                 "block": block_info["block_name"],
-                "block_id": block_id_str,
+                "block_id": f"0x{block_id:02X}",
                 "channel": channel_names.get(current_channel, "A"),
                 "param_count": len(params),
                 "params": params,
@@ -376,11 +377,9 @@ def register(mcp):
         try:
             ensure_connected()
             prefix, block_info = resolve_block(block)
-            block_id_str = block_info.get("block_id")
-            if not block_id_str:
+            block_id = block_info.get("_block_id_int") or block_info.get("block_id_base")
+            if not block_id:
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
-
-            block_id = int(block_id_str, 16)
 
             # Cab blocks have mixed encoding:
             # - Frequency params (Hz), Mode, Mute: raw float via set_param_value
@@ -442,9 +441,8 @@ def register(mcp):
                         # Look up param metadata for encoding
                         pid_str = str(pid)
                         pinfo = block_info["params"].get(pid_str, {})
-                        meta = pinfo.get("meta", {})
-                        param_type = meta.get("type", "continuous")
-                        param_max = meta.get("max", 10.0)
+                        param_type = pinfo.get("type", "continuous")
+                        param_max = pinfo.get("max", 10.0)
 
                         if param_type == "switch":
                             midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
@@ -457,9 +455,8 @@ def register(mcp):
                         # Effect blocks: encoding depends on parameter type
                         pid_str = str(pid)
                         pinfo = block_info["params"].get(pid_str, {})
-                        meta = pinfo.get("meta", {})
-                        param_type = meta.get("type", "continuous")
-                        param_max = meta.get("max", 10.0)
+                        param_type = pinfo.get("type", "continuous")
+                        param_max = pinfo.get("max", 10.0)
 
                         if param_type == "switch":
                             midi.set_param_value(block_id, pid, 1.0 if value else 0.0, 1.0)
@@ -503,7 +500,7 @@ def register(mcp):
                 return {
                     "success": True,
                     "block": block_info["block_name"],
-                    "block_id": block_id_str,
+                    "block_id": f"0x{block_id:02X}",
                     "channel": channel_names.get(current_channel, "A"),
                     "changes": changes,
                     "params": actual_params,
@@ -512,7 +509,7 @@ def register(mcp):
                 return {
                     "success": True,
                     "block": block_info["block_name"],
-                    "block_id": block_id_str,
+                    "block_id": f"0x{block_id:02X}",
                     "changes": changes,
                     "note": "Read-back failed; values were sent but could not be verified.",
                 }
@@ -537,18 +534,19 @@ def register(mcp):
                     "display_name": pinfo["display_name"],
                     "internal_name": pinfo["name"],
                 }
-                meta = pinfo.get("meta")
-                if meta:
-                    entry["type"] = meta.get("type", "unknown")
-                    entry["min"] = meta.get("min", 0)
-                    entry["max"] = meta.get("max", 10.0)
-                    entry["verified"] = meta.get("verified", False)
+                # Schema v2: type/min/max are direct fields (no "meta" wrapper)
+                if "type" in pinfo:
+                    entry["type"] = pinfo["type"]
+                    entry["min"] = pinfo.get("min", 0)
+                    entry["max"] = pinfo.get("max", 10.0)
+                    entry["verified"] = pinfo.get("verified", False)
                 params_list.append(entry)
 
+            block_id_int = block_info.get("_block_id_int", block_info.get("block_id_base"))
             return {
                 "success": True,
                 "block": block_info["block_name"],
-                "block_id": block_info.get("block_id"),
+                "block_id": f"0x{block_id_int:02X}" if block_id_int else None,
                 "param_count": len(params_list),
                 "params": params_list,
             }

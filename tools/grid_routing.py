@@ -2,64 +2,44 @@
 
 from typing import Any
 
-from tools import BLOCKS, midi, ensure_connected
+from tools import BLOCK_ID_TO_NAME, BLOCK_NAME_TO_ID, midi, ensure_connected
 
 
 # Known block types for add_block (user-friendly names)
-BLOCK_TYPE_MAP = {
-    "Input 1": 0x25, "Input1": 0x25,
-    "Output 1": 0x2A, "Output1": 0x2A,
-    "Amp 1": 0x3A, "Amp1": 0x3A,
-    "Amp 2": 0x3B, "Amp2": 0x3B,
-    "Cab 1": 0x3E, "Cab1": 0x3E,
-    "Cab 2": 0x3F, "Cab2": 0x3F,
-    "Drive 1": 0x76, "Drive1": 0x76,
-    "Drive 2": 0x77, "Drive2": 0x77,
-    "Delay 1": 0x46, "Delay1": 0x46,
-    "Delay 2": 0x47, "Delay2": 0x47,
-    "Reverb 1": 0x42, "Reverb1": 0x42,
-    "Reverb 2": 0x43, "Reverb2": 0x43,
-    "Chorus 1": 0x4E, "Chorus1": 0x4E,
-    "Chorus 2": 0x4F, "Chorus2": 0x4F,
-    "Compressor 1": 0x2E, "Comp1": 0x2E, "Comp 1": 0x2E,
-    "Compressor 2": 0x2F, "Comp2": 0x2F, "Comp 2": 0x2F,
-    "Graphic EQ 1": 0x32, "GEQ": 0x32, "GEQ 1": 0x32,
-    "Graphic EQ 2": 0x33, "GEQ 2": 0x33,
-    "Parametric EQ 1": 0x36, "PEQ": 0x36, "PEQ 1": 0x36,
-    "Parametric EQ 2": 0x37, "PEQ 2": 0x37,
-    "Gate 1": 0x92, "Gate1": 0x92, "Gate/Expander 1": 0x92,
-    "Gate 2": 0x93, "Gate2": 0x93, "Gate/Expander 2": 0x93,
-    "Flanger 1": 0x52, "Flanger1": 0x52,
-    "Flanger 2": 0x53, "Flanger2": 0x53,
-    "Phaser 1": 0x5A, "Phaser1": 0x5A,
-    "Phaser 2": 0x5B, "Phaser2": 0x5B,
-    "Wah 1": 0x5E, "Wah1": 0x5E,
-    "Wah 2": 0x5F, "Wah2": 0x5F,
-    "Pitch 1": 0x6E, "Pitch1": 0x6E,
-    "Pitch 2": 0x6F, "Pitch2": 0x6F,
-    "Multitap Delay 1": 0x4A, "Multitap1": 0x4A, "Multitap 1": 0x4A,
-    "Multitap Delay 2": 0x4B, "Multitap2": 0x4B, "Multitap 2": 0x4B,
-    "Enhancer 1": 0x7A, "Enhancer": 0x7A,
-    "Enhancer 2": 0x7B,
-    "Tremolo 1": 0x6A, "Tremolo1": 0x6A, "Tremolo/Panner 1": 0x6A,
-    "Tremolo 2": 0x6B, "Tremolo2": 0x6B, "Tremolo/Panner 2": 0x6B,
-    "Rotary 1": 0x56, "Rotary1": 0x56,
-    "Rotary 2": 0x57, "Rotary2": 0x57,
-    "Filter 1": 0x72, "Filter1": 0x72,
-    "Filter 2": 0x73, "Filter2": 0x73,
-    "Formant 1": 0x62, "Formant1": 0x62,
-    "Formant 2": 0x63, "Formant2": 0x63,
-    "Volume/Pan 1": 0x66, "Vol/Pan 1": 0x66,
-    "Volume/Pan 2": 0x67, "Vol/Pan 2": 0x67,
-    "Synth 1": 0x82, "Synth1": 0x82,
-    "Synth 2": 0x83, "Synth2": 0x83,
-    "Megatap Delay 1": 0x8A, "Megatap 1": 0x8A,
-    "Megatap Delay 2": 0x8B, "Megatap 2": 0x8B,
-    "Plex Delay 1": 0xB2, "Plex 1": 0xB2,
-    "Plex Delay 2": 0xB3, "Plex 2": 0xB3,
-    "Ring Modulator": 0x96, "Ring Mod": 0x96,
-    "Looper": 0xA6,
+# Built from BLOCK_NAME_TO_ID plus common aliases
+BLOCK_TYPE_MAP: dict[str, int] = {}
+
+# Populate from the canonical BLOCK_NAME_TO_ID map
+for name, bid in BLOCK_NAME_TO_ID.items():
+    BLOCK_TYPE_MAP[name] = bid
+    # Add no-space alias (e.g., "Amp1" for "Amp 1")
+    no_space = name.replace(" ", "")
+    if no_space != name:
+        BLOCK_TYPE_MAP[no_space] = bid
+
+# Add common short aliases
+_ALIASES = {
+    "Comp 1": "Compressor 1", "Comp 2": "Compressor 2",
+    "Comp 3": "Compressor 3", "Comp 4": "Compressor 4",
+    "Comp1": "Compressor 1", "Comp2": "Compressor 2",
+    "GEQ": "Graphic EQ 1", "GEQ 1": "Graphic EQ 1", "GEQ 2": "Graphic EQ 2",
+    "PEQ": "Parametric EQ 1", "PEQ 1": "Parametric EQ 1", "PEQ 2": "Parametric EQ 2",
+    "Gate 1": "Gate/Expander 1", "Gate 2": "Gate/Expander 2",
+    "Gate1": "Gate/Expander 1", "Gate2": "Gate/Expander 2",
+    "Gate/Expander 1": "Gate/Expander 1", "Gate/Expander 2": "Gate/Expander 2",
+    "Multitap 1": "Multitap Delay 1", "Multitap 2": "Multitap Delay 2",
+    "Multitap1": "Multitap Delay 1", "Multitap2": "Multitap Delay 2",
+    "Megatap 1": "Megatap Delay 1", "Megatap 2": "Megatap Delay 2",
+    "Plex 1": "Plex Delay 1", "Plex 2": "Plex Delay 2",
+    "Vol/Pan 1": "Volume/Pan 1", "Vol/Pan 2": "Volume/Pan 2",
+    "Ring Mod": "Ring Modulator 1",
+    "Enhancer": "Enhancer 1",
+    "Looper": "Looper 1",
+    "Filter 1": "Filter 1", "Filter 2": "Filter 2",
 }
+for alias, canonical in _ALIASES.items():
+    if canonical in BLOCK_NAME_TO_ID:
+        BLOCK_TYPE_MAP[alias] = BLOCK_NAME_TO_ID[canonical]
 
 
 def register(mcp):
@@ -225,7 +205,6 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    @mcp.tool()
     def fm9_disconnect_blocks(row: int, col: int, to_row: int = 0, to_col: int = 0) -> dict[str, Any]:
         """Disconnect (remove cable from) the block at the given position.
 
@@ -285,10 +264,6 @@ def register(mcp):
                     low7 = eid & 0x7F
                     high_id_lookup[low7] = eid
 
-            known_blocks = {v["block_id_int"]: name for name, v in BLOCKS.items()}
-            known_blocks[0x25] = "Input 1"
-            known_blocks[0x2A] = "Output 1"
-
             grid = [[0] * 14 for _ in range(5)]
             block_map = {}
 
@@ -310,7 +285,7 @@ def register(mcp):
                             cable_from.append(r + 1)
 
                     if bid != 0 or cable_from or is_shunt:
-                        name = known_blocks.get(bid, f"Block 0x{bid:02X}") if bid != 0 else "shunt"
+                        name = BLOCK_ID_TO_NAME.get(bid, f"Block 0x{bid:02X}") if bid != 0 else "shunt"
                         entry = {
                             "block_id": f"0x{bid:02X}" if bid != 0 else "0x00",
                             "name": name,
@@ -354,10 +329,6 @@ def register(mcp):
                 if eid > 0x7F:
                     high_id_lookup[eid & 0x7F] = eid
 
-            known_blocks = {v["block_id_int"]: name for name, v in BLOCKS.items()}
-            known_blocks[0x25] = "Input 1"
-            known_blocks[0x2A] = "Output 1"
-
             # Parse grid into cells with metadata
             cells = {}  # (row, col) -> {bid, is_shunt, cable_from_rows}
             for row in range(5):
@@ -384,17 +355,14 @@ def register(mcp):
                             "cable_from_rows": cable_from_rows,
                         }
 
-            # Build graph: trace cables through shunts to find real block connections
-            # For each real block that has cable inputs, trace backwards through shunts
-            # to find the source real block.
-
+            # Build graph: real blocks and trace connections through shunts
             real_blocks = {}  # (row, col) -> block_name
             for (row, col), info in cells.items():
                 if not info["is_shunt"] and info["bid"] != 0:
-                    name = known_blocks.get(info["bid"], f"Block 0x{info['bid']:02X}")
+                    name = BLOCK_ID_TO_NAME.get(info["bid"], f"Block 0x{info['bid']:02X}")
                     real_blocks[(row, col)] = name
 
-            # Create node IDs from block names (lowercase, no spaces)
+            # Create node IDs from block names
             node_ids = {}  # (row, col) -> node_id
             name_counts = {}
             for (row, col), name in real_blocks.items():
@@ -480,15 +448,8 @@ def register(mcp):
         try:
             ensure_connected()
 
-            # Validate block types
-            all_block_types = {v["block_id_int"]: name for name, v in BLOCKS.items()}
-            all_block_types[0x25] = "Input 1"
-            all_block_types[0x2A] = "Output 1"
-            name_to_id = {name: bid for bid, name in all_block_types.items()}
-            # Also check BLOCK_TYPE_MAP for aliases
-            for alias, bid in BLOCK_TYPE_MAP.items():
-                if alias not in name_to_id:
-                    name_to_id[alias] = bid
+            # Validate block types using BLOCK_TYPE_MAP (includes aliases)
+            name_to_id = dict(BLOCK_TYPE_MAP)
 
             for node_id, block_type in blocks.items():
                 if block_type not in name_to_id:
@@ -502,7 +463,6 @@ def register(mcp):
                     return {"success": False, "error": f"Connection target '{conn[1]}' not in blocks."}
 
             # Compute layout: topological sort → column assignment
-            # Build adjacency
             from collections import defaultdict, deque
             successors = defaultdict(list)
             predecessors = defaultdict(list)
@@ -531,8 +491,6 @@ def register(mcp):
                         queue.append(succ)
 
             # Assign rows: handle parallel paths (split → merge)
-            # Strategy: shortest branch stays on main row (shunts fill gaps),
-            # longer branches with intermediate blocks go to offset rows.
             split_points = [n for n in blocks if len(successors.get(n, [])) > 1]
             merge_points = set(n for n in blocks if len(predecessors.get(n, [])) > 1)
 
@@ -609,14 +567,12 @@ def register(mcp):
             _time.sleep(1.5)
 
             # Phase 3: Connect cables (paced)
-            # Track shunt index locally (no grid query needed — we just cleared everything)
             next_shunt_idx = 0
 
             for src, dst in connections:
                 src_row, src_col = layout[src]
                 dst_row, dst_col = layout[dst]
                 if src_col < dst_col:
-                    # Use inline connection logic (avoid connect_blocks which queries grid)
                     if src_row == dst_row:
                         # Same-row: place shunts in intermediate columns
                         for col in range(src_col + 1, dst_col):

@@ -3,11 +3,24 @@
 from typing import Any
 
 from tools import (
-    AMP_TYPES, DRIVE_TYPES, AMP_PARAMS, DRIVE_PARAMS,
-    AMP_NAME_TO_ID, DRIVE_NAME_TO_ID, AMP1_BLOCK_ID, DRIVE1_BLOCK_ID,
+    ALL_PARAMS, AMP_TYPES, DRIVE_TYPES,
+    AMP_NAME_TO_ID, DRIVE_NAME_TO_ID, AMP_BLOCK_ID_BASE, DRIVE_BLOCK_ID_BASE,
     midi, ensure_connected, recalc_checksum,
     decode_param, decode_bipolar, decode_switch,
 )
+
+# --- Param lookup helpers ---
+# Old schema keyed params by display_name (e.g., "Gain": {...}).
+# New schema keys by param_id (e.g., "11": {"display_name": "Gain", ...}).
+# Build display_name → param_info dicts for Amp and Drive.
+
+_AMP_PARAMS_BY_NAME: dict[str, dict] = {}
+for pid_str, pinfo in ALL_PARAMS["DISTORT"]["params"].items():
+    _AMP_PARAMS_BY_NAME[pinfo["display_name"]] = {**pinfo, "param_id": int(pid_str)}
+
+_DRIVE_PARAMS_BY_NAME: dict[str, dict] = {}
+for pid_str, pinfo in ALL_PARAMS["FUZZ"]["params"].items():
+    _DRIVE_PARAMS_BY_NAME[pinfo["display_name"]] = {**pinfo, "param_id": int(pid_str)}
 
 
 def register(mcp):
@@ -83,7 +96,7 @@ def register(mcp):
                 else:
                     return {"success": False, "error": f"Amp model '{name}' not found."}
 
-            midi.set_amp_type(type_id, AMP1_BLOCK_ID)
+            midi.set_amp_type(type_id, AMP_BLOCK_ID_BASE)
             return {"success": True, "model": name, "type_id": type_id}
         except Exception as e:
             return {"success": False, "error": str(e)}
@@ -120,7 +133,7 @@ def register(mcp):
                 else:
                     return {"success": False, "error": f"Drive model '{name}' not found."}
 
-            chunks = midi.get_block_data(DRIVE1_BLOCK_ID)
+            chunks = midi.get_block_data(DRIVE_BLOCK_ID_BASE)
             if not chunks:
                 return {"success": False, "error": "Failed to get Drive 1 block data."}
 
@@ -128,7 +141,7 @@ def register(mcp):
             chunks[0][7], chunks[0][8], chunks[0][9] = encoded
             chunks[0] = recalc_checksum(chunks[0])
 
-            midi.put_block_data(DRIVE1_BLOCK_ID, chunks)
+            midi.put_block_data(DRIVE_BLOCK_ID_BASE, chunks)
             return {"success": True, "model": name, "type_id": type_id}
         except Exception as e:
             return {"success": False, "error": str(e)}
@@ -146,10 +159,10 @@ def register(mcp):
             # Get current channel from status dump
             status = midi.get_status_dump()
             current_channel = 0
-            if AMP1_BLOCK_ID in status:
-                current_channel = status[AMP1_BLOCK_ID].get("channel", 0)
+            if AMP_BLOCK_ID_BASE in status:
+                current_channel = status[AMP_BLOCK_ID_BASE].get("channel", 0)
 
-            chunks = midi.get_block_data(AMP1_BLOCK_ID)
+            chunks = midi.get_block_data(AMP_BLOCK_ID_BASE)
             if not chunks:
                 return {"success": False, "error": "Failed to get Amp 1 block data."}
 
@@ -163,21 +176,23 @@ def register(mcp):
             channel_offset = current_channel * channel_stride
 
             params = {}
-            for name, info in AMP_PARAMS["params"].items():
+            for display_name, info in _AMP_PARAMS_BY_NAME.items():
                 if info["type"] == "enum":
                     continue
-                start, end = info["offset"]
+                pid = info["param_id"]
+                # Compute offset from param_id: header(7) + pid * 3
+                start = 7 + pid * 3
                 actual_start = start + channel_offset
                 if actual_start + 2 >= len(combined):
                     continue
                 lo, hi, msb = combined[actual_start], combined[actual_start + 1], combined[actual_start + 2]
 
                 if info["type"] == "switch":
-                    params[name] = decode_switch(lo, hi, msb)
+                    params[display_name] = decode_switch(lo, hi, msb)
                 elif info["type"] == "bipolar":
-                    params[name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
+                    params[display_name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
                 else:
-                    params[name] = decode_param(lo, hi, msb, info["max"])
+                    params[display_name] = decode_param(lo, hi, msb, info["max"])
 
             channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
             return {"success": True, "block": "Amp 1", "channel": channel_names.get(current_channel, "A"), "params": params}
@@ -208,7 +223,7 @@ def register(mcp):
         try:
             ensure_connected()
 
-            valid_params = {k: v for k, v in AMP_PARAMS["params"].items()
+            valid_params = {k: v for k, v in _AMP_PARAMS_BY_NAME.items()
                            if v["type"] != "enum"}
             for key in params:
                 if key not in valid_params:
@@ -224,12 +239,12 @@ def register(mcp):
                 max_val = info["max"]
 
                 if info["type"] == "switch":
-                    midi.set_param_value(AMP1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
+                    midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
                     # Bipolar params use raw_float (display value sent directly)
-                    midi.set_param_value(AMP1_BLOCK_ID, param_id, float(value), 1.0, raw_float=True)
+                    midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
                 else:
-                    midi.set_param_value(AMP1_BLOCK_ID, param_id, float(value), max_val)
+                    midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), max_val)
 
                 changes[name] = value
 
@@ -256,10 +271,10 @@ def register(mcp):
             # Get current channel from status dump
             status = midi.get_status_dump()
             current_channel = 0
-            if DRIVE1_BLOCK_ID in status:
-                current_channel = status[DRIVE1_BLOCK_ID].get("channel", 0)
+            if DRIVE_BLOCK_ID_BASE in status:
+                current_channel = status[DRIVE_BLOCK_ID_BASE].get("channel", 0)
 
-            chunks = midi.get_block_data(DRIVE1_BLOCK_ID)
+            chunks = midi.get_block_data(DRIVE_BLOCK_ID_BASE)
             if not chunks:
                 return {"success": False, "error": "Failed to get Drive 1 block data."}
 
@@ -273,21 +288,23 @@ def register(mcp):
             channel_offset = current_channel * channel_stride
 
             params = {}
-            for name, info in DRIVE_PARAMS["params"].items():
+            for display_name, info in _DRIVE_PARAMS_BY_NAME.items():
                 if info["type"] == "enum":
                     continue
-                start = info["offset"][0]
+                pid = info["param_id"]
+                # Compute offset from param_id: header(7) + pid * 3
+                start = 7 + pid * 3
                 actual_start = start + channel_offset
                 if actual_start + 2 >= len(combined):
                     continue
                 lo, hi, msb = combined[actual_start], combined[actual_start + 1], combined[actual_start + 2]
 
                 if info["type"] == "switch":
-                    params[name] = decode_switch(lo, hi, msb)
+                    params[display_name] = decode_switch(lo, hi, msb)
                 elif info["type"] == "bipolar":
-                    params[name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
+                    params[display_name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
                 else:
-                    params[name] = decode_param(lo, hi, msb, info["max"])
+                    params[display_name] = decode_param(lo, hi, msb, info["max"])
 
             channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
             return {"success": True, "block": "Drive 1", "channel": channel_names.get(current_channel, "A"), "params": params}
@@ -314,7 +331,7 @@ def register(mcp):
         try:
             ensure_connected()
 
-            valid_params = {k: v for k, v in DRIVE_PARAMS["params"].items()
+            valid_params = {k: v for k, v in _DRIVE_PARAMS_BY_NAME.items()
                            if v["type"] != "enum"}
             for key in params:
                 if key not in valid_params:
@@ -330,12 +347,12 @@ def register(mcp):
                 max_val = info["max"]
 
                 if info["type"] == "switch":
-                    midi.set_param_value(DRIVE1_BLOCK_ID, param_id, 1.0 if value else 0.0, 1.0)
+                    midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
                     # Bipolar params use raw_float (display value sent directly)
-                    midi.set_param_value(DRIVE1_BLOCK_ID, param_id, float(value), 1.0, raw_float=True)
+                    midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
                 else:
-                    midi.set_param_value(DRIVE1_BLOCK_ID, param_id, float(value), max_val)
+                    midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), max_val)
 
                 changes[name] = value
 

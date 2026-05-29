@@ -2,7 +2,7 @@
 
 from typing import Any
 
-from tools import BLOCKS, DEVICE, midi, ensure_connected, resolve_block_id
+from tools import BLOCK_ID_TO_NAME, DEVICE, midi, ensure_connected, resolve_block_id
 
 
 def register(mcp):
@@ -17,10 +17,9 @@ def register(mcp):
         try:
             ensure_connected()
             status = midi.get_status_dump()
-            known_blocks = {v["block_id_int"]: name for name, v in BLOCKS.items()}
             named_status = {}
             for eid, info in status.items():
-                name = known_blocks.get(eid, f"Block 0x{eid:02X}")
+                name = BLOCK_ID_TO_NAME.get(eid, f"Block 0x{eid:02X}")
                 named_status[name] = {
                     "effect_id": eid,
                     "bypassed": info["bypass"],

@@ -41,7 +41,7 @@ A guitarist shouldn't need to be a sound engineer, a mix engineer, AND a Fractal
 │       ↓ MCP tool call              │
 ├─────────── MCP Protocol ───────────┤
 │  FM9 Tone Assistant (Python)       │
-│  ├── Parameter maps (JSON)         │
+│  ├── all_params.json (SSOT)        │
 │  ├── Amp/Drive model database      │
 │  └── USB MIDI SysEx engine         │
 │       ↓                            │
@@ -51,7 +51,7 @@ A guitarist shouldn't need to be a sound engineer, a mix engineer, AND a Fractal
 
 The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wireshark USB captures of the FM9 Editor communication. No official documentation exists for most of these commands.
 
-## Available MCP Tools
+## Available MCP Tools (38 total)
 
 ### Core Control
 | Tool | Description |
@@ -66,33 +66,27 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_set_scene` | Switch scene (1-8) |
 | `fm9_set_bypass` | Bypass/engage any effect block |
 | `fm9_set_channel` | Switch block channel (A/B/C/D) |
-| `fm9_set_cab_ir` | Select cabinet IR (bank + index, supports Factory/Legacy/User) |
+| `fm9_set_cab_ir` | Select cabinet IR (bank + index) |
 
-### Generic Block Control (all 40 blocks)
+### Generic Block Control (all effect blocks)
 | Tool | Description |
 |------|-------------|
-| `fm9_get_block_params` | Read parameters for any block (display values with type info) |
-| `fm9_set_block_params` | Set parameters on any block (display values directly) |
+| `fm9_get_block_params` | Read parameters for any block |
+| `fm9_set_block_params` | Set parameters on any block |
 | `fm9_list_block_params` | List parameter names/IDs/type/min/max for a block |
 | `fm9_list_effect_types` | List available types/models for a block category |
 | `fm9_set_effect_type` | Change effect type/model for any block |
 
-### Reference / Lookup
-| Tool | Description |
-|------|-------------|
-| `fm9_lookup_model_info` | Search amp/drive model info (based-on, cab, notes) |
-| `fm9_lookup_block_info` | Query type-specific valid parameters |
-
 ### Grid / Routing
 | Tool | Description |
 |------|-------------|
-| `fm9_add_block` | Add effect block to grid (upsert — replaces existing) |
+| `fm9_add_block` | Add effect block to grid (upsert) |
 | `fm9_delete_block` | Remove block from grid |
 | `fm9_move_block` | Move block to different position |
-| `fm9_connect_blocks` | Connect blocks with cable (auto-shunt, cross-row supported) |
-| `fm9_disconnect_blocks` | Remove cable connection (same-row or cross-row) |
+| `fm9_connect_blocks` | Connect blocks with cable (auto-shunt, cross-row) |
+| `fm9_disconnect_blocks` | Remove cable connection |
 | `fm9_read_grid` | Read full grid layout with cable info |
-| `fm9_read_graph` | Read preset as signal-flow graph (blocks + connections) |
+| `fm9_read_graph` | Read preset as signal-flow graph |
 | `fm9_apply_graph` | Build preset from graph (declarative, auto-layout) |
 
 ### Preset Management
@@ -104,6 +98,22 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_set_scene_name` | Set scene name (1-8) |
 | `fm9_list_amp_types` | Search amp models |
 | `fm9_list_drive_types` | Search drive models |
+
+### Reference / Lookup
+| Tool | Description |
+|------|-------------|
+| `fm9_lookup_model_info` | Search amp/drive model info (based-on, cab, notes) |
+| `fm9_lookup_block_info` | Query effect block wiki info |
+
+### Lab / RE (diagnostic)
+| Tool | Description |
+|------|-------------|
+| `fm9_get_block_data` | Raw block data dump |
+| `fm9_read_param_raw` | Read raw 3-byte param value |
+| `fm9_dump_block_full` | Full chunk dump |
+| `fm9_send_raw_sysex` | Send arbitrary SysEx |
+| `fm9_snapshot_block` | Snapshot block state for diffing |
+| `fm9_diff_block` | Compare two snapshots |
 
 ## Requirements
 
@@ -136,82 +146,129 @@ Add to your MCP client configuration:
 
 MCP gives the AI *hands* (tool access), but a **steering file** gives it *expertise* — domain knowledge about tone design workflow, parameter relationships, and how to interpret your feedback.
 
-Without steering, the AI has tools but no methodology. It might set random parameters or skip research. With steering, it follows a structured workflow: research the target tone → propose amp/cab/drive → get your feedback → refine iteratively.
-
-An example steering file is included at [`docs/STEERING_EXAMPLE.md`](docs/STEERING_EXAMPLE.md). It covers:
-
-- **Role division** — You judge by ear, AI handles the engineering
-- **Research-first workflow** — AI looks up actual recording gear before guessing
-- **Phase-based construction** — Core tone → Post-production → Spatial (in that order)
-- **Feedback vocabulary** — How "too harsh" maps to specific parameter changes
-- **Block-specific rules** — Cab DynaCab setup, PEQ value ranges, Scene configuration
+An example steering file is included at [`docs/STEERING_EXAMPLE.md`](docs/STEERING_EXAMPLE.md).
 
 How to use it depends on your AI client:
 - **Kiro**: Place in `.kiro/steering/` directory (auto-loaded every session)
 - **Claude Desktop**: Include in your system prompt or project instructions
 - **Other MCP clients**: Consult your client's documentation for context/instruction configuration
 
-### Project Structure
+## Project Structure
 
 ```
 ai-tone-assistant/
-├── server.py          ← Entry point (thin: MCP init + tool registration)
-├── fm9_midi.py        ← MIDI communication layer (SysEx engine)
-├── tools/             ← MCP tool definitions (by category)
-│   ├── __init__.py    ← Shared state, data loading, encoding helpers
-│   ├── amp_drive.py   ← Amp/Drive (display-value scaling)
-│   ├── generic_block.py ← Any block (display values, auto-encoding)
-│   ├── grid_routing.py  ← Grid layout operations
-│   ├── preset.py      ← Scene/bypass/channel/store/name
-│   ├── lookup.py      ← Wiki reference search
-│   └── lab.py         ← RE/debug (raw sysex, snapshot, diff)
-├── data/fm9/          ← Runtime data (JSON, committed)
-│   ├── amp_types.json, drive_types.json
-│   ├── amp_params.json, drive_params.json
-│   ├── blocks.json, all_params.json (with meta: type/min/max)
-│   ├── effect_definitions.json
-│   ├── wiki_models.json, wiki_blocks.json
-│   └── type_valid_params.json
-├── docs/              ← Protocol documentation
-│   ├── PROTOCOL.md
-│   └── REVERSE_ENGINEERING.md
-├── pipeline/          ← RE scripts (.gitignore'd)
-├── README.md
-└── LICENSE
+├── server.py              ← Entry point (MCP init + tool registration)
+├── fractal_midi.py        ← MIDI communication layer (SysEx engine)
+├── tools/                 ← MCP tool definitions (by category)
+│   ├── __init__.py        ← Shared state, data loading, block resolution, encoding
+│   ├── amp_drive.py       ← Amp/Drive dedicated tools (normalized encoding)
+│   ├── generic_block.py   ← Any block (raw_float encoding, type-aware)
+│   ├── grid_routing.py    ← Grid layout + routing operations
+│   ├── preset.py          ← Scene/bypass/channel/store/name
+│   ├── lookup.py          ← Wiki reference search
+│   └── lab.py             ← RE/debug (raw sysex, snapshot, diff)
+├── data/fm9/              ← Runtime data (JSON, committed)
+│   ├── all_params.json    ← SSOT: all blocks × all params × metadata
+│   ├── amp_types.json     ← Amp model enum (type_id → name, 396 entries)
+│   ├── drive_types.json   ← Drive model enum (type_id → name, 86 entries)
+│   ├── effect_definitions.json ← Effect type name lists (per block category)
+│   ├── type_valid_params.json  ← Amp Type-specific valid params (from XML)
+│   ├── wiki_models.json   ← "Based on" info from Fractal Wiki
+│   └── wiki_blocks.json   ← Block descriptions from Fractal Wiki
+├── pipeline/              ← RE & data extraction scripts
+│   ├── parse_cache_v5.py  ← effectDefinitions cache → all_params.json
+│   ├── migrate_all_params.py ← Schema migration tool
+│   ├── pipeline_params.py ← Ghidra binary → param names
+│   ├── pipeline_effect_defs.py ← Cache strings → effect_definitions.json
+│   ├── build_wiki_data.py ← Wiki scrape → wiki_*.json
+│   ├── batch_scan.py      ← Live device param scanner
+│   ├── parse_pcap.py      ← Wireshark capture decoder
+│   └── README.md          ← Pipeline documentation
+├── tests/
+│   └── test_roundtrip.py  ← Automated SET→GET verification (requires FM9)
+├── docs/
+│   ├── PROTOCOL.md        ← Full SysEx protocol reference
+│   ├── REVERSE_ENGINEERING.md
+│   └── STEERING_EXAMPLE.md
+└── LICENSE (MIT)
 ```
 
-### Device Selection
+## Data Architecture
 
-| `--device` | Hardware |
-|------------|----------|
-| `fm9` (default) | Fractal Audio FM9 |
-| `axe3` | Fractal Audio Axe-Fx III |
-| `fm3` | Fractal Audio FM3 |
+### Single Source of Truth: `all_params.json`
 
-MIDI port names are auto-detected. If detection fails, the server will print available ports and exit.
+All parameter definitions live in one file. Schema v2:
 
-## Supported Devices
+```json
+{
+  "_meta": { "firmware": "11.0", "schema_version": 2 },
+  "DISTORT": {
+    "block_name": "Amp",
+    "block_id_base": 58,
+    "max_instances": 2,
+    "encoding": "normalized",
+    "params": {
+      "11": {
+        "name": "DISTORT_DRIVE",
+        "display_name": "Gain",
+        "type": "continuous",
+        "max": 10.0,
+        "min": 0,
+        "verified": true
+      }
+    }
+  }
+}
+```
 
-| Device | Status |
-|--------|--------|
-| FM9 | ✅ Fully tested |
-| Axe-Fx III | ✅ Supported (same protocol, different model_id) |
-| FM3 | 🔄 Should work (untested) |
+- **block_id_base** + instance number → actual block_id (`Amp 2` = 58 + 1 = 59)
+- **encoding**: `"normalized"` (Amp/Drive continuous params) or `"raw_float"` (everything else)
+- **39 blocks, 1380 parameters** with type/max/min metadata
+
+### Firmware Update Workflow
+
+```bash
+# 1. Connect FM9 to FM9-Edit (generates new effectDefinitions cache)
+# 2. Parse cache and update all_params.json:
+python3 pipeline/parse_cache_v5.py --apply
+# Or specify cache file explicitly:
+python3 pipeline/parse_cache_v5.py --cache ~/Library/.../effectDefinitions_12_12p0.cache --apply
+# 3. Restart MCP server to pick up changes
+```
+
+### Encoding Rules
+
+| Block type | Continuous params | Bipolar params | Enum/Switch |
+|-----------|------------------|----------------|-------------|
+| Amp / Drive | normalized (value/max → 0.0-1.0) | raw_float (display value directly) | raw_float |
+| All other blocks | raw_float | raw_float | raw_float |
+| Cab DynaCab R/Z | normalized 0.0-1.0 | — | — |
+
+The tools handle encoding automatically based on block type and parameter type.
+
+## Device Support
+
+| Device | `--device` flag | Status |
+|--------|----------------|--------|
+| FM9 | `fm9` (default) | ✅ Fully tested |
+| Axe-Fx III | `axe3` | ✅ Supported (same protocol) |
+| FM3 | `fm3` | 🔄 Should work (untested) |
 
 ## Protocol Documentation
 
-The reverse-engineered FM9 USB MIDI protocol is documented in detail in the project notes. Key discoveries:
+The reverse-engineered FM9 USB MIDI protocol is documented in [`docs/PROTOCOL.md`](docs/PROTOCOL.md). Key discoveries:
 
 - **Checksum**: `XOR(model_id, func, data...) ^ 0x05 & 0x7F`
-- **Parameter control**: sub=0x09 (value set) and sub=0x52 (real-time slide) with IEEE 754 float encoding
-- **Channel control**: Block data (GET_BLOCK) stores all 4 channels contiguously with stride = (combined_length - 7) // 4. Active channel is switched via SET_CHANNEL (sub=0x16) before SET_PARAM
+- **Parameter control**: sub=0x09 with IEEE 754 float encoding (5×7-bit packed)
+- **Channel control**: 4 channels stored contiguously, stride = (combined_length - 7) // 4
 - **Grid layout**: sub=0x2E query returns 753-byte bitstream-encoded grid map
 - **Block routing**: sub=0x30/0x32/0x33/0x35/0x36 for add/delete/move/connect
-- **Shunt placement**: sub=0x32 with sequential index per shunt (byte[3] must be unique in preset)
-- **Block ID encoding**: 2-byte split (`id & 0x7F`, `id >> 7`) supports all blocks including >0x7F (Gate, Synth, etc.)
+- **Block ID encoding**: 2-byte split for IDs > 0x7F (Gate=0x92, Synth=0x82, etc.)
 
 ## Credits
 
+- **Architect**: wagahai850 (system design, decisions)
+- **Implementation**: Kiro AI (code, MCP server, protocol RE)
 - Protocol RE inspired by [vangrieg/Midi-SysEx-MCPServer](https://github.com/vangrieg/Midi-SysEx-MCPServer)
 - Fractool by AlGrenadine for CSV format reference
 - Built with [Kiro](https://kiro.dev) AI development environment
@@ -219,183 +276,3 @@ The reverse-engineered FM9 USB MIDI protocol is documented in detail in the proj
 ## License
 
 MIT
-
-## Status
-
-**Working Proof of Concept** — all blocks controllable, core workflow functional.
-
-### What works
-- **All 40 effect blocks**: parameter read/write with display values (type-aware decoding)
-- **1380 parameters mapped**: all with type/min/max metadata (102 hand-verified, 1276 cache-derived, remainder pattern-inferred)
-- **Amp 1**: full model selection (331 models) + display-value parameter control (Gain=5.0, etc.)
-- **Drive 1**: full model selection (86 models) + display-value parameter control
-- **Delay/Reverb/Chorus/Pitch/etc.**: parameter control via `fm9_set_block_params`
-- **Pitch block (Virtual Capo)**: Shift semitones via `fm9_set_block_params` (e.g., `{"Shift1": -1}` for down 1 semitone, range ±24)
-- **All blocks**: channel control (A/B/C/D), bypass, scene switching
-- **Channel-aware parameter read/write (A/B/C/D)** for all blocks
-- **Grid operations**: add (upsert), delete, move, connect (cross-row), disconnect (cross-row), read
-- **Declarative preset construction**: `fm9_apply_graph` builds presets from signal-flow graphs (auto-layout, parallel routing, split/merge)
-- **Graph readback**: `fm9_read_graph` reads any preset as a signal-flow graph (traces through shunts)
-- **Preset management**: store, change, rename, query name by number
-- **Model/type lookup**: 331 amp models, 86 drive models, 29 delay types, 79 reverb types, 31 flanger types, 18 chorus types, 17 phaser types, 7 tremolo types, 16 pitch types, 19 compressor types, 2000+ cab IRs
-- **Type-specific valid parameters**: know which params are active for each model variant (331 amp types, 16 pitch types, 11 compressor types, etc.)
-- **Axe-Fx III support**: same protocol, parameter data extracted via automated pipeline
-- **DynaCab control**: Mode/Type/Mic selection by name or index via `fm9_set_block_params`
-- **Parametric EQ**: Full control of Freq (Hz), Gain (dB), Q, Type via `fm9_set_block_params` with raw display values
-- **Scene names**: Set scene names (1-8) via `fm9_set_scene_name`
-- **SET read-back**: All SET tools return full parameter read-back confirming actual device state
-- **Effect type selection**: `fm9_set_effect_type` works for all blocks (correct per-block Type param_id)
-
-### Known Limitations
-- **Block parameter encoding varies by block type** — Amp/Drive use normalized 0-1 for continuous params and raw_float (IEEE 754 display value) for bipolar params (Level, Balance) via dedicated tools. All other effect blocks send raw display values directly via `fm9_set_block_params`. Cab DynaCab R/Z use normalized 0.0-1.0. Pitch Shift uses signed integer semitone values. The tool handles all of this automatically.
-- **Parameter min/max are inferred for most blocks** — Amp and Drive have hand-verified ranges. All other blocks have pattern-matched metadata (type/min/max) that is mostly correct but not guaranteed. The `verified` flag in `fm9_list_block_params` output indicates confidence level.
-- **Parameter IDs differ between Axe-Fx III and FM9** — Same block type can have different param_id mappings. Each device has its own extracted parameter data.
-- **Amp "Presence" varies by model** — Preamp-only models use "Preamp Presence" (param_id=137), full amp models use "Presence" (param_id=30)
-- **No Delay/Reverb time sync or tap tempo**
-- **No modifier/controller support**
-- **No scene-level parameter overrides**
-- **Error recovery is minimal** — MIDI port errors require server restart
-- **PEQ/Cab/frequency params use raw display values** — Unlike Amp/Drive (which use normalized 0-1), all effect blocks send actual display values directly (Hz, dB, %, etc.). The `fm9_set_block_params` tool handles this automatically. Only Amp/Drive dedicated tools use normalized encoding.
-- **PEQ frequency read-back uses max=20000 for log decode** — If the band Type has a lower max (e.g., Shelving=2000Hz), the read-back may show incorrect Hz at the clamped maximum. The SET is correct; only the GET display is affected.
-
-### Known Issues
-
-#### Amp/Drive bipolar and frequency encoding (under investigation)
-
-**Status**: Core params (Gain, Bass, Mid, Treble, Master, Level, Drive, Tone, Mix) work correctly. Remaining failures are in advanced/type-specific params where encoding or min/max is unverified.
-
-**Round-trip test progress (2026-05-28)**:
-- Automated test (`tests/test_roundtrip.py`) uses production code directly — no separate encoding logic
-- 1276 params now have cache-derived min/max (extracted from `effectDefinitions` binary cache)
-- Type-specific inactive params are auto-skipped (raw unchanged after SET)
-- Remaining failures are encoding mismatches that require Wireshark capture to resolve
-
-**Remaining encoding unknowns** (need USB capture of FM9 Edit):
-- Drive Balance: bipolar range representation
-- Frequency params on Amp/Drive: log-scale encoding details
-- A handful of params where `sent ≠ got` despite correct min/max
-
-**Next steps**:
-1. Capture: FM9 Edit → Drive Balance, Drive High Cut, Amp Balance changes
-2. Confirm float encoding in SysEx (normalized vs raw_float for these specific params)
-3. Fix encoding rules in production code
-4. Re-run round-trip test → 0 FAIL
-
-#### Cab block uses mixed parameter encoding (fixed)
-
-**Status**: Fixed. Cab block fully operational via `fm9_set_block_params`, including DynaCab Type/Mic name resolution (e.g., `{"Dynacab Type1": "4x12 1960TV"}`, `{"Dynacab Mic1": "Dynamic 1"}`).
-
-**Background**: The Cab block uses three different encoding modes depending on the parameter type, unlike Amp/Drive which use normalized 0.0–1.0 for everything:
-
-| Category | Parameters | Encoding | Example |
-|----------|-----------|----------|---------|
-| Frequency | High Cut (pid 66), Low Cut (pid 62), per-mic variants | Raw Hz as IEEE 754 float | `{"High Cut": 6400}` |
-| Enum/Index | Mode (31), Mute1-4 (24-27), DynaCab Type (85/86), Mic (89/90) | Raw integer as float | `{"Mode": 1}`, `{"Dynacab Mic1": 2}` |
-| Position | DynaCab R1-4 (93-96), Z1-4 (97-99, 104) | Normalized 0.0–1.0 | `{"Dynacab R1": 0.5}` |
-
-Additionally, "High Cut" and "Low Cut" resolve to generic param_ids (39, 38) in the parameter table, but the Editor uses per-mic param_ids (66, 62). The code overrides these automatically.
-
-**Cab IR selection** requires two steps: set Bank param (0/1) then Type param (4/5). Use `fm9_set_cab_ir(ir_id, bank, slot)`. Banks: 0=Factory 1, 1=Factory 2, 2=User, 3=Legacy.
-
-**DynaCab Mic index mapping**: 0=Condenser, 1=Ribbon, 2=Dynamic 1, 3=Dynamic 2.
-
-**Scope of verification**:
-- ✅ **Cab**: Fully verified via Wireshark capture (High Cut, Low Cut, IR selection, DynaCab Type/Mic/Mode/Mute/Position)
-- ✅ **Amp**: Confirmed working with normalized encoding via dedicated tool
-- ✅ **Drive**: Confirmed working with normalized encoding via dedicated tool
-- ✅ **Parametric EQ**: Fully verified via Wireshark (Freq/Gain/Q/Type all raw_float)
-- ✅ **All effect blocks**: Verified raw_float encoding via Wireshark (2026-05-27) — display values sent directly
-
-**Recovery** (if corruption occurred with old version): Switch to a different preset and switch back to reload the edit buffer from flash.
-
-### Roadmap
-
-#### Current Priority: Full Parameter Round-Trip Verification
-
-**WHY**: Every parameter SET/GET must work correctly for the tone assistant to be reliable. Currently, 1300+ parameters are mapped with cache-derived min/max metadata. Core params are verified working; advanced params need encoding confirmation via Wireshark.
-
-**HOW**: Automated round-trip test (`tests/test_roundtrip.py`) that:
-1. Places each block type on the grid
-2. Health-checks the block (aborts on preset corruption or firmware panic)
-3. For each non-enum parameter: SET a known value → GET → verify match
-4. Auto-skips type-specific inactive params (raw unchanged)
-5. Reports failures with sent/received values for diagnosis
-
-**Current state** (2026-05-28):
-- Test uses production MCP tools directly (same code path as real usage)
-- `effectDefinitions` cache parsed → 1276 params with accurate min/max
-- 152 params auto-fixed from failure pattern analysis
-- Remaining failures are encoding mismatches (need Wireshark capture)
-
-**WHAT (next actions)**:
-1. **Wireshark capture** — Drive Balance, Drive High Cut, Amp Balance on Windows
-2. **Fix encoding** — Update production code based on capture evidence
-3. **Re-run full round-trip** → target: 0 FAIL on active params
-4. **Promote to regression gate** — CI-like check before push
-
-**Tools**:
-- `tests/test_roundtrip.py` — automated round-trip (requires FM9 USB)
-- `pipeline/parse_pcap.py` — decode Wireshark USB captures to readable SysEx
-- FM9 Edit on Windows + Wireshark with USBPcap — for protocol capture
-
-#### Protocol Investigation Plan (Remaining Unknowns)
-
-The protocol is largely decoded, but several response structures remain undocumented. Below is the plan to resolve each, prioritized by impact.
-
-**Available tools:**
-- 🔬 USB packet capture (Wireshark + USBPcap on Windows)
-- 👁️ Editor visual inspection (trigger specific actions, observe behavior)
-- 📁 Editor cache file analysis (JSON/binary files created at startup)
-- 🔧 Editor binary analysis (last resort — no EULA exists for Editor, but prefer other methods first)
-
-| # | Unknown | Priority | Best Approach | Method |
-|---|---------|----------|---------------|--------|
-| 1 | **PARAM_META (sub=0x1B)** — payload structure (min/max/name/type?) | 🔴 High | Capture while selecting blocks in Editor. Cross-reference with known param metadata (Amp Gain pid=11, max=10.0) to identify field boundaries | 🔬 |
-| 2 | **Grid Response bytes 0–360** — what precedes the grid region | 🔴 High | Diff captures: change Scene name → diff, change preset name → diff, toggle bypass → diff. Identify which bytes change | 🔬 + 👁️ |
-| 3 | **Block Select Header (func=0x74)** — variable-length, block-specific | 🟡 Medium | Send GET_BLOCK to Amp/Delay/PEQ/Cab, collect 0x74 responses, compare lengths and patterns. Correlate with chunk count | 🔬 |
-| 4 | **BLOCK_STATUS (sub=0x01) 115-byte response** — full field map | 🟡 Medium | Diff captures: bypass 1 block → diff, change channel → diff, switch scene → diff. Map bit positions | 🔬 |
-| 5 | **GET_BLOCK 3-byte parameter packing** — internal encoding per param | 🟡 Medium | SET known values (0.0, 0.5, 1.0) via sub=0x09, then GET_BLOCK and locate the 3 bytes. Reverse the encoding | 🔬 |
-| 6 | **TIMING_SYNC (sub=0x37) / HEARTBEAT (sub=0x7B)** — payload content | 🟢 Low | Passive capture during idle Editor session. Check if payload is fixed (pure ping) or varies (timestamp/counter) | 🔬 |
-| 7 | **STORE_PRESET (sub=0x26) / CHANGE_PRESET (sub=0x27)** — full payload | 🟢 Low | Trigger Save/Change in Editor, capture. Already working in MCP — this is documentation completeness only | 🔬 |
-| 8 | **DEVICE_INFO (0x47) / FIRMWARE_INFO (0x08)** — response structure | 🟢 Low | Capture Editor startup sequence. Also check Editor cache files for stored device info | 🔬 + 📁 |
-| 9 | **Frequency max_freq table** — per-block/type max frequency | 🟢 Low | First try: decode PARAM_META (#1). Second: inspect Editor cache files. Last resort: Editor binary strings/tables | 🔬 → 📁 → 🔧 |
-
-**Recommended session order:**
-
-```
-Session 1: Editor startup sequence (full capture)
-  → Resolves #6, #7, #8 in one pass
-  → Also captures initial PARAM_META broadcasts if any
-
-Session 2: PARAM_META deep dive
-  → Select Amp 1, Delay 1, PEQ 1, Cab 1 in Editor
-  → Collect all sub=0x1B responses
-  → If successful, #9 may be resolved automatically
-
-Session 3: Grid Response differential analysis
-  → Baseline capture → change Scene name → diff
-  → Change preset name → diff
-  → Toggle bypass → diff
-
-Session 4: GET_BLOCK internals
-  → SET known param values → GET_BLOCK → locate bytes
-  → Also captures func=0x74 headers for #3
-  → BLOCK_STATUS diffs for #4
-```
-
-**Legal note:** USB packet capture (observing your own device communication) and Editor cache file reading are unambiguously safe. Editor binary analysis is low-risk (no EULA exists for FM9-Edit; firmware EULA covers firmware only) but is reserved as last resort. All work is for interoperability purposes.
-
-#### Future
-- Hand-verify min/max for remaining blocks (promote inferred → verified)
-- Modifier/controller assignment support
-- Scene-level parameter management
-- Direct firmware query for effect definitions (eliminate Editor cache dependency)
-
-### Contributing
-
-The automated pipeline handles parameter extraction. If you want to help:
-- **min/max values**: Run the param scanner on blocks to determine display ranges
-- **Type-specific behavior**: Document which params are ignored for specific model types
-- **FM3 testing**: Same protocol should work, needs verification
-
-PRs welcome.

@@ -39,6 +39,7 @@ checksum = (checksum ^ 0x05) & 0x7F
 | 0x0C | SET_SCENE | scene | Switch scene (0-7) |
 | 0x0D | GET_PRESET_NAME | lo, hi | Get preset name / current preset (see below) |
 | 0x13 | STATUS_DUMP | (none) | Query all block states |
+| 0x17 | GET_PARAM_INFO | block_id, param_id(?) | Query parameter definition (see below) |
 | 0x1F | GET_BLOCK | block_id, 0x00 | Request block data |
 | 0x47 | DEVICE_INFO | (none) | Query device configuration |
 
@@ -149,6 +150,41 @@ Response contains 3-byte packets for each active block:
 - effect_id = id_lo | (id_hi << 7)
 - dd bit 0 = bypass state
 - dd bits 1-3 = channel (0=A, 1=B, 2=C, 3=D)
+
+## GET_PARAM_INFO (func=0x17) — Partially Reverse-Engineered
+
+Queries parameter definitions (min/max/step/type) from firmware.
+FM9-Edit uses this at startup to build the effectDefinitions cache.
+
+### Discovery
+
+- Command names `get_param_info_all` and `get_param_info` found in FM9-Edit binary
+- FM9 responds with ACK (func=0x64, sub=0x17) confirming the function exists
+- FM9-Edit's "Query All Param Definitions" UI string references this function
+
+### Observed Behavior
+
+```
+Request:  F0 00 01 74 12 17 [payload] [cs] F7
+Response: F0 00 01 74 12 64 17 [status] [cs] F7  (ACK)
+```
+
+Status codes observed:
+- `0x00` = success
+- `0x01` = error (invalid request)
+- `0x05` = error (invalid length / missing payload)
+
+### Unknown
+
+- Correct payload format (block_id encoding, param_id encoding)
+- Response data format (how min/max/step/type are returned)
+- Whether `get_param_info_all` uses a different payload than `get_param_info`
+
+### Significance
+
+If fully decoded, this would allow querying parameter definitions directly from
+firmware without relying on the effectDefinitions cache file. This would enable
+runtime discovery of new parameters after firmware updates.
 
 ## GET_BLOCK (func=0x1F)
 

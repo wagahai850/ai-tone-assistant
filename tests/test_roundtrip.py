@@ -20,9 +20,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 # Import production tools (same code path as MCP server)
 from tools import (
-    ALL_PARAMS, BLOCKS, TYPE_VALID_PARAMS, AMP_PARAMS, DRIVE_PARAMS,
+    ALL_PARAMS, TYPE_VALID_PARAMS, AMP_BLOCK_ID_BASE, DRIVE_BLOCK_ID_BASE,
     midi, ensure_connected, resolve_block,
 )
+from tools.amp_drive import _AMP_PARAMS_BY_NAME, _DRIVE_PARAMS_BY_NAME
 
 # We need the tool functions directly — import them by registering on a dummy MCP
 from unittest.mock import MagicMock
@@ -202,7 +203,7 @@ def test_amp(dry_run: bool = False, param_filter: str | None = None) -> dict:
     results = {"pass": 0, "fail": 0, "skip": 0, "errors": []}
 
     if dry_run:
-        for name, info in AMP_PARAMS["params"].items():
+        for name, info in _AMP_PARAMS_BY_NAME.items():
             if info["type"] == "enum":
                 continue
             if param_filter and param_filter.lower() not in name.lower():
@@ -212,7 +213,7 @@ def test_amp(dry_run: bool = False, param_filter: str | None = None) -> dict:
         return results
 
     # Place Amp 1 on grid
-    block_id = AMP_PARAMS["block_id_int"]
+    block_id = AMP_BLOCK_ID_BASE
     status = midi.get_status_dump()
     placed_by_us = False
     if block_id not in status:
@@ -252,7 +253,7 @@ def test_amp(dry_run: bool = False, param_filter: str | None = None) -> dict:
     if valid_suffixes:
         print(f"  Amp type {int(amp_type_index)}: {len(valid_suffixes)} valid params")
 
-    for name, info in AMP_PARAMS["params"].items():
+    for name, info in _AMP_PARAMS_BY_NAME.items():
         if info["type"] == "enum":
             results["skip"] += 1
             continue
@@ -263,7 +264,6 @@ def test_amp(dry_run: bool = False, param_filter: str | None = None) -> dict:
         # Skip params not valid for current Amp type
         if valid_suffixes is not None:
             # Match by checking if any valid suffix matches the param's internal name
-            # amp_params.json doesn't have internal names, so we use display name heuristics
             # The param names in type_valid are like DRIVE, BASS, MID, TREBLE, MASTER, etc.
             name_upper = name.upper().replace(" ", "")
             if not any(name_upper == s or name_upper.endswith(s) or s.startswith(name_upper[:4])
@@ -337,7 +337,7 @@ def test_drive(dry_run: bool = False, param_filter: str | None = None) -> dict:
     results = {"pass": 0, "fail": 0, "skip": 0, "errors": []}
 
     if dry_run:
-        for name, info in DRIVE_PARAMS["params"].items():
+        for name, info in _DRIVE_PARAMS_BY_NAME.items():
             if info["type"] == "enum":
                 continue
             if param_filter and param_filter.lower() not in name.lower():
@@ -347,7 +347,7 @@ def test_drive(dry_run: bool = False, param_filter: str | None = None) -> dict:
         return results
 
     # Place Drive 1 on grid
-    block_id = DRIVE_PARAMS["block_id_int"]
+    block_id = DRIVE_BLOCK_ID_BASE
     status = midi.get_status_dump()
     placed_by_us = False
     if block_id not in status:
@@ -369,7 +369,7 @@ def test_drive(dry_run: bool = False, param_filter: str | None = None) -> dict:
 
     current_params = current["params"]
 
-    for name, info in DRIVE_PARAMS["params"].items():
+    for name, info in _DRIVE_PARAMS_BY_NAME.items():
         if info["type"] == "enum":
             results["skip"] += 1
             continue

@@ -35,9 +35,6 @@ def load_json(filename: str) -> dict:
 
 AMP_TYPES: dict[str, str] = load_json("amp_types.json")
 DRIVE_TYPES: dict[str, str] = load_json("drive_types.json")
-AMP_PARAMS: dict = load_json("amp_params.json")
-DRIVE_PARAMS: dict = load_json("drive_params.json")
-BLOCKS: dict = load_json("blocks.json")
 ALL_PARAMS: dict = load_json("all_params.json")
 EFFECT_DEFS: dict = load_json("effect_definitions.json")
 TYPE_VALID_PARAMS: dict = load_json("type_valid_params.json")
@@ -56,13 +53,47 @@ for id_str, name in DRIVE_TYPES.items():
     if name not in DRIVE_NAME_TO_ID:
         DRIVE_NAME_TO_ID[name] = int(id_str)
 
-# Block IDs
-AMP1_BLOCK_ID = AMP_PARAMS["block_id_int"]
-DRIVE1_BLOCK_ID = DRIVE_PARAMS["block_id_int"]
+# --- Block ID constants from ALL_PARAMS ---
+
+AMP_BLOCK_ID_BASE = ALL_PARAMS["DISTORT"]["block_id_base"]
+DRIVE_BLOCK_ID_BASE = ALL_PARAMS["FUZZ"]["block_id_base"]
+
+# --- Build block_id → name map from ALL_PARAMS ---
+# Replaces the old BLOCKS dict. Generates all instances for each prefix.
+
+BLOCK_ID_TO_NAME: dict[int, str] = {}
+BLOCK_NAME_TO_ID: dict[str, int] = {}
+
+for prefix, info in ALL_PARAMS.items():
+    if prefix == "_meta":
+        continue
+    block_name = info["block_name"]
+    base_id = info["block_id_base"]
+    max_inst = info["max_instances"]
+    for i in range(max_inst):
+        bid = base_id + i
+        instance_name = f"{block_name} {i + 1}"
+        BLOCK_ID_TO_NAME[bid] = instance_name
+        BLOCK_NAME_TO_ID[instance_name] = bid
+
+# Blocks known to exist on device but not yet in all_params.json
+_EXTRA_BLOCKS = {
+    "Gate/Expander": (0x92, 4),
+    "Filter": (0x72, 4),
+}
+for block_name, (base_id, max_inst) in _EXTRA_BLOCKS.items():
+    for i in range(max_inst):
+        bid = base_id + i
+        instance_name = f"{block_name} {i + 1}"
+        if bid not in BLOCK_ID_TO_NAME:
+            BLOCK_ID_TO_NAME[bid] = instance_name
+            BLOCK_NAME_TO_ID[instance_name] = bid
 
 # Block name -> prefix key in ALL_PARAMS
 BLOCK_NAME_TO_PREFIX: dict[str, str] = {}
 for prefix, info in ALL_PARAMS.items():
+    if prefix == "_meta":
+        continue
     BLOCK_NAME_TO_PREFIX[info["block_name"].lower()] = prefix
     short = info["block_name"].replace(" 1", "").lower()
     if short not in BLOCK_NAME_TO_PREFIX:
@@ -159,77 +190,89 @@ def recalc_checksum(chunk: list[int]) -> list[int]:
 def resolve_block(block_str: str) -> tuple[str, dict]:
     """Resolve a block name or hex ID to (prefix, block_info).
 
-    Supports instance 2+ blocks (e.g., "Delay 2") by looking up BLOCKS
-    for the block_id and using instance 1's param definitions.
+    Supports instance 2+ blocks (e.g., "Delay 2") by looking up the base prefix
+    and returning a modified block_info with the correct block_id for that instance.
+
+    Accepts: "Amp 1", "Delay 2", "0x3A", "0x47", etc.
     """
+    import re
+
     # Try hex ID first
     if block_str.startswith("0x") or block_str.startswith("0X"):
-        hex_id = block_str.upper()
-        for prefix, info in ALL_PARAMS.items():
-            if info.get("block_id") == hex_id:
-                return prefix, info
-        # Check BLOCKS for instance 2+ (hex match)
         bid_int = int(block_str, 16)
-        for bname, binfo in BLOCKS.items():
-            if binfo["block_id_int"] == bid_int:
-                # Find the instance 1 prefix by stripping instance number
-                return _find_instance1_prefix(bname, bid_int)
+        # Find which prefix owns this block_id
+        for prefix, info in ALL_PARAMS.items():
+            if prefix == "_meta":
+                continue
+            base = info["block_id_base"]
+            max_inst = info["max_instances"]
+            if base <= bid_int < base + max_inst:
+                instance = bid_int - base  # 0-indexed
+                instance_name = f"{info['block_name']} {instance + 1}"
+                modified = dict(info)
+                modified["_instance"] = instance
+                modified["_block_id_int"] = bid_int
+                modified["block_name"] = instance_name
+                return prefix, modified
         raise ValueError(f"No block with ID {block_str}")
 
-    # Try exact match in BLOCKS first (handles "Delay 2", "Reverb 2", etc.)
-    if block_str in BLOCKS:
-        binfo = BLOCKS[block_str]
-        bid_int = binfo["block_id_int"]
-        return _find_instance1_prefix(block_str, bid_int)
+    # Try exact match in BLOCK_NAME_TO_ID (handles "Delay 2", "Amp 1", etc.)
+    if block_str in BLOCK_NAME_TO_ID:
+        bid_int = BLOCK_NAME_TO_ID[block_str]
+        # Find the prefix
+        for prefix, info in ALL_PARAMS.items():
+            if prefix == "_meta":
+                continue
+            base = info["block_id_base"]
+            max_inst = info["max_instances"]
+            if base <= bid_int < base + max_inst:
+                instance = bid_int - base
+                modified = dict(info)
+                modified["_instance"] = instance
+                modified["_block_id_int"] = bid_int
+                modified["block_name"] = block_str
+                return prefix, modified
 
-    # Try name match in ALL_PARAMS (case-insensitive)
-    key = block_str.lower().strip()
-    if key in BLOCK_NAME_TO_PREFIX:
-        prefix = BLOCK_NAME_TO_PREFIX[key]
-        return prefix, ALL_PARAMS[prefix]
+    # Try case-insensitive match in BLOCK_NAME_TO_ID
+    key = block_str.strip()
+    key_lower = key.lower()
+    for name, bid_int in BLOCK_NAME_TO_ID.items():
+        if name.lower() == key_lower:
+            for prefix, info in ALL_PARAMS.items():
+                if prefix == "_meta":
+                    continue
+                base = info["block_id_base"]
+                max_inst = info["max_instances"]
+                if base <= bid_int < base + max_inst:
+                    instance = bid_int - base
+                    modified = dict(info)
+                    modified["_instance"] = instance
+                    modified["_block_id_int"] = bid_int
+                    modified["block_name"] = name
+                    return prefix, modified
 
-    # Try case-insensitive match in BLOCKS
-    for bname, binfo in BLOCKS.items():
-        if bname.lower() == key:
-            bid_int = binfo["block_id_int"]
-            return _find_instance1_prefix(bname, bid_int)
+    # Try name match in BLOCK_NAME_TO_PREFIX (e.g., "amp", "delay", "chorus")
+    if key_lower in BLOCK_NAME_TO_PREFIX:
+        prefix = BLOCK_NAME_TO_PREFIX[key_lower]
+        info = ALL_PARAMS[prefix]
+        modified = dict(info)
+        modified["_instance"] = 0
+        modified["_block_id_int"] = info["block_id_base"]
+        modified["block_name"] = f"{info['block_name']} 1"
+        return prefix, modified
 
     # Fuzzy: try partial match in BLOCK_NAME_TO_PREFIX
     for name, prefix in BLOCK_NAME_TO_PREFIX.items():
-        if key in name or name in key:
-            return prefix, ALL_PARAMS[prefix]
-
-    available = sorted(set(info["block_name"] for info in ALL_PARAMS.values()))
-    raise ValueError(f"Unknown block '{block_str}'. Available: {available}")
-
-
-def _find_instance1_prefix(block_name: str, block_id_int: int) -> tuple[str, dict]:
-    """Given a block name (possibly instance 2+), return the instance 1 prefix
-    and a modified block_info dict with the correct block_id."""
-    import re
-    # Strip instance number to find base name: "Delay 2" -> "Delay", "Amp 1" -> "Amp"
-    base = re.sub(r'\s*\d+$', '', block_name).strip().lower()
-
-    # Find matching prefix in ALL_PARAMS
-    for prefix, info in ALL_PARAMS.items():
-        info_base = re.sub(r'\s*\d+$', '', info["block_name"]).strip().lower()
-        if info_base == base:
-            # Return a copy with the correct block_id for this instance
+        if key_lower in name or name in key_lower:
+            info = ALL_PARAMS[prefix]
             modified = dict(info)
-            modified["block_id"] = f"0x{block_id_int:02X}"
-            modified["block_name"] = block_name
+            modified["_instance"] = 0
+            modified["_block_id_int"] = info["block_id_base"]
+            modified["block_name"] = f"{info['block_name']} 1"
             return prefix, modified
 
-    # Fallback: return first match from BLOCK_NAME_TO_PREFIX
-    if base in BLOCK_NAME_TO_PREFIX:
-        prefix = BLOCK_NAME_TO_PREFIX[base]
-        info = ALL_PARAMS[prefix]
-        modified = dict(info)
-        modified["block_id"] = f"0x{block_id_int:02X}"
-        modified["block_name"] = block_name
-        return prefix, modified
-
-    raise ValueError(f"Cannot resolve instance 1 params for '{block_name}'.")
+    available = sorted(set(info["block_name"] for p, info in ALL_PARAMS.items() if p != "_meta"))
+    raise ValueError(f"Unknown block '{block_str}'. Available: {available}")
 
 
 def resolve_param(block_info: dict, param_name: str) -> tuple[int, str]:
@@ -254,13 +297,22 @@ def resolve_param(block_info: dict, param_name: str) -> tuple[int, str]:
 
 
 def resolve_block_id(block: str) -> int:
-    """Resolve block name/hex to integer block_id using BLOCKS map."""
-    block_map = {name: v["block_id_int"] for name, v in BLOCKS.items()}
-    block_map["Input 1"] = 0x25
-    block_map["Output 1"] = 0x2A
-    if block in block_map:
-        return block_map[block]
-    elif block.startswith("0x"):
+    """Resolve block name/hex to integer block_id.
+
+    Accepts: "Amp 1", "Drive 2", "0x3A", etc.
+    """
+    # Hex ID
+    if block.startswith("0x") or block.startswith("0X"):
         return int(block, 16)
-    else:
-        raise ValueError(f"Unknown block '{block}'. Known: {list(block_map.keys())}")
+
+    # Exact match in BLOCK_NAME_TO_ID
+    if block in BLOCK_NAME_TO_ID:
+        return BLOCK_NAME_TO_ID[block]
+
+    # Case-insensitive match
+    key_lower = block.lower().strip()
+    for name, bid in BLOCK_NAME_TO_ID.items():
+        if name.lower() == key_lower:
+            return bid
+
+    raise ValueError(f"Unknown block '{block}'. Known: {sorted(BLOCK_NAME_TO_ID.keys())}")
