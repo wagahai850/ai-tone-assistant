@@ -408,6 +408,36 @@ MCP tools become device-agnostic (`tone_set_params` instead of `fm9_set_amp_para
 
 **Timeline**: FM9 stable → second device → extract interface → generalize tools → third device onward is implementation-only.
 
+### Speculation: LLM as the Abstraction Layer Itself
+
+Here's a thought experiment. What if we don't write a device abstraction layer at all?
+
+Traditional software design says: two systems with different data models need an adapter layer (interfaces, protocol classes, mapping code). But consider what actually happens in a tone design session:
+
+```
+User: "I want a JCM800 crunch tone. Solo should be high-gain with sustain."
+
+IF the device is FM9:
+  → Scene 2, Amp Channel B, Gain up, Master up for power amp saturation
+
+IF the device is Helix:
+  → Snapshot 2, Amp Gain override, Master override
+```
+
+Same musical intent, different operational steps. A human sound engineer who knows both platforms would handle this dynamically — they don't need an "abstraction layer" in their head. They just know how each device works and translate intent to action on the fly.
+
+An LLM with device-specific knowledge (via steering + RAG) does the same thing. The "abstraction layer" is the LLM's reasoning itself. What you actually need:
+
+1. **Thin operation APIs per device** — deterministic, device-specific, CRUD-level (`set_param`, `apply_routing`, `store_preset`)
+2. **Device-specific steering** — "how to think about this device" (FM9: Scenes + Channels; Helix: Snapshots)
+3. **Device-specific knowledge base** — RAG over each device's documentation
+
+No shared interface code. No adapter pattern. The LLM dynamically resolves "sustain → which knobs on which device" every time, informed by the device's steering and KB. The non-determinism is acceptable because the user's ears close the feedback loop — tone design has no single "correct" answer anyway.
+
+This is unproven and possibly naive. But it's worth noting that the architecture already works this way for a single device (the [POC session](docs/POC_LIVE_PRESET_SESSION.md) demonstrates it). Multi-device is an extension of the same pattern, not a fundamentally different problem.
+
+Related reading: Fowler's ["LLMs bring new nature of abstraction"](https://martinfowler.com/articles/2025-nature-abstraction.html) (2025), Rost's ["LLM-Mediated Computing"](https://interactions.acm.org/archive/view/september-october-2025/reclaiming-the-computer-through-llm-mediated-computing) (ACM Interactions, 2025).
+
 ## Credits
 
 - **Architect**: wagahai850 (system design, decisions)
