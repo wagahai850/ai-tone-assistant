@@ -3185,9 +3185,9 @@
       "0": {
         "name": "REVERB_MIX",
         "display_name": "Mix",
-        "type": "bipolar",
+        "type": "continuous",
         "max": 100.0,
-        "min": -100.0,
+        "min": 0,
         "step": 0.001
       },
       "1": {
@@ -4408,9 +4408,9 @@
       "0": {
         "name": "DELAY_MIX",
         "display_name": "Mix",
-        "type": "bipolar",
+        "type": "continuous",
         "max": 100.0,
-        "min": -100.0,
+        "min": 0,
         "step": 0.001
       },
       "1": {
