@@ -237,6 +237,9 @@ def register(mcp):
         Channel data layout: all chunks are concatenated (stripping 7-byte SysEx
         headers from chunks after the first), then channels are accessed via
         stride = (combined_len - 7) // 4.
+
+        Decode uses calibrated decode_max (from roundtrip calibration) when available.
+        Falls back to display max from all_params.json.
         """
         import math
 
@@ -263,8 +266,11 @@ def register(mcp):
             param_type = pinfo.get("type", "continuous")
             param_max = pinfo.get("max", 10.0)
             param_min = pinfo.get("min", 0)
+            # Calibrated decode_max overrides display max for GET decode
+            decode_max = pinfo.get("decode_max", None)
+            decode_style = pinfo.get("decode_style", None)
 
-            # Calculate display value based on type
+            # Calculate display value based on type and calibration
             if param_type == "switch":
                 display_value = bool(lo)
             elif param_type == "enum":
@@ -272,22 +278,33 @@ def register(mcp):
             elif param_type == "signed_int":
                 # Two's complement: raw > 32767 means negative
                 display_value = raw_val if raw_val <= 32767 else raw_val - 65536
-            elif param_type == "bipolar":
-                display_value = round(raw_val / 65534.0 * (param_max - param_min) + param_min, 2)
+            elif decode_style == "center":
+                # True bipolar: raw=32767 is center (0), uses calibrated decode_max
+                effective_max = decode_max if decode_max else param_max
+                display_value = round((raw_val - 32767) / 32767.0 * effective_max, 2)
+            elif param_type == "bipolar" and decode_style != "zero":
+                # Default bipolar decode (center-offset) when no calibration
+                # This is the legacy behavior for uncalibrated params
+                if decode_max:
+                    display_value = round(raw_val / 65534.0 * decode_max * 2 - decode_max, 2)
+                else:
+                    display_value = round(raw_val / 65534.0 * (param_max - param_min) + param_min, 2)
             elif param_max >= 20000 or (block_id in CAB_BLOCK_IDS_SET and pid in (62, 63, 64, 65)):
                 # Frequency params with log scale decode:
                 # freq = min_freq * 10^(raw/65534 * log10(max_freq/min_freq))
-                min_freq = max(param_min, 20.0)  # min_freq from metadata (default 20 Hz)
+                min_freq = max(param_min, 20.0)
+                effective_max = decode_max if decode_max else param_max
                 if raw_val == 0:
                     display_value = min_freq
                 else:
                     display_value = round(
-                        min_freq * 10 ** (raw_val / 65534.0 * math.log10(param_max / min_freq)), 1
+                        min_freq * 10 ** (raw_val / 65534.0 * math.log10(effective_max / min_freq)), 1
                     )
             else:
-                # Continuous: raw 0 = 0, 65534 = max
+                # Continuous / zero-based bipolar: raw 0 = 0, 65534 = decode_max
+                effective_max = decode_max if decode_max else param_max
                 normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
-                display_value = round(normalized * param_max, 2)
+                display_value = round(normalized * effective_max, 2)
 
             entry = {
                 "value": display_value,

@@ -4427,7 +4427,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": -100,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "3": {
         "name": "DELAY_BYPASSMODE",
@@ -4533,7 +4534,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 16030.82
       },
       "13": {
         "name": "DELAY_RATIO",
@@ -4541,7 +4543,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "14": {
         "name": "DELAY_FEED",
@@ -4549,7 +4552,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "15": {
         "name": "DELAY_FEEDL",
@@ -4557,7 +4561,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "16": {
         "name": "DELAY_FEEDR",
@@ -4565,7 +4570,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "17": {
         "name": "DELAY_DELAYPAN",
@@ -4573,7 +4579,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "18": {
         "name": "DELAY_SPREAD",
@@ -4581,7 +4588,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "19": {
         "name": "DELAY_TEMPO",
@@ -4698,7 +4706,8 @@
         "display_name": "Rate2",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_max": 2.51
       },
       "24": {
         "name": "DELAY_DEPTH1",
@@ -4706,7 +4715,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "25": {
         "name": "DELAY_DEPTH2",
@@ -4714,7 +4724,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "26": {
         "name": "DELAY_BYPASS",
@@ -4722,7 +4733,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 15.0
       },
       "27": {
         "name": "DELAY_GAIN",
@@ -4730,7 +4742,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "28": {
         "name": "DELAY_LFO1TYPE",
@@ -4778,7 +4791,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 16030.82
       },
       "31": {
         "name": "DELAY_HOLD",
@@ -4799,7 +4813,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 199.99,
+        "decode_style": "zero"
       },
       "33": {
         "name": "DELAY_TEMPOR",
@@ -4896,7 +4912,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "35": {
         "name": "DELAY_FEEDRL",
@@ -4904,7 +4921,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "36": {
         "name": "DELAY_LEVELL",
@@ -4912,7 +4930,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "37": {
         "name": "DELAY_LEVELR",
@@ -4920,7 +4939,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "38": {
         "name": "DELAY_PANL",
@@ -4928,7 +4948,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": -100,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "39": {
         "name": "DELAY_PANR",
@@ -4936,7 +4957,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": -100,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "center"
       },
       "40": {
         "name": "DELAY_LFO1PHASE",
@@ -4944,7 +4966,8 @@
         "type": "frequency",
         "max": 57.2958,
         "min": 0,
-        "step": 0.003142
+        "step": 0.003142,
+        "decode_max": 180.0
       },
       "41": {
         "name": "DELAY_LFO2PHASE",
@@ -4952,7 +4975,8 @@
         "type": "frequency",
         "max": 57.2958,
         "min": 0,
-        "step": 0.003142
+        "step": 0.003142,
+        "decode_max": 180.0
       },
       "42": {
         "name": "DELAY_SPLICETIME",
@@ -4960,7 +4984,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 500.0
       },
       "43": {
         "name": "DELAY_RUN",
@@ -5007,7 +5032,9 @@
         "type": "bipolar",
         "max": 1.0,
         "min": -1.0,
-        "step": 0.1
+        "step": 0.1,
+        "decode_max": 79.92,
+        "decode_style": "zero"
       },
       "47": {
         "name": "DELAY_THRESH",
@@ -5022,7 +5049,8 @@
         "display_name": "Release",
         "type": "continuous",
         "max": 1000.0,
-        "min": 0
+        "min": 0,
+        "decode_max": 555.77
       },
       "49": {
         "name": "DELAY_DIFFUSE",
@@ -5030,7 +5058,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "50": {
         "name": "DELAY_DIFFTIME",
@@ -5038,7 +5067,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "51": {
         "name": "DELAY_PHASEREV",
@@ -5291,7 +5321,8 @@
         "type": "frequency",
         "max": 57.2958,
         "min": 0,
-        "step": 0.003142
+        "step": 0.003142,
+        "decode_max": 180.0
       },
       "59": {
         "name": "DELAY_LFO3TEMPO",
@@ -5401,7 +5432,8 @@
         "display_name": "Q",
         "type": "continuous",
         "max": 10.0,
-        "min": 0
+        "min": 0,
+        "decode_max": 25.13
       },
       "63": {
         "name": "DELAY_FILTERQ",
@@ -5452,7 +5484,9 @@
         "type": "bipolar",
         "max": 1.0,
         "min": -1.0,
-        "step": 0.05
+        "step": 0.05,
+        "decode_max": 12.0,
+        "decode_style": "center"
       },
       "70": {
         "name": "DELAY_GAIN2",
@@ -5460,7 +5494,9 @@
         "type": "bipolar",
         "max": 1.0,
         "min": -1.0,
-        "step": 0.05
+        "step": 0.05,
+        "decode_max": 12.0,
+        "decode_style": "center"
       },
       "71": {
         "name": "DELAY_MAXDEPTH",
@@ -5487,7 +5523,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.0001
+        "step": 0.0001,
+        "decode_max": 500.0
       },
       "74": {
         "name": "DELAY_HPF_ORDER",
@@ -5521,7 +5558,8 @@
         "display_name": "Comptime",
         "type": "continuous",
         "max": 1000.0,
-        "min": 0
+        "min": 0,
+        "decode_max": 500.0
       },
       "77": {
         "name": "DELAY_COMPTHRESH",
@@ -5537,7 +5575,9 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 199.99,
+        "decode_style": "zero"
       },
       "79": {
         "name": "DELAY_DIFFRATE",
@@ -5552,7 +5592,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "81": {
         "name": "DELAY_LFO4TYPE",
@@ -5676,7 +5717,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "85": {
         "name": "DELAY_LFO4PHASE",
@@ -5684,7 +5726,8 @@
         "type": "frequency",
         "max": 57.2958,
         "min": 0,
-        "step": 0.003142
+        "step": 0.003142,
+        "decode_max": 180.0
       },
       "86": {
         "name": "DELAY_LFO4TARGET",
@@ -5706,7 +5749,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "88": {
         "name": "DELAY_KILLDRY",
@@ -5714,7 +5758,8 @@
         "type": "bipolar",
         "max": 100.0,
         "min": -100.0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       }
     }
   },
