@@ -310,6 +310,76 @@ The reverse-engineered FM9 USB MIDI protocol is documented in [`docs/PROTOCOL.md
 - **Block routing**: sub=0x30/0x32/0x33/0x35/0x36 for add/delete/move/connect
 - **Block ID encoding**: 2-byte split for IDs > 0x7F (Gate=0x92, Synth=0x82, etc.)
 
+## Roadmap
+
+### API Refactoring: Declarative Scene/Channel Targeting
+
+Current API requires sequential state changes to target a specific Scene + Channel:
+
+```python
+# Current (imperative, error-prone):
+fm9_set_scene(scene=2)
+fm9_set_channel(block="Amp 1", channel="B")
+fm9_set_amp_params(params={"Gain": 8.0})
+fm9_set_scene(scene=1)  # restore
+```
+
+Planned refactoring adds `scene` and `channel` as optional parameters to SET/GET tools:
+
+```python
+# Planned (declarative, atomic):
+fm9_set_amp_params(params={"Gain": 8.0}, scene=2, channel="B")
+```
+
+This separates "where to write" from "what to write" and eliminates an entire class of bugs where Scene/Channel state drifts between calls. The MCP server handles state transitions internally.
+
+**Data model implications**: Block parameter storage needs to be restructured around a `Block → Channel → Parameter` hierarchy with Scene as an orthogonal axis controlling which Channel is active. Current flat parameter access doesn't model this relationship explicitly.
+
+### Knowledge Base: Fractal Wiki RAG
+
+The [POC session](docs/POC_LIVE_PRESET_SESSION.md) revealed that the AI has strong general audio engineering knowledge but weak FM9-specific operational knowledge. For example, when a user says "half-step down," the AI needs to know that the Pitch block's Virtual Capo feature can handle this without retuning — but that's FM9-specific knowledge not reliably present in LLM training data.
+
+**Solution**: Ingest the [Fractal Audio Wiki](https://wiki.fractalaudio.com) (111 pages of community-maintained documentation covering all blocks, parameters, amp models, and tutorials) as a RAG (Retrieval-Augmented Generation) knowledge base.
+
+**How RAG works in this context**:
+
+```
+┌─────────────────────────────────────────────────────┐
+│ Fractal Wiki (111 pages)                             │
+│ Amp models, effect blocks, tutorials, tech notes     │
+└──────────────────┬──────────────────────────────────┘
+                   │ scrape → chunk → embed
+                   ▼
+┌─────────────────────────────────────────────────────┐
+│ Vector Database (local, e.g. ChromaDB)               │
+│ ~500-1000 text chunks with embedding vectors         │
+└──────────────────┬──────────────────────────────────┘
+                   │ similarity search
+                   ▼
+┌─────────────────────────────────────────────────────┐
+│ MCP Tool: fm9_search_knowledge(query, top_k=5)       │
+│                                                      │
+│ User: "I need half-step down tuning"                 │
+│ → query: "half step down transpose tuning"           │
+│ → returns: Wiki chunks about Pitch block,            │
+│   Virtual Capo, semitone shifting                    │
+│ → AI: "Use Pitch block Virtual Capo, Shift = -1"    │
+└─────────────────────────────────────────────────────┘
+```
+
+**Why RAG works here**: The Wiki is written in natural language with use-case descriptions ("use Virtual Capo to change tuning without retuning your guitar"), so embedding similarity search naturally connects user intent ("half-step down") to FM9 features. No manual keyword mapping needed.
+
+**Why not full-context injection**: At 111 pages the Wiki exceeds what fits comfortably in a context window alongside steering + conversation history. RAG retrieves only the relevant chunks per query.
+
+**Implementation plan**:
+1. Scrape Wiki pages → chunk into ~500-token segments
+2. Embed chunks using a local embedding model (e.g. `sentence-transformers`)
+3. Store in a local vector DB (ChromaDB or FAISS) — no external service dependency
+4. Expose as `fm9_search_knowledge` MCP tool
+5. Auto-scrape on first run; re-scrape on firmware update
+
+This eliminates the dependency on the user's FM9 expertise and makes the tool accessible to beginners who don't know what the hardware can do.
+
 ## Credits
 
 - **Architect**: wagahai850 (system design, decisions)
