@@ -108,16 +108,80 @@ python3 pipeline/parse_pcap.py capture.pcapng
 # Single block:
 python3 tests/calibrate_decode.py --block "Delay 1" --apply
 
-# All effect blocks (~5 min, requires FM9):
-python3 tests/calibrate_decode.py --all --apply
+# All effect blocks (requires FM9 connected):
+caffeinate -i python3 -u tests/calibrate_decode.py --all --apply 2>&1 | tee tests/calibration_log_$(date +%Y%m%d).txt
 
 # Dry run (show what would change):
 python3 tests/calibrate_decode.py --block "Reverb 1" --dry-run
 ```
 
-The calibration script:
+The calibration script (v2, 2026-06-05):
 1. Places the block on the grid (if not already present)
 2. For each non-enum/switch param: SET 0 → read raw (determines decode_style)
+3. SET test value → read raw (determines decode_max)
+4. Records `decode_max`, `decode_style`, and `decode_scale` in all_params.json
+5. Removes the block from grid (if it was placed by the script)
+
+**Timing**: ~3-5 min per block (MIDI round-trip latency × params). Full run ≈ 1-2 hours.
+
+#### Calibration Status (2026-06-05)
+
+20/39 blocks calibrated. 285/1252 continuous params have decode metadata (23%).
+
+**Calibrated blocks** (20):
+
+| Block | Coverage | Notes |
+|-------|----------|-------|
+| Mixer | 100% | ✅ Complete |
+| Volume/Pan | 73% | Remaining are type-specific |
+| Parametric EQ | 64% | |
+| Multitap Delay | 63% | |
+| Enhancer | 60% | |
+| Graphic EQ | 56% | |
+| Delay | 53% | includes 4096-scale (Time, Timer) |
+| Chorus | 52% | |
+| Feedback Return | 50% | |
+| Rotary | 47% | |
+| Tremolo/Panner | 39% | |
+| Synth | 37% | |
+| Wah | 33% | |
+| Formant | 33% | |
+| Reverb | 31% | |
+| Phaser | 30% | |
+| Pitch | 29% | |
+| Compressor | 29% | |
+| Flanger | 29% | |
+| Feedback Send | 0% | 1 param, unresponsive |
+
+**Not run** (dedicated encoding — skip):
+- Amp, Drive, Cab — use their own encode/decode (see amp_drive.py)
+
+**Not run** (unsafe/special blocks — skip):
+- Vocoder, Megatap, Crossover, Ring Mod, Multiband Comp, Ten-Tap, Resonator,
+  Looper, Plex Delay — in UNSAFE_BLOCK_IDS (known firmware crash risk)
+
+**Not run** (other):
+- MIDI Block, Multiplexer — health check failed (SET unresponsive)
+- Tonematch, Realtime Analyzer, IR Player — GET failed after placement
+- Input, Output — no controllable params
+
+#### Uncalibrated Params (the "unresponsive" problem)
+
+Within calibrated blocks, ~50-70% of params respond. The remainder are
+**type-specific**: they only activate when a particular effect type/model is selected.
+
+**Why this happens**: FM9 parameters are allocated per-block but not all are used
+by every type. E.g., Delay "Tape" type uses `Splicetime` but "Digital" does not.
+When inactive, SET has no effect on the raw value → calibration detects "unresponsive".
+
+**Impact**: Uncalibrated params fall back to `display_max` for decode. This is
+correct for most params (decode_max == display_max). Errors only occur when
+decode_max ≠ display_max (known patterns: π ratio, 12dB EQ, frequency log scale).
+
+**To improve coverage**: Switch to a different effect type and re-run calibration.
+The script needs a `--type` flag or manual type switching before invocation.
+Alternatively, run roundtrip tests to discover which uncalibrated params decode
+incorrectly, then target those specifically.
 3. SET 50% of max → read raw (determines decode_max)
 4. Records `decode_max` and `decode_style` in all_params.json
 5. Removes the block from grid (if it was placed by the script)

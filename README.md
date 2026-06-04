@@ -215,8 +215,7 @@ All parameter definitions live in one file. Schema v2 with decode calibration:
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 16030.82,
-        "decode_style": "zero"
+        "decode_scale": "4096"
       },
       "14": {
         "name": "DELAY_FEED",
@@ -225,6 +224,14 @@ All parameter definitions live in one file. Schema v2 with decode calibration:
         "max": 100.0,
         "min": -100.0,
         "decode_style": "center"
+      },
+      "42": {
+        "name": "DELAY_SPLICETIME",
+        "display_name": "Splicetime",
+        "type": "continuous",
+        "max": 1000.0,
+        "min": 0,
+        "decode_max": 500.0
       }
     }
   }
@@ -232,11 +239,12 @@ All parameter definitions live in one file. Schema v2 with decode calibration:
 ```
 
 - **block_id_base** + instance number → actual block_id (`Delay 2` = 70 + 1 = 71)
-- **decode_max**: Calibrated max for GET decode (may differ from display `max`)
-- **decode_style**: `"center"` (raw=32767 is zero, true bipolar) or `"zero"` (raw=0 is min)
+- **decode_scale**: `"4096"` for 4096-scale params (flags=0x0430, only 4 in firmware)
+- **decode_max**: Calibrated max for GET decode (omitted when == display `max`)
+- **decode_style**: `"center"` (raw=32767 is zero), `"zero"` (bipolar with raw=0 at min), or `"frequency"` (log scale)
 - **39 blocks, 1380 parameters** with type/max/min metadata
 
-### Encoding Rules (Confirmed 2026-05-29)
+### Encoding Rules (Confirmed 2026-06-04)
 
 **SET (sub=0x09)** — All effect blocks use unified normalized encoding:
 
@@ -247,20 +255,25 @@ All parameter definitions live in one file. Schema v2 with decode calibration:
 | Switch | raw_float | `0.0` or `1.0` |
 | Enum | raw_float | integer index as float |
 | Signed int | raw_float | semitone value directly |
+| Frequency | raw_float | Hz value directly (FM9 applies log transform internally) |
 
 Amp/Drive continuous params also use normalized (`value / max`).
 Amp/Drive bipolar params (Level, Balance) use raw_float (display value directly).
 
-**GET (func=0x1F)** — 21-bit integer (3×7-bit packed), decode depends on calibration:
+**GET (func=0x1F)** — Six decode patterns (confirmed 2026-06-04):
 
-| decode_style | Formula |
-|---|---|
-| `"center"` | `(raw - 32767) / 32767 * decode_max` |
-| `"zero"` or default continuous | `raw / 65534 * decode_max` |
-| uncalibrated bipolar | `raw / 65534 * (max - min) + min` |
+| Pattern | Condition | Formula |
+|---|---|---|
+| 4096 scale | `cache_flags == 0x0430` (4 params) | `(raw + 4) / 4096 * display_max` |
+| center bipolar | `decode_style == "center"` | `(raw - 32767) / 32767 * decode_max` |
+| zero bipolar | `decode_style == "zero"` + bipolar | `raw / 65534 * decode_max - decode_max/2` |
+| continuous | default | `raw / 65534 * decode_max` |
+| frequency (log) | type=frequency + max≥2000 | `min * 10^(raw/65534 * log₁₀(decode_max/min))` |
+| signed_int | type=signed_int | `raw if raw≤32767 else raw-65536` |
 
 **Key insight**: SET and GET use different max values. SET uses `display_max` (from cache).
 GET uses `decode_max` (internal storage range, measured via roundtrip calibration).
+`decode_max` cannot be derived from cache — live calibration required.
 
 ### Firmware Update Workflow
 
@@ -283,13 +296,20 @@ After any change to all_params.json (firmware update, cache re-parse):
 # Calibrate a single block:
 python3 tests/calibrate_decode.py --block "Delay 1" --apply
 
-# Calibrate all effect blocks (takes ~5 min, requires FM9 connected):
-python3 tests/calibrate_decode.py --all --apply
+# Calibrate all effect blocks (requires FM9 connected, ~1-2 hours):
+caffeinate -i python3 -u tests/calibrate_decode.py --all --apply 2>&1 | tee tests/calibration_log_$(date +%Y%m%d).txt
+
+# Resume after firmware panic:
+caffeinate -i python3 -u tests/calibrate_decode.py --all --apply --start-from "Chorus 1" 2>&1 | tee -a tests/calibration_log.txt
 ```
 
-This measures the actual `decode_max` and `decode_style` for each parameter by:
-1. SET a known value → read raw from GET → compute internal storage max
-2. SET 0 → read raw → determine if center-offset (raw≈32767) or zero-based (raw≈0)
+This measures the actual `decode_max`, `decode_style`, and `decode_scale` for each parameter by:
+1. SET 0 (or min) → read raw → determine if center-offset (raw≈32767) or zero-based (raw≈0)
+2. SET test value → read raw → compute internal storage max
+3. Static detection of 4096-scale params via cache flags (no hardware needed)
+
+**Current coverage** (2026-06-05): 20 blocks calibrated, 285/1252 params (23%).
+See `pipeline/README.md` for per-block status and notes on uncalibrated params.
 
 ## Device Support
 

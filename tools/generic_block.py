@@ -234,12 +234,17 @@ def register(mcp):
             chunks: Raw chunk data from get_block_data
             channel: Channel index (0=A, 1=B, 2=C, 3=D)
 
+        Decode algorithm dispatch (6 patterns, confirmed 2026-06-04):
+          Pattern 1: decode_scale=="4096" → (raw+4)/4096 * display_max
+          Pattern 2: decode_style=="center" → (raw-32767)/32767 * decode_max
+          Pattern 3: type=="bipolar" + decode_style=="zero" → raw/65534 * decode_max + min
+          Pattern 4: continuous (default) → raw/65534 * decode_max
+          Pattern 5: type=="frequency" + max>=2000 → min * 10^(raw/65534 * log10(dm/min))
+          Pattern 6: type=="signed_int" → two's complement
+
         Channel data layout: all chunks are concatenated (stripping 7-byte SysEx
         headers from chunks after the first), then channels are accessed via
         stride = (combined_len - 7) // 4.
-
-        Decode uses calibrated decode_max (from roundtrip calibration) when available.
-        Falls back to display max from all_params.json.
         """
         import math
 
@@ -266,32 +271,42 @@ def register(mcp):
             param_type = pinfo.get("type", "continuous")
             param_max = pinfo.get("max", 10.0)
             param_min = pinfo.get("min", 0)
-            # Calibrated decode_max overrides display max for GET decode
             decode_max = pinfo.get("decode_max", None)
             decode_style = pinfo.get("decode_style", None)
+            decode_scale = pinfo.get("decode_scale", None)
 
-            # Calculate display value based on type and calibration
+            # --- Dispatch decode algorithm ---
+
             if param_type == "switch":
                 display_value = bool(lo)
+
             elif param_type == "enum":
                 display_value = raw_val
+
             elif param_type == "signed_int":
-                # Two's complement: raw > 32767 means negative
+                # Pattern 6: Two's complement
                 display_value = raw_val if raw_val <= 32767 else raw_val - 65536
+
+            elif decode_scale == "4096":
+                # Pattern 1: 4096-scale fixed point (flags=0x0430, 4 params only)
+                # raw range 0-4092, decode = (raw+4)/4096 * display_max
+                if raw_val == 0:
+                    display_value = 0.0
+                else:
+                    display_value = round((raw_val + 4) / 4096.0 * param_max, 2)
+
             elif decode_style == "center":
-                # True bipolar: raw=32767 is center (0), uses calibrated decode_max
+                # Pattern 2: Center bipolar (raw=32767 is zero)
                 effective_max = decode_max if decode_max else param_max
                 display_value = round((raw_val - 32767) / 32767.0 * effective_max, 2)
-            elif param_type == "bipolar" and decode_style != "zero":
-                # Default bipolar decode (center-offset) when no calibration
-                # This is the legacy behavior for uncalibrated params
-                if decode_max:
-                    display_value = round(raw_val / 65534.0 * decode_max * 2 - decode_max, 2)
-                else:
-                    display_value = round(raw_val / 65534.0 * (param_max - param_min) + param_min, 2)
-            elif param_max >= 20000 or (block_id in CAB_BLOCK_IDS_SET and pid in (62, 63, 64, 65)):
-                # Frequency params with log scale decode:
-                # freq = min_freq * 10^(raw/65534 * log10(max_freq/min_freq))
+
+            elif param_type == "bipolar" and decode_style == "zero":
+                # Pattern 3: Zero-based bipolar (raw=0→min, raw=65534→max)
+                effective_max = decode_max if decode_max else (param_max - param_min)
+                display_value = round(raw_val / 65534.0 * effective_max + param_min, 2)
+
+            elif param_type == "frequency" and param_max >= 2000:
+                # Pattern 5: Frequency log scale
                 min_freq = max(param_min, 20.0)
                 effective_max = decode_max if decode_max else param_max
                 if raw_val == 0:
@@ -300,11 +315,20 @@ def register(mcp):
                     display_value = round(
                         min_freq * 10 ** (raw_val / 65534.0 * math.log10(effective_max / min_freq)), 1
                     )
+
+            elif param_type == "bipolar":
+                # Uncalibrated bipolar fallback: assume linear full-range
+                # raw/65534 * (max-min) + min
+                effective_range = (param_max - param_min) if param_max != param_min else param_max * 2
+                display_value = round(raw_val / 65534.0 * effective_range + param_min, 2)
+
             else:
-                # Continuous / zero-based bipolar: raw 0 = 0, 65534 = decode_max
+                # Pattern 4: Continuous / linear frequency (default)
+                # raw=0→0, raw=65534→decode_max (or display_max if uncalibrated)
                 effective_max = decode_max if decode_max else param_max
-                normalized = raw_val / 65534.0 if raw_val <= 65534 else raw_val
-                display_value = round(normalized * effective_max, 2)
+                display_value = round(raw_val / 65534.0 * effective_max, 2)
+
+            # --- Build result entry ---
 
             entry = {
                 "value": display_value,
@@ -488,6 +512,10 @@ def register(mcp):
                                                  raw_float=True)
                         elif param_type == "enum":
                             # Enum: send integer as raw float
+                            midi.set_param_value(block_id, pid, float(value), 1.0,
+                                                 raw_float=True)
+                        elif param_type == "frequency":
+                            # Frequency (Hz): raw float (FM9 expects Hz directly)
                             midi.set_param_value(block_id, pid, float(value), 1.0,
                                                  raw_float=True)
                         elif param_type == "bipolar":

@@ -226,57 +226,195 @@ Within each channel's region, parameters are packed at 3 bytes each (same layout
 single-channel case). The active channel is determined by querying STATUS_DUMP (func 0x13)
 or by using SET_CHANNEL (sub=0x16) to switch before reading/writing.
 
-### Parameter Decode Rules (GET_BLOCK → display value)
+### Parameter Decode Rules (GET_BLOCK → display value) — CONFIRMED 2026-06-04
 
 Raw values are 21-bit (3 × 7-bit MIDI bytes): `raw = lo | (hi << 7) | (msb << 14)`.
 
-**Not all parameters use the same internal scale.** Two distinct encodings are observed:
+**Six distinct decode patterns exist.** The pattern is determined by:
+1. Cache `flags` field (static, identifies 4096-scale params)
+2. `decode_style` (measured via calibration: SET 0 → read raw → center or zero?)
+3. `decode_max` (measured via calibration: SET known value → read raw → compute)
+4. Parameter `type` classification (switch, enum, signed_int, frequency, bipolar, continuous)
 
-#### Type 1: Standard (65534 scale)
+#### Pattern 1: 4096 Scale (Fixed-Point)
 
-Most parameters. Raw range 0–65534 maps linearly to display range.
-
-```
-continuous:  display = raw / 65534 * display_max
-bipolar:     display = raw / 65534 * (max - min) + min
-```
-
-Examples: Mix (0–100%), Feedback (-100–+100%), Level (-80–+20 dB)
-
-Verified: Feed pid=14, SET 37 → raw=44891 → `44891/65534*200-100 = 37.0` ✅
-
-#### Type 2: Fixed-point (4096 scale, offset +4)
-
-Parameters where SET uses `raw_float=True` with ms/time values.
-Internal raw range is 0–4092 (NOT 0–65534). Upper bits unused.
+**Identification**: `cache_flags == 0x0430` (exactly 4 parameters in entire firmware)
 
 ```
 display = (raw + 4) / 4096 * display_max
 ```
 
-Examples: Delay Time (0–1000 ms), Timer (0–1000 ms)
+Internal raw range is 0–4092 (12 bits). Upper bits unused.
+FM9 encodes as: `raw = round(normalized * 4096 - 4)`, clamp to 0.
+
+| Parameter | Block | display_max | Verified |
+|-----------|-------|-------------|----------|
+| Time (pid=12) | Delay | 1000 ms | ✅ |
+| Timer (pid=30) | Delay | 1000 ms | ✅ |
+| Time (pid=2) | Megatap/Plex (cid=33) | 1000 ms | — |
+| Time (pid=4) | Megatap/Plex (cid=33) | 1000 ms | — |
 
 Verified data points (Delay 1 Time, display_max=1000):
 
-| display (Editor) | raw  | (raw+4)/4096*1000 |
-|------------------|------|-------------------|
-| 137              | 557  | 137.0 ✅          |
-| 250              | 1020 | 250.0 ✅          |
-| 500              | 2044 | 500.0 ✅          |
-| 800              | 3273 | 800.0 ✅          |
-| 1000             | 4092 | 1000.0 ✅         |
+| SET | raw | (raw+4)/4096×1000 |
+|-----|-----|-------------------|
+| 10 | 37 | 10.01 ✅ |
+| 100 | 406 | 100.10 ✅ |
+| 250 | 1020 | 250.00 ✅ |
+| 500 | 2044 | 500.00 ✅ |
+| 1000 | 4092 | 1000.00 ✅ |
 
-Note: The previous calibration approach (`decode_max=16030.82`) is a linear
-approximation of this — it produces `raw/65534*16030.82` which is close but
-introduces ~0.5–0.75 ms error depending on the value.
+Note: The legacy calibration approach (`decode_max=16030.82` with `raw/65534*decode_max`)
+is a linear approximation that introduces ~0.1–1.0 ms error depending on value.
 
-#### Open Questions
+#### Pattern 2: 65534 Linear, Center Bipolar
 
-- How to determine which parameters use Type 2 (4096 scale) without live calibration?
-  - Hypothesis: params with `raw_float=True` SET encoding AND ms-range display
-  - Hypothesis: derivable from effectDefinitions cache flags
-- Are there other internal scales (8192, 16384, etc.) for other param ranges?
-- What is the origin of the +4 offset? (possibly related to minimum delay sample count)
+**Identification**: `decode_style == "center"` (calibration: SET 0 → raw ≈ 32767)
+
+```
+display = (raw - 32767) / 32767 * decode_max
+```
+
+Range: raw=0 → -decode_max, raw=32767 → 0, raw=65534 → +decode_max.
+
+| Example | display_max (cache) | decode_max (actual) | ratio |
+|---------|--------------------|--------------------|-------|
+| Feed ±100% | 100 | 100 | 1.0 |
+| Gain1 ±12 dB | 1.0 | 12.0 | 12.0 |
+| Spread ±1.0 | 1.0 | 2.0 | 2.0 |
+
+Verified: Feed pid=14, raw_float=-0.5 → raw=16384 → `(16384-32767)/32767*100 = -50.00` ✅
+Verified: Gain1 pid=69, raw_float=0.5 → raw=34132 → `(34132-32767)/32767*12 = 0.50 dB` ✅
+
+#### Pattern 3: 65534 Linear, Zero-Based Bipolar
+
+**Identification**: `decode_style == "zero"` AND `type == "bipolar"`
+(calibration: SET 0 → raw ≈ 0, but parameter has negative display range)
+
+```
+display = raw / 65534 * decode_max + param_min
+```
+
+Where `decode_max` = total range (max − min), stored in all_params.json.
+
+Range: raw=0 → param_min, raw=32767 → center (0), raw=65534 → param_max.
+
+| Example | display range | decode_max | param_min |
+|---------|--------------|------------|-----------|
+| Mstrfdbk ±100% | -100..+100 | 200 | -100 |
+| Mstrtime ±100% | -100..+100 | 200 | -100 |
+
+**Important**: `decode_max` for zero-bipolar is the **total range** (max - min = 200),
+NOT the positive half (100). The calibration script computes it as
+`pmax * 65534 / raw_at_max` where raw_at_max is the raw value when SET 1.0 is sent.
+
+**SET limitation**: Normalized encoding (sub=0x09) only reaches the positive half
+of the raw range (raw 0..32767 for normalized 0..1.0). Negative display values
+require GET→MODIFY→PUT (write raw bytes directly). This matches FM9-Edit behavior.
+
+#### Pattern 4: 65534 Linear, Continuous (Zero-Based)
+
+**Identification**: default for `type == "continuous"` (calibration: SET 0 → raw ≈ 0)
+
+```
+display = raw / 65534 * decode_max
+```
+
+Range: raw=0 → 0, raw=65534 → decode_max.
+
+Most common pattern. `decode_max` often equals `display_max` but NOT always:
+
+| Example | display_max | decode_max | ratio | Reason |
+|---------|------------|------------|-------|--------|
+| Mix 0–100% | 100 | 100 | 1.0 | Standard |
+| Splicetime | 1000 | 500 | 0.5 | Actual range is 500ms |
+| LFO Phase | 57.2958 (1 rad) | 180 (π rad) | π | Internal = degrees |
+| Bypass (Delay) | 10 | 15 | 1.5 | Internal headroom |
+| Q (Delay) | 10 | 25.13 | 2.513 | Internal Q range |
+
+#### Pattern 5: Frequency (Logarithmic Scale)
+
+**Identification**: `type == "frequency"` AND `display_max >= 2000` (typically 20000 Hz)
+
+```
+display = min_freq * 10^(raw / 65534 * log₁₀(decode_max / min_freq))
+```
+
+Where `min_freq = max(param_min, 20.0)` (typically 20 Hz).
+
+| Example | min_freq | display_max (cache) | decode_max (actual) | ratio |
+|---------|----------|--------------------|--------------------|-------|
+| PEQ Freq1 | 20 Hz | 20000 Hz | 2000 Hz | 0.1 |
+
+**Critical**: `decode_max` for frequency params is the **actual maximum frequency**,
+which differs from the cache `display_max`. The FM9 receives Hz via raw_float and
+applies log₁₀ transformation internally for storage.
+
+Verified: PEQ Freq1, SET raw_float=100 Hz → raw=22903 →
+`20 * 10^(22903/65534 * log₁₀(2000/20))` = 100.0 Hz ✅
+
+**SET encoding** for frequency params: `raw_float=True` with Hz value directly.
+FM9 applies the log transform internally.
+
+**Note**: Not all "frequency" type params in the cache are true log-scale. LFO Phase
+(cache flags=frequency due to bit 9) uses linear Pattern 4 despite being classified
+as frequency in the cache. The distinguishing factor is `display_max`:
+- `display_max >= 2000`: true log-scale (Pattern 5)
+- `display_max < 100`: linear (Pattern 4 with different decode_max)
+
+#### Pattern 6: Signed Integer (Two's Complement)
+
+**Identification**: `type == "signed_int"` (e.g., Pitch Shift semitones)
+
+```
+display = raw                    (if raw ≤ 32767)
+display = raw - 65536            (if raw > 32767)
+```
+
+Range: ±24 semitones for Pitch block Virtual Capo.
+SET: `raw_float=True` with semitone value directly (e.g., -1.0 for down 1 semitone).
+
+#### Switch and Enum (trivial)
+
+```
+switch: display = bool(lo)           (lo != 0 → True)
+enum:   display = raw_val            (integer index, 0-based)
+```
+
+#### Cache Flags → 4096 Scale Identification
+
+The effectDefinitions cache stores a 16-bit `flags` field per parameter record.
+**Only `flags == 0x0430`** indicates 4096-scale storage. All other flag values use
+65534 scale (with varying decode_max determined by calibration).
+
+```
+0x0430 = 0000_0100_0011_0000  → 4096 scale (4 params total)
+0x0431 = 0000_0100_0011_0001  → 65534 scale (ms-range continuous)
+0x0432 = 0000_0100_0011_0010  → 65534 scale (fine-resolution ms)
+0x0433 = 0000_0100_0011_0011  → 65534 scale (ultra-fine ms)
+0x0441–0x0443                  → 65534 scale (auto-step ms)
+```
+
+Key bit interpretation:
+- bit 0: distinguishes 4096 (0) from 65534 (1) within the 0x043x group
+- bit 8 (0x0100): bipolar flag
+- bit 9 (0x0200): frequency flag (log-scale if display_max ≥ 2000)
+- bit 10 (0x0400): time/period semantic flag
+
+#### decode_max Determination Strategy
+
+`decode_max` CANNOT be derived from the cache alone — live calibration is required.
+The calibration process (per parameter):
+
+1. SET 0 (or min_freq for frequency) → read raw → determines `decode_style`
+   - raw ≈ 0: zero-based
+   - raw ≈ 32767: center bipolar
+2. SET 50% of display_max → read raw → compute `decode_max`
+   - zero-based: `decode_max = test_val * 65534 / raw`
+   - center: `decode_max = test_val * 32767 / (raw - 32767)`
+   - frequency: solve log equation for decode_max
+
+Run `tests/calibrate_decode.py --all --apply` to calibrate all blocks (~5 min with FM9 connected).
 
 ## SET_TYPE / SET_PARAM (sub=0x09) / SLIDE_PARAM (sub=0x52)
 
@@ -591,25 +729,32 @@ FM9 interprets bipolar normalized values as: 0.0=center, +1.0=positive max, -1.0
 - DynaCab R/Z (position/distance): **Normalized 0.0–1.0** (only Cab params that use normalized)
 - All other params: **Raw float**
 
-### GET Decode (func=0x1F) — Calibration Required
+### GET Decode (func=0x1F) — CONFIRMED 2026-06-04
 
-GET returns 21-bit integers (raw 0–65534). The decode formula depends on the parameter's
-calibrated `decode_style` and `decode_max`:
+See "Parameter Decode Rules" section above for the complete 6-pattern decode algorithm.
 
-| decode_style | Formula | When |
+Summary table:
+
+| Pattern | Condition | Formula |
 |---|---|---|
-| `"center"` | `(raw - 32767) / 32767 * decode_max` | True bipolar (Feed, Spread, Gain1/2) |
-| `"zero"` / default | `raw / 65534 * decode_max` | Continuous + pseudo-bipolar |
-| uncalibrated bipolar | `raw / 65534 * (max - min) + min` | Fallback (may be inaccurate) |
+| 4096 scale | `cache_flags == 0x0430` | `(raw + 4) / 4096 * display_max` |
+| center bipolar | `decode_style == "center"` | `(raw - 32767) / 32767 * decode_max` |
+| zero bipolar | `decode_style == "zero"` + bipolar | `raw / 65534 * decode_max - decode_max/2` |
+| continuous | default | `raw / 65534 * decode_max` |
+| frequency (log) | `type == "frequency"` + max≥2000 | `min * 10^(raw/65534 * log₁₀(decode_max/min))` |
+| signed_int | `type == "signed_int"` | `raw if raw≤32767 else raw-65536` |
 
-**Critical**: `decode_max` often differs from `display_max`. Examples:
-- Delay Time: display_max=1000ms, decode_max=16000ms (ratio 16:1)
-- LFO Phase: display_max=57.3°, decode_max=180° (ratio π:1)
-- Reverb Gain1: display_max=1.0, decode_max=12.0 (actually ±12 dB)
+**Critical**: `decode_max` often differs from `display_max` and MUST be measured
+via live calibration (`tests/calibrate_decode.py`). Cannot be derived from cache alone.
 
-Use `tests/calibrate_decode.py` to measure correct decode_max values.
+Known decode_max/display_max ratios:
+- π (3.14): LFO Phase (rad↔deg conversion)
+- 12: Parametric EQ gain (±12 dB range)
+- 2: zero-bipolar total range
+- 0.5: actual max is half of cache max (clamped params)
+- 0.1: frequency decode_max (log scale internal range)
 
-Verified via Wireshark capture (2026-05-27) and roundtrip testing (2026-05-29).
+Verified via SET→GET roundtrip testing (2026-06-04).
 
 ### Pitch Block — Virtual Capo Shift (signed integer)
 

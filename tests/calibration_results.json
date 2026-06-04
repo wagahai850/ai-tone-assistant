@@ -3,22 +3,25 @@
     "0": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Mix"
     },
     "1": {
-      "decode_style": "offset",
-      "decode_max": 20.0,
+      "decode_style": "zero",
+      "decode_max": 24.69,
+      "raw_at_min": 51772,
       "raw_at_zero": 52427,
-      "raw_at_half": 52755,
+      "raw_at_test": 52755,
       "display_name": "Level"
     },
     "2": {
       "decode_style": "center",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 32767,
-      "raw_at_half": 49151,
+      "raw_at_test": 49151,
       "display_name": "Pan"
     },
     "3": {
@@ -42,8 +45,9 @@
     "11": {
       "decode_style": "zero",
       "decode_max": 125.06,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 262,
+      "raw_at_test": 262,
       "display_name": "Time"
     },
     "12": {
@@ -55,50 +59,57 @@
     "13": {
       "decode_style": "zero",
       "decode_max": 0.59,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 55670,
+      "raw_at_test": 55670,
       "display_name": "Hfratio"
     },
     "14": {
       "decode_style": "zero",
       "decode_max": 1.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Diffusion"
     },
     "15": {
       "decode_style": "zero",
       "decode_max": 1.01,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32436,
+      "raw_at_test": 32436,
       "display_name": "Size"
     },
     "16": {
       "decode_style": "zero",
       "decode_max": 0.5,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 65534,
+      "raw_at_test": 65534,
       "display_name": "Reverbdelay"
     },
     "17": {
       "decode_style": "offset",
       "decode_max": 1.0,
+      "raw_at_min": 52427,
       "raw_at_zero": 52427,
-      "raw_at_half": 53083,
+      "raw_at_test": 53083,
       "display_name": "Earlylevel"
     },
     "18": {
       "decode_style": "offset",
       "decode_max": 1.0,
+      "raw_at_min": 52427,
       "raw_at_zero": 52427,
-      "raw_at_half": 53083,
+      "raw_at_test": 53083,
       "display_name": "Reverblevel"
     },
     "19": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Pre-Delay"
     },
     "20": {
@@ -110,22 +121,25 @@
     "21": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Depth"
     },
     "22": {
       "decode_style": "zero",
-      "decode_max": 58.86,
+      "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 55670,
+      "raw_at_test": 55670,
       "display_name": "Global Mix"
     },
     "23": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Gain"
     },
     "24": {
@@ -137,15 +151,17 @@
     "25": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Inpdiff"
     },
     "26": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Bypass"
     },
     "27": {
@@ -157,15 +173,17 @@
     "28": {
       "decode_style": "zero",
       "decode_max": 1000.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Tone"
     },
     "29": {
       "decode_style": "zero",
       "decode_max": 1000.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Width"
     },
     "30": {
@@ -182,44 +200,50 @@
     },
     "32": {
       "decode_style": "zero",
-      "decode_max": 143.07,
+      "decode_max": 200.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 22903,
+      "raw_at_test": 22903,
       "display_name": "Q1"
     },
     "33": {
       "decode_style": "zero",
-      "decode_max": 143.07,
+      "decode_max": 200.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 22903,
+      "raw_at_test": 22903,
       "display_name": "Q2"
     },
     "34": {
       "decode_style": "center",
       "decode_max": 1200.26,
+      "raw_at_min": 30036,
       "raw_at_zero": 32767,
-      "raw_at_half": 34132,
+      "raw_at_test": 34132,
       "display_name": "Gain1"
     },
     "35": {
       "decode_style": "center",
       "decode_max": 120.03,
+      "raw_at_min": 32767,
       "raw_at_zero": 32767,
-      "raw_at_half": 34132,
+      "raw_at_test": 34132,
       "display_name": "Gain2"
     },
     "36": {
       "decode_style": "zero",
       "decode_max": 5.89,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 55670,
+      "raw_at_test": 55670,
       "display_name": "Drive"
     },
     "37": {
       "decode_style": "zero",
       "decode_max": 7.15,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 45806,
+      "raw_at_test": 45806,
       "display_name": "Lftime"
     },
     "38": {
@@ -231,57 +255,65 @@
     "39": {
       "decode_style": "center",
       "decode_max": 2.0,
+      "raw_at_min": 16384,
       "raw_at_zero": 32767,
-      "raw_at_half": 40959,
+      "raw_at_test": 40959,
       "display_name": "Spread"
     },
     "40": {
       "decode_style": "zero",
       "decode_max": 7991.95,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 410,
+      "raw_at_test": 410,
       "display_name": "Atten"
     },
     "41": {
       "decode_style": "offset",
       "decode_max": 10.0,
+      "raw_at_min": 52427,
       "raw_at_zero": 52427,
-      "raw_at_half": 52755,
+      "raw_at_test": 52755,
       "display_name": "Thresh"
     },
     "42": {
       "decode_style": "zero",
       "decode_max": 5.56,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 58958,
+      "raw_at_test": 58958,
       "display_name": "Release"
     },
     "43": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Earlydiff"
     },
     "44": {
       "decode_style": "zero",
       "decode_max": 1.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Earlydifftime"
     },
     "45": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Earlydecay"
     },
     "46": {
       "decode_style": "zero",
       "decode_max": 10.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Earlysend"
     },
     "47": {
@@ -305,15 +337,17 @@
     "50": {
       "decode_style": "zero",
       "decode_max": 31.42,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 10430,
+      "raw_at_test": 10430,
       "display_name": "LFO Phase"
     },
     "52": {
       "decode_style": "zero",
       "decode_max": 10.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Dispersion"
     },
     "53": {
@@ -331,8 +365,9 @@
     "55": {
       "decode_style": "zero",
       "decode_max": 10.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Pitchmix"
     },
     "56": {
@@ -350,8 +385,9 @@
     "58": {
       "decode_style": "zero",
       "decode_max": 1000.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Pitchfdbk"
     },
     "59": {
@@ -362,9 +398,10 @@
     },
     "60": {
       "decode_style": "zero",
-      "decode_max": 203.06,
+      "decode_max": 201.01,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 16137,
+      "raw_at_test": 16137,
       "display_name": "Pitchtime"
     },
     "61": {
@@ -376,8 +413,9 @@
     "62": {
       "decode_style": "zero",
       "decode_max": 100.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Pitchmod"
     },
     "64": {
@@ -389,15 +427,17 @@
     "65": {
       "decode_style": "zero",
       "decode_max": 1.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Predlyfdbk"
     },
     "66": {
       "decode_style": "zero",
       "decode_max": 1.0,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 32767,
+      "raw_at_test": 32767,
       "display_name": "Predlymix"
     },
     "67": {
@@ -427,9 +467,4026 @@
     "71": {
       "decode_style": "zero",
       "decode_max": 1.43,
+      "raw_at_min": 0,
       "raw_at_zero": 0,
-      "raw_at_half": 22903,
+      "raw_at_test": 22903,
       "display_name": "Lowq"
+    }
+  },
+  "Delay 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "2": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "4": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Holdfdbk"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_scale": "4096",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 2044,
+      "note": "4096 scale (flags=0x0430, static detection)",
+      "display_name": "Time"
+    },
+    "13": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32436,
+      "display_name": "Ratio"
+    },
+    "14": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feed"
+    },
+    "15": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedl"
+    },
+    "16": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedr"
+    },
+    "17": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Delaypan"
+    },
+    "18": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Spread"
+    },
+    "19": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo"
+    },
+    "20": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Low Cut"
+    },
+    "21": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "High Cut"
+    },
+    "22": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate1"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 2.51,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 13039,
+      "display_name": "Rate2"
+    },
+    "24": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth1"
+    },
+    "25": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth2"
+    },
+    "26": {
+      "decode_style": "zero",
+      "decode_max": 15.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 21845,
+      "display_name": "Bypass"
+    },
+    "27": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain"
+    },
+    "28": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo1Type"
+    },
+    "29": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo2Type"
+    },
+    "30": {
+      "decode_style": "zero",
+      "decode_scale": "4096",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 2044,
+      "note": "4096 scale (flags=0x0430, static detection)",
+      "display_name": "Timer"
+    },
+    "31": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Hold"
+    },
+    "32": {
+      "decode_style": "zero",
+      "decode_max": 200.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Mstrfdbk"
+    },
+    "33": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempor"
+    },
+    "34": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedlr"
+    },
+    "35": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedrl"
+    },
+    "36": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Levell"
+    },
+    "37": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Levelr"
+    },
+    "38": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Panl"
+    },
+    "39": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Panr"
+    },
+    "40": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Lfo1Phase"
+    },
+    "41": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Lfo2Phase"
+    },
+    "42": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Splicetime"
+    },
+    "45": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lpf Order"
+    },
+    "46": {
+      "decode_style": "zero",
+      "decode_max": 80.02,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 410,
+      "display_name": "Atten"
+    },
+    "47": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Thresh"
+    },
+    "48": {
+      "decode_style": "zero",
+      "decode_max": 555.77,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 58958,
+      "display_name": "Release"
+    },
+    "49": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Diffuse"
+    },
+    "50": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 32436,
+      "display_name": "Difftime"
+    },
+    "51": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Phase Reverse"
+    },
+    "52": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo1Target"
+    },
+    "53": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo2Target"
+    },
+    "54": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo1Tempo"
+    },
+    "55": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo2Tempo"
+    },
+    "56": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate3"
+    },
+    "57": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo3Type"
+    },
+    "58": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Lfo3Phase"
+    },
+    "59": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo3Tempo"
+    },
+    "60": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Fstart"
+    },
+    "61": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Fstop"
+    },
+    "62": {
+      "decode_style": "zero",
+      "decode_max": 25.13,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 13039,
+      "display_name": "Q"
+    },
+    "63": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Filterq"
+    },
+    "64": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Bitreduce"
+    },
+    "65": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq1"
+    },
+    "66": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq2"
+    },
+    "67": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q1"
+    },
+    "68": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q2"
+    },
+    "69": {
+      "decode_style": "center",
+      "decode_max": 12.0,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain1"
+    },
+    "70": {
+      "decode_style": "center",
+      "decode_max": 12.0,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain2"
+    },
+    "71": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Maxdepth"
+    },
+    "72": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Speed"
+    },
+    "73": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Offset"
+    },
+    "74": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Hpf Order"
+    },
+    "76": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Comptime"
+    },
+    "77": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 65534,
+      "display_name": "Compthresh"
+    },
+    "78": {
+      "decode_style": "zero",
+      "decode_max": 200.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Mstrtime"
+    },
+    "79": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Diffrate"
+    },
+    "80": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Diffdepth"
+    },
+    "81": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo4Type"
+    },
+    "82": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate4"
+    },
+    "83": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo4Tempo"
+    },
+    "84": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth4"
+    },
+    "85": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Lfo4Phase"
+    },
+    "86": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfo4Target"
+    },
+    "87": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Stackfdbk"
+    },
+    "88": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Killdry"
+    }
+  },
+  "Flanger 1": {
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 1.15,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 28480,
+      "display_name": "Rate"
+    },
+    "2": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo"
+    },
+    "3": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 0.67,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49233,
+      "display_name": "Feedback"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Manual"
+    },
+    "6": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Drydelay"
+    },
+    "7": {
+      "decode_style": "zero",
+      "decode_max": 3.14,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "LFO Phase"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "LFO Type"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfofilter"
+    },
+    "10": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Auto"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "14": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "17": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Phase Reverse"
+    },
+    "18": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Thruzero"
+    },
+    "19": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Lpfreq"
+    },
+    "20": {
+      "decode_style": "zero",
+      "decode_max": 1.3,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 43689,
+      "display_name": "Drive"
+    },
+    "21": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Hpfreq"
+    },
+    "22": {
+      "decode_style": "center",
+      "decode_max": 20.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 40959,
+      "display_name": "Spread"
+    },
+    "23": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lforeset"
+    },
+    "24": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Lpf Order"
+    },
+    "30": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 1,
+      "display_name": "Lfoquantize"
+    },
+    "31": {
+      "decode_style": "zero",
+      "decode_max": 11.77,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 27835,
+      "display_name": "Vcok"
+    }
+  },
+  "Rotary 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 3277,
+      "display_name": "Rate"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Lfdepth"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Hfdepth"
+    },
+    "3": {
+      "decode_style": "center",
+      "decode_max": 6.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 35498,
+      "display_name": "Hflevel"
+    },
+    "4": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "6": {
+      "decode_style": "offset",
+      "decode_max": 1.0,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "7": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "10": {
+      "decode_style": "zero",
+      "decode_max": 10.01,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32734,
+      "display_name": "Hflength"
+    },
+    "11": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_max": 314.16,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Width"
+    },
+    "13": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Lowrate"
+    },
+    "14": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Lowtime"
+    },
+    "15": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Hightime"
+    },
+    "16": {
+      "decode_style": "center",
+      "decode_max": 2.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 40959,
+      "display_name": "Spread"
+    },
+    "17": {
+      "decode_style": "zero",
+      "decode_max": 15.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 21845,
+      "display_name": "Drive"
+    },
+    "18": {
+      "decode_style": "zero",
+      "decode_max": 0.59,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 55670,
+      "display_name": "Micdist"
+    }
+  },
+  "Phaser 1": {
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Order"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "LFO Type"
+    },
+    "4": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth"
+    },
+    "6": {
+      "decode_style": "center",
+      "decode_max": 99.99,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 50971,
+      "display_name": "Feedback"
+    },
+    "7": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Fmin"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Fmax"
+    },
+    "9": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "LFO Phase"
+    },
+    "10": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Bias"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "15": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "16": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "18": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Fbtap"
+    },
+    "19": {
+      "decode_style": "center",
+      "decode_max": 15.81,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 65534,
+      "display_name": "Tone"
+    },
+    "20": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Direction"
+    },
+    "21": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q"
+    },
+    "22": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lforeset"
+    },
+    "23": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 1,
+      "display_name": "Lfoquantize"
+    },
+    "24": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Vcr Curve"
+    },
+    "25": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Vcrk"
+    },
+    "26": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Lfobeta"
+    },
+    "27": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfolpf"
+    },
+    "28": {
+      "decode_style": "zero",
+      "decode_max": 588.59,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 55670,
+      "display_name": "Attack"
+    },
+    "29": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Release"
+    },
+    "30": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Manual"
+    },
+    "32": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Hpf"
+    },
+    "33": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Lpf"
+    }
+  },
+  "Wah 1": {
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Fstart"
+    },
+    "2": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Fstop"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Q"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Track"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Control"
+    },
+    "6": {
+      "decode_style": "zero",
+      "decode_max": 0.62,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "7": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "9": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "10": {
+      "decode_style": "zero",
+      "decode_max": 0.59,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 55670,
+      "display_name": "Drive"
+    },
+    "11": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Taper"
+    },
+    "12": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "13": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Bias"
+    },
+    "14": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Hpf"
+    },
+    "15": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Eqon"
+    },
+    "16": {
+      "decode_style": "center",
+      "decode_max": 1200.26,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Eq1"
+    },
+    "17": {
+      "decode_style": "center",
+      "decode_max": 1200.26,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Eq2"
+    },
+    "19": {
+      "decode_style": "center",
+      "decode_max": 144.03,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Eq4"
+    },
+    "20": {
+      "decode_style": "center",
+      "decode_max": 144.03,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Eq5"
+    },
+    "22": {
+      "decode_style": "center",
+      "decode_max": 144.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Eq7"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 0.96,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Eq8"
+    }
+  },
+  "Formant 1": {
+    "0": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "F1"
+    },
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "F2"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Q"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ctrl"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "6": {
+      "decode_style": "offset",
+      "decode_max": 100.0,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "7": {
+      "decode_style": "center",
+      "decode_max": 199.99,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    }
+  },
+  "Tremolo/Panner 1": {
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "LFO Type"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 286.14,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 13039,
+      "display_name": "Rate"
+    },
+    "3": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Duty"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo"
+    },
+    "6": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Mix"
+    },
+    "7": {
+      "decode_style": "offset",
+      "decode_max": 100.0,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "8": {
+      "decode_style": "center",
+      "decode_max": 199.99,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 4,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "10": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 3.14,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Phase"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_max": 127.32,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 8192,
+      "display_name": "Width"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Center"
+    },
+    "14": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "15": {
+      "decode_style": "zero",
+      "decode_max": 3.14,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Startphase"
+    },
+    "16": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Order"
+    },
+    "17": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Xover"
+    },
+    "18": {
+      "decode_style": "offset",
+      "decode_max": 1.0,
+      "raw_at_min": 49151,
+      "raw_at_zero": 49151,
+      "raw_at_test": 49560,
+      "display_name": "Thresh"
+    }
+  },
+  "Mixer 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain1"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain2"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain3"
+    },
+    "3": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain4"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain5"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain6"
+    },
+    "6": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan1"
+    },
+    "7": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan2"
+    },
+    "8": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan3"
+    },
+    "9": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan4"
+    },
+    "10": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan5"
+    },
+    "11": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan6"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Master"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    }
+  },
+  "Synth 1": {
+    "0": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Type1"
+    },
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq1"
+    },
+    "2": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Track1"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Shift1"
+    },
+    "4": {
+      "decode_style": "center",
+      "decode_max": 499.5,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune1"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Duty1"
+    },
+    "6": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level1"
+    },
+    "7": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan1"
+    },
+    "8": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 56961,
+      "display_name": "Attack1"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Hicut1"
+    },
+    "10": {
+      "decode_style": "zero",
+      "decode_max": 432.2,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 0,
+      "display_name": "Q1"
+    },
+    "11": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Type2"
+    },
+    "12": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq2"
+    },
+    "13": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Track2"
+    },
+    "14": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Shift2"
+    },
+    "15": {
+      "decode_style": "center",
+      "decode_max": 4994.97,
+      "raw_at_min": 32112,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune2"
+    },
+    "16": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Duty2"
+    },
+    "17": {
+      "decode_style": "zero",
+      "decode_max": 1000.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level2"
+    },
+    "18": {
+      "decode_style": "center",
+      "decode_max": 999.97,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan2"
+    },
+    "19": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Attack2"
+    },
+    "20": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Hicut2"
+    },
+    "21": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Q2"
+    },
+    "22": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Spare1"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 1000.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "24": {
+      "decode_style": "offset",
+      "decode_max": 1000.0,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "25": {
+      "decode_style": "center",
+      "decode_max": 999.97,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "26": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "27": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "28": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "29": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Type3"
+    },
+    "30": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq3"
+    },
+    "31": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Track3"
+    },
+    "32": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 65535,
+      "display_name": "Shift3"
+    },
+    "33": {
+      "decode_style": "center",
+      "decode_max": 49.95,
+      "raw_at_min": 32112,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune3"
+    },
+    "34": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Duty3"
+    },
+    "35": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level3"
+    },
+    "36": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan3"
+    },
+    "37": {
+      "decode_style": "zero",
+      "decode_max": 5.75,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 56961,
+      "display_name": "Attack3"
+    },
+    "38": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Hicut3"
+    },
+    "39": {
+      "decode_style": "zero",
+      "decode_max": 432.2,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 0,
+      "display_name": "Q3"
+    },
+    "40": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Scene Ignore"
+    }
+  },
+  "Compressor 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 0.66,
+      "raw_at_min": 49151,
+      "raw_at_zero": 49151,
+      "raw_at_test": 49560,
+      "display_name": "Thresh"
+    },
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Ratio"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Attack"
+    },
+    "3": {
+      "decode_style": "zero",
+      "decode_max": 0.63,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 52382,
+      "display_name": "Release"
+    },
+    "4": {
+      "decode_style": "center",
+      "decode_max": 20004.27,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33586,
+      "display_name": "Level"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Knee"
+    },
+    "6": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Auto"
+    },
+    "7": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Peakrms"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Low Cut"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "10": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Sidechain"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 1000.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "13": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Sustain"
+    },
+    "15": {
+      "decode_style": "zero",
+      "decode_max": 5.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Delay Time"
+    },
+    "16": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Automode"
+    },
+    "17": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Emphasis"
+    },
+    "18": {
+      "decode_style": "center",
+      "decode_max": 999.97,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Dynamics"
+    },
+    "19": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Inputswitch"
+    },
+    "20": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Highcut"
+    },
+    "21": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain"
+    },
+    "22": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 200.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q"
+    },
+    "24": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 1,
+      "display_name": "Lighttype"
+    },
+    "25": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Gainmonitor"
+    },
+    "27": {
+      "decode_style": "offset",
+      "decode_max": 1.0,
+      "raw_at_min": 49151,
+      "raw_at_zero": 49151,
+      "raw_at_test": 49560,
+      "display_name": "Thresh2"
+    },
+    "28": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Xmark"
+    },
+    "29": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Ymark"
+    },
+    "30": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Compansion"
+    },
+    "31": {
+      "decode_style": "zero",
+      "decode_max": 5.56,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 58958,
+      "display_name": "Comptime"
+    },
+    "32": {
+      "decode_style": "center",
+      "decode_max": 10.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Compmatch"
+    },
+    "33": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Emphfreq"
+    }
+  },
+  "Graphic EQ 1": {
+    "0": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain1"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 0.96,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain2"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 0.96,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain3"
+    },
+    "3": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain4"
+    },
+    "4": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain5"
+    },
+    "5": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain6"
+    },
+    "6": {
+      "decode_style": "center",
+      "decode_max": 12.0,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain7"
+    },
+    "7": {
+      "decode_style": "center",
+      "decode_max": 1200.26,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain8"
+    },
+    "8": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain9"
+    },
+    "9": {
+      "decode_style": "center",
+      "decode_max": 120.03,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain10"
+    },
+    "10": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Mix"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 24.69,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "12": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "13": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "14": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "16": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Masterq"
+    },
+    "17": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Spare3"
+    },
+    "18": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    }
+  },
+  "Parametric EQ 1": {
+    "0": {
+      "decode_style": "frequency",
+      "decode_max": 2000.02,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 55670,
+      "display_name": "Freq1"
+    },
+    "1": {
+      "decode_style": "frequency",
+      "decode_max": 50000.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Freq2"
+    },
+    "2": {
+      "decode_style": "frequency",
+      "decode_max": 50000.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Freq3"
+    },
+    "3": {
+      "decode_style": "frequency",
+      "decode_max": 50000.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Freq4"
+    },
+    "4": {
+      "decode_style": "frequency",
+      "decode_max": 1453499.81,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Freq5"
+    },
+    "5": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q1"
+    },
+    "6": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q2"
+    },
+    "7": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q3"
+    },
+    "8": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q4"
+    },
+    "9": {
+      "decode_style": "zero",
+      "decode_max": 14.31,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Q5"
+    },
+    "10": {
+      "decode_style": "center",
+      "decode_max": 240.05,
+      "raw_at_min": 31129,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33586,
+      "display_name": "Gain1"
+    },
+    "11": {
+      "decode_style": "center",
+      "decode_max": 240.05,
+      "raw_at_min": 31129,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33586,
+      "display_name": "Gain2"
+    },
+    "12": {
+      "decode_style": "center",
+      "decode_max": 240.05,
+      "raw_at_min": 31129,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33586,
+      "display_name": "Gain3"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 240.05,
+      "raw_at_min": 31129,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33586,
+      "display_name": "Gain4"
+    },
+    "14": {
+      "decode_style": "center",
+      "decode_max": 240.05,
+      "raw_at_min": 31129,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33586,
+      "display_name": "Gain5"
+    },
+    "20": {
+      "decode_style": "offset",
+      "decode_max": 10.0,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "21": {
+      "decode_style": "zero",
+      "decode_max": 0.67,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "22": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    },
+    "25": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Solo1"
+    },
+    "26": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Solo2"
+    },
+    "27": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Solo3"
+    },
+    "28": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Solo4"
+    },
+    "29": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Solo5"
+    },
+    "30": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lowslope"
+    },
+    "31": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Highslope"
+    }
+  },
+  "Feedback Send 1": {
+    "0": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Sendlevel"
+    }
+  },
+  "Feedback Return 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Retlevel"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 24.69,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "2": {
+      "decode_style": "center",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Bypass Mode"
+    }
+  },
+  "Pitch 1": {
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Pitchmode"
+    },
+    "2": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Ctrl"
+    },
+    "3": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Uctrl"
+    },
+    "4": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Harm1"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Harm2"
+    },
+    "7": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Harm4"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Key"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Scale"
+    },
+    "10": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Quantize"
+    },
+    "11": {
+      "decode_style": "center",
+      "decode_max": 2497.48,
+      "raw_at_min": 32112,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune1"
+    },
+    "12": {
+      "decode_style": "center",
+      "decode_max": 2497.48,
+      "raw_at_min": 32112,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune2"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 2497.48,
+      "raw_at_min": 32112,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune3"
+    },
+    "14": {
+      "decode_style": "center",
+      "decode_max": 2497.48,
+      "raw_at_min": 32112,
+      "raw_at_zero": 32767,
+      "raw_at_test": 33095,
+      "display_name": "Detune4"
+    },
+    "19": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level1"
+    },
+    "20": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level2"
+    },
+    "21": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level3"
+    },
+    "22": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Level4"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 0.67,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan1"
+    },
+    "24": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan2"
+    },
+    "25": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan3"
+    },
+    "26": {
+      "decode_style": "center",
+      "decode_max": 10.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan4"
+    },
+    "27": {
+      "decode_style": "zero",
+      "decode_max": 200.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Delay1"
+    },
+    "28": {
+      "decode_style": "zero",
+      "decode_max": 20.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Delay2"
+    },
+    "29": {
+      "decode_style": "zero",
+      "decode_max": 20.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Delay3"
+    },
+    "30": {
+      "decode_style": "zero",
+      "decode_max": 1999.94,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Delay4"
+    },
+    "31": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Feedback1"
+    },
+    "32": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Feedback2"
+    },
+    "33": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Feedback3"
+    },
+    "34": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Feedback4"
+    },
+    "35": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 1,
+      "display_name": "Trackmode"
+    },
+    "36": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Tracking"
+    },
+    "37": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Formcorrect"
+    },
+    "38": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "39": {
+      "decode_style": "offset",
+      "decode_max": 100.0,
+      "raw_at_min": 52427,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "40": {
+      "decode_style": "zero",
+      "decode_max": 38.2,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "41": {
+      "decode_style": "unresponsive",
+      "decode_max": 57.2958,
+      "raw_at_zero": 0,
+      "display_name": "Bypassmode"
+    },
+    "42": {
+      "decode_style": "unresponsive",
+      "decode_max": 1000.0,
+      "raw_at_zero": 0,
+      "display_name": "Globalmix"
+    },
+    "45": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Xfade"
+    },
+    "46": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Xfadetype"
+    },
+    "47": {
+      "decode_style": "zero",
+      "decode_max": 2.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16359,
+      "display_name": "Splice1"
+    },
+    "48": {
+      "decode_style": "zero",
+      "decode_max": 2003.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16359,
+      "display_name": "Splice2"
+    },
+    "49": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Dtempo1"
+    },
+    "50": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Dtempo2"
+    },
+    "51": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Dtempo3"
+    },
+    "52": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Dtempo4"
+    },
+    "53": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Stempo1"
+    },
+    "54": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Stempo2"
+    },
+    "55": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Fbtype"
+    },
+    "56": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Direction"
+    },
+    "57": {
+      "decode_style": "unresponsive",
+      "decode_max": 20000.0,
+      "raw_at_zero": 0,
+      "display_name": "Lpfreq"
+    },
+    "58": {
+      "decode_style": "zero",
+      "decode_max": 31.84,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 58958,
+      "display_name": "Glide"
+    }
+  },
+  "Volume/Pan 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 10.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Gain"
+    },
+    "1": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Bal"
+    },
+    "2": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Taper"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "4": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Panl"
+    },
+    "5": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Panr"
+    },
+    "6": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "10": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 64715,
+      "raw_at_zero": 65534,
+      "raw_at_test": 65534,
+      "display_name": "Threshold"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 588.59,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 55670,
+      "display_name": "Attack"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Release"
+    },
+    "13": {
+      "decode_style": "zero",
+      "decode_max": 12.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 2731,
+      "display_name": "Hysteresis"
+    }
+  },
+  "Chorus 1": {
+    "1": {
+      "decode_style": "unresponsive",
+      "decode_max": 2.0,
+      "raw_at_zero": 1,
+      "display_name": "Voices"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "High Cut"
+    },
+    "6": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Delay Time"
+    },
+    "7": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "LFO Phase"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "LFO Type"
+    },
+    "9": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Auto"
+    },
+    "10": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "11": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "12": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "14": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "15": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "16": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Phase Reverse"
+    },
+    "17": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Width"
+    },
+    "18": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate2"
+    },
+    "19": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth2"
+    },
+    "20": {
+      "decode_style": "zero",
+      "decode_max": 15.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 21845,
+      "display_name": "Drive"
+    },
+    "21": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Low Cut"
+    },
+    "22": {
+      "decode_style": "center",
+      "decode_max": 199.99,
+      "raw_at_min": 16384,
+      "raw_at_zero": 32767,
+      "raw_at_test": 40959,
+      "display_name": "Spread"
+    },
+    "24": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depthl"
+    },
+    "25": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depthc"
+    },
+    "26": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depthr"
+    },
+    "27": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo2"
+    }
+  },
+  "Multitap Delay 1": {
+    "0": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Basetype"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 2003.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16359,
+      "display_name": "Time1"
+    },
+    "2": {
+      "decode_style": "zero",
+      "decode_max": 2003.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16359,
+      "display_name": "Time2"
+    },
+    "3": {
+      "decode_style": "zero",
+      "decode_max": 2003.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16359,
+      "display_name": "Time3"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 2003.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16359,
+      "display_name": "Time4"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo1"
+    },
+    "6": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo2"
+    },
+    "7": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo3"
+    },
+    "8": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Tempo4"
+    },
+    "9": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Level1"
+    },
+    "10": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Level2"
+    },
+    "11": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Level3"
+    },
+    "12": {
+      "decode_style": "zero",
+      "decode_scale": "4096",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "raw_at_half": 2044,
+      "note": "4096 scale (flags=0x0430, static detection)",
+      "display_name": "Level4"
+    },
+    "13": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback1"
+    },
+    "14": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback2"
+    },
+    "15": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback3"
+    },
+    "16": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback4"
+    },
+    "17": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan1"
+    },
+    "18": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan2"
+    },
+    "19": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan3"
+    },
+    "20": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan4"
+    },
+    "21": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate1"
+    },
+    "22": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Rate2"
+    },
+    "23": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth1"
+    },
+    "24": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth2"
+    },
+    "25": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfotype1"
+    },
+    "26": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfotype2"
+    },
+    "27": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfotempo1"
+    },
+    "28": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lfotempo2"
+    },
+    "29": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Lfophase1"
+    },
+    "30": {
+      "decode_style": "zero",
+      "decode_scale": "4096",
+      "decode_max": 57.2958,
+      "raw_at_zero": 0,
+      "raw_at_half": 2044,
+      "note": "4096 scale (flags=0x0430, static detection)",
+      "display_name": "Lfophase2"
+    },
+    "31": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mix"
+    },
+    "32": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "33": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
+    },
+    "35": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Global Mix"
+    },
+    "36": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ingain"
+    },
+    "37": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "38": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Diffmix"
+    },
+    "39": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Difftime"
+    },
+    "40": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Thresh"
+    },
+    "41": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrtime"
+    },
+    "42": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrlvl"
+    },
+    "43": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Mstrpan"
+    },
+    "44": {
+      "decode_style": "zero",
+      "decode_max": 2.51,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 13042,
+      "display_name": "Mstrfreq"
+    },
+    "45": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Mstrq"
+    },
+    "46": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrfdbk"
+    },
+    "47": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32436,
+      "display_name": "Mstrrate"
+    },
+    "48": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrdepth"
+    },
+    "49": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq1"
+    },
+    "50": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq2"
+    },
+    "51": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq3"
+    },
+    "52": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq4"
+    },
+    "53": {
+      "decode_style": "zero",
+      "decode_max": 0.88,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 37113,
+      "display_name": "Q1"
+    },
+    "54": {
+      "decode_style": "zero",
+      "decode_max": 0.88,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 37113,
+      "display_name": "Q2"
+    },
+    "55": {
+      "decode_style": "zero",
+      "decode_max": 0.88,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 37113,
+      "display_name": "Q3"
+    },
+    "56": {
+      "decode_style": "zero",
+      "decode_max": 0.88,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 37113,
+      "display_name": "Q4"
+    },
+    "57": {
+      "decode_style": "zero",
+      "decode_max": 80.02,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 410,
+      "display_name": "Atten"
+    },
+    "58": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Speed"
+    },
+    "59": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Fbksend"
+    },
+    "60": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Fbkret"
+    },
+    "61": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Low Cut"
+    },
+    "62": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Highcut"
+    },
+    "63": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Feedback"
+    },
+    "64": {
+      "decode_style": "zero",
+      "decode_max": 1001.01,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32734,
+      "display_name": "Release"
+    },
+    "65": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Drive"
+    },
+    "66": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Fltrate"
+    },
+    "67": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Fltdepth"
+    },
+    "68": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Flttype"
+    },
+    "69": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Flttempo"
+    },
+    "70": {
+      "decode_style": "zero",
+      "decode_max": 180.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 10430,
+      "display_name": "Fltphase"
+    },
+    "71": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 64879,
+      "raw_at_zero": 65534,
+      "raw_at_test": 65534,
+      "display_name": "Envthresh"
+    },
+    "72": {
+      "decode_style": "zero",
+      "decode_max": 882.9,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 37113,
+      "display_name": "Envattack"
+    },
+    "73": {
+      "decode_style": "zero",
+      "decode_max": 555.77,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 58958,
+      "display_name": "Envrelease"
+    },
+    "74": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrcombtime"
+    },
+    "75": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Mstrcombgain"
+    },
+    "76": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Combtype"
+    },
+    "77": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Combtime1"
+    },
+    "78": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Combtime2"
+    },
+    "79": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Combtime3"
+    },
+    "80": {
+      "decode_style": "zero",
+      "decode_max": 500.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 65534,
+      "display_name": "Combtime4"
+    },
+    "81": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Combgain1"
+    },
+    "82": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Combgain2"
+    },
+    "83": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Combgain3"
+    },
+    "84": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Combgain4"
+    },
+    "85": {
+      "decode_style": "zero",
+      "decode_max": 200.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16384,
+      "display_name": "Mstrringfreq"
+    },
+    "86": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrringmix"
+    },
+    "87": {
+      "decode_style": "zero",
+      "decode_max": 2047.94,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16,
+      "display_name": "Ringfreq1"
+    },
+    "88": {
+      "decode_style": "zero",
+      "decode_max": 2047.94,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16,
+      "display_name": "Ringfreq2"
+    },
+    "89": {
+      "decode_style": "zero",
+      "decode_max": 2047.94,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16,
+      "display_name": "Ringfreq3"
+    },
+    "90": {
+      "decode_style": "zero",
+      "decode_max": 2047.94,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 16,
+      "display_name": "Ringfreq4"
+    },
+    "91": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ringmix1"
+    },
+    "92": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ringmix2"
+    },
+    "93": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ringmix3"
+    },
+    "94": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ringmix4"
+    },
+    "95": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Drate1"
+    },
+    "96": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Drate2"
+    },
+    "97": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Drate3"
+    },
+    "98": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Drate4"
+    },
+    "99": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ddepth1"
+    },
+    "100": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ddepth2"
+    },
+    "101": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ddepth3"
+    },
+    "102": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Ddepth4"
+    },
+    "104": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32436,
+      "display_name": "Mstrdrate"
+    },
+    "105": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Mstrddepth"
+    },
+    "107": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Freq"
+    },
+    "108": {
+      "decode_style": "zero",
+      "decode_max": 0.88,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 37113,
+      "display_name": "Q"
+    },
+    "109": {
+      "decode_style": "center",
+      "decode_max": 12.0,
+      "raw_at_min": 30036,
+      "raw_at_zero": 32767,
+      "raw_at_test": 34132,
+      "display_name": "Gain"
+    },
+    "110": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Lowslope"
+    },
+    "111": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Highslope"
+    },
+    "112": {
+      "decode_style": "zero",
+      "decode_max": 1.43,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 22903,
+      "display_name": "Diffrate"
+    },
+    "113": {
+      "decode_style": "zero",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Diffdepth"
+    },
+    "114": {
+      "decode_style": "unresponsive",
+      "decode_max": 10.0,
+      "raw_at_zero": 0,
+      "display_name": "Presets"
+    },
+    "116": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback12"
+    },
+    "117": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback23"
+    },
+    "118": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback34"
+    },
+    "119": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Feedback41"
+    }
+  },
+  "Enhancer 1": {
+    "0": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Width"
+    },
+    "1": {
+      "decode_style": "zero",
+      "decode_max": 1.0,
+      "raw_at_min": 0,
+      "raw_at_zero": 0,
+      "raw_at_test": 32767,
+      "display_name": "Depth"
+    },
+    "2": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "Low Cut"
+    },
+    "3": {
+      "decode_style": "unresponsive",
+      "decode_max": 1.0,
+      "raw_at_zero": 0,
+      "display_name": "High Cut"
+    },
+    "4": {
+      "decode_style": "zero",
+      "decode_max": 1.23,
+      "raw_at_min": 51772,
+      "raw_at_zero": 52427,
+      "raw_at_test": 52755,
+      "display_name": "Level"
+    },
+    "5": {
+      "decode_style": "unresponsive",
+      "decode_max": 1,
+      "raw_at_zero": 0,
+      "display_name": "Bypass"
+    },
+    "7": {
+      "decode_style": "unresponsive",
+      "decode_max": 100.0,
+      "raw_at_zero": 0,
+      "display_name": "Phase"
+    },
+    "8": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Panl"
+    },
+    "9": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Panr"
+    },
+    "10": {
+      "decode_style": "center",
+      "decode_max": 100.0,
+      "raw_at_min": 32767,
+      "raw_at_zero": 32767,
+      "raw_at_test": 49151,
+      "display_name": "Pan"
     }
   }
 }

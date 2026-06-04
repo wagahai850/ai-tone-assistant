@@ -1,0 +1,250 @@
+[21:07:30] ============================================================
+[21:07:30] calibrate_decode.py v2 開始
+[21:07:30]   Decode patterns: 4096/center/zero-bipolar/continuous/frequency/signed_int
+[21:07:30] ============================================================
+[21:07:30] 4096-scale params loaded from cache: 4 entries
+[21:07:30] FM9 接続確認 OK
+[21:07:30] 対象ブロック数: 27
+[21:07:30] [1/27] Reverb 1
+[21:07:30] ▶ Reverb 1 開始
+[21:07:31]   placed at R0C1
+[21:07:37]   health check passed
+[21:10:39]   ⚠️  pid=  1 Level                decode_max=     24.69 (display=20.0, ×1.23, zero)
+[21:11:20]   ⚠️  pid= 11 Time                 decode_max=    125.06 (display=1.0, ×125.06, zero)
+[21:11:34]   ⚠️  pid= 13 Hfratio              decode_max=      0.59 (display=1.0, ×0.59, zero)
+[21:11:48]   ⚠️  pid= 16 Reverbdelay          decode_max=      0.50 (display=1.0, ×0.50, zero)
+[21:13:34]   ⚠️  pid= 32 Q1                   decode_max=    200.00 (display=100.0, ×2.00, zero)
+[21:13:40]   ⚠️  pid= 33 Q2                   decode_max=    200.00 (display=100.0, ×2.00, zero)
+[21:13:51]   ⚠️  pid= 34 Gain1                decode_max=   1200.26 (display=100.0, ×12.00, center)
+[21:13:59]   ⚠️  pid= 35 Gain2                decode_max=    120.03 (display=10.0, ×12.00, center)
+[21:14:06]   ⚠️  pid= 36 Drive                decode_max=      5.89 (display=10.0, ×0.59, zero)
+[21:14:14]   ⚠️  pid= 37 Lftime               decode_max=      7.15 (display=10.0, ×0.72, zero)
+[21:14:32]   ⚠️  pid= 39 Spread               decode_max=      2.00 (display=1.0, ×2.00, center)
+[21:14:37]   ⚠️  pid= 40 Atten                decode_max=   7991.95 (display=100.0, ×79.92, zero)
+[21:14:50]   ⚠️  pid= 42 Release              decode_max=      5.56 (display=10.0, ×0.56, zero)
+[21:15:53]   ⚠️  pid= 50 LFO Phase            decode_max=     31.42 (display=10.0, ×3.14, zero)
+[21:16:47]   ⚠️  pid= 60 Pitchtime            decode_max=    201.01 (display=100.0, ×2.01, zero)
+[21:17:57]   ⚠️  pid= 71 Lowq                 decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:18:12]   ✓ Reverb 1 完了: 25 ok, 16 fix, 24 unresponsive, 0 static (restored 60 params)
+[21:18:12] [2/27] Delay 1
+[21:18:12] ▶ Delay 1 開始
+[21:18:13]   placed at R0C1
+[21:18:20]   health check passed
+[21:22:55]   ⚠️  pid=  1 Level                decode_max=      1.23 (display=1.0, ×1.23, zero)
+[21:24:30]   ⚠️  pid= 22 Rate1                decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:24:38]   ⚠️  pid= 23 Rate2                decode_max=      2.51 (display=1.0, ×2.51, zero)
+[21:25:05]   ⚠️  pid= 26 Bypass               decode_max=     15.00 (display=10.0, ×1.50, zero)
+[21:25:53]   ⚠️  pid= 32 Mstrfdbk             decode_max=    200.00 (display=100.0, ×2.00, zero)
+[21:27:13]   ⚠️  pid= 40 Lfo1Phase            decode_max=    180.00 (display=57.2958, ×3.14, zero)
+[21:27:15]   ⚠️  pid= 41 Lfo2Phase            decode_max=    180.00 (display=57.2958, ×3.14, zero)
+[21:27:19]   ⚠️  pid= 42 Splicetime           decode_max=    500.00 (display=1000.0, ×0.50, zero)
+[21:27:38]   ⚠️  pid= 46 Atten                decode_max=     80.02 (display=1.0, ×80.02, zero)
+[21:27:48]   ⚠️  pid= 47 Thresh               decode_max=      1.23 (display=1.0, ×1.23, zero)
+[21:27:56]   ⚠️  pid= 48 Release              decode_max=    555.77 (display=1000.0, ×0.56, zero)
+[21:29:10]   ⚠️  pid= 56 Rate3                decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:29:26]   ⚠️  pid= 58 Lfo3Phase            decode_max=    180.00 (display=57.2958, ×3.14, zero)
+[21:29:48]   ⚠️  pid= 62 Q                    decode_max=     25.13 (display=10.0, ×2.51, zero)
+[21:29:56]   ⚠️  pid= 63 Filterq              decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:30:21]   ⚠️  pid= 67 Q1                   decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:30:23]   ⚠️  pid= 68 Q2                   decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:30:35]   ⚠️  pid= 69 Gain1                decode_max=     12.00 (display=1.0, ×12.00, center)
+[21:30:38]   ⚠️  pid= 70 Gain2                decode_max=     12.00 (display=1.0, ×12.00, center)
+[21:30:59]   ⚠️  pid= 73 Offset               decode_max=    500.00 (display=1000.0, ×0.50, zero)
+[21:31:15]   ⚠️  pid= 76 Comptime             decode_max=    500.00 (display=1000.0, ×0.50, zero)
+[21:31:34]   ⚠️  pid= 78 Mstrtime             decode_max=    200.00 (display=100.0, ×2.00, zero)
+[21:31:42]   ⚠️  pid= 79 Diffrate             decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:32:05]   ⚠️  pid= 82 Rate4                decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:32:25]   ⚠️  pid= 85 Lfo4Phase            decode_max=    180.00 (display=57.2958, ×3.14, zero)
+[21:33:08]   ✓ Delay 1 完了: 22 ok, 25 fix, 30 unresponsive, 2 static (restored 64 params)
+[21:33:08] [3/27] Multitap Delay 1
+[21:33:08] ▶ Multitap Delay 1 開始
+[21:33:10]   placed at R0C1
+[21:33:13]   SKIP: Block 0x4A pid=0: SET had no effect (raw stayed at 0)
+[21:33:14] [4/27] Chorus 1
+[21:33:14] ▶ Chorus 1 開始
+[21:33:15]   placed at R0C1
+[21:33:17]   SKIP: Block 0x4E pid=1: SET had no effect (raw stayed at 1)
+[21:33:18] [5/27] Flanger 1
+[21:33:18] ▶ Flanger 1 開始
+[21:33:20]   placed at R0C1
+[21:33:22]   health check passed
+[21:34:46]   ⚠️  pid=  1 Rate                 decode_max=      1.15 (display=1.0, ×1.15, zero)
+[21:35:01]   ⚠️  pid=  4 Feedback             decode_max=      0.67 (display=1.0, ×0.67, zero)
+[21:35:16]   ⚠️  pid=  7 LFO Phase            decode_max=      3.14 (display=1.0, ×3.14, zero)
+[21:36:20]   ⚠️  pid= 12 Level                decode_max=      1.23 (display=1.0, ×1.23, zero)
+[21:37:20]   ⚠️  pid= 20 Drive                decode_max=      1.30 (display=1.0, ×1.30, zero)
+[21:37:36]   ⚠️  pid= 22 Spread               decode_max=     20.00 (display=10.0, ×2.00, center)
+[21:38:08]   ⚠️  pid= 31 Vcok                 decode_max=     11.77 (display=10.0, ×1.18, zero)
+[21:38:14]   ✓ Flanger 1 完了: 5 ok, 7 fix, 12 unresponsive, 0 static (restored 20 params)
+[21:38:14] [6/27] Rotary 1
+[21:38:14] ▶ Rotary 1 開始
+[21:38:15]   placed at R0C1
+[21:38:27]   health check passed
+[21:39:29]   ⚠️  pid=  0 Rate                 decode_max=     10.00 (display=1.0, ×10.00, zero)
+[21:39:52]   ⚠️  pid=  3 Hflevel              decode_max=      6.00 (display=1.0, ×6.00, center)
+[21:41:03]   ⚠️  pid= 12 Width                decode_max=    314.16 (display=100.0, ×3.14, zero)
+[21:41:11]   ⚠️  pid= 13 Lowrate              decode_max=     14.31 (display=10.0, ×1.43, zero)
+[21:41:20]   ⚠️  pid= 14 Lowtime              decode_max=     14.31 (display=10.0, ×1.43, zero)
+[21:41:28]   ⚠️  pid= 15 Hightime             decode_max=     14.31 (display=10.0, ×1.43, zero)
+[21:41:36]   ⚠️  pid= 16 Spread               decode_max=      2.00 (display=1.0, ×2.00, center)
+[21:41:44]   ⚠️  pid= 17 Drive                decode_max=     15.00 (display=10.0, ×1.50, zero)
+[21:41:52]   ⚠️  pid= 18 Micdist              decode_max=      0.59 (display=1.0, ×0.59, zero)
+[21:41:57]   ✓ Rotary 1 完了: 6 ok, 9 fix, 4 unresponsive, 0 static (restored 19 params)
+[21:41:57] [7/27] Phaser 1
+[21:41:57] ▶ Phaser 1 開始
+[21:41:59]   placed at R0C1
+[21:42:11]   health check passed
+[21:43:53]   ⚠️  pid=  2 Rate                 decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:44:22]   ⚠️  pid=  6 Feedback             decode_max=     99.99 (display=111.1, ×0.90, center)
+[21:44:37]   ⚠️  pid=  9 LFO Phase            decode_max=    180.00 (display=57.2958, ×3.14, zero)
+[21:45:08]   ⚠️  pid= 12 Level                decode_max=      1.23 (display=1.0, ×1.23, zero)
+[21:45:49]   ⚠️  pid= 19 Tone                 decode_max=     15.81 (display=31.623, ×0.50, center)
+[21:46:05]   ⚠️  pid= 21 Q                    decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:46:37]   ⚠️  pid= 25 Vcrk                 decode_max=      1.43 (display=1.0, ×1.43, zero)
+[21:47:01]   ⚠️  pid= 28 Attack               decode_max=    588.59 (display=1000.0, ×0.59, zero)
+[21:47:09]   ⚠️  pid= 29 Release              decode_max=    500.00 (display=1000.0, ×0.50, zero)
+[21:47:34]   ✓ Phaser 1 完了: 6 ok, 9 fix, 15 unresponsive, 0 static (restored 23 params)
+[21:47:34] [8/27] Wah 1
+[21:47:34] ▶ Wah 1 開始
+[21:47:35]   placed at R0C1
+[21:47:45]   health check passed
+[21:49:53]   ⚠️  pid=  6 Level                decode_max=      0.62 (display=1.0, ×0.62, zero)
+[21:50:23]   ⚠️  pid= 10 Drive                decode_max=      0.59 (display=1.0, ×0.59, zero)
+[21:51:30]   ⚠️  pid= 16 Eq1                  decode_max=   1200.26 (display=100.0, ×12.00, center)
+[21:51:42]   ⚠️  pid= 17 Eq2                  decode_max=   1200.26 (display=100.0, ×12.00, center)
+[21:51:53]   ⚠️  pid= 19 Eq4                  decode_max=    144.03 (display=12.0, ×12.00, center)
+[21:51:56]   ⚠️  pid= 20 Eq5                  decode_max=    144.03 (display=12.0, ×12.00, center)
+[21:52:04]   ⚠️  pid= 22 Eq7                  decode_max=    144.03 (display=12.0, ×12.00, center)
+[21:52:17]   ✓ Wah 1 完了: 6 ok, 7 fix, 8 unresponsive, 0 static (restored 18 params)
+[21:52:17] [9/27] Formant 1
+[21:52:17] ▶ Formant 1 開始
+[21:52:18]   placed at R0C1
+[21:52:27]   health check passed
+[21:54:10]   ✓ Formant 1 完了: 4 ok, 0 fix, 5 unresponsive, 0 static (restored 7 params)
+[21:54:10] [10/27] Tremolo/Panner 1
+[21:54:10] ▶ Tremolo/Panner 1 開始
+[21:54:11]   placed at R0C1
+[21:54:23]   health check passed
+[21:55:25]   ⚠️  pid=  2 Rate                 decode_max=    286.14 (display=100.0, ×2.86, zero)
+[21:56:55]   ⚠️  pid= 11 Phase                decode_max=      3.14 (display=1.0, ×3.14, zero)
+[21:57:05]   ⚠️  pid= 12 Width                decode_max=    127.32 (display=31.831, ×4.00, zero)
+[21:57:26]   ⚠️  pid= 15 Startphase           decode_max=      3.14 (display=1.0, ×3.14, zero)
+[21:57:54]   ✓ Tremolo/Panner 1 完了: 6 ok, 4 fix, 8 unresponsive, 0 static (restored 16 params)
+[21:57:54] [11/27] Enhancer 1
+[21:57:54] ▶ Enhancer 1 開始
+[21:57:55]   placed at R0C1
+[21:58:07]   SKIP: Block 0x7A pid=7: SET had no effect (raw stayed at 0)
+[21:58:07] [12/27] Mixer 1
+[21:58:07] ▶ Mixer 1 開始
+[21:58:09]   placed at R0C1
+[21:58:19]   health check passed
+[22:01:43]   ⚠️  pid= 12 Master               decode_max=      1.23 (display=1.0, ×1.23, zero)
+[22:01:56]   ✓ Mixer 1 完了: 13 ok, 1 fix, 0 unresponsive, 0 static (restored 14 params)
+[22:01:56] [13/27] Synth 1
+[22:01:56] ▶ Synth 1 開始
+[22:01:57]   placed at R0C1
+[22:02:06]   health check passed
+[22:04:49]   ⚠️  pid=  4 Detune1              decode_max=    499.50 (display=10.0, ×49.95, center)
+[22:05:52]   ⚠️  pid= 10 Q1                   decode_max=    432.20 (display=100.0, ×4.32, zero)
+[22:06:41]   ⚠️  pid= 15 Detune2              decode_max=   4994.97 (display=100.0, ×49.95, center)
+[22:09:32]   ⚠️  pid= 33 Detune3              decode_max=     49.95 (display=1.0, ×49.95, center)
+[22:10:20]   ⚠️  pid= 37 Attack3              decode_max=      5.75 (display=10.0, ×0.57, zero)
+[22:10:37]   ⚠️  pid= 39 Q3                   decode_max=    432.20 (display=100.0, ×4.32, zero)
+[22:11:04]   ✓ Synth 1 完了: 13 ok, 6 fix, 22 unresponsive, 0 static (restored 39 params)
+[22:11:04] [14/27] Compressor 1
+[22:11:04] ▶ Compressor 1 開始
+[22:11:05]   placed at R0C1
+[22:11:08]   health check passed
+[22:12:45]   ⚠️  pid=  0 Thresh               decode_max=      0.66 (display=1.0, ×0.66, zero)
+[22:13:11]   ⚠️  pid=  3 Release              decode_max=      0.63 (display=1.0, ×0.63, zero)
+[22:13:16]   ⚠️  pid=  4 Level                decode_max=  20004.27 (display=1000.0, ×20.00, center)
+[22:14:53]   ⚠️  pid= 15 Delay Time           decode_max=      5.00 (display=10.0, ×0.50, zero)
+[22:15:48]   ⚠️  pid= 21 Gain                 decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:16:03]   ⚠️  pid= 23 Q                    decode_max=    200.00 (display=100.0, ×2.00, zero)
+[22:16:58]   ⚠️  pid= 31 Comptime             decode_max=      5.56 (display=10.0, ×0.56, zero)
+[22:17:22]   ✓ Compressor 1 完了: 7 ok, 7 fix, 17 unresponsive, 0 static (restored 29 params)
+[22:17:22] [15/27] Graphic EQ 1
+[22:17:22] ▶ Graphic EQ 1 開始
+[22:17:23]   placed at R0C1
+[22:17:35]   health check passed
+[22:18:20]   ⚠️  pid=  0 Gain1                decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:18:31]   ⚠️  pid=  3 Gain4                decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:18:33]   ⚠️  pid=  4 Gain5                decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:18:41]   ⚠️  pid=  5 Gain6                decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:18:53]   ⚠️  pid=  6 Gain7                decode_max=     12.00 (display=1.0, ×12.00, center)
+[22:19:01]   ⚠️  pid=  7 Gain8                decode_max=   1200.26 (display=100.0, ×12.00, center)
+[22:19:03]   ⚠️  pid=  8 Gain9                decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:19:08]   ⚠️  pid=  9 Gain10               decode_max=    120.03 (display=10.0, ×12.00, center)
+[22:19:33]   ⚠️  pid= 11 Level                decode_max=     24.69 (display=20.0, ×1.23, zero)
+[22:19:54]   ⚠️  pid= 16 Masterq              decode_max=      1.43 (display=1.0, ×1.43, zero)
+[22:20:14]   ✓ Graphic EQ 1 完了: 3 ok, 10 fix, 5 unresponsive, 0 static (restored 14 params)
+[22:20:14] [16/27] Parametric EQ 1
+[22:20:14] ▶ Parametric EQ 1 開始
+[22:20:15]   placed at R0C1
+[22:20:27]   health check passed
+[22:21:48]   ⚠️  pid=  0 Freq1                decode_max=   2000.02 (display=20000.0, ×0.10, frequency)
+[22:21:53]   ⚠️  pid=  1 Freq2                decode_max=  50000.00 (display=20000.0, ×2.50, frequency)
+[22:22:01]   ⚠️  pid=  2 Freq3                decode_max=  50000.00 (display=20000.0, ×2.50, frequency)
+[22:22:10]   ⚠️  pid=  3 Freq4                decode_max=  50000.00 (display=20000.0, ×2.50, frequency)
+[22:22:12]   ⚠️  pid=  4 Freq5                decode_max=1453499.81 (display=20000.0, ×72.67, frequency)
+[22:22:16]   ⚠️  pid=  5 Q1                   decode_max=     14.31 (display=10.0, ×1.43, zero)
+[22:22:21]   ⚠️  pid=  6 Q2                   decode_max=     14.31 (display=10.0, ×1.43, zero)
+[22:22:23]   ⚠️  pid=  7 Q3                   decode_max=     14.31 (display=10.0, ×1.43, zero)
+[22:22:31]   ⚠️  pid=  8 Q4                   decode_max=     14.31 (display=10.0, ×1.43, zero)
+[22:22:39]   ⚠️  pid=  9 Q5                   decode_max=     14.31 (display=10.0, ×1.43, zero)
+[22:22:52]   ⚠️  pid= 10 Gain1                decode_max=    240.05 (display=12.0, ×20.00, center)
+[22:23:01]   ⚠️  pid= 11 Gain2                decode_max=    240.05 (display=12.0, ×20.00, center)
+[22:23:06]   ⚠️  pid= 12 Gain3                decode_max=    240.05 (display=12.0, ×20.00, center)
+[22:23:19]   ⚠️  pid= 13 Gain4                decode_max=    240.05 (display=12.0, ×20.00, center)
+[22:23:31]   ⚠️  pid= 14 Gain5                decode_max=    240.05 (display=12.0, ×20.00, center)
+[22:23:47]   ⚠️  pid= 21 Pan                  decode_max=      0.67 (display=1.0, ×0.67, zero)
+[22:25:05]   ✓ Parametric EQ 1 完了: 1 ok, 16 fix, 8 unresponsive, 0 static (restored 19 params)
+[22:25:05] [17/27] Feedback Send 1
+[22:25:05] ▶ Feedback Send 1 開始
+[22:25:06]   placed at R0C1
+[22:25:09]   health check passed
+[22:25:30]   ✓ Feedback Send 1 完了: 0 ok, 0 fix, 1 unresponsive, 0 static (restored 1 params)
+[22:25:30] [18/27] Feedback Return 1
+[22:25:30] ▶ Feedback Return 1 開始
+[22:25:32]   placed at R0C1
+[22:25:37]   health check passed
+[22:26:12]   ⚠️  pid=  1 Level                decode_max=     24.69 (display=20.0, ×1.23, zero)
+[22:26:34]   ✓ Feedback Return 1 完了: 2 ok, 1 fix, 1 unresponsive, 0 static (restored 4 params)
+[22:26:34] [19/27] MIDI Block 1
+[22:26:34] ▶ MIDI Block 1 開始
+[22:26:36]   placed at R0C1
+[22:26:47]   SKIP: Block 0xBE pid=1: SET had no effect (raw stayed at 0)
+[22:26:48] [20/27] Multiplexer 1
+[22:26:48] ▶ Multiplexer 1 開始
+[22:26:49]   placed at R0C1
+[22:26:55]   SKIP: Block 0xBF pid=0: SET had no effect (raw stayed at 0)
+[22:26:55] [21/27] Tonematch 1
+[22:26:55] ▶ Tonematch 1 開始
+[22:26:57]   placed at R0C1
+[22:27:00]   ERROR: cannot read block data (GET failed)
+[22:27:00] [22/27] Realtime Analyzer 1
+[22:27:00] ▶ Realtime Analyzer 1 開始
+[22:27:03]   placed at R0C1
+[22:27:06]   ERROR: cannot read block data (GET failed)
+[22:27:06] [23/27] IR Player 1
+[22:27:06] ▶ IR Player 1 開始
+[22:27:08]   placed at R0C1
+[22:27:12]   ERROR: cannot read block data (GET failed)
+[22:27:12] [24/27] Volume/Pan 1
+[22:27:12] ▶ Volume/Pan 1 開始
+[22:27:14]   placed at R0C1
+[22:27:18]   ERROR: cannot read block data (GET failed)
+[22:27:18] [25/27] Pitch 1
+[22:27:18] ▶ Pitch 1 開始
+[22:27:20]   placed at R0C1
+[22:27:24]   ERROR: cannot read block data (GET failed)
+[22:27:24] [26/27] Input 1
+[22:27:24] ▶ Input 1 開始
+[22:27:24]   SKIP: no params defined
+[22:27:24] [27/27] Output 1
+[22:27:24] ▶ Output 1 開始
+[22:27:24]   SKIP: no params defined
+[22:27:24] calibration data → /Users/piro/Documents/ai-tone-assistant/tests/calibration_results.json
+[22:27:24] ============================================================
+[22:27:24] 完了: 27/27 ブロック, 399 params calibrated
+[22:27:24] ============================================================
