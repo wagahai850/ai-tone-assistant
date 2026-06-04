@@ -226,6 +226,58 @@ Within each channel's region, parameters are packed at 3 bytes each (same layout
 single-channel case). The active channel is determined by querying STATUS_DUMP (func 0x13)
 or by using SET_CHANNEL (sub=0x16) to switch before reading/writing.
 
+### Parameter Decode Rules (GET_BLOCK → display value)
+
+Raw values are 21-bit (3 × 7-bit MIDI bytes): `raw = lo | (hi << 7) | (msb << 14)`.
+
+**Not all parameters use the same internal scale.** Two distinct encodings are observed:
+
+#### Type 1: Standard (65534 scale)
+
+Most parameters. Raw range 0–65534 maps linearly to display range.
+
+```
+continuous:  display = raw / 65534 * display_max
+bipolar:     display = raw / 65534 * (max - min) + min
+```
+
+Examples: Mix (0–100%), Feedback (-100–+100%), Level (-80–+20 dB)
+
+Verified: Feed pid=14, SET 37 → raw=44891 → `44891/65534*200-100 = 37.0` ✅
+
+#### Type 2: Fixed-point (4096 scale, offset +4)
+
+Parameters where SET uses `raw_float=True` with ms/time values.
+Internal raw range is 0–4092 (NOT 0–65534). Upper bits unused.
+
+```
+display = (raw + 4) / 4096 * display_max
+```
+
+Examples: Delay Time (0–1000 ms), Timer (0–1000 ms)
+
+Verified data points (Delay 1 Time, display_max=1000):
+
+| display (Editor) | raw  | (raw+4)/4096*1000 |
+|------------------|------|-------------------|
+| 137              | 557  | 137.0 ✅          |
+| 250              | 1020 | 250.0 ✅          |
+| 500              | 2044 | 500.0 ✅          |
+| 800              | 3273 | 800.0 ✅          |
+| 1000             | 4092 | 1000.0 ✅         |
+
+Note: The previous calibration approach (`decode_max=16030.82`) is a linear
+approximation of this — it produces `raw/65534*16030.82` which is close but
+introduces ~0.5–0.75 ms error depending on the value.
+
+#### Open Questions
+
+- How to determine which parameters use Type 2 (4096 scale) without live calibration?
+  - Hypothesis: params with `raw_float=True` SET encoding AND ms-range display
+  - Hypothesis: derivable from effectDefinitions cache flags
+- Are there other internal scales (8192, 16384, etc.) for other param ranges?
+- What is the origin of the +4 offset? (possibly related to minimum delay sample count)
+
 ## SET_TYPE / SET_PARAM (sub=0x09) / SLIDE_PARAM (sub=0x52)
 
 Change amp/drive model, cab IR, or set any parameter value.
