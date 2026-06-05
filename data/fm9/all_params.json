@@ -18013,5 +18013,227 @@
     "max_instances": 4,
     "encoding": null,
     "params": {}
+  },
+  "FILTER": {
+    "block_name": "Filter",
+    "block_id_base": 114,
+    "max_instances": 4,
+    "params": {
+      "0": {
+        "name": "FILTER_TYPE",
+        "display_name": "Type",
+        "type": "enum",
+        "max": 1.0,
+        "min": -1.0,
+        "step": 0.05
+      },
+      "1": {
+        "name": "FILTER_FSTART",
+        "display_name": "Fstart",
+        "type": "bipolar",
+        "max": 1.0,
+        "min": -1.0,
+        "step": 0.05
+      },
+      "2": {
+        "name": "FILTER_FSTOP",
+        "display_name": "Fstop",
+        "type": "continuous",
+        "max": 100.0,
+        "min": 0,
+        "step": 0.002
+      },
+      "3": {
+        "name": "FILTER_Q",
+        "display_name": "Q",
+        "type": "continuous",
+        "max": 10.0,
+        "min": 0,
+        "step": 1,
+        "values": [
+          "THRU",
+          "MUTE FX OUT",
+          "MUTE OUT"
+        ]
+      },
+      "4": {
+        "name": "FILTER_TRACK",
+        "display_name": "Track",
+        "type": "continuous",
+        "max": 1.0,
+        "min": 0
+      },
+      "5": {
+        "name": "FILTER_CONTROL",
+        "display_name": "Control",
+        "type": "frequency",
+        "max": 1.0,
+        "min": 0
+      },
+      "6": {
+        "name": "FILTER_LEVEL",
+        "display_name": "Level",
+        "type": "frequency",
+        "max": 1.0,
+        "min": -80
+      },
+      "7": {
+        "name": "FILTER_PAN",
+        "display_name": "Pan",
+        "type": "continuous",
+        "max": 1.0,
+        "min": -100,
+        "decode_style": "center"
+      },
+      "8": {
+        "name": "FILTER_BYPASSMODE",
+        "display_name": "Bypass Mode",
+        "type": "continuous",
+        "max": 1.0,
+        "min": 0
+      },
+      "9": {
+        "name": "FILTER_MIX",
+        "display_name": "Mix",
+        "type": "continuous",
+        "max": 1.0,
+        "min": 0
+      },
+      "10": {
+        "name": "FILTER_DRIVE",
+        "display_name": "Drive",
+        "type": "continuous",
+        "max": 1.0,
+        "min": 0
+      },
+      "11": {
+        "name": "FILTER_TAPER",
+        "display_name": "Taper",
+        "type": "continuous",
+        "max": 1.0,
+        "min": 0
+      },
+      "12": {
+        "name": "FILTER_BYPASS",
+        "display_name": "Bypass",
+        "type": "continuous",
+        "max": 1,
+        "min": 0
+      },
+      "13": {
+        "name": "FILTER_BIAS",
+        "display_name": "Bias",
+        "type": "bipolar",
+        "max": 1.0,
+        "min": -1.0,
+        "step": 0.05,
+        "decode_style": "zero"
+      },
+      "14": {
+        "name": "FILTER_HPF",
+        "display_name": "Hpf",
+        "type": "continuous",
+        "max": 1.0,
+        "min": 0
+      },
+      "15": {
+        "name": "FILTER_EQON",
+        "display_name": "Eqon",
+        "type": "bipolar",
+        "max": 1.0,
+        "min": -1.0,
+        "step": 0.1
+      },
+      "16": {
+        "name": "FILTER_EQ1",
+        "display_name": "Eq1",
+        "type": "bipolar",
+        "max": 100.0,
+        "min": -100.0,
+        "step": 0.001,
+        "decode_max": 1200.26,
+        "decode_style": "center"
+      },
+      "17": {
+        "name": "FILTER_EQ2",
+        "display_name": "Eq2",
+        "type": "bipolar",
+        "max": 100.0,
+        "min": -100.0,
+        "step": 0.001,
+        "decode_max": 1200.26,
+        "decode_style": "center"
+      },
+      "18": {
+        "name": "FILTER_EQ3",
+        "display_name": "Eq3",
+        "type": "switch",
+        "max": 1,
+        "min": -12,
+        "step": 1,
+        "values": [
+          "OFF",
+          "ON"
+        ]
+      },
+      "19": {
+        "name": "FILTER_EQ4",
+        "display_name": "Eq4",
+        "type": "bipolar",
+        "max": 12.0,
+        "min": -12,
+        "step": 1,
+        "values": [
+          "OVERDUB",
+          "PLAY",
+          "STOP"
+        ],
+        "decode_max": 144.03,
+        "decode_style": "center"
+      },
+      "20": {
+        "name": "FILTER_EQ5",
+        "display_name": "Eq5",
+        "type": "bipolar",
+        "max": 12.0,
+        "min": -12,
+        "step": 1,
+        "values": [
+          "FULL",
+          "HALF"
+        ],
+        "decode_max": 144.03,
+        "decode_style": "center"
+      },
+      "21": {
+        "name": "FILTER_EQ6",
+        "display_name": "Eq6",
+        "type": "switch",
+        "max": 1,
+        "min": -12,
+        "step": 1,
+        "values": [
+          "OFF",
+          "ON"
+        ]
+      },
+      "22": {
+        "name": "FILTER_EQ7",
+        "display_name": "Eq7",
+        "type": "continuous",
+        "max": 12.0,
+        "min": -12,
+        "decode_max": 144.03,
+        "decode_style": "center"
+      },
+      "23": {
+        "name": "FILTER_EQ8",
+        "display_name": "Eq8",
+        "type": "frequency",
+        "max": 1.0,
+        "min": -12,
+        "step": 0.1
+      }
+    }
   }
 }
