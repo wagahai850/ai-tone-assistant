@@ -721,6 +721,10 @@ FM9 interprets bipolar normalized values as: 0.0=center, +1.0=positive max, -1.0
 - Continuous params (Gain, Bass, Mid, Treble, etc.): **Normalized 0.0–1.0** (value / max) — via dedicated tools only
 - Bipolar params (Level, Balance): **Raw float** (display value as IEEE 754, e.g., -10.0 for -10 dB). NOT normalized.
   - Level range: -80 to +20 dB (most blocks). Compressor: -20 to +20 dB. Amp Out Comp Threshold: -60 to 0 dB.
+- Frequency params (High Cut, Low Cut, Mid Frequency, etc.): **UNRESOLVED** —
+  Normalized encoding has no effect on FM9 (raw stays at 0). Raw float with Hz
+  value partially works but decode_max is unconfirmed. Needs dedicated calibration.
+  See "Known Issues" below.
 - Type selection: Uses dedicated `fm9_set_amp_type` / `fm9_set_drive_type` tools
 
 ### Cab (block 0x3E–0x41)
