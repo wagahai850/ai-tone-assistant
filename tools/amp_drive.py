@@ -191,18 +191,6 @@ def register(mcp):
                     params[display_name] = decode_switch(lo, hi, msb)
                 elif info["type"] == "bipolar":
                     params[display_name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
-                elif info.get("max", 0) >= 2000 and info.get("min", 0) >= 0:
-                    # Frequency-range params (High Cut, Low Cut, etc.): log scale decode
-                    import math
-                    raw_val = lo | (hi << 7) | (msb << 14)
-                    min_freq = max(info.get("min", 0), 20.0)
-                    max_freq = info["max"]
-                    if raw_val == 0:
-                        params[display_name] = min_freq
-                    else:
-                        params[display_name] = round(
-                            min_freq * 10 ** (raw_val / 65534.0 * math.log10(max_freq / min_freq)), 1
-                        )
                 else:
                     params[display_name] = decode_param(lo, hi, msb, info["max"])
 
@@ -254,9 +242,6 @@ def register(mcp):
                     midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
                     # Bipolar params use raw_float (display value sent directly)
-                    midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
-                elif max_val >= 2000 and info.get("min", 0) >= 0:
-                    # Frequency-range params (High Cut, etc.): raw_float Hz
                     midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
                 else:
                     midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), max_val)
@@ -318,18 +303,6 @@ def register(mcp):
                     params[display_name] = decode_switch(lo, hi, msb)
                 elif info["type"] == "bipolar":
                     params[display_name] = decode_bipolar(lo, hi, msb, info["max"], info.get("min"))
-                elif info.get("max", 0) >= 2000 and info.get("min", 0) >= 0:
-                    # Frequency-range params (High Cut, Low Cut, Mid Freq): log scale decode
-                    import math
-                    raw_val = lo | (hi << 7) | (msb << 14)
-                    min_freq = max(info.get("min", 0), 20.0)
-                    max_freq = info["max"]
-                    if raw_val == 0:
-                        params[display_name] = min_freq
-                    else:
-                        params[display_name] = round(
-                            min_freq * 10 ** (raw_val / 65534.0 * math.log10(max_freq / min_freq)), 1
-                        )
                 else:
                     params[display_name] = decode_param(lo, hi, msb, info["max"])
 
@@ -377,9 +350,6 @@ def register(mcp):
                     midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
                     # Bipolar params use raw_float (display value sent directly)
-                    midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
-                elif max_val >= 2000 and info.get("min", 0) >= 0:
-                    # Frequency-range params (High Cut, Low Cut, Mid Freq): raw_float Hz
                     midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
                 else:
                     midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), max_val)
