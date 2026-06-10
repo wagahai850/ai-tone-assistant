@@ -169,7 +169,8 @@ ai-tone-assistant/
 │   ├── generic_block.py   ← Any block (unified normalized encoding + calibrated decode)
 │   ├── grid_routing.py    ← Grid layout + routing operations
 │   ├── preset.py          ← Scene/bypass/channel/store/name
-│   ├── lookup.py          ← Wiki reference search
+│   ├── lookup.py          ← Wiki reference search + optional RAG augmentation
+│   ├── rag.py             ← RAG engine (ChromaDB + sentence-transformers)
 │   └── lab.py             ← RE/debug (raw sysex, snapshot, diff)
 ├── data/fm9/              ← Runtime data (JSON, committed)
 │   ├── all_params.json    ← SSOT: all blocks × all params × metadata + decode calibration
@@ -191,6 +192,7 @@ ai-tone-assistant/
 │   ├── PROTOCOL.md        ← Full SysEx protocol reference
 │   ├── REVERSE_ENGINEERING.md
 │   ├── POC_LIVE_PRESET_SESSION.md ← Live preset session POC report
+│   ├── RAG.md             ← RAG implementation & evaluation docs
 │   └── STEERING_EXAMPLE.md
 └── LICENSE (MIT)
 ```
@@ -355,50 +357,11 @@ This separates "where to write" from "what to write" and eliminates an entire cl
 
 **Data model implications**: Block parameter storage needs to be restructured around a `Block → Channel → Parameter` hierarchy with Scene as an orthogonal axis controlling which Channel is active. Current flat parameter access doesn't model this relationship explicitly.
 
-### Knowledge Base: Fractal Wiki RAG
+### Knowledge Base: Fractal Wiki RAG ✅
 
-The [POC session](docs/POC_LIVE_PRESET_SESSION.md) revealed that the AI has strong general audio engineering knowledge but weak FM9-specific operational knowledge. For example, when a user says "half-step down," the AI needs to know that the Pitch block's Virtual Capo feature can handle this without retuning — but that's FM9-specific knowledge not reliably present in LLM training data.
+**Implemented.** See **[docs/RAG.md](docs/RAG.md)** for full documentation.
 
-**Solution**: Ingest the [Fractal Audio Wiki](https://wiki.fractalaudio.com) (111 pages of community-maintained documentation covering all blocks, parameters, amp models, and tutorials) as a RAG (Retrieval-Augmented Generation) knowledge base.
-
-**How RAG works in this context**:
-
-```
-┌─────────────────────────────────────────────────────┐
-│ Fractal Wiki (111 pages)                             │
-│ Amp models, effect blocks, tutorials, tech notes     │
-└──────────────────┬──────────────────────────────────┘
-                   │ scrape → chunk → embed
-                   ▼
-┌─────────────────────────────────────────────────────┐
-│ Vector Database (local, e.g. ChromaDB)               │
-│ ~500-1000 text chunks with embedding vectors         │
-└──────────────────┬──────────────────────────────────┘
-                   │ similarity search
-                   ▼
-┌─────────────────────────────────────────────────────┐
-│ MCP Tool: fm9_search_knowledge(query, top_k=5)       │
-│                                                      │
-│ User: "I need half-step down tuning"                 │
-│ → query: "half step down transpose tuning"           │
-│ → returns: Wiki chunks about Pitch block,            │
-│   Virtual Capo, semitone shifting                    │
-│ → AI: "Use Pitch block Virtual Capo, Shift = -1"    │
-└─────────────────────────────────────────────────────┘
-```
-
-**Why RAG works here**: The Wiki is written in natural language with use-case descriptions ("use Virtual Capo to change tuning without retuning your guitar"), so embedding similarity search naturally connects user intent ("half-step down") to FM9 features. No manual keyword mapping needed.
-
-**Why not full-context injection**: At 111 pages the Wiki exceeds what fits comfortably in a context window alongside steering + conversation history. RAG retrieves only the relevant chunks per query.
-
-**Implementation plan**:
-1. Scrape Wiki pages → chunk into ~500-token segments
-2. Embed chunks using a local embedding model (e.g. `sentence-transformers`)
-3. Store in a local vector DB (ChromaDB or FAISS) — no external service dependency
-4. Expose as `fm9_search_knowledge` MCP tool
-5. Auto-scrape on first run; re-scrape on firmware update
-
-This eliminates the dependency on the user's FM9 expertise and makes the tool accessible to beginners who don't know what the hardware can do.
+Local RAG using ChromaDB + sentence-transformers. Entire Fractal Audio Wiki (113 pages, 12,406 chunks) embedded locally. Toggled via `TONE_ASSISTANT_RAG=on` environment variable. Augments existing lookup tools with semantically relevant knowledge — no external service dependency.
 
 ### Future: Device Abstraction Layer
 
