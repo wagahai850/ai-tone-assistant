@@ -1,8 +1,23 @@
-"""Reference and lookup tools (Wiki data, type-valid params)."""
+"""Reference and lookup tools (Wiki data, type-valid params, optional RAG)."""
 
+import os
 from typing import Any
 
 from tools import WIKI_MODELS, WIKI_BLOCKS, TYPE_VALID_PARAMS
+
+# --- RAG Configuration ---
+USE_RAG = os.environ.get("TONE_ASSISTANT_RAG", "off").lower() == "on"
+
+if USE_RAG:
+    from tools.rag import query_knowledge, is_available as rag_is_available
+    _rag_available = rag_is_available()
+    if _rag_available:
+        print("[RAG] Enabled and index loaded.", flush=True)
+    else:
+        print("[RAG] Enabled but no index found. Falling back to keyword match.", flush=True)
+        USE_RAG = False
+else:
+    _rag_available = False
 
 
 def register(mcp):
@@ -29,11 +44,17 @@ def register(mcp):
             else:
                 return {"success": False, "error": f"Unknown block_type '{block_type}'. Use 'amp' or 'drive'."}
 
+            # Keyword match (always runs)
             results = []
             for m in models:
                 searchable = " ".join(str(v) for v in m.values()).lower()
                 if q in searchable:
                     results.append(m)
+
+            # RAG augmentation (optional)
+            rag_context = []
+            if USE_RAG:
+                rag_context = query_knowledge(query, block_type=block_type, top_k=5)
 
             return {
                 "success": True,
@@ -41,6 +62,8 @@ def register(mcp):
                 "block_type": block_type,
                 "count": len(results),
                 "models": results[:20],
+                "rag_context": rag_context,
+                "rag_enabled": USE_RAG,
             }
         except Exception as e:
             return {"success": False, "error": str(e)}
@@ -73,6 +96,7 @@ def register(mcp):
             else:
                 blocks_to_search = WIKI_BLOCKS
 
+            # Keyword match (always runs)
             for btype, data in blocks_to_search.items():
                 for section in data.get("sections", []):
                     if q in section["title"].lower() or q in section["content"].lower():
@@ -82,12 +106,19 @@ def register(mcp):
                             "content": section["content"][:1000],
                         })
 
+            # RAG augmentation (optional)
+            rag_context = []
+            if USE_RAG:
+                rag_context = query_knowledge(query, block_type=block_type, top_k=5)
+
             return {
                 "success": True,
                 "query": query,
                 "block_type": block_type or "(all)",
                 "count": len(results),
                 "results": results[:15],
+                "rag_context": rag_context,
+                "rag_enabled": USE_RAG,
             }
         except Exception as e:
             return {"success": False, "error": str(e)}

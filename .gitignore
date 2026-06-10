@@ -13,6 +13,9 @@ venv/
 # Pipeline tools (RE scripts, run locally, output committed to data/)
 pipeline/
 
+# RAG database (built locally from wiki, not committed)
+data/rag_db/
+
 # Extracted resources (intermediate, not needed at runtime)
 fm9_edit_resources/
 
