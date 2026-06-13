@@ -284,9 +284,9 @@ GET uses `decode_max` (internal storage range, measured via roundtrip calibratio
 # 2. Parse cache and update all_params.json:
 python3 pipeline/parse_cache_v5.py --apply
 # 3. Re-calibrate decode parameters:
-python3 tests/calibrate_decode.py --all --apply
-# 4. Verify roundtrip:
-python3 tests/test_roundtrip.py
+python3 tests/calibrate_and_verify.py --all --apply
+# 4. Sweep type-specific params:
+python3 tests/calibrate_and_verify.py --all-types --apply
 # 5. Restart MCP server to pick up changes
 ```
 
@@ -296,13 +296,19 @@ After any change to all_params.json (firmware update, cache re-parse):
 
 ```bash
 # Calibrate a single block:
-python3 tests/calibrate_decode.py --block "Delay 1" --apply
+python3 tests/calibrate_and_verify.py --block "Delay 1" --apply
 
-# Calibrate all effect blocks (requires FM9 connected, ~1-2 hours):
-caffeinate -i python3 -u tests/calibrate_decode.py --all --apply 2>&1 | tee tests/calibration_log_$(date +%Y%m%d).txt
+# Calibrate all effect blocks (requires FM9 connected, ~1 hour):
+caffeinate -i python3 -u tests/calibrate_and_verify.py --all --apply 2>&1 | tee tests/calibration_log_$(date +%Y%m%d).txt
+
+# Calibrate multi-variant blocks across all effect types (~30 min additional):
+caffeinate -i python3 -u tests/calibrate_and_verify.py --all-types --apply 2>&1 | tee tests/calibration_log_alltypes_$(date +%Y%m%d).txt
+
+# Sweep uncalibrated params across all types (brute-force, hours):
+caffeinate -i python3 -u tests/calibrate_and_verify.py --sweep-unresponsive --apply 2>&1 | tee tests/calibration_log_sweep_$(date +%Y%m%d).txt
 
 # Resume after firmware panic:
-caffeinate -i python3 -u tests/calibrate_decode.py --all --apply --start-from "Chorus 1" 2>&1 | tee -a tests/calibration_log.txt
+caffeinate -i python3 -u tests/calibrate_and_verify.py --all --apply --start-from "Chorus 1" 2>&1 | tee -a tests/calibration_log.txt
 ```
 
 This measures the actual `decode_max`, `decode_style`, and `decode_scale` for each parameter by:
@@ -310,8 +316,11 @@ This measures the actual `decode_max`, `decode_style`, and `decode_scale` for ea
 2. SET test value → read raw → compute internal storage max
 3. Static detection of 4096-scale params via cache flags (no hardware needed)
 
-**Current coverage** (2026-06-05): 20 blocks calibrated, 285/1252 params (23%).
-See `pipeline/README.md` for per-block status and notes on uncalibrated params.
+Results are applied per-block (survives interruption) and merged into `calibration_results.json`.
+
+**Current coverage** (2026-06-13): 382/661 calibratable params marked (**57.8%**).
+Remaining ~279 are type-specific params confirmed unresponsive across all available types
+(firmware-reserved slots). See `pipeline/README.md` for per-block status.
 
 ## Device Support
 
@@ -327,14 +336,14 @@ The reverse-engineered FM9 USB MIDI protocol is documented in [`docs/PROTOCOL.md
 
 - **Checksum**: `XOR(model_id, func, data...) ^ 0x05 & 0x7F`
 - **Parameter control**: sub=0x09 with IEEE 754 float encoding (5×7-bit packed)
-- **Channel control**: 4 channels stored contiguously, stride = (combined_length - 7) // 4
+- **Channel control**: 4 channels stored contiguously, stride = (combined_length - 7) // 4; must strip checksum byte from each chunk before concatenation
 - **Grid layout**: sub=0x2E query returns 753-byte bitstream-encoded grid map
 - **Block routing**: sub=0x30/0x32/0x33/0x35/0x36 for add/delete/move/connect
 - **Block ID encoding**: 2-byte split for IDs > 0x7F (Gate=0x92, Synth=0x82, etc.)
 
 ## Roadmap
 
-### API Refactoring: Declarative Scene/Channel Targeting
+### API Refactoring: Declarative Scene/Channel Targeting — In Progress
 
 Current API requires sequential state changes to target a specific Scene + Channel:
 

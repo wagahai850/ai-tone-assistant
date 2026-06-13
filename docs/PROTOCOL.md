@@ -207,13 +207,23 @@ Parameter at index N: `offset = 7 + N * 3`
 ### Block Data Channel Layout
 
 All 4 channels (A/B/C/D) are stored contiguously in the block data returned by GET_BLOCK.
-Multiple SysEx chunks (func 0x75) are concatenated — strip the 7-byte header from chunks
-after the first to form one continuous buffer.
+Multiple SysEx chunks (func 0x75) are concatenated — strip the 7-byte header **and the
+last byte (checksum)** from each chunk to form one continuous buffer.
 
+```python
+# Correct concatenation (confirmed 2026-06-13):
+combined = chunks[0][:-1]            # first chunk: strip checksum only
+for c in chunks[1:]:
+    combined += c[7:-1]              # subsequent: strip header + checksum
+
+# Channel stride
+channel_stride = (len(combined) - 7) // 4
+# Channel N starts at offset: 7 + N * stride
 ```
-Channel stride = (combined_length - 7) // 4
-Channel N starts at offset: 7 + N * stride
-```
+
+> **Critical**: Each chunk ends with a checksum byte that is NOT parameter data.
+> Failing to strip it causes a cumulative 1-byte-per-chunk offset error that
+> corrupts Channel B/C/D reads (Channel A is unaffected as it fits within chunk 0).
 
 | Channel | N | Offset |
 |---------|---|--------|
