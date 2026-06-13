@@ -147,8 +147,12 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_get_amp_params() -> dict[str, Any]:
+    def fm9_get_amp_params(channel: str | None = None) -> dict[str, Any]:
         """Get current Amp 1 parameter values.
+
+        Args:
+            channel: Optional channel to read ("A", "B", "C", "D"). If omitted, reads
+                     the currently active channel.
 
         Returns all mapped Amp 1 parameters with their current display values.
         Automatically reads the active channel's parameters (A/B/C/D).
@@ -156,11 +160,17 @@ def register(mcp):
         try:
             ensure_connected()
 
-            # Get current channel from status dump
-            status = midi.get_status_dump()
-            current_channel = 0
-            if AMP_BLOCK_ID_BASE in status:
-                current_channel = status[AMP_BLOCK_ID_BASE].get("channel", 0)
+            # Determine channel index
+            channel_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+            if channel:
+                current_channel = channel_map.get(channel.upper())
+                if current_channel is None:
+                    return {"success": False, "error": f"Invalid channel '{channel}'. Use A/B/C/D."}
+            else:
+                status = midi.get_status_dump()
+                current_channel = 0
+                if AMP_BLOCK_ID_BASE in status:
+                    current_channel = status[AMP_BLOCK_ID_BASE].get("channel", 0)
 
             chunks = midi.get_block_data(AMP_BLOCK_ID_BASE)
             if not chunks:
@@ -200,7 +210,8 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_set_amp_params(params: dict[str, float | bool]) -> dict[str, Any]:
+    def fm9_set_amp_params(params: dict[str, float | bool],
+                          channel: str | None = None, scene: int | None = None) -> dict[str, Any]:
         """Set one or more Amp 1 parameters.
 
         Args:
@@ -214,11 +225,15 @@ def register(mcp):
                 - "Presence" (0-10)
                 - "Level" (-80 to +20 dB)
                 - "Balance" (-100 to +100)
+            channel: Optional target channel ("A", "B", "C", "D"). If omitted, writes to
+                     the currently active channel.
+            scene: Optional target scene (1-8). If omitted, uses the current scene.
 
         Returns success status, the changes sent, and a full read-back of all
         Amp 1 parameters confirming the actual state on the device.
 
         Example: fm9_set_amp_params(params={"Bass": 5.0, "Mid": 6.0, "Treble": 7.0})
+        Example: fm9_set_amp_params(params={"Gain": 8.0}, channel="B", scene=2)
         """
         try:
             ensure_connected()
@@ -232,6 +247,40 @@ def register(mcp):
                         "error": f"Unknown parameter '{key}'. Valid: {list(valid_params.keys())}",
                     }
 
+            # --- Scene/Channel state management ---
+            channel_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+            original_scene = None
+            original_channel = None
+
+            status = midi.get_status_dump()
+            current_channel = 0
+            if AMP_BLOCK_ID_BASE in status:
+                current_channel = status[AMP_BLOCK_ID_BASE].get("channel", 0)
+
+            if scene is not None:
+                scene_idx = scene - 1
+                if not (0 <= scene_idx <= 7):
+                    return {"success": False, "error": f"Invalid scene {scene}. Use 1-8."}
+                original_scene = status.get("_scene", None)
+                midi.set_scene(scene_idx)
+                import time
+                time.sleep(0.2)
+                status = midi.get_status_dump()
+                if AMP_BLOCK_ID_BASE in status:
+                    current_channel = status[AMP_BLOCK_ID_BASE].get("channel", 0)
+
+            target_channel = current_channel
+            if channel:
+                target_channel = channel_map.get(channel.upper())
+                if target_channel is None:
+                    return {"success": False, "error": f"Invalid channel '{channel}'. Use A/B/C/D."}
+                if target_channel != current_channel:
+                    original_channel = current_channel
+                    midi.set_channel(AMP_BLOCK_ID_BASE, target_channel)
+                    import time
+                    time.sleep(0.1)
+
+            # --- SET parameters ---
             changes = {}
             for name, value in params.items():
                 info = valid_params[name]
@@ -241,26 +290,39 @@ def register(mcp):
                 if info["type"] == "switch":
                     midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
-                    # Bipolar params use raw_float (display value sent directly)
                     midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
                 else:
                     midi.set_param_value(AMP_BLOCK_ID_BASE, param_id, float(value), max_val)
 
                 changes[name] = value
 
-            # Read back actual state after SET
+            # Read back
             import time
             time.sleep(0.2)
-            readback = fm9_get_amp_params()
+            channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
+            readback = fm9_get_amp_params(channel=channel_names.get(target_channel, "A"))
+
+            # --- Restore original state ---
+            if original_channel is not None:
+                midi.set_channel(AMP_BLOCK_ID_BASE, original_channel)
+                time.sleep(0.1)
+            if original_scene is not None:
+                midi.set_scene(original_scene)
+                time.sleep(0.1)
+
             if readback.get("success"):
                 return {"success": True, "block": "Amp 1", "channel": readback.get("channel", "A"), "changes": changes, "params": readback["params"]}
-            return {"success": True, "block": "Amp 1", "changes": changes}
+            return {"success": True, "block": "Amp 1", "channel": channel_names.get(target_channel, "A"), "changes": changes}
         except Exception as e:
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_get_drive_params() -> dict[str, Any]:
+    def fm9_get_drive_params(channel: str | None = None) -> dict[str, Any]:
         """Get current Drive 1 parameter values.
+
+        Args:
+            channel: Optional channel to read ("A", "B", "C", "D"). If omitted, reads
+                     the currently active channel.
 
         Returns all mapped Drive 1 parameters with their current display values.
         Automatically reads the active channel's parameters (A/B/C/D).
@@ -268,11 +330,16 @@ def register(mcp):
         try:
             ensure_connected()
 
-            # Get current channel from status dump
-            status = midi.get_status_dump()
-            current_channel = 0
-            if DRIVE_BLOCK_ID_BASE in status:
-                current_channel = status[DRIVE_BLOCK_ID_BASE].get("channel", 0)
+            channel_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+            if channel:
+                current_channel = channel_map.get(channel.upper())
+                if current_channel is None:
+                    return {"success": False, "error": f"Invalid channel '{channel}'. Use A/B/C/D."}
+            else:
+                status = midi.get_status_dump()
+                current_channel = 0
+                if DRIVE_BLOCK_ID_BASE in status:
+                    current_channel = status[DRIVE_BLOCK_ID_BASE].get("channel", 0)
 
             chunks = midi.get_block_data(DRIVE_BLOCK_ID_BASE)
             if not chunks:
@@ -312,7 +379,8 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_set_drive_params(params: dict[str, float | bool]) -> dict[str, Any]:
+    def fm9_set_drive_params(params: dict[str, float | bool],
+                             channel: str | None = None, scene: int | None = None) -> dict[str, Any]:
         """Set one or more Drive 1 parameters.
 
         Args:
@@ -322,11 +390,15 @@ def register(mcp):
                 - "Level" (0-10)
                 - "Mix" (0-100%)
                 - "Balance" (-100 to +100)
+            channel: Optional target channel ("A", "B", "C", "D"). If omitted, writes to
+                     the currently active channel.
+            scene: Optional target scene (1-8). If omitted, uses the current scene.
 
         Returns success status, the changes sent, and a full read-back of all
         Drive 1 parameters confirming the actual state on the device.
 
         Example: fm9_set_drive_params(params={"Drive": 6.0, "Tone": 5.5, "Level": 7.0})
+        Example: fm9_set_drive_params(params={"Drive": 8.0}, channel="B", scene=2)
         """
         try:
             ensure_connected()
@@ -340,6 +412,40 @@ def register(mcp):
                         "error": f"Unknown parameter '{key}'. Valid: {list(valid_params.keys())}",
                     }
 
+            # --- Scene/Channel state management ---
+            channel_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+            original_scene = None
+            original_channel = None
+
+            status = midi.get_status_dump()
+            current_channel = 0
+            if DRIVE_BLOCK_ID_BASE in status:
+                current_channel = status[DRIVE_BLOCK_ID_BASE].get("channel", 0)
+
+            if scene is not None:
+                scene_idx = scene - 1
+                if not (0 <= scene_idx <= 7):
+                    return {"success": False, "error": f"Invalid scene {scene}. Use 1-8."}
+                original_scene = status.get("_scene", None)
+                midi.set_scene(scene_idx)
+                import time
+                time.sleep(0.2)
+                status = midi.get_status_dump()
+                if DRIVE_BLOCK_ID_BASE in status:
+                    current_channel = status[DRIVE_BLOCK_ID_BASE].get("channel", 0)
+
+            target_channel = current_channel
+            if channel:
+                target_channel = channel_map.get(channel.upper())
+                if target_channel is None:
+                    return {"success": False, "error": f"Invalid channel '{channel}'. Use A/B/C/D."}
+                if target_channel != current_channel:
+                    original_channel = current_channel
+                    midi.set_channel(DRIVE_BLOCK_ID_BASE, target_channel)
+                    import time
+                    time.sleep(0.1)
+
+            # --- SET parameters ---
             changes = {}
             for name, value in params.items():
                 info = valid_params[name]
@@ -349,19 +455,28 @@ def register(mcp):
                 if info["type"] == "switch":
                     midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, 1.0 if value else 0.0, 1.0)
                 elif info["type"] == "bipolar":
-                    # Bipolar params use raw_float (display value sent directly)
                     midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), 1.0, raw_float=True)
                 else:
                     midi.set_param_value(DRIVE_BLOCK_ID_BASE, param_id, float(value), max_val)
 
                 changes[name] = value
 
-            # Read back actual state after SET
+            # Read back
             import time
             time.sleep(0.2)
-            readback = fm9_get_drive_params()
+            channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
+            readback = fm9_get_drive_params(channel=channel_names.get(target_channel, "A"))
+
+            # --- Restore original state ---
+            if original_channel is not None:
+                midi.set_channel(DRIVE_BLOCK_ID_BASE, original_channel)
+                time.sleep(0.1)
+            if original_scene is not None:
+                midi.set_scene(original_scene)
+                time.sleep(0.1)
+
             if readback.get("success"):
                 return {"success": True, "block": "Drive 1", "channel": readback.get("channel", "A"), "changes": changes, "params": readback["params"]}
-            return {"success": True, "block": "Drive 1", "changes": changes}
+            return {"success": True, "block": "Drive 1", "channel": channel_names.get(target_channel, "A"), "changes": changes}
         except Exception as e:
             return {"success": False, "error": str(e)}

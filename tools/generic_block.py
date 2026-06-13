@@ -351,11 +351,13 @@ def register(mcp):
         return params
 
     @mcp.tool()
-    def fm9_get_block_params(block: str) -> dict[str, Any]:
+    def fm9_get_block_params(block: str, channel: str | None = None) -> dict[str, Any]:
         """Get current parameter values for any effect block.
 
         Args:
             block: Block name (e.g., "Amp 1", "Delay 1", "Chorus") or hex ID (e.g., "0x3A").
+            channel: Optional channel to read ("A", "B", "C", "D"). If omitted, reads
+                     the currently active channel for this block.
 
         Returns all mapped parameters with their current display values.
         """
@@ -366,24 +368,31 @@ def register(mcp):
             if not block_id:
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
 
-            # Get current channel from status dump
-            status = midi.get_status_dump()
-            current_channel = 0
-            if block_id in status:
-                current_channel = status[block_id].get("channel", 0)
+            # Determine channel index
+            channel_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+            if channel:
+                target_channel = channel_map.get(channel.upper())
+                if target_channel is None:
+                    return {"success": False, "error": f"Invalid channel '{channel}'. Use A/B/C/D."}
+            else:
+                # Read active channel from status dump
+                status = midi.get_status_dump()
+                target_channel = 0
+                if block_id in status:
+                    target_channel = status[block_id].get("channel", 0)
 
             chunks = midi.get_block_data(block_id)
             if not chunks:
                 return {"success": False, "error": f"Failed to get block data for {block_info['block_name']}."}
 
-            params = _decode_block_params(block_id, block_info, chunks, channel=current_channel)
+            params = _decode_block_params(block_id, block_info, chunks, channel=target_channel)
 
             channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
             return {
                 "success": True,
                 "block": block_info["block_name"],
                 "block_id": f"0x{block_id:02X}",
-                "channel": channel_names.get(current_channel, "A"),
+                "channel": channel_names.get(target_channel, "A"),
                 "param_count": len(params),
                 "params": params,
             }
@@ -391,7 +400,8 @@ def register(mcp):
             return {"success": False, "error": str(e)}
 
     @mcp.tool()
-    def fm9_set_block_params(block: str, params: dict[str, float | int | str]) -> dict[str, Any]:
+    def fm9_set_block_params(block: str, params: dict[str, float | int | str],
+                             channel: str | None = None, scene: int | None = None) -> dict[str, Any]:
         """Set one or more parameters on any effect block.
 
         Args:
@@ -408,12 +418,17 @@ def register(mcp):
                     For Cab DynaCab Mic: use integer (0-3) or name (e.g. "Dynamic 1").
                     For Cab DynaCab R1-R4, Z1-Z4: use normalized 0.0-1.0 (e.g. 0.5 = center).
                     For Pitch Shift1-4 (Virtual Capo): use semitone value directly (e.g. -1 for down 1 semitone).
+            channel: Optional target channel ("A", "B", "C", "D"). If omitted, writes to
+                     the currently active channel. The server switches internally and restores.
+            scene: Optional target scene (1-8). If omitted, uses the current scene.
+                   The server switches internally and restores after writing.
 
         Returns success status, the changes sent, and a full read-back of all
         block parameters confirming the actual state on the device. No separate
         GET call is needed after SET.
 
         Example: fm9_set_block_params(block="Chorus 1", params={"Rate": 0.5, "Depth": 0.7})
+        Example: fm9_set_block_params(block="Amp 1", params={"Gain": 8.0}, channel="B", scene=2)
         """
         try:
             ensure_connected()
@@ -421,6 +436,43 @@ def register(mcp):
             block_id = block_info.get("_block_id_int") or block_info.get("block_id_base")
             if not block_id:
                 return {"success": False, "error": f"Block '{block}' has no known block_id."}
+
+            # --- Scene/Channel state management ---
+            channel_map = {"A": 0, "B": 1, "C": 2, "D": 3}
+            original_scene = None
+            original_channel = None
+
+            # Get current state
+            status = midi.get_status_dump()
+            current_channel = 0
+            if block_id in status:
+                current_channel = status[block_id].get("channel", 0)
+
+            # Switch scene if requested
+            if scene is not None:
+                scene_idx = scene - 1  # API is 1-based, protocol is 0-based
+                if not (0 <= scene_idx <= 7):
+                    return {"success": False, "error": f"Invalid scene {scene}. Use 1-8."}
+                original_scene = midi.get_status_dump().get("_scene", None)
+                midi.set_scene(scene_idx)
+                import time
+                time.sleep(0.2)
+                # Re-read status after scene change (channel may have changed)
+                status = midi.get_status_dump()
+                if block_id in status:
+                    current_channel = status[block_id].get("channel", 0)
+
+            # Switch channel if requested
+            target_channel = current_channel
+            if channel:
+                target_channel = channel_map.get(channel.upper())
+                if target_channel is None:
+                    return {"success": False, "error": f"Invalid channel '{channel}'. Use A/B/C/D."}
+                if target_channel != current_channel:
+                    original_channel = current_channel
+                    midi.set_channel(block_id, target_channel)
+                    import time
+                    time.sleep(0.1)
 
             # Cab blocks have mixed encoding:
             # - Frequency params (Hz), Mode, Mute: raw float via set_param_value
@@ -533,21 +585,24 @@ def register(mcp):
             import time
             time.sleep(0.2)  # Allow FM9 to process
 
-            # Get current channel for correct readback offset
-            status = midi.get_status_dump()
-            current_channel = 0
-            if block_id in status:
-                current_channel = status[block_id].get("channel", 0)
-
             chunks = midi.get_block_data(block_id)
+
+            # --- Restore original scene/channel ---
+            if original_channel is not None:
+                midi.set_channel(block_id, original_channel)
+                time.sleep(0.1)
+            if original_scene is not None:
+                midi.set_scene(original_scene)
+                time.sleep(0.1)
+
+            channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
             if chunks:
-                actual_params = _decode_block_params(block_id, block_info, chunks, channel=current_channel)
-                channel_names = {0: "A", 1: "B", 2: "C", 3: "D"}
+                actual_params = _decode_block_params(block_id, block_info, chunks, channel=target_channel)
                 return {
                     "success": True,
                     "block": block_info["block_name"],
                     "block_id": f"0x{block_id:02X}",
-                    "channel": channel_names.get(current_channel, "A"),
+                    "channel": channel_names.get(target_channel, "A"),
                     "changes": changes,
                     "params": actual_params,
                 }
@@ -556,6 +611,7 @@ def register(mcp):
                     "success": True,
                     "block": block_info["block_name"],
                     "block_id": f"0x{block_id:02X}",
+                    "channel": channel_names.get(target_channel, "A"),
                     "changes": changes,
                     "note": "Read-back failed; values were sent but could not be verified.",
                 }
