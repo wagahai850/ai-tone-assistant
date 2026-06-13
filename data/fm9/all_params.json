@@ -2026,7 +2026,8 @@
         "display_name": "Bypass",
         "type": "continuous",
         "max": 1,
-        "min": 0
+        "min": 0,
+        "decode_max": 140.03
       },
       "8": {
         "name": "FUZZ_LOCUT",
@@ -2130,7 +2131,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "21": {
         "name": "FUZZ_EQON",
@@ -3188,7 +3190,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "1": {
         "name": "REVERB_LEVEL",
@@ -3421,7 +3424,8 @@
         "max": 1.0,
         "min": 0,
         "step": 0.1,
-        "decode_max": 125.06
+        "decode_max": 125.06,
+        "decode_style": "zero"
       },
       "12": {
         "name": "REVERB_HICUT",
@@ -3437,7 +3441,8 @@
         "type": "frequency",
         "max": 1.0,
         "min": 0,
-        "step": 0.1
+        "step": 0.1,
+        "decode_style": "zero"
       },
       "14": {
         "name": "REVERB_DIFFUSION",
@@ -3445,7 +3450,8 @@
         "type": "frequency",
         "max": 1.0,
         "min": 0,
-        "step": 0.1
+        "step": 0.1,
+        "decode_style": "zero"
       },
       "15": {
         "name": "REVERB_SIZE",
@@ -3453,7 +3459,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 1.0
+        "step": 1.0,
+        "decode_style": "zero"
       },
       "16": {
         "name": "REVERB_REVERBDELAY",
@@ -3461,7 +3468,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 1.0
+        "step": 1.0,
+        "decode_style": "zero"
       },
       "17": {
         "name": "REVERB_EARLYLEVEL",
@@ -3469,7 +3477,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 1.0
+        "step": 1.0,
+        "decode_style": "zero"
       },
       "18": {
         "name": "REVERB_REVERBLEVEL",
@@ -3477,7 +3486,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 1.0
+        "step": 1.0,
+        "decode_style": "zero"
       },
       "19": {
         "name": "REVERB_PREDELAY",
@@ -3520,7 +3530,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "zero"
       },
       "24": {
         "name": "REVERB_DENSITY",
@@ -3536,7 +3547,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "zero"
       },
       "26": {
         "name": "REVERB_BYPASS",
@@ -3544,7 +3556,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_style": "zero"
       },
       "27": {
         "name": "REVERB_NUMSPRINGS",
@@ -3560,7 +3573,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "29": {
         "name": "REVERB_WIDTH",
@@ -3568,7 +3582,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "30": {
         "name": "REVERB_FREQ1",
@@ -3637,7 +3652,8 @@
         "max": 10.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 5.89
+        "decode_max": 5.89,
+        "decode_style": "zero"
       },
       "37": {
         "name": "REVERB_LFTIME",
@@ -3645,7 +3661,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 7.15
+        "decode_max": 7.15,
+        "decode_style": "zero"
       },
       "38": {
         "name": "REVERB_LFXOVER",
@@ -3672,7 +3689,8 @@
         "max": 100.0,
         "min": 0,
         "step": 0.002,
-        "decode_max": 7991.95
+        "decode_max": 7991.95,
+        "decode_style": "zero"
       },
       "41": {
         "name": "REVERB_THRESH",
@@ -3687,7 +3705,9 @@
           "MUTE OUT",
           "MUTE FX IN",
           "MUTE IN"
-        ]
+        ],
+        "decode_max": 6.21,
+        "decode_style": "zero"
       },
       "42": {
         "name": "REVERB_RELEASE",
@@ -3695,7 +3715,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 5.56
+        "decode_max": 5.56,
+        "decode_style": "zero"
       },
       "43": {
         "name": "REVERB_EARLYDIFF",
@@ -3711,7 +3732,8 @@
         "display_name": "Earlydifftime",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "45": {
         "name": "REVERB_EARLYDECAY",
@@ -3732,7 +3754,8 @@
         "values": [
           "LINEAR",
           "HANN"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "47": {
         "name": "REVERB_QUALITY",
@@ -3927,7 +3950,8 @@
           "62/64 (31/32)",
           "63/64"
         ],
-        "decode_max": 31.42
+        "decode_max": 31.42,
+        "decode_style": "zero"
       },
       "51": {
         "name": "REVERB_INPUTSELECT",
@@ -4105,7 +4129,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "53": {
         "name": "REVERB_LOWSLOPE",
@@ -4296,7 +4321,8 @@
           "DUAL",
           "BOTH",
           "PING-PONG"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "56": {
         "name": "REVERB_SHIFT1",
@@ -4322,7 +4348,8 @@
         "display_name": "Pitchfdbk",
         "type": "continuous",
         "max": 1000.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "59": {
         "name": "REVERB_PITCHDIR",
@@ -4379,14 +4406,16 @@
         "display_name": "Predlyfdbk",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "66": {
         "name": "REVERB_PREDLYMIX",
         "display_name": "Predlymix",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "67": {
         "name": "REVERB_PITCHLPF",
@@ -4422,7 +4451,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 1.0
+        "step": 1.0,
+        "decode_style": "zero"
       }
     }
   },
@@ -4438,7 +4468,8 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "1": {
         "name": "DELAY_LEVEL",
@@ -4563,7 +4594,9 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_scale": "4096"
+        "decode_scale": "4096",
+        "decode_max": 16030.82,
+        "decode_style": "zero"
       },
       "13": {
         "name": "DELAY_RATIO",
@@ -4727,7 +4760,8 @@
         "display_name": "Rate1",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "23": {
         "name": "DELAY_RATE2",
@@ -4735,7 +4769,8 @@
         "type": "frequency",
         "max": 1.0,
         "min": 0,
-        "decode_max": 2.51
+        "decode_max": 2.51,
+        "decode_style": "zero"
       },
       "24": {
         "name": "DELAY_DEPTH1",
@@ -4762,7 +4797,8 @@
         "max": 10.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 15.0
+        "decode_max": 15.0,
+        "decode_style": "zero"
       },
       "27": {
         "name": "DELAY_GAIN",
@@ -4820,7 +4856,9 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_scale": "4096"
+        "decode_scale": "4096",
+        "decode_max": 16030.82,
+        "decode_style": "zero"
       },
       "31": {
         "name": "DELAY_HOLD",
@@ -4995,7 +5033,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "41": {
         "name": "DELAY_LFO2PHASE",
@@ -5004,7 +5043,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "42": {
         "name": "DELAY_SPLICETIME",
@@ -5013,7 +5053,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "43": {
         "name": "DELAY_RUN",
@@ -5061,7 +5102,7 @@
         "max": 1.0,
         "min": -1.0,
         "step": 0.1,
-        "decode_max": 80.02,
+        "decode_max": 2.0,
         "decode_style": "zero"
       },
       "47": {
@@ -5079,7 +5120,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 555.77
+        "decode_max": 555.77,
+        "decode_style": "zero"
       },
       "49": {
         "name": "DELAY_DIFFUSE",
@@ -5322,7 +5364,8 @@
         "display_name": "Rate3",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "57": {
         "name": "DELAY_LFO3TYPE",
@@ -5351,7 +5394,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "59": {
         "name": "DELAY_LFO3TEMPO",
@@ -5462,14 +5506,16 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 25.13
+        "decode_max": 25.13,
+        "decode_style": "zero"
       },
       "63": {
         "name": "DELAY_FILTERQ",
         "display_name": "Filterq",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "64": {
         "name": "DELAY_BITREDUCE",
@@ -5498,14 +5544,16 @@
         "display_name": "Q1",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "68": {
         "name": "DELAY_Q2",
         "display_name": "Q2",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "69": {
         "name": "DELAY_GAIN1",
@@ -5553,7 +5601,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.0001,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "74": {
         "name": "DELAY_HPF_ORDER",
@@ -5588,7 +5637,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "77": {
         "name": "DELAY_COMPTHRESH",
@@ -5613,7 +5663,8 @@
         "display_name": "Diffrate",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "80": {
         "name": "DELAY_DIFFDEPTH",
@@ -5649,7 +5700,8 @@
         "display_name": "Rate4",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "83": {
         "name": "DELAY_LFO4TEMPO",
@@ -5756,7 +5808,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "86": {
         "name": "DELAY_LFO4TARGET",
@@ -5821,7 +5874,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 2003.0
+        "decode_max": 2003.0,
+        "decode_style": "zero"
       },
       "2": {
         "name": "MULTITAP_TIME2",
@@ -5830,7 +5884,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 2003.0
+        "decode_max": 2003.0,
+        "decode_style": "zero"
       },
       "3": {
         "name": "MULTITAP_TIME3",
@@ -5839,7 +5894,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 2003.0
+        "decode_max": 2003.0,
+        "decode_style": "zero"
       },
       "4": {
         "name": "MULTITAP_TIME4",
@@ -5848,7 +5904,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 2003.0
+        "decode_max": 2003.0,
+        "decode_style": "zero"
       },
       "5": {
         "name": "MULTITAP_TEMPO1",
@@ -6241,7 +6298,7 @@
         "min": -100.0,
         "step": 0.001,
         "decode_scale": "4096",
-        "decode_style": "zero"
+        "decode_style": "center"
       },
       "13": {
         "name": "MULTITAP_FEEDBACK1",
@@ -6320,14 +6377,16 @@
         "display_name": "Rate1",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "22": {
         "name": "MULTITAP_RATE2",
         "display_name": "Rate2",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "23": {
         "name": "MULTITAP_DEPTH1",
@@ -6572,7 +6631,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "30": {
         "name": "MULTITAP_LFOPHASE2",
@@ -6581,7 +6641,9 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_scale": "4096"
+        "decode_scale": "4096",
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "31": {
         "name": "MULTITAP_MIX",
@@ -6708,14 +6770,16 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "decode_max": 2.51
+        "decode_max": 2.51,
+        "decode_style": "zero"
       },
       "45": {
         "name": "MULTITAP_MSTRQ",
         "display_name": "Mstrq",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "46": {
         "name": "MULTITAP_MSTRFDBK",
@@ -6777,28 +6841,32 @@
         "display_name": "Q1",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "54": {
         "name": "MULTITAP_Q2",
         "display_name": "Q2",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "55": {
         "name": "MULTITAP_Q3",
         "display_name": "Q3",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "56": {
         "name": "MULTITAP_Q4",
         "display_name": "Q4",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "57": {
         "name": "MULTITAP_ATTEN",
@@ -6807,7 +6875,7 @@
         "max": 1.0,
         "min": -1.0,
         "step": 0.1,
-        "decode_max": 80.02,
+        "decode_max": 2.0,
         "decode_style": "zero"
       },
       "58": {
@@ -6860,7 +6928,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "65": {
         "name": "MULTITAP_DRIVE",
@@ -6875,7 +6944,8 @@
         "display_name": "Fltrate",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "67": {
         "name": "MULTITAP_FLTDEPTH",
@@ -7002,7 +7072,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "71": {
         "name": "MULTITAP_ENVTHRESH",
@@ -7019,7 +7090,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 882.9
+        "decode_max": 882.9,
+        "decode_style": "zero"
       },
       "73": {
         "name": "MULTITAP_ENVRELEASE",
@@ -7027,7 +7099,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 555.77
+        "decode_max": 555.77,
+        "decode_style": "zero"
       },
       "74": {
         "name": "MULTITAP_MSTRCOMBTIME",
@@ -7066,7 +7139,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 1e-05,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "78": {
         "name": "MULTITAP_COMBTIME2",
@@ -7075,7 +7149,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 1e-05,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "79": {
         "name": "MULTITAP_COMBTIME3",
@@ -7084,7 +7159,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 1e-05,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "80": {
         "name": "MULTITAP_COMBTIME4",
@@ -7093,7 +7169,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 1e-05,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "81": {
         "name": "MULTITAP_COMBGAIN1",
@@ -7157,7 +7234,8 @@
         "max": 1.0,
         "min": 0,
         "step": 0.1,
-        "decode_max": 2047.94
+        "decode_max": 2047.94,
+        "decode_style": "zero"
       },
       "88": {
         "name": "MULTITAP_RINGFREQ2",
@@ -7166,7 +7244,8 @@
         "max": 1.0,
         "min": 0,
         "step": 0.1,
-        "decode_max": 2047.94
+        "decode_max": 2047.94,
+        "decode_style": "zero"
       },
       "89": {
         "name": "MULTITAP_RINGFREQ3",
@@ -7175,7 +7254,8 @@
         "max": 1.0,
         "min": 0,
         "step": 0.1,
-        "decode_max": 2047.94
+        "decode_max": 2047.94,
+        "decode_style": "zero"
       },
       "90": {
         "name": "MULTITAP_RINGFREQ4",
@@ -7184,7 +7264,8 @@
         "max": 1.0,
         "min": 0,
         "step": 0.1,
-        "decode_max": 2047.94
+        "decode_max": 2047.94,
+        "decode_style": "zero"
       },
       "91": {
         "name": "MULTITAP_RINGMIX1",
@@ -7227,28 +7308,32 @@
         "display_name": "Drate1",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "96": {
         "name": "MULTITAP_DRATE2",
         "display_name": "Drate2",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "97": {
         "name": "MULTITAP_DRATE3",
         "display_name": "Drate3",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "98": {
         "name": "MULTITAP_DRATE4",
         "display_name": "Drate4",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "99": {
         "name": "MULTITAP_DDEPTH1",
@@ -7348,7 +7433,8 @@
         "display_name": "Q",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "109": {
         "name": "MULTITAP_GAIN",
@@ -7397,7 +7483,8 @@
         "display_name": "Diffrate",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "113": {
         "name": "MULTITAP_DIFFDEPTH",
@@ -7494,7 +7581,7 @@
         "max": 100.0,
         "min": -100.0,
         "step": 0.002,
-        "decode_style": "center"
+        "decode_style": "zero"
       },
       "119": {
         "name": "MULTITAP_FEEDBACK41",
@@ -7553,7 +7640,8 @@
         "display_name": "Rate",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "3": {
         "name": "CHORUS_TEMPO",
@@ -7667,7 +7755,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 1e-05,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "7": {
         "name": "CHORUS_LFOPHASE",
@@ -7676,7 +7765,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "8": {
         "name": "CHORUS_LFOTYPE",
@@ -7793,7 +7883,8 @@
         "display_name": "Rate2",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "19": {
         "name": "CHORUS_DEPTH2",
@@ -7811,7 +7902,8 @@
         "max": 10.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 15.0
+        "decode_max": 15.0,
+        "decode_style": "zero"
       },
       "21": {
         "name": "CHORUS_LOWCUT",
@@ -7980,7 +8072,8 @@
         "display_name": "Rate",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "2": {
         "name": "FLANGER_TEMPO",
@@ -7994,28 +8087,32 @@
         "display_name": "Depth",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "4": {
         "name": "FLANGER_FEEDBACK",
         "display_name": "Feedback",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "5": {
         "name": "FLANGER_MANUAL",
         "display_name": "Manual",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "6": {
         "name": "FLANGER_DRYDELAY",
         "display_name": "Drydelay",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "7": {
         "name": "FLANGER_LFOPHASE",
@@ -8023,7 +8120,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "decode_max": 3.14
+        "decode_max": 3.14,
+        "decode_style": "zero"
       },
       "8": {
         "name": "FLANGER_LFOTYPE",
@@ -8288,7 +8386,8 @@
           "30 dB/OCT",
           "36 dB/OCT"
         ],
-        "decode_max": 11.77
+        "decode_max": 11.77,
+        "decode_style": "zero"
       }
     }
   },
@@ -8305,7 +8404,8 @@
         "max": 1.0,
         "min": 0,
         "step": 0.025,
-        "decode_max": 10.0
+        "decode_max": 10.0,
+        "decode_style": "zero"
       },
       "1": {
         "name": "ROTARY_LFDEPTH",
@@ -8313,7 +8413,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 0.025
+        "step": 0.025,
+        "decode_style": "zero"
       },
       "2": {
         "name": "ROTARY_HFDEPTH",
@@ -8321,7 +8422,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 0.025
+        "step": 0.025,
+        "decode_style": "zero"
       },
       "3": {
         "name": "ROTARY_HFLEVEL",
@@ -8347,7 +8449,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 0.025
+        "step": 0.025,
+        "decode_style": "zero"
       },
       "6": {
         "name": "ROTARY_LEVEL",
@@ -8355,7 +8458,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": -80,
-        "step": 0.025
+        "step": 0.025,
+        "decode_style": "zero"
       },
       "7": {
         "name": "ROTARY_PAN",
@@ -8387,7 +8491,8 @@
         "display_name": "Hflength",
         "type": "continuous",
         "max": 10.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "11": {
         "name": "ROTARY_BYPASS",
@@ -8404,7 +8509,8 @@
         "max": 100.0,
         "min": 0,
         "step": 0.002,
-        "decode_max": 314.16
+        "decode_max": 314.16,
+        "decode_style": "zero"
       },
       "13": {
         "name": "ROTARY_LOWRATE",
@@ -8417,7 +8523,8 @@
           "THRU",
           "MUTE"
         ],
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "14": {
         "name": "ROTARY_LOWTIME",
@@ -8425,7 +8532,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "15": {
         "name": "ROTARY_HIGHTIME",
@@ -8454,7 +8562,8 @@
           "7 Band Pedal",
           "7 Band Bass Pedal"
         ],
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "16": {
         "name": "ROTARY_SPREAD",
@@ -8471,14 +8580,16 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 15.0
+        "decode_max": 15.0,
+        "decode_style": "zero"
       },
       "18": {
         "name": "ROTARY_MICDIST",
         "display_name": "Micdist",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "19": {
         "name": "ROTARY_INPUTSELECT",
@@ -8548,7 +8659,8 @@
         "display_name": "Rate",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "3": {
         "name": "PHASER_LFOTYPE",
@@ -8665,7 +8777,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "6": {
         "name": "PHASER_FEEDBACK",
@@ -8698,7 +8811,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 180.0
+        "decode_max": 180.0,
+        "decode_style": "zero"
       },
       "10": {
         "name": "PHASER_BIAS",
@@ -8810,7 +8924,8 @@
         "display_name": "Q",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "22": {
         "name": "PHASER_LFORESET",
@@ -8888,7 +9003,8 @@
         "display_name": "Vcrk",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "26": {
         "name": "PHASER_LFOBETA",
@@ -8896,7 +9012,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "27": {
         "name": "PHASER_LFOLPF",
@@ -8911,7 +9028,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 588.59
+        "decode_max": 588.59,
+        "decode_style": "zero"
       },
       "29": {
         "name": "PHASER_RELEASE",
@@ -8919,7 +9037,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 500.0
+        "decode_max": 500.0,
+        "decode_style": "zero"
       },
       "30": {
         "name": "PHASER_MANUAL",
@@ -8927,7 +9046,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "31": {
         "name": "PHASER_SCENEIGNORE",
@@ -9005,21 +9125,24 @@
         "display_name": "Track",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "5": {
         "name": "WAH_CONTROL",
         "display_name": "Control",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "6": {
         "name": "WAH_LEVEL",
         "display_name": "Level",
         "type": "frequency",
         "max": 1.0,
-        "min": -80
+        "min": -80,
+        "decode_style": "zero"
       },
       "7": {
         "name": "WAH_PAN",
@@ -9041,14 +9164,16 @@
         "display_name": "Mix",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "10": {
         "name": "WAH_DRIVE",
         "display_name": "Drive",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "11": {
         "name": "WAH_TAPER",
@@ -9176,7 +9301,8 @@
         "type": "frequency",
         "max": 1.0,
         "min": -12,
-        "step": 0.1
+        "step": 0.1,
+        "decode_style": "zero"
       }
     }
   },
@@ -9243,7 +9369,9 @@
         "type": "continuous",
         "max": 100.0,
         "min": -80,
-        "step": 0.002
+        "step": 0.002,
+        "decode_max": 62.11,
+        "decode_style": "zero"
       },
       "7": {
         "name": "FORMANT_PAN",
@@ -9416,7 +9544,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "5": {
         "name": "TREMOLO_TEMPO",
@@ -9440,7 +9569,9 @@
         "type": "continuous",
         "max": 100.0,
         "min": -80,
-        "step": 0.002
+        "step": 0.002,
+        "decode_max": 62.11,
+        "decode_style": "zero"
       },
       "8": {
         "name": "TREMOLO_PAN",
@@ -9477,7 +9608,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "decode_max": 3.14
+        "decode_max": 3.14,
+        "decode_style": "zero"
       },
       "12": {
         "name": "TREMOLO_WIDTH",
@@ -9510,7 +9642,8 @@
         "type": "frequency",
         "max": 1.0,
         "min": 0,
-        "decode_max": 3.14
+        "decode_max": 3.14,
+        "decode_style": "zero"
       },
       "16": {
         "name": "TREMOLO_ORDER",
@@ -9534,7 +9667,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "decode_style": "zero"
       },
       "19": {
         "name": "TREMOLO_SCENEIGNORE",
@@ -15289,7 +15423,8 @@
         "display_name": "Thresh",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "1": {
         "name": "COMP_RATIO",
@@ -15312,7 +15447,8 @@
         "display_name": "Release",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "4": {
         "name": "COMP_LEVEL",
@@ -15382,7 +15518,8 @@
         "display_name": "Mix",
         "type": "continuous",
         "max": 1000.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "12": {
         "name": "COMP_TYPE",
@@ -15423,7 +15560,8 @@
           "OFF",
           "MUTE"
         ],
-        "decode_max": 5.0
+        "decode_max": 5.0,
+        "decode_style": "zero"
       },
       "16": {
         "name": "COMP_AUTOMODE",
@@ -15438,7 +15576,8 @@
         "display_name": "Emphasis",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "18": {
         "name": "COMP_DYNAMICS",
@@ -15532,7 +15671,8 @@
         "display_name": "Thresh2",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "28": {
         "name": "COMP_XMARK",
@@ -15561,7 +15701,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 5.56
+        "decode_max": 5.56,
+        "decode_style": "zero"
       },
       "32": {
         "name": "COMP_COMPMATCH",
@@ -15641,14 +15782,16 @@
         "display_name": "Gain2",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "2": {
         "name": "GEQ_GAIN3",
         "display_name": "Gain3",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "3": {
         "name": "GEQ_GAIN4",
@@ -15789,7 +15932,8 @@
         "type": "continuous",
         "max": 1.0,
         "min": 0,
-        "step": 0.025
+        "step": 0.025,
+        "decode_style": "zero"
       },
       "17": {
         "name": "GEQ_SPARE3",
@@ -15985,7 +16129,8 @@
         "max": 10.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "6": {
         "name": "PEQ_Q2",
@@ -15994,7 +16139,8 @@
         "max": 10.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "7": {
         "name": "PEQ_Q3",
@@ -16003,7 +16149,8 @@
         "max": 10.0,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "8": {
         "name": "PEQ_Q4",
@@ -16024,7 +16171,8 @@
           "TRAPEZOID",
           "ASTABLE"
         ],
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "9": {
         "name": "PEQ_Q5",
@@ -16032,7 +16180,8 @@
         "type": "continuous",
         "max": 10.0,
         "min": 0,
-        "decode_max": 14.31
+        "decode_max": 14.31,
+        "decode_style": "zero"
       },
       "10": {
         "name": "PEQ_GAIN1",
@@ -16149,7 +16298,9 @@
         "type": "continuous",
         "max": 10.0,
         "min": -80,
-        "step": 0.001
+        "step": 0.001,
+        "decode_max": 6.21,
+        "decode_style": "zero"
       },
       "21": {
         "name": "PEQ_PAN",
@@ -16157,7 +16308,7 @@
         "type": "frequency",
         "max": 1.0,
         "min": -100,
-        "decode_style": "center"
+        "decode_style": "zero"
       },
       "22": {
         "name": "PEQ_BYPASSMODE",
@@ -16339,7 +16490,8 @@
           "INPUT 3",
           "USB 5/6",
           "USB 7/8"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "1": {
         "name": "FDBKRET_LEVEL",
@@ -16498,14 +16650,17 @@
         "display_name": "Level",
         "type": "continuous",
         "max": 20.0,
-        "min": -80
+        "min": -80,
+        "decode_max": 12.42,
+        "decode_style": "zero"
       },
       "3": {
         "name": "MULTIPLEXER_PAN",
         "display_name": "Pan",
         "type": "continuous",
         "max": 200.0,
-        "min": -100
+        "min": -100,
+        "decode_style": "center"
       },
       "4": {
         "name": "MULTIPLEXER_BYPASSMODE",
@@ -17120,7 +17275,8 @@
           "MUTE OUT",
           "MUTE FX IN",
           "MUTE IN"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "4": {
         "name": "PITCH_HARM1",
@@ -17359,35 +17515,40 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "20": {
         "name": "PITCH_LEVEL2",
         "display_name": "Level2",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "21": {
         "name": "PITCH_LEVEL3",
         "display_name": "Level3",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "22": {
         "name": "PITCH_LEVEL4",
         "display_name": "Level4",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "23": {
         "name": "PITCH_PAN1",
         "display_name": "Pan1",
         "type": "frequency",
         "max": 1.0,
-        "min": -100
+        "min": -100,
+        "decode_style": "zero"
       },
       "24": {
         "name": "PITCH_PAN2",
@@ -17445,7 +17606,8 @@
           "TRAPEZOID",
           "ASTABLE"
         ],
-        "decode_max": 20.0
+        "decode_max": 20.0,
+        "decode_style": "zero"
       },
       "29": {
         "name": "PITCH_DELAY3",
@@ -17466,7 +17628,8 @@
           "TRAPEZOID",
           "ASTABLE"
         ],
-        "decode_max": 20.0
+        "decode_max": 20.0,
+        "decode_style": "zero"
       },
       "30": {
         "name": "PITCH_DELAY4",
@@ -17475,7 +17638,8 @@
         "max": 1000.0,
         "min": 0,
         "step": 0.001,
-        "decode_max": 1999.94
+        "decode_max": 1999.94,
+        "decode_style": "zero"
       },
       "31": {
         "name": "PITCH_FEEDBACK1",
@@ -17488,7 +17652,8 @@
           "OFF",
           "STACK",
           "HOLD"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "32": {
         "name": "PITCH_FEEDBACK2",
@@ -17586,7 +17751,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "34": {
         "name": "PITCH_FEEDBACK4",
@@ -17636,7 +17802,9 @@
         "type": "continuous",
         "max": 100.0,
         "min": -80,
-        "step": 0.002
+        "step": 0.002,
+        "decode_max": 62.11,
+        "decode_style": "zero"
       },
       "40": {
         "name": "PITCH_PAN",
@@ -17645,7 +17813,8 @@
         "max": 57.2958,
         "min": -100,
         "step": 0.003142,
-        "decode_max": 38.2
+        "decode_max": 38.2,
+        "decode_style": "zero"
       },
       "41": {
         "name": "PITCH_BYPASSMODE",
@@ -17700,7 +17869,8 @@
           "24 dB/OCT",
           "36 dB/OCT",
           "48 dB/OCT"
-        ]
+        ],
+        "decode_style": "zero"
       },
       "46": {
         "name": "PITCH_XFADETYPE",
@@ -17726,7 +17896,8 @@
         "type": "continuous",
         "max": 1000.0,
         "min": 0,
-        "decode_max": 2003.0
+        "decode_max": 2003.0,
+        "decode_style": "zero"
       },
       "49": {
         "name": "PITCH_DTEMPO1",
@@ -17996,7 +18167,8 @@
         "max": 57.2958,
         "min": 0,
         "step": 0.003142,
-        "decode_max": 31.84
+        "decode_max": 31.84,
+        "decode_style": "zero"
       }
     }
   },
@@ -18041,7 +18213,9 @@
         "type": "continuous",
         "max": 100.0,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "decode_max": 143.07,
+        "decode_style": "zero"
       },
       "3": {
         "name": "FILTER_Q",
@@ -18054,21 +18228,25 @@
           "THRU",
           "MUTE FX OUT",
           "MUTE OUT"
-        ]
+        ],
+        "decode_max": 200.04,
+        "decode_style": "center"
       },
       "4": {
         "name": "FILTER_TRACK",
         "display_name": "Track",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "5": {
         "name": "FILTER_CONTROL",
         "display_name": "Control",
         "type": "frequency",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "6": {
         "name": "FILTER_LEVEL",
@@ -18097,14 +18275,16 @@
         "display_name": "Mix",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "center"
       },
       "10": {
         "name": "FILTER_DRIVE",
         "display_name": "Drive",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "center"
       },
       "11": {
         "name": "FILTER_TAPER",
@@ -18134,7 +18314,8 @@
         "display_name": "Hpf",
         "type": "continuous",
         "max": 1.0,
-        "min": 0
+        "min": 0,
+        "decode_style": "zero"
       },
       "15": {
         "name": "FILTER_EQON",
@@ -18142,7 +18323,8 @@
         "type": "bipolar",
         "max": 1.0,
         "min": -1.0,
-        "step": 0.1
+        "step": 0.1,
+        "decode_style": "center"
       },
       "16": {
         "name": "FILTER_EQ1",
@@ -18188,8 +18370,7 @@
           "PLAY",
           "STOP"
         ],
-        "decode_max": 144.03,
-        "decode_style": "center"
+        "decode_style": "zero"
       },
       "20": {
         "name": "FILTER_EQ5",

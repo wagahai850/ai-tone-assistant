@@ -248,10 +248,10 @@ def register(mcp):
         """
         import math
 
-        # Concatenate all chunks (strip 7-byte SysEx header from subsequent chunks)
-        combined = list(chunks[0])
+        # Concatenate all chunks (strip 7-byte header + last byte checksum)
+        combined = list(chunks[0][:-1])
         for c in chunks[1:]:
-            combined.extend(c[7:])
+            combined.extend(c[7:-1])
 
         # Calculate channel stride from combined data
         channel_stride = (len(combined) - 7) // 4

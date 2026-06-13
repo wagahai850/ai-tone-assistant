@@ -166,10 +166,10 @@ def register(mcp):
             if not chunks:
                 return {"success": False, "error": "Failed to get Amp 1 block data."}
 
-            # Concatenate all chunks (strip 7-byte SysEx header from chunks after first)
-            combined = list(chunks[0])
+            # Concatenate all chunks (strip 7-byte header + last byte checksum)
+            combined = list(chunks[0][:-1])
             for c in chunks[1:]:
-                combined.extend(c[7:])
+                combined.extend(c[7:-1])
 
             # Calculate channel stride from combined data
             channel_stride = (len(combined) - 7) // 4
@@ -278,10 +278,10 @@ def register(mcp):
             if not chunks:
                 return {"success": False, "error": "Failed to get Drive 1 block data."}
 
-            # Concatenate all chunks (strip 7-byte SysEx header from subsequent chunks)
-            combined = list(chunks[0])
+            # Concatenate all chunks (strip 7-byte header + last byte checksum)
+            combined = list(chunks[0][:-1])
             for c in chunks[1:]:
-                combined.extend(c[7:])
+                combined.extend(c[7:-1])
 
             # Calculate channel offset stride from combined data
             channel_stride = (len(combined) - 7) // 4

@@ -217,7 +217,7 @@ class FractalMidi:
             id_hi = (block_id >> 7) & 0x7F
             cs = self._checksum(func, id_lo, id_hi)
             self._send_sysex([func, id_lo, id_hi, cs])
-            time.sleep(0.5)
+            time.sleep(0.12)
 
             # Collect responses: func 0x74 (block select) and func 0x75 (data chunks)
             self._last_block_select = None
