@@ -1,0 +1,109 @@
+[06:00:46] ============================================================
+[06:00:46] calibrate_and_verify.py — unified calibration + verification
+[06:00:46] ============================================================
+[06:00:47] FM9 connected
+[06:00:47] Target blocks: 26
+[06:00:47] [1/26] Drive 1
+[06:00:47] ▶ Drive 1
+[06:06:51]   ✓ 25 verified, 0 failed, 16 unresponsive (41 total)
+[06:06:51] [2/26] Reverb 1
+[06:06:51] ▶ Reverb 1
+[06:15:43]   ✓ 41 verified, 0 failed, 24 unresponsive (65 total)
+[06:15:43] [3/26] Delay 1
+[06:15:43] ▶ Delay 1
+[06:21:04]   ❌ pid= 46 Atten                style=zero decode_max=80.0 sent=? got=?
+[06:27:03]   ✓ 49 verified, 1 failed, 29 unresponsive (79 total)
+[06:27:03] [4/26] Multitap Delay 1
+[06:27:03] ▶ Multitap Delay 1
+[06:35:05]   ❌ pid= 57 Atten                style=zero decode_max=80.0 sent=? got=?
+[06:44:32]   ✓ 87 verified, 1 failed, 28 unresponsive (116 total)
+[06:44:32] [5/26] Chorus 1
+[06:44:32] ▶ Chorus 1
+[06:48:08]   ✓ 15 verified, 0 failed, 10 unresponsive (25 total)
+[06:48:08] [6/26] Flanger 1
+[06:48:08] ▶ Flanger 1
+[06:51:53]   ✓ 12 verified, 0 failed, 12 unresponsive (24 total)
+[06:51:53] [7/26] Rotary 1
+[06:51:53] ▶ Rotary 1
+[06:54:17]   ✓ 15 verified, 0 failed, 4 unresponsive (19 total)
+[06:54:17] [8/26] Phaser 1
+[06:54:17] ▶ Phaser 1
+[06:57:59]   ✓ 15 verified, 0 failed, 15 unresponsive (30 total)
+[06:57:59] [9/26] Wah 1
+[06:57:59] ▶ Wah 1
+[07:01:13]   ✓ 13 verified, 0 failed, 8 unresponsive (21 total)
+[07:01:13] [10/26] Formant 1
+[07:01:13] ▶ Formant 1
+[07:02:38]   ✓ 4 verified, 0 failed, 5 unresponsive (9 total)
+[07:02:38] [11/26] Tremolo/Panner 1
+[07:02:38] ▶ Tremolo/Panner 1
+[07:05:44]   ✓ 10 verified, 0 failed, 8 unresponsive (18 total)
+[07:05:44] [12/26] Enhancer 1
+[07:05:44] ▶ Enhancer 1
+[07:07:30]   ✓ 6 verified, 0 failed, 4 unresponsive (10 total)
+[07:07:30] [13/26] Mixer 1
+[07:07:30] ▶ Mixer 1
+[07:10:11]   ✓ 14 verified, 0 failed, 0 unresponsive (14 total)
+[07:10:11] [14/26] Compressor 1
+[07:10:11] ▶ Compressor 1
+[07:14:27]   ✓ 14 verified, 0 failed, 17 unresponsive (31 total)
+[07:14:27] [15/26] Graphic EQ 1
+[07:14:27] ▶ Graphic EQ 1
+[07:16:57]   ✓ 13 verified, 0 failed, 5 unresponsive (18 total)
+[07:16:57] [16/26] Parametric EQ 1
+[07:16:57] ▶ Parametric EQ 1
+[07:20:35]   ✓ 17 verified, 0 failed, 8 unresponsive (25 total)
+[07:20:35] [17/26] Feedback Send 1
+[07:20:35] ▶ Feedback Send 1
+[07:20:54]   ✓ 0 verified, 0 failed, 1 unresponsive (1 total)
+[07:20:54] [18/26] Feedback Return 1
+[07:20:54] ▶ Feedback Return 1
+[07:21:45]   ✓ 3 verified, 0 failed, 1 unresponsive (4 total)
+[07:21:45] [19/26] MIDI Block 1
+[07:21:45] ▶ MIDI Block 1
+[07:22:50]   ✓ 0 verified, 0 failed, 10 unresponsive (10 total)
+[07:22:50] [20/26] Multiplexer 1
+[07:22:50] ▶ Multiplexer 1
+[07:23:32]   ✓ 2 verified, 0 failed, 4 unresponsive (6 total)
+[07:23:32] [21/26] IR Player 1
+[07:23:32] ▶ IR Player 1
+[07:23:37]   ERROR: GET failed
+[07:23:37] [22/26] Volume/Pan 1
+[07:23:37] ▶ Volume/Pan 1
+[07:23:42]   ERROR: GET failed
+[07:23:43] [23/26] Pitch 1
+[07:23:43] ▶ Pitch 1
+[07:23:48]   ERROR: GET failed
+[07:23:48] ABORT: 3 consecutive blocks returned no data — FM9 likely unresponsive
+[07:23:48] Resume: --all --apply --start-from "Pitch 1"
+[07:23:48] Raw results → /Users/piro/Documents/ai-tone-assistant/tests/calibration_results.json
+[07:23:48] 
+Summary: 566 params processed
+[07:23:48]   ✅ 355 verified
+[07:23:48]   ❌ 2 failed verification
+[07:23:48]   ⏭️  209 unresponsive (type-specific)
+[07:23:48] Applied 196 calibration updates to all_params.json
+[09:21:03] ============================================================
+[09:21:03] calibrate_and_verify.py — unified calibration + verification
+[09:21:03] ============================================================
+[09:21:03] FM9 connected
+[09:21:03] Target blocks: 26
+[09:21:03] [23/26] Pitch 1
+[09:21:03] ▶ Pitch 1
+[09:27:09]   ✓ 30 verified, 0 failed, 21 unresponsive (51 total)
+[09:27:09] [24/26] Input 1
+[09:27:09] ▶ Input 1
+[09:27:09]   SKIP: no calibratable params
+[09:27:09] [25/26] Output 1
+[09:27:09] ▶ Output 1
+[09:27:09]   SKIP: no calibratable params
+[09:27:09] [26/26] Filter 1
+[09:27:09] ▶ Filter 1
+[09:29:30]   ✓ 9 verified, 0 failed, 12 unresponsive (21 total)
+[09:29:30] Raw results → /Users/piro/Documents/ai-tone-assistant/tests/calibration_results.json
+[09:29:30] 
+Summary: 72 params processed
+[09:29:30]   ✅ 39 verified
+[09:29:30]   ❌ 0 failed verification
+[09:29:30]   ⏭️  33 unresponsive (type-specific)
+[09:29:30] Applied 27 calibration updates to all_params.json

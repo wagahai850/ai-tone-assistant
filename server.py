@@ -18,7 +18,7 @@ mcp = FastMCP(
 
 # --- Register Tools ---
 
-from tools import amp_drive, generic_block, grid_routing, preset, lookup, lab
+from tools import amp_drive, generic_block, grid_routing, preset, lookup, lab, advisor
 
 amp_drive.register(mcp)
 generic_block.register(mcp)
@@ -26,6 +26,7 @@ grid_routing.register(mcp)
 preset.register(mcp)
 lookup.register(mcp)
 lab.register(mcp)
+advisor.register(mcp)
 
 # --- Entry Point ---
 
