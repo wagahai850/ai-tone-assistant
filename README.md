@@ -55,7 +55,7 @@ Built 6 live performance presets from scratch in under an hour through natural c
 
 The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wireshark USB captures of the FM9 Editor communication. No official documentation exists for most of these commands.
 
-## Available MCP Tools (38 total)
+## Available MCP Tools (39 total)
 
 ### Core Control
 | Tool | Description |
@@ -109,6 +109,11 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 | `fm9_lookup_model_info` | Search amp/drive model info (based-on, cab, notes) |
 | `fm9_lookup_block_info` | Query effect block wiki info |
 
+### Tone Advisor (optional, requires AWS Bedrock)
+| Tool | Description |
+|------|-------------|
+| `fm9_tone_advisor` | Get parameter suggestions from a specialist AI sound engineer |
+
 ### Lab / RE (diagnostic)
 | Tool | Description |
 |------|-------------|
@@ -124,6 +129,7 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 - Python 3.10+
 - `mido` + `python-rtmidi`
 - `mcp` (FastMCP)
+- `boto3` (optional, for Tone Advisor)
 - Fractal Audio FM9 or Axe-Fx III connected via USB
 - An MCP-compatible AI client
 
@@ -131,6 +137,8 @@ The entire FM9 USB MIDI protocol was reverse-engineered from scratch using Wires
 
 ```bash
 pip install mido python-rtmidi mcp
+# Optional: for Tone Advisor
+pip install boto3
 ```
 
 Add to your MCP client configuration:
@@ -157,6 +165,68 @@ How to use it depends on your AI client:
 - **Claude Desktop**: Include in your system prompt or project instructions
 - **Other MCP clients**: Consult your client's documentation for context/instruction configuration
 
+### Tone Advisor (Optional)
+
+The Tone Advisor delegates tone decisions to a dedicated LLM call (AWS Bedrock Converse API) with a focused sound engineering persona — separate from the orchestrating agent's context. This can produce higher-quality parameter suggestions by eliminating context pollution from non-audio concerns.
+
+**Architecture:**
+
+```
+Orchestrator (Kiro/Claude) ←→ fm9_tone_advisor ←→ AWS Bedrock Converse API
+      ↓                                                     ↓
+  Reads state, executes                    Focused system prompt:
+  fm9_set_* tools                          "You are a sound engineer..."
+```
+
+**Enable:**
+
+```json
+{
+  "mcpServers": {
+    "fm9-tone-assistant": {
+      "command": "python",
+      "args": ["path/to/ai-tone-assistant/server.py", "--device", "fm9"],
+      "env": {
+        "TONE_ADVISOR_ENABLED": "on"
+      }
+    }
+  }
+}
+```
+
+**Environment variables:**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `TONE_ADVISOR_ENABLED` | `off` | Set to `on` to enable Bedrock calls |
+| `TONE_ADVISOR_MODEL` | `sonnet-4.6` | Friendly name or full Bedrock model ID (see below) |
+| `TONE_ADVISOR_MAX_TOKENS` | `2048` | Max response tokens |
+| `TONE_ADVISOR_THINKING_BUDGET` | `4096` | Token budget for extended thinking |
+
+**Model presets (friendly names → cross-region inference profiles):**
+
+| Friendly Name | Bedrock Inference Profile ID |
+|---------------|-----------------|
+| `sonnet-4.6` (default) | `global.anthropic.claude-sonnet-4-6` |
+| `sonnet-4.5` | `global.anthropic.claude-sonnet-4-5-20250929-v1:0` |
+| `haiku-4.5` | `us.anthropic.claude-haiku-4-5-20251001-v1:0` |
+| `opus-4.8` | `us.anthropic.claude-opus-4-8` |
+| `opus-4.7` | `us.anthropic.claude-opus-4-7` |
+
+Set `TONE_ADVISOR_MODEL` to a friendly name or any full Bedrock model ID directly.
+You can also override per-call via the `model` parameter.
+
+**Usage modes:**
+
+- `mode="advise"` — Calls Bedrock, returns parameter suggestions (costs API tokens)
+- `mode="dry"` — Returns the constructed prompt without calling Bedrock ($0, for debugging/A-B testing)
+
+**Extended thinking:** Pass `thinking=True` to see the model's reasoning chain. Useful for prompt tuning — reveals _why_ the advisor chose specific parameters. Temperature is forced to 1.0 when thinking is enabled (Anthropic requirement).
+
+**A/B testing:** Leave `TONE_ADVISOR_ENABLED=off` for normal use (orchestrator handles everything). Set to `on` when you want to compare specialist output. The `dry` mode always works regardless of the enabled flag, so you can inspect prompts without any API cost.
+
+**Requires:** `boto3` (`pip install boto3`) + AWS credentials via default chain (env vars, `~/.aws/credentials`, IAM role). No explicit region or profile config needed — follows your system's boto3 defaults.
+
 ## Project Structure
 
 ```
@@ -171,6 +241,7 @@ ai-tone-assistant/
 │   ├── preset.py          ← Scene/bypass/channel/store/name
 │   ├── lookup.py          ← Wiki reference search + optional RAG augmentation
 │   ├── rag.py             ← RAG engine (ChromaDB + sentence-transformers)
+│   ├── advisor.py         ← Tone Advisor (optional Bedrock Converse API specialist)
 │   └── lab.py             ← RE/debug (raw sysex, snapshot, diff)
 ├── data/fm9/              ← Runtime data (JSON, committed)
 │   ├── all_params.json    ← SSOT: all blocks × all params × metadata + decode calibration
@@ -429,6 +500,10 @@ No shared interface code. No adapter pattern. The LLM dynamically resolves "sust
 This is unproven and possibly naive. But it's worth noting that the architecture already works this way for a single device (the [POC session](docs/POC_LIVE_PRESET_SESSION.md) demonstrates it). Multi-device is an extension of the same pattern, not a fundamentally different problem.
 
 Related reading: Fowler's ["LLMs bring new nature of abstraction"](https://martinfowler.com/articles/2025-nature-abstraction.html) (2025), Rost's ["LLM-Mediated Computing"](https://interactions.acm.org/archive/view/september-october-2025/reclaiming-the-computer-through-llm-mediated-computing) (ACM Interactions, 2025).
+
+## Related Projects
+
+- **[mcp-midi-control](https://github.com/TheAndrewStaker/mcp-midi-control)** — A multi-device MCP server by Andrew Staker supporting Fractal AM4, Axe-Fx II/III, FM3/FM9, and ASM Hydrasynth. Cross-validated our FM9 parameter catalog against their device-true ranges (mined from FM9-Edit), which corrected 247 param type classifications. Their full roundtrip probe infrastructure also confirmed our SET/GET wire path on hardware.
 
 ## Credits
 
