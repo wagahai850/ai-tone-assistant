@@ -83,3 +83,6 @@ wiki_amp_models.md
 # Legacy docs at root (now in docs/)
 /PROTOCOL.md
 /REVERSE_ENGINEERING.md
+
+# Kiro temporary files
+_tmp/

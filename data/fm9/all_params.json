@@ -494,8 +494,8 @@
       "24": {
         "name": "DISTORT_TONELOC",
         "display_name": "Toneloc",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -504,20 +504,22 @@
           "MID",
           "END",
           "PRE-MID"
-        ]
+        ],
+        "enum_count": 5
       },
       "25": {
         "name": "DISTORT_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "LEFT",
           "RIGHT",
           "SUM L+R"
-        ]
+        ],
+        "enum_count": 3
       },
       "26": {
         "name": "DISTORT_DEPTH",
@@ -538,8 +540,8 @@
       "28": {
         "name": "DISTORT_CLIPTYPE2",
         "display_name": "Cliptype2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 12,
         "min": 0,
         "step": 1,
         "values": [
@@ -556,7 +558,8 @@
           "TRIODE",
           "TRIODE+SAT",
           "TRIODE+SAT1"
-        ]
+        ],
+        "enum_count": 13
       },
       "29": {
         "name": "DISTORT_SUPPLYSAG",
@@ -822,8 +825,8 @@
       "43": {
         "name": "DISTORT_FBTYPE",
         "display_name": "Fbtype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 68,
         "min": 0,
         "step": 1,
         "values": [
@@ -896,7 +899,8 @@
           "BRIT SILVER",
           "PLEXI 2204",
           "BRIT 6100"
-        ]
+        ],
+        "enum_count": 69
       },
       "44": {
         "name": "DISTORT_PI_RATIO",
@@ -909,26 +913,28 @@
       "45": {
         "name": "DISTORT_BRIGHT",
         "display_name": "Bright",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "46": {
         "name": "DISTORT_BOOST",
         "display_name": "Boost",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "47": {
         "name": "DISTORT_SPKRLFQ",
@@ -965,14 +971,15 @@
       "51": {
         "name": "DISTORT_CUT",
         "display_name": "Cut",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "52": {
         "name": "DISTORT_XDRIVE",
@@ -1001,15 +1008,16 @@
       "55": {
         "name": "DISTORT_MVPOSITION",
         "display_name": "Mvposition",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "PRE-PI",
           "POST-PI",
           "PRE-TRIODE"
-        ]
+        ],
+        "enum_count": 3
       },
       "56": {
         "name": "DISTORT_SPKRDRIVE",
@@ -1046,15 +1054,16 @@
       "60": {
         "name": "DISTORT_SATSWITCH",
         "display_name": "Satswitch",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON",
           "ON (IDEAL)"
-        ]
+        ],
+        "enum_count": 3
       },
       "61": {
         "name": "DISTORT_EQ1",
@@ -1279,14 +1288,15 @@
       "84": {
         "name": "DISTORT_FAT",
         "display_name": "Fat",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "85": {
         "name": "DISTORT_DEFINITION",
@@ -1447,14 +1457,15 @@
       "102": {
         "name": "DISTORT_PRESAG",
         "display_name": "Presag",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "103": {
         "name": "DISTORT_HITREBLE",
@@ -1499,8 +1510,8 @@
       "108": {
         "name": "DISTORT_INEQTYPE",
         "display_name": "Ineqtype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -1508,7 +1519,8 @@
           "PEAKING",
           "HIGHSHELF",
           "TILT EQ"
-        ]
+        ],
+        "enum_count": 4
       },
       "109": {
         "name": "DISTORT_GRIDHARDNESS",
@@ -1521,14 +1533,15 @@
       "110": {
         "name": "DISTORT_PRESSHIFT",
         "display_name": "Presshift",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "111": {
         "name": "DISTORT_SATDRIVE",
@@ -1576,27 +1589,29 @@
       "116": {
         "name": "DISTORT_EQPOSITION",
         "display_name": "Eqposition",
-        "type": "bipolar",
-        "max": 12.0,
-        "min": -12,
+        "type": "enum",
+        "max": 2,
+        "min": 0,
         "step": 1,
         "values": [
           "OUTPUT",
           "PRE P.A.",
           "INPUT"
-        ]
+        ],
+        "enum_count": 3
       },
       "117": {
         "name": "DISTORT_PRECOMPTYPE",
         "display_name": "Precomptype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "AUTHENTIC",
           "IDEAL"
-        ]
+        ],
+        "enum_count": 2
       },
       "118": {
         "name": "DISTORT_TRIODE1RATIO",
@@ -1684,8 +1699,8 @@
       "129": {
         "name": "DISTORT_BOOSTTYPE",
         "display_name": "Boosttype",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 14,
         "min": 0,
         "step": 1,
         "values": [
@@ -1704,19 +1719,21 @@
           "SHRED BOOST",
           "RCB BOOST",
           "JP IIC+ SHRED"
-        ]
+        ],
+        "enum_count": 15
       },
       "130": {
         "name": "DISTORT_OUTPUTTYPE",
         "display_name": "Outputtype",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "FRFR",
           "SS PWR AMP + CAB"
-        ]
+        ],
+        "enum_count": 2
       },
       "131": {
         "name": "DISTORT_SPKRDYNAMICS",
@@ -1729,14 +1746,15 @@
       "132": {
         "name": "DISTORT_EQONOFF",
         "display_name": "Eqonoff",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "133": {
         "name": "DISTORT_SPKRDCR",
@@ -1749,8 +1767,8 @@
       "134": {
         "name": "DISTORT_SPKRMODEL",
         "display_name": "Spkrmodel",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 92,
         "min": 0,
         "step": 1,
         "values": [
@@ -1847,7 +1865,8 @@
           "1x12 Black Magick",
           "8x10 SV Bass",
           "Suhr Reactive Load"
-        ]
+        ],
+        "enum_count": 93
       },
       "135": {
         "name": "DISTORT_CABRESONANCE",
@@ -1891,27 +1910,29 @@
       "140": {
         "name": "DISTORT_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "141": {
         "name": "DISTORT_SPKRBREAKUP",
         "display_name": "Spkrbreakup",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "SOFT",
           "MEDIUM",
           "HARD"
-        ]
+        ],
+        "enum_count": 3
       },
       "142": {
         "name": "DISTORT_SPKRTHUMP",
@@ -1924,14 +1945,15 @@
       "143": {
         "name": "DISTORT_PLATEDIODE",
         "display_name": "Platediode",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "144": {
         "name": "DISTORT_GLOBALMASTER",
@@ -1944,14 +1966,15 @@
       "145": {
         "name": "DISTORT_AUTO_SPKR_Z",
         "display_name": "Auto Spkr Z",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       }
     }
   },
@@ -2008,10 +2031,11 @@
       "5": {
         "name": "FUZZ_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 2
       },
       "6": {
         "name": "FUZZ_SLEW",
@@ -2048,10 +2072,11 @@
       "10": {
         "name": "FUZZ_CLIPTYPE",
         "display_name": "Cliptype",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 13,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 14
       },
       "11": {
         "name": "FUZZ_BIAS",
@@ -2104,10 +2129,11 @@
       "17": {
         "name": "FUZZ_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 3
       },
       "18": {
         "name": "FUZZ_PAN",
@@ -2137,10 +2163,11 @@
       "21": {
         "name": "FUZZ_EQON",
         "display_name": "Eqon",
-        "type": "continuous",
-        "max": 1000.0,
-        "min": -12,
-        "step": 0.001
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 3
       },
       "22": {
         "name": "FUZZ_EQ1",
@@ -2225,10 +2252,11 @@
       "32": {
         "name": "FUZZ_PDTYPE",
         "display_name": "Pdtype",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 20,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 21
       },
       "33": {
         "name": "FUZZ_PDQTY",
@@ -2241,10 +2269,11 @@
       "34": {
         "name": "FUZZ_NDTYPE",
         "display_name": "Ndtype",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 20,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 21
       },
       "35": {
         "name": "FUZZ_NDQTY",
@@ -2281,26 +2310,29 @@
       "39": {
         "name": "FUZZ_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 2
       },
       "40": {
         "name": "FUZZ_WICKER",
         "display_name": "Wicker",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 2
       },
       "41": {
         "name": "FUZZ_TONESWITCH",
         "display_name": "Toneswitch",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.1
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.1,
+        "enum_count": 2
       }
     }
   },
@@ -2313,8 +2345,8 @@
       "0": {
         "name": "CABINET_PICKER1",
         "display_name": "Picker1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -2323,13 +2355,14 @@
           "USER",
           "LEGACY",
           "SCRATCHPAD"
-        ]
+        ],
+        "enum_count": 5
       },
       "1": {
         "name": "CABINET_PICKER2",
         "display_name": "Picker2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -2338,7 +2371,8 @@
           "USER",
           "LEGACY",
           "SCRATCHPAD"
-        ]
+        ],
+        "enum_count": 5
       },
       "2": {
         "name": "CABINET_PICKER3",
@@ -2507,28 +2541,30 @@
       "24": {
         "name": "CABINET_MUTE1",
         "display_name": "Mute1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "--",
           "MUTE",
           "SOLO"
-        ]
+        ],
+        "enum_count": 3
       },
       "25": {
         "name": "CABINET_MUTE2",
         "display_name": "Mute2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "--",
           "MUTE",
           "SOLO"
-        ]
+        ],
+        "enum_count": 3
       },
       "26": {
         "name": "CABINET_MUTE3",
@@ -2657,8 +2693,8 @@
       "42": {
         "name": "CABINET_INPUTSEL",
         "display_name": "Inputsel",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -2666,13 +2702,14 @@
           "LEFT",
           "RIGHT",
           "SUM L+R"
-        ]
+        ],
+        "enum_count": 4
       },
       "43": {
         "name": "CABINET_PRETYPE",
         "display_name": "Pretype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 11,
         "min": 0,
         "step": 1,
         "values": [
@@ -2688,7 +2725,8 @@
           "VINTAGE",
           "MODERN",
           "EXCITER"
-        ]
+        ],
+        "enum_count": 12
       },
       "44": {
         "name": "CABINET_BASS",
@@ -2717,14 +2755,15 @@
       "47": {
         "name": "CABINET_OVERSAMPLE",
         "display_name": "Oversample",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "ECONOMY",
           "HIGH QUALITY"
-        ]
+        ],
+        "enum_count": 2
       },
       "48": {
         "name": "CABINET_SMOOTH1",
@@ -2787,14 +2826,15 @@
       "56": {
         "name": "CABINET_ROOMSHAPE",
         "display_name": "Roomshape",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "HALL",
           "ROOM"
-        ]
+        ],
+        "enum_count": 2
       },
       "57": {
         "name": "CABINET_LFDAMPING",
@@ -2893,26 +2933,28 @@
       "70": {
         "name": "CABINET_LENGTH1",
         "display_name": "Length1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "STANDARD",
           "ULTRA-RES"
-        ]
+        ],
+        "enum_count": 2
       },
       "71": {
         "name": "CABINET_LENGTH2",
         "display_name": "Length2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "STANDARD",
           "ULTRA-RES"
-        ]
+        ],
+        "enum_count": 2
       },
       "72": {
         "name": "CABINET_LENGTH3",
@@ -2931,8 +2973,8 @@
       "74": {
         "name": "CABINET_LOSLOPE1",
         "display_name": "Loslope1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -2940,13 +2982,14 @@
           "12 dB/OCT",
           "18 dB/OCT",
           "24 dB/OCT"
-        ]
+        ],
+        "enum_count": 4
       },
       "75": {
         "name": "CABINET_LOSLOPE2",
         "display_name": "Loslope2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -2954,7 +2997,8 @@
           "12 dB/OCT",
           "18 dB/OCT",
           "24 dB/OCT"
-        ]
+        ],
+        "enum_count": 4
       },
       "76": {
         "name": "CABINET_LOSLOPE3",
@@ -2973,8 +3017,8 @@
       "78": {
         "name": "CABINET_HISLOPE1",
         "display_name": "Hislope1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -2982,13 +3026,14 @@
           "12 dB/OCT",
           "18 dB/OCT",
           "24 dB/OCT"
-        ]
+        ],
+        "enum_count": 4
       },
       "79": {
         "name": "CABINET_HISLOPE2",
         "display_name": "Hislope2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -2996,7 +3041,8 @@
           "12 dB/OCT",
           "18 dB/OCT",
           "24 dB/OCT"
-        ]
+        ],
+        "enum_count": 4
       },
       "80": {
         "name": "CABINET_HISLOPE3",
@@ -3015,8 +3061,8 @@
       "82": {
         "name": "CABINET_PRELOSLOPE",
         "display_name": "Preloslope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -3024,13 +3070,14 @@
           "12 dB/OCT",
           "18 dB/OCT",
           "24 dB/OCT"
-        ]
+        ],
+        "enum_count": 4
       },
       "83": {
         "name": "CABINET_PREHISLOPE",
         "display_name": "Prehislope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -3038,19 +3085,21 @@
           "12 dB/OCT",
           "18 dB/OCT",
           "24 dB/OCT"
-        ]
+        ],
+        "enum_count": 4
       },
       "84": {
         "name": "CABINET_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "85": {
         "name": "CABINET_DYNACAB_TYPE1",
@@ -3223,10 +3272,11 @@
       "3": {
         "name": "REVERB_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 4,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 5
       },
       "4": {
         "name": "REVERB_INDIFFTIME",
@@ -3349,7 +3399,7 @@
       "6": {
         "name": "REVERB_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
@@ -3403,7 +3453,8 @@
           "23",
           "24",
           "25"
-        ]
+        ],
+        "enum_count": 2
       },
       "10": {
         "name": "REVERB_TYPE",
@@ -3420,12 +3471,10 @@
       "11": {
         "name": "REVERB_TIME",
         "display_name": "Time",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0,
-        "step": 0.1,
-        "decode_max": 125.06,
-        "decode_style": "zero"
+        "type": "continuous",
+        "max": 100.0,
+        "min": 0.1,
+        "step": 0.02
       },
       "12": {
         "name": "REVERB_HICUT",
@@ -3760,18 +3809,20 @@
       "47": {
         "name": "REVERB_QUALITY",
         "display_name": "Quality",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 4
       },
       "48": {
         "name": "REVERB_HOLD",
         "display_name": "Hold",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 3
       },
       "49": {
         "name": "REVERB_BASETYPE",
@@ -3956,8 +4007,8 @@
       "51": {
         "name": "REVERB_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
@@ -4040,7 +4091,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 3
       },
       "52": {
         "name": "REVERB_DISPERSION",
@@ -4135,8 +4187,8 @@
       "53": {
         "name": "REVERB_LOWSLOPE",
         "display_name": "Lowslope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
@@ -4219,13 +4271,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 2
       },
       "54": {
         "name": "REVERB_HIGHSLOPE",
         "display_name": "Highslope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
@@ -4308,7 +4361,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 2
       },
       "55": {
         "name": "REVERB_PITCHMIX",
@@ -4354,10 +4408,11 @@
       "59": {
         "name": "REVERB_PITCHDIR",
         "display_name": "Pitchdir",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 4
       },
       "60": {
         "name": "REVERB_PITCHTIME",
@@ -4372,10 +4427,11 @@
       "61": {
         "name": "REVERB_PITCHPOS",
         "display_name": "Pitchpos",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.002
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "step": 0.002,
+        "enum_count": 3
       },
       "62": {
         "name": "REVERB_PITCHMOD",
@@ -4397,9 +4453,10 @@
       "64": {
         "name": "REVERB_PREDLYTEMPO",
         "display_name": "Predlytempo",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 78,
+        "min": 0,
+        "enum_count": 79
       },
       "65": {
         "name": "REVERB_PREDLYFDBK",
@@ -4427,9 +4484,10 @@
       "68": {
         "name": "REVERB_SPRINGTYPE",
         "display_name": "Springtype",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "69": {
         "name": "REVERB_TONETYPE",
@@ -4441,9 +4499,10 @@
       "70": {
         "name": "REVERB_PREDLYTAP",
         "display_name": "Predlytap",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "71": {
         "name": "REVERB_LOWQ",
@@ -4521,14 +4580,15 @@
       "6": {
         "name": "DELAY_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "10": {
         "name": "DELAY_MODEL",
@@ -4655,8 +4715,8 @@
       "19": {
         "name": "DELAY_TEMPO",
         "display_name": "Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -4739,7 +4799,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "20": {
         "name": "DELAY_LOCUT",
@@ -4812,8 +4873,8 @@
       "28": {
         "name": "DELAY_LFO1TYPE",
         "display_name": "Lfo1Type",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -4827,13 +4888,14 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "29": {
         "name": "DELAY_LFO2TYPE",
         "display_name": "Lfo2Type",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -4847,7 +4909,8 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "30": {
         "name": "DELAY_TIMER",
@@ -4863,15 +4926,16 @@
       "31": {
         "name": "DELAY_HOLD",
         "display_name": "Hold",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "STACK",
           "HOLD"
-        ]
+        ],
+        "enum_count": 3
       },
       "32": {
         "name": "DELAY_MSTRFDBK",
@@ -4886,8 +4950,8 @@
       "33": {
         "name": "DELAY_TEMPOR",
         "display_name": "Tempor",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -4970,7 +5034,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "34": {
         "name": "DELAY_FEEDLR",
@@ -5059,32 +5124,34 @@
       "43": {
         "name": "DELAY_RUN",
         "display_name": "Run",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "44": {
         "name": "DELAY_MODE",
         "display_name": "Mode",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "45": {
         "name": "DELAY_LPF_ORDER",
         "display_name": "Lpf Order",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -5093,7 +5160,8 @@
           "24 dB/OCT",
           "36 dB/OCT",
           "48 dB/OCT"
-        ]
+        ],
+        "enum_count": 5
       },
       "46": {
         "name": "DELAY_ATTEN",
@@ -5144,8 +5212,8 @@
       "51": {
         "name": "DELAY_PHASEREV",
         "display_name": "Phase Reverse",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -5153,39 +5221,42 @@
           "RIGHT",
           "LEFT",
           "BOTH"
-        ]
+        ],
+        "enum_count": 4
       },
       "52": {
         "name": "DELAY_LFO1TARGET",
         "display_name": "Lfo1Target",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "BOTH",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 3
       },
       "53": {
         "name": "DELAY_LFO2TARGET",
         "display_name": "Lfo2Target",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "BOTH",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 3
       },
       "54": {
         "name": "DELAY_LFO1TEMPO",
         "display_name": "Lfo1Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -5268,13 +5339,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "55": {
         "name": "DELAY_LFO2TEMPO",
         "display_name": "Lfo2Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -5357,7 +5429,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "56": {
         "name": "DELAY_RATE3",
@@ -5370,8 +5443,8 @@
       "57": {
         "name": "DELAY_LFO3TYPE",
         "display_name": "Lfo3Type",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -5385,7 +5458,8 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "58": {
         "name": "DELAY_LFO3PHASE",
@@ -5400,8 +5474,8 @@
       "59": {
         "name": "DELAY_LFO3TEMPO",
         "display_name": "Lfo3Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -5484,7 +5558,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "60": {
         "name": "DELAY_FSTART",
@@ -5578,14 +5653,15 @@
       "71": {
         "name": "DELAY_MAXDEPTH",
         "display_name": "Maxdepth",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "LOW",
           "HIGH"
-        ]
+        ],
+        "enum_count": 2
       },
       "72": {
         "name": "DELAY_SPEED",
@@ -5607,8 +5683,8 @@
       "74": {
         "name": "DELAY_HPF_ORDER",
         "display_name": "Hpf Order",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -5617,19 +5693,21 @@
           "24 dB/OCT",
           "36 dB/OCT",
           "48 dB/OCT"
-        ]
+        ],
+        "enum_count": 5
       },
       "75": {
         "name": "DELAY_COMPANDER",
         "display_name": "Compander",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "76": {
         "name": "DELAY_COMPTIME",
@@ -5678,8 +5756,8 @@
       "81": {
         "name": "DELAY_LFO4TYPE",
         "display_name": "Lfo4Type",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -5693,7 +5771,8 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "82": {
         "name": "DELAY_RATE4",
@@ -5706,8 +5785,8 @@
       "83": {
         "name": "DELAY_LFO4TEMPO",
         "display_name": "Lfo4Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -5790,7 +5869,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "84": {
         "name": "DELAY_DEPTH4",
@@ -5814,8 +5894,8 @@
       "86": {
         "name": "DELAY_LFO4TARGET",
         "display_name": "Lfo4Target",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -5823,7 +5903,8 @@
           "LEVEL",
           "PAN",
           "SPREAD"
-        ]
+        ],
+        "enum_count": 4
       },
       "87": {
         "name": "DELAY_STACKFDBK",
@@ -5854,8 +5935,8 @@
       "0": {
         "name": "MULTITAP_BASETYPE",
         "display_name": "Basetype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 5,
         "min": 0,
         "step": 1,
         "values": [
@@ -5865,7 +5946,8 @@
           "Diffusor",
           "Quad Tape Delay",
           "Quad-Tap Band Delay"
-        ]
+        ],
+        "enum_count": 6
       },
       "1": {
         "name": "MULTITAP_TIME1",
@@ -5910,8 +5992,8 @@
       "5": {
         "name": "MULTITAP_TEMPO1",
         "display_name": "Tempo1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -5994,13 +6076,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "6": {
         "name": "MULTITAP_TEMPO2",
         "display_name": "Tempo2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -6083,13 +6166,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "7": {
         "name": "MULTITAP_TEMPO3",
         "display_name": "Tempo3",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -6172,13 +6256,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "8": {
         "name": "MULTITAP_TEMPO4",
         "display_name": "Tempo4",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -6261,7 +6346,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "9": {
         "name": "MULTITAP_LEVEL1",
@@ -6409,8 +6495,8 @@
       "25": {
         "name": "MULTITAP_LFOTYPE1",
         "display_name": "Lfotype1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -6424,13 +6510,14 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "26": {
         "name": "MULTITAP_LFOTYPE2",
         "display_name": "Lfotype2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -6444,13 +6531,14 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "27": {
         "name": "MULTITAP_LFOTEMPO1",
         "display_name": "Lfotempo1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -6533,13 +6621,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "28": {
         "name": "MULTITAP_LFOTEMPO2",
         "display_name": "Lfotempo2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -6622,7 +6711,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "29": {
         "name": "MULTITAP_LFOPHASE1",
@@ -6959,8 +7049,8 @@
       "68": {
         "name": "MULTITAP_FLTTYPE",
         "display_name": "Flttype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -6974,13 +7064,14 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "69": {
         "name": "MULTITAP_FLTTEMPO",
         "display_name": "Flttempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -7063,7 +7154,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "70": {
         "name": "MULTITAP_FLTPHASE",
@@ -7123,14 +7215,15 @@
       "76": {
         "name": "MULTITAP_COMBTYPE",
         "display_name": "Combtype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "FEEDBACK",
           "FEEDFORWARD"
-        ]
+        ],
+        "enum_count": 2
       },
       "77": {
         "name": "MULTITAP_COMBTIME1",
@@ -7374,15 +7467,16 @@
       "103": {
         "name": "MULTITAP_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "L+R",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 3
       },
       "104": {
         "name": "MULTITAP_MSTRDRATE",
@@ -7449,8 +7543,8 @@
       "110": {
         "name": "MULTITAP_LOWSLOPE",
         "display_name": "Lowslope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 5,
         "min": 0,
         "step": 1,
         "values": [
@@ -7460,13 +7554,14 @@
           "24 dB/OCT",
           "30 dB/OCT",
           "36 dB/OCT"
-        ]
+        ],
+        "enum_count": 6
       },
       "111": {
         "name": "MULTITAP_HIGHSLOPE",
         "display_name": "Highslope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 5,
         "min": 0,
         "step": 1,
         "values": [
@@ -7476,7 +7571,8 @@
           "24 dB/OCT",
           "30 dB/OCT",
           "36 dB/OCT"
-        ]
+        ],
+        "enum_count": 6
       },
       "112": {
         "name": "MULTITAP_DIFFRATE",
@@ -7498,8 +7594,8 @@
       "114": {
         "name": "MULTITAP_PRESETS",
         "display_name": "Presets",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 38,
         "min": 0,
         "step": 1,
         "values": [
@@ -7542,19 +7638,21 @@
           "Strange Things",
           "Matterhorn",
           "Centaurus X-3"
-        ]
+        ],
+        "enum_count": 39
       },
       "115": {
         "name": "MULTITAP_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "116": {
         "name": "MULTITAP_FEEDBACK12",
@@ -7646,8 +7744,8 @@
       "3": {
         "name": "CHORUS_TEMPO",
         "display_name": "Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -7730,7 +7828,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "4": {
         "name": "CHORUS_DEPTH",
@@ -7771,8 +7870,8 @@
       "8": {
         "name": "CHORUS_LFOTYPE",
         "display_name": "LFO Type",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -7786,20 +7885,22 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "9": {
         "name": "CHORUS_AUTO",
         "display_name": "Auto",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "LOW",
           "HIGH"
-        ]
+        ],
+        "enum_count": 3
       },
       "10": {
         "name": "CHORUS_MIX",
@@ -7858,8 +7959,8 @@
       "16": {
         "name": "CHORUS_PHASEREV",
         "display_name": "Phase Reverse",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -7867,7 +7968,8 @@
           "RIGHT",
           "LEFT",
           "BOTH"
-        ]
+        ],
+        "enum_count": 4
       },
       "17": {
         "name": "CHORUS_WIDTH",
@@ -7966,8 +8068,8 @@
       "27": {
         "name": "CHORUS_TEMPO2",
         "display_name": "Tempo2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -8050,7 +8152,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       }
     }
   },
@@ -8078,9 +8181,10 @@
       "2": {
         "name": "FLANGER_TEMPO",
         "display_name": "Tempo",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 78,
+        "min": 0,
+        "enum_count": 79
       },
       "3": {
         "name": "FLANGER_DEPTH",
@@ -8126,9 +8230,10 @@
       "8": {
         "name": "FLANGER_LFOTYPE",
         "display_name": "LFO Type",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 9,
+        "min": 0,
+        "enum_count": 10
       },
       "9": {
         "name": "FLANGER_LFOFILTER",
@@ -8140,10 +8245,11 @@
       "10": {
         "name": "FLANGER_AUTO",
         "display_name": "Auto",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 4
       },
       "11": {
         "name": "FLANGER_MIX",
@@ -8175,10 +8281,11 @@
       "14": {
         "name": "FLANGER_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 3
       },
       "15": {
         "name": "FLANGER_GLOBALMIX",
@@ -8212,20 +8319,21 @@
       "17": {
         "name": "FLANGER_PHASEREV",
         "display_name": "Phase Reverse",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
           "Peaking",
           "Peaking 2"
-        ]
+        ],
+        "enum_count": 4
       },
       "18": {
         "name": "FLANGER_THRUZERO",
         "display_name": "Thruzero",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
@@ -8233,7 +8341,8 @@
           "Shelving",
           "Shelving 2",
           "Peaking 2"
-        ]
+        ],
+        "enum_count": 3
       },
       "19": {
         "name": "FLANGER_LPFREQ",
@@ -8284,28 +8393,31 @@
       "23": {
         "name": "FLANGER_LFORESET",
         "display_name": "Lforeset",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 4,
+        "min": 0,
+        "enum_count": 5
       },
       "24": {
         "name": "FLANGER_LPF_ORDER",
         "display_name": "Lpf Order",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 5,
+        "min": 0,
+        "enum_count": 6
       },
       "25": {
         "name": "FLANGER_HPF_ORDER",
         "display_name": "Hpf Order",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "26": {
         "name": "FLANGER_FOCUS",
@@ -8322,14 +8434,15 @@
       "27": {
         "name": "FLANGER_VCO_CURVE",
         "display_name": "Vco Curve",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 3
       },
       "28": {
         "name": "FLANGER_TMIN",
@@ -8358,8 +8471,8 @@
       "30": {
         "name": "FLANGER_LFOQUANTIZE",
         "display_name": "Lfoquantize",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 31,
         "min": 0,
         "step": 1,
         "values": [
@@ -8369,7 +8482,8 @@
           "24 dB/OCT",
           "30 dB/OCT",
           "36 dB/OCT"
-        ]
+        ],
+        "enum_count": 32
       },
       "31": {
         "name": "FLANGER_VCOK",
@@ -8438,10 +8552,11 @@
       "4": {
         "name": "ROTARY_TEMPO",
         "display_name": "Tempo",
-        "type": "continuous",
-        "max": 1.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
-        "step": 0.025
+        "step": 0.025,
+        "enum_count": 79
       },
       "5": {
         "name": "ROTARY_MIX",
@@ -8473,10 +8588,11 @@
       "8": {
         "name": "ROTARY_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 1.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
-        "step": 0.025
+        "step": 0.025,
+        "enum_count": 3
       },
       "9": {
         "name": "ROTARY_GLOBALMIX",
@@ -8594,14 +8710,15 @@
       "19": {
         "name": "ROTARY_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 3
       }
     }
   },
@@ -8641,8 +8758,8 @@
       "1": {
         "name": "PHASER_ORDER",
         "display_name": "Order",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 5,
         "min": 0,
         "step": 1,
         "values": [
@@ -8652,7 +8769,8 @@
           "8",
           "10",
           "12"
-        ]
+        ],
+        "enum_count": 6
       },
       "2": {
         "name": "PHASER_RATE",
@@ -8665,8 +8783,8 @@
       "3": {
         "name": "PHASER_LFOTYPE",
         "display_name": "LFO Type",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
@@ -8680,13 +8798,14 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 10
       },
       "4": {
         "name": "PHASER_TEMPO",
         "display_name": "Tempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -8769,7 +8888,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "5": {
         "name": "PHASER_DEPTH",
@@ -8910,14 +9030,15 @@
       "20": {
         "name": "PHASER_DIRECTION",
         "display_name": "Direction",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "UP",
           "DOWN"
-        ]
+        ],
+        "enum_count": 2
       },
       "21": {
         "name": "PHASER_Q",
@@ -8930,8 +9051,8 @@
       "22": {
         "name": "PHASER_LFORESET",
         "display_name": "Lforeset",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -8940,13 +9061,14 @@
           "90 DEG",
           "180 DEG",
           "270 DEG"
-        ]
+        ],
+        "enum_count": 5
       },
       "23": {
         "name": "PHASER_LFOQUANTIZE",
         "display_name": "Lfoquantize",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 31,
         "min": 0,
         "step": 1,
         "values": [
@@ -8982,13 +9104,14 @@
           "30",
           "31",
           "32"
-        ]
+        ],
+        "enum_count": 32
       },
       "24": {
         "name": "PHASER_VCR_CURVE",
         "display_name": "Vcr Curve",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -8996,7 +9119,8 @@
           "EXPONENTIAL",
           "JFET",
           "PHOTOCELL"
-        ]
+        ],
+        "enum_count": 4
       },
       "25": {
         "name": "PHASER_VCRK",
@@ -9052,14 +9176,15 @@
       "31": {
         "name": "PHASER_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "32": {
         "name": "PHASER_HPF",
@@ -9155,9 +9280,10 @@
       "8": {
         "name": "WAH_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "9": {
         "name": "WAH_MIX",
@@ -9178,9 +9304,10 @@
       "11": {
         "name": "WAH_TAPER",
         "display_name": "Taper",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 5,
+        "min": 0,
+        "enum_count": 6
       },
       "12": {
         "name": "WAH_BYPASS",
@@ -9208,10 +9335,11 @@
       "15": {
         "name": "WAH_EQON",
         "display_name": "Eqon",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.1
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.1,
+        "enum_count": 2
       },
       "16": {
         "name": "WAH_EQ1",
@@ -9315,28 +9443,31 @@
       "0": {
         "name": "FORMANT_F1",
         "display_name": "F1",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 9,
+        "min": 0,
+        "enum_count": 10
       },
       "1": {
         "name": "FORMANT_F2",
         "display_name": "F2",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 9,
+        "min": 0,
+        "enum_count": 10
       },
       "2": {
         "name": "FORMANT_F3",
         "display_name": "F3",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 9,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 10
       },
       "3": {
         "name": "FORMANT_Q",
@@ -9397,9 +9528,10 @@
       "9": {
         "name": "FORMANT_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "enum_count": 3
       },
       "10": {
         "name": "FORMANT_GLOBALMIX",
@@ -9433,10 +9565,11 @@
       "1": {
         "name": "TREMOLO_LFOTYPE",
         "display_name": "LFO Type",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 9,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 10
       },
       "2": {
         "name": "TREMOLO_RATE",
@@ -9550,10 +9683,11 @@
       "5": {
         "name": "TREMOLO_TEMPO",
         "display_name": "Tempo",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 78,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 79
       },
       "6": {
         "name": "TREMOLO_MIX",
@@ -9590,9 +9724,10 @@
       "9": {
         "name": "TREMOLO_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 4,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "10": {
         "name": "TREMOLO_GLOBALMIX",
@@ -9648,10 +9783,11 @@
       "16": {
         "name": "TREMOLO_ORDER",
         "display_name": "Order",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.002
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "step": 0.002,
+        "enum_count": 3
       },
       "17": {
         "name": "TREMOLO_XOVER",
@@ -9673,7 +9809,7 @@
       "19": {
         "name": "TREMOLO_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
@@ -9681,7 +9817,8 @@
           "L+R",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 2
       },
       "20": {
         "name": "TREMOLO_BETA",
@@ -9765,10 +9902,11 @@
       "7": {
         "name": "ENHANCER_PHASE",
         "display_name": "Phase",
-        "type": "continuous",
-        "max": 100.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "enum_count": 4
       },
       "8": {
         "name": "ENHANCER_PANL",
@@ -9966,14 +10104,15 @@
       "0": {
         "name": "SYNTH_TYPE1",
         "display_name": "Type1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 7,
         "min": 0,
         "step": 1,
         "values": [
           "Ten-Tap Delay",
           "Rhythm Tap Delay"
-        ]
+        ],
+        "enum_count": 8
       },
       "1": {
         "name": "SYNTH_FREQ1",
@@ -9990,9 +10129,10 @@
       "2": {
         "name": "SYNTH_TRACK1",
         "display_name": "Track1",
-        "type": "continuous",
-        "max": 1000.0,
-        "min": 0
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "enum_count": 4
       },
       "3": {
         "name": "SYNTH_SHIFT1",
@@ -10309,8 +10449,8 @@
       "11": {
         "name": "SYNTH_TYPE2",
         "display_name": "Type2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 7,
         "min": 0,
         "step": 1,
         "values": [
@@ -10320,7 +10460,8 @@
           "UP / DOWN",
           "DOWN / UP",
           "SINE"
-        ]
+        ],
+        "enum_count": 8
       },
       "12": {
         "name": "SYNTH_FREQ2",
@@ -10333,9 +10474,10 @@
       "13": {
         "name": "SYNTH_TRACK2",
         "display_name": "Track2",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "enum_count": 4
       },
       "14": {
         "name": "SYNTH_SHIFT2",
@@ -10440,10 +10582,11 @@
       "26": {
         "name": "SYNTH_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 3
       },
       "27": {
         "name": "SYNTH_GLOBALMIX",
@@ -10464,10 +10607,11 @@
       "29": {
         "name": "SYNTH_TYPE3",
         "display_name": "Type3",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 7,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 8
       },
       "30": {
         "name": "SYNTH_FREQ3",
@@ -10480,10 +10624,11 @@
       "31": {
         "name": "SYNTH_TRACK3",
         "display_name": "Track3",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 4
       },
       "32": {
         "name": "SYNTH_SHIFT3",
@@ -10558,10 +10703,11 @@
       "40": {
         "name": "SYNTH_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 2
       }
     }
   },
@@ -11662,8 +11808,8 @@
       "5": {
         "name": "MEGATAP_TIMESHAPE",
         "display_name": "Timeshape",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
@@ -11671,7 +11817,8 @@
           "SIGMOID",
           "COSINE",
           "SINE"
-        ]
+        ],
+        "enum_count": 4
       },
       "6": {
         "name": "MEGATAP_TIMEALPHA",
@@ -11684,8 +11831,8 @@
       "7": {
         "name": "MEGATAP_AMPSHAPE",
         "display_name": "Ampshape",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 6,
         "min": 0,
         "step": 1,
         "values": [
@@ -11696,7 +11843,8 @@
           "DOWN / UP",
           "COSINE",
           "SINE"
-        ]
+        ],
+        "enum_count": 7
       },
       "8": {
         "name": "MEGATAP_AMPALPHA",
@@ -11709,9 +11857,9 @@
       "9": {
         "name": "MEGATAP_PANSHAPE",
         "display_name": "Panshape",
-        "type": "bipolar",
-        "max": 200.0,
-        "min": -100,
+        "type": "enum",
+        "max": 6,
+        "min": 0,
         "step": 1,
         "values": [
           "CONSTANT",
@@ -11721,7 +11869,8 @@
           "DOWN / UP",
           "COSINE",
           "SINE"
-        ]
+        ],
+        "enum_count": 7
       },
       "10": {
         "name": "MEGATAP_PANALPHA",
@@ -11833,15 +11982,16 @@
       "23": {
         "name": "MEGATAP_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "L+R",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 3
       },
       "24": {
         "name": "MEGATAP_FEEDBACK",
@@ -11938,14 +12088,15 @@
       "33": {
         "name": "MEGATAP_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       }
     }
   },
@@ -11965,14 +12116,15 @@
       "1": {
         "name": "CROSSOVER_FREQRANGE",
         "display_name": "Freqrange",
-        "type": "continuous",
-        "max": 20000.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "X 1",
           "X 10"
-        ]
+        ],
+        "enum_count": 2
       },
       "2": {
         "name": "CROSSOVER_LOWGAINL",
@@ -12120,8 +12272,8 @@
       "2": {
         "name": "RINGMOD_TRACK",
         "display_name": "Track",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
@@ -12135,7 +12287,8 @@
           "AWW",
           "UHH",
           "ERR"
-        ]
+        ],
+        "enum_count": 2
       },
       "3": {
         "name": "RINGMOD_HICUT",
@@ -12171,10 +12324,11 @@
       "7": {
         "name": "RINGMOD_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 100.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "enum_count": 3
       },
       "8": {
         "name": "RINGMOD_GLOBALMIX",
@@ -12206,14 +12360,15 @@
       "11": {
         "name": "RINGMOD_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       }
     }
   },
@@ -12291,8 +12446,8 @@
       "7": {
         "name": "MULTICOMP_DETECT1",
         "display_name": "Detect1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
@@ -12300,14 +12455,16 @@
           "PEAK",
           "RMS+PEAK",
           "HALF-WAVE"
-        ]
+        ],
+        "enum_count": 2
       },
       "8": {
         "name": "MULTICOMP_MUTE1",
         "display_name": "Mute1",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "9": {
         "name": "MULTICOMP_THRESH2",
@@ -12386,23 +12543,25 @@
       "14": {
         "name": "MULTICOMP_DETECT2",
         "display_name": "Detect2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "THRU",
           "MUTE FX OUT",
           "MUTE OUT"
-        ]
+        ],
+        "enum_count": 2
       },
       "15": {
         "name": "MULTICOMP_MUTE2",
         "display_name": "Mute2",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
-        "step": 2.1e-05
+        "step": 2.1e-05,
+        "enum_count": 2
       },
       "16": {
         "name": "MULTICOMP_THRESH3",
@@ -12454,17 +12613,19 @@
       "21": {
         "name": "MULTICOMP_DETECT3",
         "display_name": "Detect3",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 2
       },
       "22": {
         "name": "MULTICOMP_MUTE3",
         "display_name": "Mute3",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "23": {
         "name": "MULTICOMP_MIX",
@@ -12557,29 +12718,32 @@
       "33": {
         "name": "MULTICOMP_ORDER",
         "display_name": "Order",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "34": {
         "name": "MULTICOMP_KNEE",
         "display_name": "Knee",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       },
       "35": {
         "name": "MULTICOMP_AUTO",
         "display_name": "Auto",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 2
       }
     }
   },
@@ -12604,14 +12768,15 @@
       "1": {
         "name": "TENTAP_STEREO",
         "display_name": "Stereo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "MONO",
           "STEREO"
-        ]
+        ],
+        "enum_count": 2
       },
       "2": {
         "name": "TENTAP_TIMEM",
@@ -12623,8 +12788,8 @@
       "3": {
         "name": "TENTAP_SUBDIV",
         "display_name": "Subdiv",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -12707,13 +12872,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "4": {
         "name": "TENTAP_QUANTIZE",
         "display_name": "Quantize",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -12796,7 +12962,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "5": {
         "name": "TENTAP_RDECAY",
@@ -12831,8 +12998,8 @@
       "9": {
         "name": "TENTAP_RTEMPO",
         "display_name": "Rtempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -12915,7 +13082,8 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "10": {
         "name": "TENTAP_SPREAD",
@@ -12928,9 +13096,9 @@
       "11": {
         "name": "TENTAP_PANSHAPE",
         "display_name": "Panshape",
-        "type": "bipolar",
-        "max": 200.0,
-        "min": -100,
+        "type": "enum",
+        "max": 5,
+        "min": 0,
         "step": 1,
         "values": [
           "CONSTANT",
@@ -12939,7 +13107,8 @@
           "UP / DOWN",
           "DOWN / UP",
           "SINE"
-        ]
+        ],
+        "enum_count": 6
       },
       "12": {
         "name": "TENTAP_PANALPHA",
@@ -13217,14 +13386,15 @@
       "46": {
         "name": "TENTAP_LEARN",
         "display_name": "Learn",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "<DONE>",
           "<TAP ENTER>"
-        ]
+        ],
+        "enum_count": 2
       }
     }
   },
@@ -13249,8 +13419,8 @@
       "1": {
         "name": "RESONATOR_CHORD",
         "display_name": "Chord",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 8,
         "min": 0,
         "step": 1,
         "values": [
@@ -13263,7 +13433,8 @@
           "MINOR 7",
           "DIMINISHED",
           "AUGMENTED"
-        ]
+        ],
+        "enum_count": 9
       },
       "2": {
         "name": "RESONATOR_INGAIN",
@@ -13381,50 +13552,54 @@
       "17": {
         "name": "RESONATOR_LOC1",
         "display_name": "Loc1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "PRE",
           "POST"
-        ]
+        ],
+        "enum_count": 2
       },
       "18": {
         "name": "RESONATOR_LOC2",
         "display_name": "Loc2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "PRE",
           "POST"
-        ]
+        ],
+        "enum_count": 2
       },
       "19": {
         "name": "RESONATOR_LOC3",
         "display_name": "Loc3",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "PRE",
           "POST"
-        ]
+        ],
+        "enum_count": 2
       },
       "20": {
         "name": "RESONATOR_LOC4",
         "display_name": "Loc4",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "PRE",
           "POST"
-        ]
+        ],
+        "enum_count": 2
       },
       "21": {
         "name": "RESONATOR_Q1",
@@ -13664,10 +13839,11 @@
       "3": {
         "name": "LOOPER_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 3
       },
       "4": {
         "name": "LOOPER_BYPASS",
@@ -13806,30 +13982,34 @@
       "18": {
         "name": "LOOPER_QUANTIZE",
         "display_name": "Quantize",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "19": {
         "name": "LOOPER_RECORDMODE",
         "display_name": "Recordmode",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 2,
+        "min": 0,
+        "enum_count": 3
       },
       "20": {
         "name": "LOOPER_HALF",
         "display_name": "Half",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "21": {
         "name": "LOOPER_XFADE",
         "display_name": "Xfade",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "22": {
         "name": "LOOPER_LEVEL",
@@ -13849,8 +14029,8 @@
       "0": {
         "name": "PLEX_BASETYPE",
         "display_name": "Basetype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 4,
         "min": 0,
         "step": 1,
         "values": [
@@ -13859,7 +14039,8 @@
           "Plex Shift",
           "Plex Verb",
           "Shimmer Verb"
-        ]
+        ],
+        "enum_count": 5
       },
       "1": {
         "name": "PLEX_NUMDLINES",
@@ -14055,8 +14236,8 @@
       "26": {
         "name": "PLEX_TEMPO1",
         "display_name": "Tempo1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14138,13 +14319,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "27": {
         "name": "PLEX_TEMPO2",
         "display_name": "Tempo2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14226,13 +14408,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "28": {
         "name": "PLEX_TEMPO3",
         "display_name": "Tempo3",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14314,13 +14497,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "29": {
         "name": "PLEX_TEMPO4",
         "display_name": "Tempo4",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14402,13 +14586,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "30": {
         "name": "PLEX_TEMPO5",
         "display_name": "Tempo5",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14490,13 +14675,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "31": {
         "name": "PLEX_TEMPO6",
         "display_name": "Tempo6",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14578,13 +14764,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "32": {
         "name": "PLEX_TEMPO7",
         "display_name": "Tempo7",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14666,13 +14853,14 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "33": {
         "name": "PLEX_TEMPO8",
         "display_name": "Tempo8",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -14754,7 +14942,8 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "34": {
         "name": "PLEX_LEVEL1",
@@ -14951,14 +15140,15 @@
       "58": {
         "name": "PLEX_DIRECTION",
         "display_name": "Direction",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "FORWARD",
           "REVERSE"
-        ]
+        ],
+        "enum_count": 2
       },
       "59": {
         "name": "PLEX_SPLICE",
@@ -15040,8 +15230,8 @@
       "69": {
         "name": "PLEX_LFOTEMPO",
         "display_name": "Lfotempo",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 77,
         "min": 0,
         "step": 1,
         "values": [
@@ -15123,7 +15313,8 @@
           "60/64 (15/16)",
           "61/64",
           "62/64 (31/32)"
-        ]
+        ],
+        "enum_count": 78
       },
       "70": {
         "name": "PLEX_ENVTHRESH",
@@ -15227,8 +15418,8 @@
       "82": {
         "name": "PLEX_FILTERTYPE",
         "display_name": "Filtertype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 11,
         "min": 0,
         "step": 1,
         "values": [
@@ -15244,7 +15435,8 @@
           "LOWSHELF 2",
           "HIGHSHELF 2",
           "PEAKING 2"
-        ]
+        ],
+        "enum_count": 12
       },
       "83": {
         "name": "PLEX_FILTERFREQ",
@@ -15278,28 +15470,30 @@
       "87": {
         "name": "PLEX_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "L+R",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 3
       },
       "88": {
         "name": "PLEX_HOLD",
         "display_name": "Hold",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "STACK",
           "HOLD"
-        ]
+        ],
+        "enum_count": 3
       },
       "89": {
         "name": "PLEX_GAINMONITOR",
@@ -15311,8 +15505,8 @@
       "90": {
         "name": "PLEX_PRESETS",
         "display_name": "Presets",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 44,
         "min": 0,
         "step": 1,
         "values": [
@@ -15361,13 +15555,14 @@
           "Reverse Plex",
           "Sirocco",
           "Sample/Hold Delay"
-        ]
+        ],
+        "enum_count": 45
       },
       "91": {
         "name": "PLEX_FLTLFOTYPE",
         "display_name": "Fltlfotype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 10,
         "min": 0,
         "step": 1,
         "values": [
@@ -15382,7 +15577,8 @@
           "EXP",
           "TRAPEZOID",
           "ASTABLE"
-        ]
+        ],
+        "enum_count": 11
       },
       "92": {
         "name": "PLEX_FLTLFOFREQ",
@@ -15401,14 +15597,15 @@
       "94": {
         "name": "PLEX_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 2
       }
     }
   },
@@ -15462,29 +15659,32 @@
       "5": {
         "name": "COMP_KNEE",
         "display_name": "Knee",
-        "type": "continuous",
-        "max": 1000.0,
-        "min": 0
+        "type": "enum",
+        "max": 4,
+        "min": 0,
+        "enum_count": 5
       },
       "6": {
         "name": "COMP_AUTO",
         "display_name": "Auto",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.05
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.05,
+        "enum_count": 2
       },
       "7": {
         "name": "COMP_PEAKRMS",
         "display_name": "Peakrms",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 3,
         "min": 0,
         "step": 1,
         "values": [
           "RMS",
           "PEAK"
-        ]
+        ],
+        "enum_count": 4
       },
       "8": {
         "name": "COMP_LOWCUT",
@@ -15509,9 +15709,10 @@
       "10": {
         "name": "COMP_SIDECHAIN",
         "display_name": "Sidechain",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 11,
+        "min": 0,
+        "enum_count": 12
       },
       "11": {
         "name": "COMP_MIX",
@@ -15566,10 +15767,11 @@
       "16": {
         "name": "COMP_AUTOMODE",
         "display_name": "Automode",
-        "type": "bipolar",
+        "type": "enum",
         "max": 1,
-        "min": -1.0,
-        "step": 0.1
+        "min": 0,
+        "step": 0.1,
+        "enum_count": 2
       },
       "17": {
         "name": "COMP_EMPHASIS",
@@ -15590,9 +15792,10 @@
       "19": {
         "name": "COMP_INPUTSWITCH",
         "display_name": "Inputswitch",
-        "type": "continuous",
-        "max": 1000.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "20": {
         "name": "COMP_HIGHCUT",
@@ -15727,14 +15930,15 @@
       "34": {
         "name": "COMP_SCENEIGNORE",
         "display_name": "Scene Ignore",
-        "type": "switch",
+        "type": "enum",
         "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "HARD",
           "SOFT"
-        ]
+        ],
+        "enum_count": 2
       },
       "35": {
         "name": "COMP_TONE",
@@ -15902,10 +16106,11 @@
       "13": {
         "name": "GEQ_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 2
       },
       "14": {
         "name": "GEQ_GLOBALMIX",
@@ -16313,10 +16518,11 @@
       "22": {
         "name": "PEQ_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.002
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.002,
+        "enum_count": 2
       },
       "23": {
         "name": "PEQ_GLOBALMIX",
@@ -16352,57 +16558,62 @@
       "25": {
         "name": "PEQ_SOLO1",
         "display_name": "Solo1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "6 dB/OCT",
           "12 dB/OCT"
-        ]
+        ],
+        "enum_count": 2
       },
       "26": {
         "name": "PEQ_SOLO2",
         "display_name": "Solo2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
-        "step": 0.001
+        "step": 0.001,
+        "enum_count": 2
       },
       "27": {
         "name": "PEQ_SOLO3",
         "display_name": "Solo3",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
           "LINEAR",
           "EXPONENTIAL",
           "SQUARE-LAW"
-        ]
+        ],
+        "enum_count": 2
       },
       "28": {
         "name": "PEQ_SOLO4",
         "display_name": "Solo4",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
-        "step": 2e-06
+        "step": 2e-06,
+        "enum_count": 2
       },
       "29": {
         "name": "PEQ_SOLO5",
         "display_name": "Solo5",
-        "type": "continuous",
-        "max": 1000.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
-        "step": 1e-05
+        "step": 1e-05,
+        "enum_count": 2
       },
       "30": {
         "name": "PEQ_LOWSLOPE",
         "display_name": "Lowslope",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 5,
         "min": 0,
         "step": 1,
         "values": [
@@ -16438,14 +16649,16 @@
           "30",
           "31",
           "32"
-        ]
+        ],
+        "enum_count": 6
       },
       "31": {
         "name": "PEQ_HIGHSLOPE",
         "display_name": "Highslope",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 5,
+        "min": 0,
+        "enum_count": 6
       }
     }
   },
@@ -16521,10 +16734,11 @@
       "3": {
         "name": "FDBKRET_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 100.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
-        "step": 0.002
+        "step": 0.002,
+        "enum_count": 3
       },
       "4": {
         "name": "FDBKRET_GLOBALMIX",
@@ -16634,16 +16848,18 @@
       "0": {
         "name": "MULTIPLEXER_INPUTSEL",
         "display_name": "Inputsel",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 10,
+        "min": 0,
+        "enum_count": 11
       },
       "1": {
         "name": "MULTIPLEXER_INPUTMODE",
         "display_name": "Inputmode",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "enum_count": 4
       },
       "2": {
         "name": "MULTIPLEXER_LEVEL",
@@ -16665,9 +16881,10 @@
       "4": {
         "name": "MULTIPLEXER_BYPASSMODE",
         "display_name": "Bypass Mode",
-        "type": "continuous",
-        "max": 4,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "5": {
         "name": "MULTIPLEXER_BYPASS",
@@ -17109,8 +17326,8 @@
       "2": {
         "name": "VOLUME_TAPER",
         "display_name": "Taper",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 6,
         "min": 0,
         "step": 1,
         "values": [
@@ -17121,7 +17338,8 @@
           "LOG 10A",
           "LOG 5A",
           "S-TAPER"
-        ]
+        ],
+        "enum_count": 7
       },
       "3": {
         "name": "VOLUME_BYPASS",
@@ -17172,15 +17390,16 @@
       "8": {
         "name": "VOLUME_INPUTSELECT",
         "display_name": "Input Select",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
           "STEREO",
           "LEFT ONLY",
           "RIGHT ONLY"
-        ]
+        ],
+        "enum_count": 3
       },
       "9": {
         "name": "VOLUME_TYPE",
@@ -17248,10 +17467,11 @@
       "1": {
         "name": "PITCH_PITCHMODE",
         "display_name": "Pitchmode",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.1
+        "type": "enum",
+        "max": 5,
+        "min": 0,
+        "step": 0.1,
+        "enum_count": 6
       },
       "2": {
         "name": "PITCH_CTRL",
@@ -17281,55 +17501,61 @@
       "4": {
         "name": "PITCH_HARM1",
         "display_name": "Harm1",
-        "type": "continuous",
-        "max": 10.0,
-        "min": 0
+        "type": "enum",
+        "max": 48,
+        "min": 0,
+        "enum_count": 49
       },
       "5": {
         "name": "PITCH_HARM2",
         "display_name": "Harm2",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 48,
+        "min": 0,
+        "enum_count": 49
       },
       "6": {
         "name": "PITCH_HARM3",
         "display_name": "Harm3",
-        "type": "switch",
-        "max": 1,
+        "type": "enum",
+        "max": 48,
         "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 49
       },
       "7": {
         "name": "PITCH_HARM4",
         "display_name": "Harm4",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 48,
+        "min": 0,
+        "enum_count": 49
       },
       "8": {
         "name": "PITCH_KEY",
         "display_name": "Key",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 11,
+        "min": 0,
+        "enum_count": 12
       },
       "9": {
         "name": "PITCH_SCALE",
         "display_name": "Scale",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 17,
+        "min": 0,
+        "enum_count": 18
       },
       "10": {
         "name": "PITCH_QUANTIZE",
         "display_name": "Quantize",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 1,
         "min": 0,
         "step": 1,
         "values": [
@@ -17362,7 +17588,8 @@
           "Wandering Delays",
           "Dual Head Tape",
           "Surround Delay"
-        ]
+        ],
+        "enum_count": 2
       },
       "11": {
         "name": "PITCH_DETUNE1",
@@ -17766,10 +17993,11 @@
       "35": {
         "name": "PITCH_TRACKMODE",
         "display_name": "Trackmode",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.002
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.002,
+        "enum_count": 2
       },
       "36": {
         "name": "PITCH_TRACKING",
@@ -17819,10 +18047,11 @@
       "41": {
         "name": "PITCH_BYPASSMODE",
         "display_name": "Bypassmode",
-        "type": "frequency",
-        "max": 57.2958,
+        "type": "enum",
+        "max": 4,
         "min": 0,
-        "step": 0.003142
+        "step": 0.003142,
+        "enum_count": 5
       },
       "42": {
         "name": "PITCH_GLOBALMIX",
@@ -17875,10 +18104,11 @@
       "46": {
         "name": "PITCH_XFADETYPE",
         "display_name": "Xfadetype",
-        "type": "bipolar",
-        "max": 1.0,
-        "min": -1.0,
-        "step": 0.1
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.1,
+        "enum_count": 2
       },
       "47": {
         "name": "PITCH_SPLICE1",
@@ -17902,24 +18132,26 @@
       "49": {
         "name": "PITCH_DTEMPO1",
         "display_name": "Dtempo1",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 78,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 79
       },
       "50": {
         "name": "PITCH_DTEMPO2",
         "display_name": "Dtempo2",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
-        "step": 0.001
+        "type": "enum",
+        "max": 78,
+        "min": 0,
+        "step": 0.001,
+        "enum_count": 79
       },
       "51": {
         "name": "PITCH_DTEMPO3",
         "display_name": "Dtempo3",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -17927,39 +18159,42 @@
           "RIGHT",
           "LEFT",
           "BOTH"
-        ]
+        ],
+        "enum_count": 79
       },
       "52": {
         "name": "PITCH_DTEMPO4",
         "display_name": "Dtempo4",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
           "BOTH",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 79
       },
       "53": {
         "name": "PITCH_STEMPO1",
         "display_name": "Stempo1",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
           "BOTH",
           "LEFT",
           "RIGHT"
-        ]
+        ],
+        "enum_count": 79
       },
       "54": {
         "name": "PITCH_STEMPO2",
         "display_name": "Stempo2",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 78,
         "min": 0,
         "step": 1,
         "values": [
@@ -18042,13 +18277,14 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 79
       },
       "55": {
         "name": "PITCH_FBTYPE",
         "display_name": "Fbtype",
-        "type": "continuous",
-        "max": 10.0,
+        "type": "enum",
+        "max": 2,
         "min": 0,
         "step": 1,
         "values": [
@@ -18131,14 +18367,16 @@
           "61/64",
           "62/64 (31/32)",
           "63/64"
-        ]
+        ],
+        "enum_count": 3
       },
       "56": {
         "name": "PITCH_DIRECTION",
         "display_name": "Direction",
-        "type": "frequency",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "57": {
         "name": "PITCH_LPFREQ",
@@ -18251,17 +18489,19 @@
       "6": {
         "name": "FILTER_LEVEL",
         "display_name": "Level",
-        "type": "frequency",
-        "max": 1.0,
-        "min": -80
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "enum_count": 2
       },
       "7": {
         "name": "FILTER_PAN",
         "display_name": "Pan",
-        "type": "continuous",
-        "max": 1.0,
-        "min": -100,
-        "decode_style": "center"
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "decode_style": "center",
+        "enum_count": 2
       },
       "8": {
         "name": "FILTER_BYPASSMODE",
@@ -18289,9 +18529,10 @@
       "11": {
         "name": "FILTER_TAPER",
         "display_name": "Taper",
-        "type": "continuous",
-        "max": 1.0,
-        "min": 0
+        "type": "enum",
+        "max": 3,
+        "min": 0,
+        "enum_count": 4
       },
       "12": {
         "name": "FILTER_BYPASS",
@@ -18329,22 +18570,24 @@
       "16": {
         "name": "FILTER_EQ1",
         "display_name": "Eq1",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
+        "type": "enum",
+        "max": 1,
+        "min": 0,
         "step": 0.001,
         "decode_max": 1200.26,
-        "decode_style": "center"
+        "decode_style": "center",
+        "enum_count": 2
       },
       "17": {
         "name": "FILTER_EQ2",
         "display_name": "Eq2",
-        "type": "bipolar",
-        "max": 100.0,
-        "min": -100.0,
+        "type": "enum",
+        "max": 9,
+        "min": 0,
         "step": 0.001,
         "decode_max": 1200.26,
-        "decode_style": "center"
+        "decode_style": "center",
+        "enum_count": 10
       },
       "18": {
         "name": "FILTER_EQ3",
@@ -18389,14 +18632,15 @@
       "21": {
         "name": "FILTER_EQ6",
         "display_name": "Eq6",
-        "type": "switch",
-        "max": 1,
-        "min": -12,
+        "type": "enum",
+        "max": 31,
+        "min": 0,
         "step": 1,
         "values": [
           "OFF",
           "ON"
-        ]
+        ],
+        "enum_count": 32
       },
       "22": {
         "name": "FILTER_EQ7",
@@ -18410,10 +18654,11 @@
       "23": {
         "name": "FILTER_EQ8",
         "display_name": "Eq8",
-        "type": "frequency",
-        "max": 1.0,
-        "min": -12,
-        "step": 0.1
+        "type": "enum",
+        "max": 1,
+        "min": 0,
+        "step": 0.1,
+        "enum_count": 2
       }
     }
   }
