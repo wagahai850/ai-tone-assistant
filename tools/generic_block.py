@@ -323,15 +323,10 @@ def register(mcp):
                 display_value = round(raw_val / 65534.0 * effective_range + param_min, 2)
 
             else:
-                # Pattern 4: Continuous / linear (default)
-                # raw=0→min, raw=65534→decode_max (or display_max if uncalibrated)
+                # Pattern 4: Continuous / linear frequency (default)
+                # raw=0→0, raw=65534→decode_max (or display_max if uncalibrated)
                 effective_max = decode_max if decode_max else param_max
-                if param_min and param_min != 0:
-                    # Non-zero minimum: linear range from min to max
-                    effective_range = effective_max - param_min
-                    display_value = round(raw_val / 65534.0 * effective_range + param_min, 2)
-                else:
-                    display_value = round(raw_val / 65534.0 * effective_max, 2)
+                display_value = round(raw_val / 65534.0 * effective_max, 2)
 
             # --- Build result entry ---
 
