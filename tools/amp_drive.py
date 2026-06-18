@@ -96,7 +96,9 @@ def register(mcp):
                 else:
                     return {"success": False, "error": f"Amp model '{name}' not found."}
 
-            midi.set_amp_type(type_id, AMP_BLOCK_ID_BASE)
+            # Send type as IEEE 754 float via set_param_value (param_id=10 for Amp Type)
+            # The _send_sub09 integer encoding does NOT work for FM9 amp type.
+            midi.set_param_value(AMP_BLOCK_ID_BASE, 10, float(type_id), 1.0, raw_float=True)
             return {"success": True, "model": name, "type_id": type_id}
         except Exception as e:
             return {"success": False, "error": str(e)}
